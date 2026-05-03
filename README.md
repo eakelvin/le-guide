@@ -16,6 +16,72 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+src/
+│
+├── app/                      # App Router (routing layer only)
+│   ├── (marketing)/         # Route groups
+│   │   ├── page.tsx
+│   │   └── layout.tsx
+│   │
+│   ├── (dashboard)/
+│   │   ├── dashboard/
+│   │   │   ├── page.tsx
+│   │   │   ├── loading.tsx
+│   │   │   └── error.tsx
+│   │   │
+│   │   └── users/
+│   │       └── page.tsx
+│   │
+│   ├── api/                 # Route handlers (server endpoints)
+│   │   └── auth/
+│   │       └── route.ts
+│   │
+│   ├── layout.tsx
+│   ├── globals.css
+│   └── providers.tsx        # Global providers (theme, auth, etc.)
+│
+├── features/                # 🔥 Domain-based modules (VERY IMPORTANT)
+│   ├── auth/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── services/
+│   │   ├── actions/         # Server actions
+│   │   ├── schemas/         # Zod schemas
+│   │   └── types.ts
+│   │
+│   ├── users/
+│   ├── payments/
+│   ├── courses/             # (fits your food school project)
+│   └── notifications/
+│
+├── components/              # Shared UI components
+│   ├── ui/                  # Buttons, inputs, modals (shadcn-style)
+│   ├── layout/              # Navbar, sidebar, footer
+│   └── common/              # Reusable pieces
+│
+├── lib/                     # Core utilities (no UI)
+│   ├── db.ts                # Database client
+│   ├── auth.ts              # Auth config
+│   ├── fetcher.ts
+│   ├── utils.ts
+│   └── constants.ts
+│
+├── hooks/                   # Global hooks
+│   └── useDebounce.ts
+│
+├── store/                   # State management (Zustand, etc.)
+│   └── user.store.ts
+│
+├── styles/                  # Optional (if not fully using Tailwind)
+│
+├── types/                   # Global TypeScript types
+│
+├── config/                  # App configs
+│   ├── site.ts
+│   └── env.ts
+│
+└── middleware.ts            # Edge middleware
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
@@ -34,3 +100,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# student-start
