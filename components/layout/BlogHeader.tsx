@@ -9,7 +9,7 @@ export function BlogHeader() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
   const isArticle = segments[0] === "blog" && segments.length >= 2;
-  const backHref = isArticle ? "/blog" : "/";
+  const backHref = isArticle ? "/guides" : "/";
   const backLabel = isArticle ? "All guides" : "Home";
 
   return (
@@ -23,7 +23,7 @@ export function BlogHeader() {
             </Link>
           </Button>
           <Link
-            href="/blog"
+            href="/guides"
             className="font-heading truncate text-lg font-normal tracking-tight text-sand-800 no-underline md:text-[18px]"
           >
             Arrive<span className="text-forest-900">France</span>

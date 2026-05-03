@@ -41,7 +41,7 @@ function Nav() {
                         FAQ
                     </a>
                     <Link
-                        href="/blog"
+                        href="/guides"
                         className="text-[13.5px] text-sand-600 transition-colors no-underline hover:text-sand-800"
                     >
                         Guides
@@ -507,7 +507,7 @@ function Footer() {
                     Arrive<span className="text-forest-400">France</span>
                 </div>
                 <div className="flex flex-wrap gap-6 text-[13px]">
-                    <Link href="/blog" className="text-white/40 no-underline transition-colors hover:text-white/75">
+                    <Link href="/guides" className="text-white/40 no-underline transition-colors hover:text-white/75">
                         Guides
                     </Link>
                     {["Visa", "Housing", "Healthcare", "Banking", "Transport"].map((l) => (
