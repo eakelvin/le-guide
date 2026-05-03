@@ -40,6 +40,12 @@ function Nav() {
                     >
                         FAQ
                     </a>
+                    <Link
+                        href="/blog"
+                        className="text-[13.5px] text-sand-600 transition-colors no-underline hover:text-sand-800"
+                    >
+                        Guides
+                    </Link>
                 </div>
                 <Button size="sm" className="rounded-full bg-forest-900 px-5 text-[13px] text-white hover:bg-forest-800" asChild>
                     <Link href="/dashboard">Start free →</Link>
@@ -501,6 +507,9 @@ function Footer() {
                     Arrive<span className="text-forest-400">France</span>
                 </div>
                 <div className="flex flex-wrap gap-6 text-[13px]">
+                    <Link href="/blog" className="text-white/40 no-underline transition-colors hover:text-white/75">
+                        Guides
+                    </Link>
                     {["Visa", "Housing", "Healthcare", "Banking", "Transport"].map((l) => (
                         <Link
                             key={l}

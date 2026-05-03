@@ -6,7 +6,8 @@ import { Progress } from "@/components/ui/progress";
 import { DEADLINES } from "@/lib/processes";
 import { cn, COLOR_CONFIG, getProcessProgress } from "@/lib/utils";
 import type { Process, ProgressState } from "@/types";
-import { Home } from "lucide-react";
+import Link from "next/link";
+import { BookOpen, Home } from "lucide-react";
 
 const ACTIVE_NAV_BORDER: Record<Process["colorKey"], string> = {
   coral: "border-l-coral-600",
@@ -135,6 +136,17 @@ export function Sidebar({ processes, progress, activeView, onNavigate, totalProg
         >
           <Home className="size-4 shrink-0 opacity-80" />
           Dashboard
+        </Button>
+
+        <Button
+          variant="ghost"
+          className="mx-2 h-auto justify-start gap-2 rounded-md border-l-4 border-l-transparent border-y-0 border-r-0 px-3 py-2.5 text-[13px] font-normal text-sand-600 shadow-none hover:bg-accent hover:text-sand-800"
+          asChild
+        >
+          <Link href="/blog">
+            <BookOpen className="size-4 shrink-0 opacity-80" />
+            Guides & resources
+          </Link>
         </Button>
 
         <p className="mt-4 px-6 py-2 text-[10px] font-semibold uppercase tracking-widest text-sand-400">
