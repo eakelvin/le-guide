@@ -59,6 +59,7 @@
   --color-sand-700: oklch(0.362 0.018 82);
   --color-sand-800: oklch(0.289 0.014 82);
   --color-forest-50: oklch(0.965 0.03 138);
+  --color-forest-100: oklch(0.94 0.045 138);
   --color-forest-200: oklch(0.904 0.06 138);
   --color-forest-400: oklch(0.72 0.14 138);
   --color-forest-600: oklch(0.48 0.14 138);
@@ -67,6 +68,7 @@
 
   --color-canvas: oklch(0.978 0.006 85);
   --color-coral-50: oklch(0.966 0.025 43);
+  --color-coral-100: oklch(0.94 0.04 43);
   --color-coral-200: oklch(0.882 0.06 43);
   --color-coral-400: oklch(0.695 0.15 43);
   --color-coral-600: oklch(0.495 0.16 43);
@@ -164,5 +166,25 @@
 
   html {
     @apply font-sans;
+  }
+}
+
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@layer utilities {
+  .animate-landing-float {
+    animation: landing-float 4s ease-in-out infinite;
+  }
+  .animate-landing-float-delayed {
+    animation: landing-float 4s ease-in-out infinite;
+    animation-delay: 0.5s;
   }
 }
