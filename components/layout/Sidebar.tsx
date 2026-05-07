@@ -8,6 +8,7 @@ import { cn, COLOR_CONFIG, getProcessProgress } from "@/lib/utils";
 import type { Process, ProgressState } from "@/types";
 import Link from "next/link";
 import { BookOpen, Home } from "lucide-react";
+import { UserMenu } from "@/components/layout/UserMenu";
 
 const ACTIVE_NAV_BORDER: Record<Process["colorKey"], string> = {
     coral: "border-l-coral-600",
@@ -23,6 +24,7 @@ interface SidebarProps {
     activeView: string;
     onNavigate: (view: string) => void;
     totalProgress: { done: number; total: number; pct: number };
+    user?: { name?: string | null; email?: string | null; imageUrl?: string | null } | null;
 }
 
 const PROCESS_ICONS: Record<string, React.ReactNode> = {
@@ -87,7 +89,15 @@ function StatusBadge({ pct, processId }: { pct: number; processId: string }) {
     );
 }
 
-export function Sidebar({ processes, progress, activeView, onNavigate, totalProgress }: SidebarProps) {
+export function Sidebar({ processes, progress, activeView, onNavigate, totalProgress, user }: SidebarProps) {
+    const displayName = user?.name?.trim() || user?.email?.trim() || "Account";
+    const fallback =
+        displayName
+            .split(/\s+/)
+            .slice(0, 2)
+            .map((p) => p[0]?.toUpperCase())
+            .join("") || "U";
+
     return (
         <aside className="flex h-screen w-64 min-w-[256px] flex-col overflow-y-auto border-r border-border bg-white text-foreground sticky top-0">
             <div className="border-b border-border px-6 py-7">
@@ -102,11 +112,11 @@ export function Sidebar({ processes, progress, activeView, onNavigate, totalProg
             <div className="border-b border-border px-5 py-4">
                 <div className="flex items-center gap-2.5">
                     <div className="bg-forest-50 text-forest-700 flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-medium ring-2 ring-border">
-                        MA
+                        {fallback}
                     </div>
                     <div className="min-w-0">
-                        <p className="text-foreground truncate text-sm font-medium">Mia Andersson</p>
-                        <p className="mt-0.5 truncate text-xs text-sand-600">Sciences Po - Master 1</p>
+                        <p className="text-foreground truncate text-sm font-medium">{user?.name ?? "Student"}</p>
+                        <p className="mt-0.5 truncate text-xs text-sand-600">{user?.email ?? "Signed in"}</p>
                     </div>
                 </div>
                 <div className="mt-4 space-y-2">
@@ -182,6 +192,13 @@ export function Sidebar({ processes, progress, activeView, onNavigate, totalProg
             </nav>
 
             <div className="mt-auto border-t border-border px-5 py-4">
+                <div className="mb-4 flex items-center justify-between">
+                    <div className="min-w-0">
+                        <p className="truncate text-sm font-medium text-sand-800">{user?.name ?? "Account"}</p>
+                        <p className="truncate text-xs text-sand-500">{user?.email ?? ""}</p>
+                    </div>
+                    <UserMenu name={user?.name} email={user?.email} imageUrl={user?.imageUrl} align="start" />
+                </div>
                 <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-sand-400">Deadlines</p>
                 <ul className="space-y-2">
                     {DEADLINES.map((d) => (

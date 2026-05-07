@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import type { ProgressState } from "@/types";
 import { getStepKey, getDocKey } from "./utils";
 
@@ -23,11 +23,7 @@ function saveProgress(state: ProgressState) {
 }
 
 export function useProgress() {
-  const [progress, setProgress] = useState<ProgressState>({ completedSteps: {}, checkedDocs: {} });
-
-  useEffect(() => {
-    setProgress(loadProgress());
-  }, []);
+  const [progress, setProgress] = useState<ProgressState>(() => loadProgress());
 
   const update = useCallback((next: ProgressState) => {
     setProgress(next);

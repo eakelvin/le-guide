@@ -1,9 +1,9 @@
-import { DashboardShell } from '@/components/layout/DashboardShell'
+import { DashboardShell } from "@/components/layout/DashboardShell";
+import { getAppUser } from "@/features/auth/user";
 
-const DashboardPage = () => {
-    return (
-        <DashboardShell />
-    )
+const DashboardPage = async () => {
+    const user = await getAppUser();
+    return <DashboardShell initialUser={user} />;
 }
 
 export default DashboardPage

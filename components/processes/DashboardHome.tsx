@@ -17,6 +17,7 @@ interface Props {
     processes: Process[];
     progress: ProgressState;
     onNavigate: (id: string) => void;
+    name?: string | null;
 }
 
 const PROCESS_ICONS: Record<string, React.ReactNode> = {
@@ -94,7 +95,7 @@ function ProcessStatusBadge({
     );
 }
 
-export function DashboardHome({ processes, progress, onNavigate }: Props) {
+export function DashboardHome({ processes, progress, onNavigate, name }: Props) {
     return (
         <div className="animate-fade-up">
             <div className="border-b border-border bg-card px-9 pb-8 pt-10">
@@ -109,7 +110,7 @@ export function DashboardHome({ processes, progress, onNavigate }: Props) {
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                         <div className="space-y-2">
                             <CardTitle className="font-heading font-normal text-3xl tracking-tight text-sand-800 sm:text-[2rem] leading-tight">
-                                Welcome back, [Mia] 👋
+                                Welcome back{name ? `, ${name}` : ""} 👋
                             </CardTitle>
                             <CardDescription className="max-w-md text-sm leading-relaxed text-sand-600">
                                 You arrived in France [12] days ago. Here&apos;s what needs your attention this week.

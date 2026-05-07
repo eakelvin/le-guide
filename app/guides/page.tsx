@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BLOG_CATEGORIES, BLOG_POSTS, getPostsByCategory } from "@/lib/blog";
+import { BLOG_CATEGORIES, getPostsByCategory } from "@/lib/blog";
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";

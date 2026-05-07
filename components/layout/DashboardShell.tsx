@@ -1,21 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { getTotalProgress } from "@/lib/utils";
 import { PROCESSES } from "@/lib/processes";
 import { useProgress } from "@/lib/hooks";
 import { DashboardHome } from "../processes/DashboardHome";
 import { ProcessView } from "../processes/ProcessView";
+import type { AppUser } from "@/features/auth/user";
 
 export type ActiveView = "home" | string; // string = process id
 
-export function DashboardShell() {
+export function DashboardShell({ initialUser }: { initialUser: AppUser | null }) {
     const [activeView, setActiveView] = useState<ActiveView>("home");
     const { progress, markStepDone, markStepUndone, toggleDoc } = useProgress();
+    const [user] = useState<AppUser | null>(initialUser);
 
     const totalProgress = getTotalProgress(PROCESSES, progress);
     const activeProcess = PROCESSES.find((p) => p.id === activeView);
+    const greetingName = useMemo(() => {
+        const n = user?.name?.trim();
+        if (n) return n.split(/\s+/)[0] ?? n;
+        return null;
+    }, [user?.name]);
 
     return (
         <div className="flex min-h-screen bg-white">
@@ -25,6 +32,7 @@ export function DashboardShell() {
                 activeView={activeView}
                 onNavigate={setActiveView}
                 totalProgress={totalProgress}
+                user={user}
             />
             <main className="bg-canvas flex flex-1 min-h-0 min-w-0 flex-col overflow-y-auto">
                 {activeView === "home" || !activeProcess ? (
@@ -32,6 +40,7 @@ export function DashboardShell() {
                         processes={PROCESSES}
                         progress={progress}
                         onNavigate={setActiveView}
+                        name={greetingName}
                     />
                 ) : (
                     <ProcessView
