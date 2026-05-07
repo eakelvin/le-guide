@@ -73,3 +73,71 @@ export const HOW_STEPS = [
     { num: "3", title: "Track your progress", desc: "Check off documents and steps as you go. Progress is saved automatically — pick up where you left off." },
     { num: "4", title: "Stay ahead of deadlines", desc: "Urgency indicators and deadline tracking make sure nothing slips through the cracks." },
 ];
+
+export const PROC_CARDS = [
+    {
+        icon: (
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="4" width="14" height="12" rx="2" />
+                <path d="M3 8h14M7 12h2M11 12h2" />
+            </svg>
+        ),
+        iconBg: "bg-coral-50 text-coral-600",
+        stepColor: "text-coral-600",
+        title: "Visa Validation",
+        steps: "4 steps",
+        desc: "Register your long-stay visa with OFII within 3 months of arrival. Mandatory for all non-EU students.",
+    },
+    {
+        icon: (
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M3 10L10 3l7 7v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7z" />
+                <path d="M8 17v-6h4v6" />
+            </svg>
+        ),
+        iconBg: "bg-forest-50 text-forest-600",
+        stepColor: "text-forest-600",
+        title: "Housing & CAF",
+        steps: "5 steps",
+        desc: "Apply for up to €200/month in housing aid from the government. File your dossier correctly the first time.",
+    },
+    {
+        icon: (
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M10 3v14M3 10h14" />
+            </svg>
+        ),
+        iconBg: "bg-azure-50 text-azure-600",
+        stepColor: "text-azure-600",
+        title: "Healthcare",
+        steps: "4 steps",
+        desc: "Register with CPAM, get your Carte Vitale, and declare a médecin traitant to be fully reimbursed.",
+    },
+    {
+        icon: (
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="2" y="6" width="16" height="12" rx="2" />
+                <path d="M2 10h16M6 15h2" />
+            </svg>
+        ),
+        iconBg: "bg-violet-50 text-violet-600",
+        stepColor: "text-violet-600",
+        title: "Banking",
+        steps: "3 steps",
+        desc: "Open a French bank account in week one. Required for CAF payments, rent, and most French services.",
+    },
+    {
+        icon: (
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M4 10h12M4 10a4 4 0 014-4h4a4 4 0 014 4v4H4v-4z" />
+                <circle cx="7" cy="15" r="1.5" />
+                <circle cx="13" cy="15" r="1.5" />
+            </svg>
+        ),
+        iconBg: "bg-gold-50 text-gold-600",
+        stepColor: "text-gold-600",
+        title: "Transportation",
+        steps: "3 steps",
+        desc: "Get 50% off Île-de-France transport with the Imagine R student pass or a monthly Navigo card.",
+    },
+];
