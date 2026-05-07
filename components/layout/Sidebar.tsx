@@ -193,13 +193,14 @@ export function Sidebar({ processes, progress, activeView, onNavigate, totalProg
 
             <div className="mt-auto border-t border-border px-5 py-4">
                 <div className="mb-4 flex items-center justify-between">
-                    <div className="min-w-0">
+                    {/* <div className="min-w-0">
                         <p className="truncate text-sm font-medium text-sand-800">{user?.name ?? "Account"}</p>
                         <p className="truncate text-xs text-sand-500">{user?.email ?? ""}</p>
-                    </div>
+                    </div> */}
                     <UserMenu name={user?.name} email={user?.email} imageUrl={user?.imageUrl} align="start" />
                 </div>
-                <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-sand-400">Deadlines</p>
+
+                {/* <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-sand-400">Deadlines</p>
                 <ul className="space-y-2">
                     {DEADLINES.map((d) => (
                         <li key={d.label} className="flex items-center justify-between gap-2">
@@ -217,7 +218,8 @@ export function Sidebar({ processes, progress, activeView, onNavigate, totalProg
                             </span>
                         </li>
                     ))}
-                </ul>
+                </ul> */}
+
             </div>
         </aside>
     );

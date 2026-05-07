@@ -19,6 +19,9 @@ export async function loginAction(_prevState: LoginState, formData: FormData): P
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: error.message };
 
-  redirect(next);
+  const safeNext =
+    next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
+  const sep = safeNext.includes("?") ? "&" : "?";
+  redirect(`${safeNext}${sep}signedIn=1`);
 }
 

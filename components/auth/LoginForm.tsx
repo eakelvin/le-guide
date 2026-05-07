@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 import { useFormStatus } from "react-dom";
 import { LoginPanel } from "@/components/layout/LeftPanel";
 import { Eye, EyeOff, ArrowRight, Mail, Lock, KeyRound } from "lucide-react";
@@ -53,7 +54,6 @@ function SubmitButton() {
     );
 }
 
-/* ─── Login form ─────────────────────────────────────────────────── */
 export function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
@@ -64,6 +64,55 @@ export function LoginForm() {
     const checkEmail = searchParams.get("checkEmail") === "1";
     const signupEmail = searchParams.get("email");
     const confirmed = searchParams.get("confirmed") === "1";
+    const fromSignup = searchParams.get("fromSignup") === "1";
+    const signedOut = searchParams.get("signedOut") === "1";
+
+    const router = useRouter();
+    const authToastRef = useRef<string | null>(null);
+
+    useEffect(() => {
+        if (signedOut) {
+            const k = "signedOut";
+            if (authToastRef.current !== k) {
+                authToastRef.current = k;
+                toast.success("You’ve been signed out.");
+                router.replace("/login", { scroll: false });
+            }
+            return;
+        }
+
+        if (fromSignup && checkEmail) {
+            const k = "fromSignup";
+            if (authToastRef.current !== k) {
+                authToastRef.current = k;
+                toast.success("Check your email for a confirmation link.");
+                const emailParam = signupEmail
+                    ? `&email=${encodeURIComponent(signupEmail)}`
+                    : "";
+                router.replace(
+                    `/login?checkEmail=1${emailParam}`,
+                    { scroll: false },
+                );
+            }
+            return;
+        }
+
+        if (confirmed) {
+            const k = "confirmed";
+            if (authToastRef.current !== k) {
+                authToastRef.current = k;
+                toast.success("Email confirmed. You can sign in.");
+                router.replace("/login", { scroll: false });
+            }
+        }
+    }, [
+        signedOut,
+        fromSignup,
+        checkEmail,
+        confirmed,
+        signupEmail,
+        router,
+    ]);
 
     const [state, formAction] = useActionState(loginAction, {});
 
@@ -191,7 +240,7 @@ export function LoginForm() {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center space-x-2">
+                                {/* <div className="flex items-center space-x-2">
                                     <Checkbox
                                         id="remember"
                                         checked={rememberMe}
@@ -203,7 +252,7 @@ export function LoginForm() {
                                     >
                                         Remember me for 30 days
                                     </Label>
-                                </div>
+                                </div> */}
 
                                 <Button
                                     type="submit"

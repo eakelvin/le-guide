@@ -1,9 +1,17 @@
 import { DashboardShell } from "@/components/layout/DashboardShell";
 import { getAppUser } from "@/features/auth/user";
 
-const DashboardPage = async () => {
+export default async function DashboardPage({
+    searchParams,
+}: {
+    searchParams: Promise<{ signedIn?: string }>;
+}) {
+    const { signedIn } = await searchParams;
     const user = await getAppUser();
-    return <DashboardShell initialUser={user} />;
+    return (
+        <DashboardShell
+            initialUser={user}
+            showSignedInToast={signedIn === "1"}
+        />
+    );
 }
-
-export default DashboardPage

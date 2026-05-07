@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { Sidebar } from "./Sidebar";
 import { getTotalProgress } from "@/lib/utils";
 import { PROCESSES } from "@/lib/processes";
@@ -11,10 +13,25 @@ import type { AppUser } from "@/features/auth/user";
 
 export type ActiveView = "home" | string; // string = process id
 
-export function DashboardShell({ initialUser }: { initialUser: AppUser | null }) {
+export function DashboardShell({
+    initialUser,
+    showSignedInToast = false,
+}: {
+    initialUser: AppUser | null;
+    showSignedInToast?: boolean;
+}) {
+    const router = useRouter();
+    const signedInToasted = useRef(false);
     const [activeView, setActiveView] = useState<ActiveView>("home");
     const { progress, markStepDone, markStepUndone, toggleDoc } = useProgress();
     const [user] = useState<AppUser | null>(initialUser);
+
+    useEffect(() => {
+        if (!showSignedInToast || signedInToasted.current) return;
+        signedInToasted.current = true;
+        toast.success("Signed in successfully.");
+        router.replace("/dashboard", { scroll: false });
+    }, [showSignedInToast, router]);
 
     const totalProgress = getTotalProgress(PROCESSES, progress);
     const activeProcess = PROCESSES.find((p) => p.id === activeView);

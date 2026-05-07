@@ -58,9 +58,9 @@ export async function registerAction(_prevState: RegisterState, formData: FormDa
 
   // If email confirmations are enabled, there may be no session yet.
   if (!data.session) {
-    redirect(`/login?checkEmail=1&email=${encodeURIComponent(email)}`);
+    redirect(`/login?checkEmail=1&email=${encodeURIComponent(email)}&fromSignup=1`);
   }
 
-  redirect("/dashboard");
+  redirect("/dashboard?signedIn=1");
 }
 

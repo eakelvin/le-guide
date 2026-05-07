@@ -26,7 +26,8 @@ export default function AuthCallbackPage() {
         return;
       }
 
-      router.replace(safeNext);
+      const sep = safeNext.includes("?") ? "&" : "?";
+      router.replace(`${safeNext}${sep}signedIn=1`);
     }
 
     void run();
