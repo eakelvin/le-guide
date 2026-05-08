@@ -1,5 +1,5 @@
 import { DashboardShell } from "@/components/layout/DashboardShell";
-import { getAppUser } from "@/features/auth/user";
+import { getAppUser } from "@/lib/supabase/user";
 
 export default async function DashboardPage({
     searchParams,

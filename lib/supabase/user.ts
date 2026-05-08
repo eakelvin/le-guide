@@ -15,10 +15,9 @@ export async function getAppUser(): Promise<AppUser | null> {
   const last = typeof meta.last_name === "string" ? meta.last_name : "";
   const full = typeof meta.full_name === "string" ? meta.full_name : "";
   const name =
-    (first || last) ? `${first} ${last}`.trim() :
-      full ||
-      (typeof meta.name === "string" ? meta.name : "") ||
-      null;
+    (first || last)
+      ? `${first} ${last}`.trim()
+      : full || (typeof meta.name === "string" ? meta.name : "") || null;
 
   const imageUrl =
     (typeof meta.avatar_url === "string" ? meta.avatar_url : null) ??

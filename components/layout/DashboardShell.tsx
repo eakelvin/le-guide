@@ -9,7 +9,7 @@ import { PROCESSES } from "@/lib/processes";
 import { useProgress } from "@/lib/hooks";
 import { DashboardHome } from "../processes/DashboardHome";
 import { ProcessView } from "../processes/ProcessView";
-import type { AppUser } from "@/features/auth/user";
+import type { AppUser } from "@/lib/supabase/user";
 
 export type ActiveView = "home" | string; // string = process id
 

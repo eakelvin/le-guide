@@ -1,5 +1,5 @@
 import { LandingPage } from "@/components/layout/LandingPage";
-import { getAppUser } from "@/features/auth/user";
+import { getAppUser } from "@/lib/supabase/user";
 
 export default async function Home() {
   const user = await getAppUser();

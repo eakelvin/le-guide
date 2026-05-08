@@ -1,7 +1,7 @@
 "use client";
 
 import { Navbar } from "@/components/layout/Navbar";
-import type { AppUser } from "@/features/auth/user";
+import type { AppUser } from "@/lib/supabase/user";
 import { Footer } from "./Footer";
 import { Hero, UrgencyBanner, Processes, HowItWorks, Testimonials, FAQ, CTASection } from "./LandingComps";
 
