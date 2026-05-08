@@ -116,7 +116,12 @@ export function Sidebar({ processes, progress, activeView, onNavigate, totalProg
                     </div>
                     <div className="min-w-0">
                         <p className="text-foreground truncate text-sm font-medium">{user?.name ?? "Student"}</p>
-                        <p className="mt-0.5 truncate text-xs text-sand-600">{user?.email ?? "Signed in"}</p>
+                        <Link
+                            href="/profile"
+                            className="mt-0.5 block truncate text-xs font-medium text-azure-700 underline-offset-2 hover:text-azure-900 hover:underline"
+                        >
+                            Complete your profile
+                        </Link>
                     </div>
                 </div>
                 <div className="mt-4 space-y-2">
@@ -193,11 +198,17 @@ export function Sidebar({ processes, progress, activeView, onNavigate, totalProg
 
             <div className="mt-auto border-t border-border px-5 py-4">
                 <div className="mb-4 flex items-center justify-between">
-                    {/* <div className="min-w-0">
-                        <p className="truncate text-sm font-medium text-sand-800">{user?.name ?? "Account"}</p>
-                        <p className="truncate text-xs text-sand-500">{user?.email ?? ""}</p>
-                    </div> */}
                     <UserMenu name={user?.name} email={user?.email} imageUrl={user?.imageUrl} align="start" />
+
+                    <Link
+                        href="/profile"
+                        className={cn(
+                            "w-full flex items-center gap-2.5 px-5 py-2.5 text-[13.5px] border-l-2 transition-all no-underline",
+                            "text-sand-600 border-l-transparent hover:bg-sand-50 hover:text-sand-800"
+                        )}
+                    >
+                        My Profile
+                    </Link>
                 </div>
 
                 {/* <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-sand-400">Deadlines</p>

@@ -8,10 +8,12 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { cn, COLOR_CONFIG, getProcessProgress } from "@/lib/utils";
 import type { Process, ProgressState } from "@/types";
-import { AlertTriangle } from "lucide-react";
+import Link from "next/link";
+import { AlertTriangle, UserRound } from "lucide-react";
 
 interface Props {
     processes: Process[];
@@ -123,17 +125,27 @@ export function DashboardHome({ processes, progress, onNavigate, name }: Props) 
                 </CardHeader>
             </div>
 
-            <div className="space-y-8 px-9 py-7">
-                <Card className="gap-0 border-coral-200 bg-coral-50 shadow-none ring-0 py-3">
-                    <CardContent className="flex gap-3 text-sm leading-relaxed text-coral-800">
-                        <AlertTriangle className="mt-0.5 size-5 shrink-0 text-coral-600" aria-hidden />
-                        <div>
-                            <strong className="font-semibold text-coral-900">Urgent:</strong> Your OFII visa validation appointment
-                            must be completed within 3 months of arrival. You have approximately{" "}
-                            <strong>2 months 18 days</strong> remaining. Do this first.
-                        </div>
-                    </CardContent>
-                </Card>
+            <div className="space-y-5 px-9 py-7">
+                <Link href="/profile" className="block no-underline">
+                    <Alert className="cursor-pointer border-azure-100 bg-azure-50 text-azure-900 shadow-none transition-colors hover:bg-azure-100 [&>svg]:text-azure-600">
+                        <UserRound className="size-4" aria-hidden />
+                        <AlertTitle className="text-azure-950">Complete your profile</AlertTitle>
+                        <AlertDescription className="text-azure-700">
+                            Add your university, arrival date and visa type to personalise your checklist.{" "}
+                            <span className="font-medium text-azure-800">Set up →</span>
+                        </AlertDescription>
+                    </Alert>
+                </Link>
+
+                <Alert className="border-coral-200 bg-coral-50 text-coral-900 shadow-none [&>svg]:text-coral-600">
+                    <AlertTriangle className="size-4" aria-hidden />
+                    <AlertTitle className="text-coral-950">Urgent</AlertTitle>
+                    <AlertDescription className="text-coral-800">
+                        Your OFII visa validation appointment must be completed within 3 months of arrival. You have
+                        approximately <strong className="font-semibold text-coral-900">2 months 18 days</strong>{" "}
+                        remaining. Do this first.
+                    </AlertDescription>
+                </Alert>
 
                 <section>
                     <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-sand-400">Your Processes</h2>
