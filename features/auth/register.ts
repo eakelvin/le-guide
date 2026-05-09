@@ -2,6 +2,7 @@
 
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { createClient } from "@/lib/supabase/server";
 
 type RegisterState = { error?: string };
@@ -33,7 +34,7 @@ export async function registerAction(_prevState: RegisterState, formData: FormDa
     email,
     password,
     options: {
-      emailRedirectTo: `${origin}/login?confirmed=1`,
+      emailRedirectTo: `${origin}${AUTH_ROUTES.login}?confirmed=1`,
       data: {
         first_name: firstName,
         last_name: lastName,
@@ -58,7 +59,7 @@ export async function registerAction(_prevState: RegisterState, formData: FormDa
 
   // If email confirmations are enabled, there may be no session yet.
   if (!data.session) {
-    redirect(`/login?checkEmail=1&email=${encodeURIComponent(email)}&fromSignup=1`);
+    redirect(`${AUTH_ROUTES.login}?checkEmail=1&email=${encodeURIComponent(email)}&fromSignup=1`);
   }
 
   redirect("/dashboard?signedIn=1");

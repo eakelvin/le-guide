@@ -17,6 +17,7 @@ import {
     Card, CardContent, CardDescription,
     CardFooter, CardHeader, CardTitle,
 } from "@/components/ui/card";
+import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { cn } from "@/lib/utils";
 import { RegisterPanel } from "../layout/LeftPanel";
 import { registerAction } from "@/features/auth/register";
@@ -438,7 +439,7 @@ export function RegisterForm() {
                             <p className="text-sm text-center text-muted-foreground">
                                 Already have an account?{" "}
                                 <Link
-                                    href="/login"
+                                    href={AUTH_ROUTES.login}
                                     className="font-medium text-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
                                 >
                                     Sign in

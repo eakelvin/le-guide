@@ -20,6 +20,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { cn } from "@/lib/utils";
 import { loginAction } from "@/features/auth/login";
 import { googleLogin } from "@/features/auth/google-login";
@@ -76,7 +77,7 @@ export function LoginForm() {
             if (authToastRef.current !== k) {
                 authToastRef.current = k;
                 toast.success("You’ve been signed out.");
-                router.replace("/login", { scroll: false });
+                router.replace(AUTH_ROUTES.login, { scroll: false });
             }
             return;
         }
@@ -90,7 +91,7 @@ export function LoginForm() {
                     ? `&email=${encodeURIComponent(signupEmail)}`
                     : "";
                 router.replace(
-                    `/login?checkEmail=1${emailParam}`,
+                    `${AUTH_ROUTES.login}?checkEmail=1${emailParam}`,
                     { scroll: false },
                 );
             }
@@ -102,7 +103,7 @@ export function LoginForm() {
             if (authToastRef.current !== k) {
                 authToastRef.current = k;
                 toast.success("Email confirmed. You can sign in.");
-                router.replace("/login", { scroll: false });
+                router.replace(AUTH_ROUTES.login, { scroll: false });
             }
         }
     }, [
@@ -205,7 +206,7 @@ export function LoginForm() {
                                     <div className="flex items-center justify-between">
                                         <Label htmlFor="password">Password</Label>
                                         <Link
-                                            href="/forgot-password"
+                                            href={AUTH_ROUTES.forgotPassword}
                                             className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                                         >
                                             Forgot password?
@@ -269,7 +270,7 @@ export function LoginForm() {
                             <p className="text-sm text-center text-muted-foreground">
                                 Don&apos;t have an account?{" "}
                                 <Link
-                                    href="/register"
+                                    href={AUTH_ROUTES.register}
                                     className="font-medium text-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
                                 >
                                     Create one

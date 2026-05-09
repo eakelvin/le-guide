@@ -16,12 +16,15 @@ export type ActiveView = "home" | string; // string = process id
 export function DashboardShell({
     initialUser,
     showSignedInToast = false,
+    showPasswordUpdatedToast = false,
 }: {
     initialUser: AppUser | null;
     showSignedInToast?: boolean;
+    showPasswordUpdatedToast?: boolean;
 }) {
     const router = useRouter();
     const signedInToasted = useRef(false);
+    const passwordUpdatedToasted = useRef(false);
     const [activeView, setActiveView] = useState<ActiveView>("home");
     const { progress, markStepDone, markStepUndone, toggleDoc } = useProgress();
     const [user] = useState<AppUser | null>(initialUser);
@@ -32,6 +35,13 @@ export function DashboardShell({
         toast.success("Signed in successfully.");
         router.replace("/dashboard", { scroll: false });
     }, [showSignedInToast, router]);
+
+    useEffect(() => {
+        if (!showPasswordUpdatedToast || passwordUpdatedToasted.current) return;
+        passwordUpdatedToasted.current = true;
+        toast.success("Password updated successfully.");
+        router.replace("/dashboard", { scroll: false });
+    }, [showPasswordUpdatedToast, router]);
 
     const totalProgress = getTotalProgress(PROCESSES, progress);
     const activeProcess = PROCESSES.find((p) => p.id === activeView);

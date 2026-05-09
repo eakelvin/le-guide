@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast as showToast } from "react-hot-toast";
 import {
     User, GraduationCap, MapPin, Shield, Save,
     CheckCircle2, AlertCircle, ChevronRight, Pencil,
     Calendar, Phone, Globe, Building2, Hash, Mail,
-    HeartPulse, Clock,
+    HeartPulse, Clock, KeyRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { cn } from "@/lib/utils";
 import { useProfile } from "@/lib/hooks";
 import type { UserProfile, StudyLevel, VisaType } from "@/types";
+import { UpdatePasswordForm } from "@/components/auth/UpdatePasswordForm";
 
 /* ─── Constants ────────────────────────────────────────────────────── */
 const STUDY_LEVELS: { value: StudyLevel; label: string }[] = [
@@ -313,8 +316,22 @@ function SectionEmergency({ draft, onChange }: { draft: UserProfile; onChange: (
     );
 }
 
+/* ─── Password updated toast (needs useSearchParams) ─────────────────── */
+function ProfilePasswordToast() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        if (searchParams.get("passwordUpdated") !== "1") return;
+        showToast.success("Password updated successfully.");
+        router.replace("/profile", { scroll: false });
+    }, [router, searchParams]);
+
+    return null;
+}
+
 /* ─── Main profile page ─────────────────────────────────────────────── */
-export function ProfilePage() {
+export function ProfilePage({ hasEmailPasswordIdentity }: { hasEmailPasswordIdentity: boolean }) {
     const { profile, saveProfile, hydrated } = useProfile();
     const [activeSection, setActiveSection] = useState("personal");
     const [draft, setDraft] = useState<UserProfile>(profile);
@@ -365,6 +382,9 @@ export function ProfilePage() {
 
     return (
         <div className="min-h-screen bg-background">
+            <Suspense fallback={null}>
+                <ProfilePasswordToast />
+            </Suspense>
             {/* Top nav */}
             <div className="sticky top-0 z-40 bg-background/90 backdrop-blur border-b border-border">
                 <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
@@ -532,6 +552,26 @@ export function ProfilePage() {
                         </CardContent>
                     </Card>
                 </div>
+
+                <Card className="mt-8 border-border/60">
+                    <CardHeader className="pb-4">
+                        <CardTitle className="text-lg font-serif font-light tracking-tight flex items-center gap-2">
+                            <KeyRound className="w-4 h-4 text-muted-foreground" />
+                            Account security
+                        </CardTitle>
+                        <CardDescription>
+                            Change your password. If you signed up with Google only, set a password here to enable email sign-in as well.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <UpdatePasswordForm
+                            variant="embedded"
+                            next="/profile"
+                            requireCurrentPasswordField={hasEmailPasswordIdentity}
+                            submitLabel="Update password"
+                        />
+                    </CardContent>
+                </Card>
             </div>
 
             <SaveToast state={toast} />
