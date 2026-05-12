@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { DEADLINES } from "@/lib/processes";
+import { DEADLINES } from "@/lib/data/processes";
 import { cn, COLOR_CONFIG, getProcessProgress } from "@/lib/utils";
 import type { Process, ProgressState } from "@/types";
 import Link from "next/link";
@@ -25,6 +25,8 @@ interface SidebarProps {
     onNavigate: (view: string) => void;
     totalProgress: { done: number; total: number; pct: number };
     user?: { name?: string | null; email?: string | null; imageUrl?: string | null } | null;
+    /** When false, hide the “Complete your profile” CTA (profile satisfies minimum checklist). */
+    showCompleteProfileCta?: boolean;
 }
 
 const PROCESS_ICONS: Record<string, React.ReactNode> = {
@@ -89,7 +91,15 @@ function StatusBadge({ pct, processId }: { pct: number; processId: string }) {
     );
 }
 
-export function Sidebar({ processes, progress, activeView, onNavigate, totalProgress, user }: SidebarProps) {
+export function Sidebar({
+    processes,
+    progress,
+    activeView,
+    onNavigate,
+    totalProgress,
+    user,
+    showCompleteProfileCta = true,
+}: SidebarProps) {
     const displayName = user?.name?.trim() || user?.email?.trim() || "Account";
     const fallback =
         displayName
@@ -116,12 +126,14 @@ export function Sidebar({ processes, progress, activeView, onNavigate, totalProg
                     </div>
                     <div className="min-w-0">
                         <p className="text-foreground truncate text-sm font-medium">{user?.name ?? "Student"}</p>
-                        <Link
-                            href="/profile"
-                            className="mt-0.5 block truncate text-xs font-medium text-azure-700 underline-offset-2 hover:text-azure-900 hover:underline"
-                        >
-                            Complete your profile
-                        </Link>
+                        {showCompleteProfileCta ? (
+                            <Link
+                                href="/profile"
+                                className="mt-0.5 block truncate text-xs font-medium text-azure-700 underline-offset-2 hover:text-azure-900 hover:underline"
+                            >
+                                Complete your profile
+                            </Link>
+                        ) : null}
                     </div>
                 </div>
                 <div className="mt-4 space-y-2">

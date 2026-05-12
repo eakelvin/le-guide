@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Sidebar } from "./Sidebar";
 import { getTotalProgress } from "@/lib/utils";
-import { PROCESSES } from "@/lib/processes";
+import { PROCESSES } from "@/lib/data/processes";
 import { useProgress, useProfile } from "@/lib/hooks";
 import { DashboardHome } from "../processes/DashboardHome";
 import { ProcessView } from "../processes/ProcessView";
 import type { AppUser } from "@/lib/supabase/user";
-import { isProfileMinimumComplete } from "@/lib/profile-completion";
+import { isProfileMinimumComplete } from "@/lib/helpers";
 import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
 
 export type ActiveView = "home" | string; // string = process id
@@ -103,6 +103,7 @@ export function DashboardShell({
                 onNavigate={setActiveView}
                 totalProgress={totalProgress}
                 user={user}
+                showCompleteProfileCta={!isProfileMinimumComplete(profile)}
             />
             <main className="bg-canvas flex flex-1 min-h-0 min-w-0 flex-col overflow-y-auto">
                 {activeView === "home" || !activeProcess ? (
@@ -111,7 +112,7 @@ export function DashboardShell({
                         progress={progress}
                         onNavigate={setActiveView}
                         name={greetingName}
-                        showCompleteProfileBanner={false}
+                        showCompleteProfileBanner={!isProfileMinimumComplete(profile)}
                     />
                 ) : (
                     <ProcessView
