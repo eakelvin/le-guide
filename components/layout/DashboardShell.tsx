@@ -6,10 +6,12 @@ import toast from "react-hot-toast";
 import { Sidebar } from "./Sidebar";
 import { getTotalProgress } from "@/lib/utils";
 import { PROCESSES } from "@/lib/processes";
-import { useProgress } from "@/lib/hooks";
+import { useProgress, useProfile } from "@/lib/hooks";
 import { DashboardHome } from "../processes/DashboardHome";
 import { ProcessView } from "../processes/ProcessView";
 import type { AppUser } from "@/lib/supabase/user";
+import { isProfileMinimumComplete } from "@/lib/profile-completion";
+import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
 
 export type ActiveView = "home" | string; // string = process id
 
@@ -27,7 +29,9 @@ export function DashboardShell({
     const passwordUpdatedToasted = useRef(false);
     const [activeView, setActiveView] = useState<ActiveView>("home");
     const { progress, markStepDone, markStepUndone, toggleDoc } = useProgress();
+    const { profile, hydrated: profileHydrated } = useProfile();
     const [user] = useState<AppUser | null>(initialUser);
+    const profileReady = isProfileMinimumComplete(profile);
 
     useEffect(() => {
         if (!showSignedInToast || signedInToasted.current) return;
@@ -51,6 +55,45 @@ export function DashboardShell({
         return null;
     }, [user?.name]);
 
+    if (!profileHydrated) {
+        return (
+            <div className="flex min-h-screen items-center justify-center bg-white">
+                <p className="text-sm text-muted-foreground">Loading…</p>
+            </div>
+        );
+    }
+
+    if (!profileReady) {
+        return (
+            <div className="flex min-h-screen flex-col bg-white">
+                <main className="bg-canvas flex flex-1 flex-col overflow-y-auto">
+                    <div className="animate-fade-up">
+                        <div className="border-b border-border bg-card px-9 pb-8 pt-10">
+                            <p className="mb-2 text-xs text-sand-400">
+                                <span>ArriveFrance</span>
+                                <span aria-hidden className="mx-1 text-sand-300">
+                                    &gt;
+                                </span>
+                                <span className="font-medium text-sand-800">Dashboard</span>
+                            </p>
+                            <div className="space-y-2">
+                                <h1 className="font-heading font-normal text-3xl tracking-tight text-sand-800 sm:text-[2rem] leading-tight">
+                                    Welcome back{greetingName ? `, ${greetingName}` : ""} 👋
+                                </h1>
+                                <p className="text-sm leading-relaxed text-sand-600">
+                                    Complete your profile to unlock your personalised checklist and processes.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="px-9 py-7">
+                            <CompleteProfileAlert />
+                        </div>
+                    </div>
+                </main>
+            </div>
+        );
+    }
+
     return (
         <div className="flex min-h-screen bg-white">
             <Sidebar
@@ -68,6 +111,7 @@ export function DashboardShell({
                         progress={progress}
                         onNavigate={setActiveView}
                         name={greetingName}
+                        showCompleteProfileBanner={false}
                     />
                 ) : (
                     <ProcessView

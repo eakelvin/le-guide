@@ -1,8 +1,21 @@
+import type { AppUser } from "@/lib/supabase/user";
+
 export type TagVariant = "time" | "cost" | "docs" | "urgent";
 export type TipVariant = "tip" | "warn" | "urgent";
 export type StatusVariant = "urgent" | "in-progress" | "not-started" | "complete";
-export type VisaType = "student-d" | "student-vls-ts" | "student-vls-ts-campus-france" | "other";
-export type StudyLevel = "licence-1" | "licence-2" | "licence-3" | "master-1" | "master-2" | "doctorat" | "exchange" | "other";
+
+/** Yes / no answers for profile questions (empty = not answered). */
+export type ProfileYesNo = "" | "yes" | "no";
+
+export const STUDENT_TYPE_VALUES = ["degree-student", "exchange-student", "intern", "language-school"] as const;
+export type StudentType = (typeof STUDENT_TYPE_VALUES)[number];
+
+export const STUDENT_TYPE_OPTIONS: { value: StudentType; label: string }[] = [
+    { value: "degree-student", label: "Degree student" },
+    { value: "exchange-student", label: "Exchange student" },
+    { value: "intern", label: "Intern" },
+    { value: "language-school", label: "Language school" },
+];
 
 export interface Tag {
   variant: TagVariant;
@@ -44,26 +57,59 @@ export interface UserProfile {
   lastName: string;
   email: string;
   phone: string;
-  nationality: string;
+  country: string;
   dateOfBirth: string;
   /* Academic */
   university: string;
   program: string;
-  studyLevel: StudyLevel | "";
-  studentId: string;
+  studentType: StudentType | "";
   campusCity: string;
   academicYear: string;           // e.g. "2024-2025"
   /* Stay in France */
+  alreadyInFrance: ProfileYesNo;
+  /** When `alreadyInFrance` is "yes": actual arrival. When "no": planned arrival. */
   arrivalDate: string;
-  plannedDepartureDate: string;
-  visaType: VisaType | "";
-  currentAddress: string;
   addressCity: string;
-  addressPostalCode: string;
-  /* Emergency */
-  emergencyContactName: string;
-  emergencyContactPhone: string;
-  emergencyContactRelation: string;
+  hasAccommodation: ProfileYesNo;
+}
+
+/** One row in `public.profiles` (snake_case, matches Supabase columns). */
+export interface ProfileRow {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  country: string;
+  date_of_birth: string;
+  university: string;
+  program: string;
+  student_type: string;
+  campus_city: string;
+  academic_year: string;
+  already_in_france: string;
+  has_accommodation: string;
+  arrival_date: string;
+  address_city: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+/** Form handlers for profile sections (personal / academic / stay). */
+export type ProfileFieldKey = keyof UserProfile;
+export type ProfileOnChange = (key: ProfileFieldKey, value: string) => void;
+
+export interface ProfileSectionProps {
+  draft: UserProfile;
+  onChange: ProfileOnChange;
+}
+
+/** Result of persisting a profile row (server action or Supabase upsert). */
+export type ProfileUpsertResult = { error?: string };
+
+export interface ProfilePageProps {
+  appUser: AppUser;
+  initialProfile?: UserProfile | null;
 }
 
 export const DEFAULT_PROFILE: UserProfile = {
@@ -71,23 +117,17 @@ export const DEFAULT_PROFILE: UserProfile = {
   lastName: "",
   email: "",
   phone: "",
-  nationality: "",
+  country: "",
   dateOfBirth: "",
   university: "",
   program: "",
-  studyLevel: "",
-  studentId: "",
+  studentType: "",
   campusCity: "",
   academicYear: "",
+  alreadyInFrance: "",
   arrivalDate: "",
-  plannedDepartureDate: "",
-  visaType: "",
-  currentAddress: "",
   addressCity: "",
-  addressPostalCode: "",
-  emergencyContactName: "",
-  emergencyContactPhone: "",
-  emergencyContactRelation: "",
+  hasAccommodation: "",
 };
 
 export interface ProgressState {

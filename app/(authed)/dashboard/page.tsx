@@ -1,5 +1,5 @@
 import { DashboardShell } from "@/components/layout/DashboardShell";
-import { getAppUser } from "@/lib/supabase/user";
+import { requireAppUser } from "@/lib/auth/session";
 
 export default async function DashboardPage({
     searchParams,
@@ -7,7 +7,7 @@ export default async function DashboardPage({
     searchParams: Promise<{ signedIn?: string; passwordUpdated?: string }>;
 }) {
     const { signedIn, passwordUpdated } = await searchParams;
-    const user = await getAppUser();
+    const user = await requireAppUser();
     return (
         <DashboardShell
             initialUser={user}

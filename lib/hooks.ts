@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import type { ProgressState, UserProfile } from "@/types";
 import { DEFAULT_PROFILE } from "@/types";
 import { getStepKey, getDocKey } from "./utils";
+import { getMyProfileAction, saveMyProfileAction } from "@/features/profile/actions";
 
 /* ─── Progress ───────────────────────────────────────────────────── */
 const PROGRESS_KEY = "arrive-france-progress";
@@ -52,44 +53,41 @@ export function useProgress() {
   return { progress, markStepDone, markStepUndone, toggleDoc };
 }
 
-/* ─── Profile ────────────────────────────────────────────────────── */
-const PROFILE_KEY = "arrive-france-profile";
-
-function loadProfile(): UserProfile {
-  if (typeof window === "undefined") return { ...DEFAULT_PROFILE };
-  try {
-    const raw = localStorage.getItem(PROFILE_KEY);
-    return raw ? { ...DEFAULT_PROFILE, ...JSON.parse(raw) } : { ...DEFAULT_PROFILE };
-  } catch {
-    return { ...DEFAULT_PROFILE };
-  }
-}
-
-function saveProfileToStorage(p: UserProfile) {
-  try { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); } catch {}
-}
-
-export function useProfile() {
-  const [profile, setProfile] = useState<UserProfile>({ ...DEFAULT_PROFILE });
-  const [hydrated, setHydrated] = useState(false);
+/* ─── Profile (Supabase `public.profiles`) ───────────────────────── */
+export function useProfile(initialProfile?: UserProfile | null) {
+  const [profile, setProfile] = useState<UserProfile>(() =>
+    initialProfile ? { ...DEFAULT_PROFILE, ...initialProfile } : { ...DEFAULT_PROFILE },
+  );
+  const [hydrated, setHydrated] = useState(!!initialProfile);
 
   useEffect(() => {
-    setProfile(loadProfile());
-    setHydrated(true);
+    let cancelled = false;
+    getMyProfileAction()
+      .then((p) => {
+        if (!cancelled) {
+          setProfile(p);
+          setHydrated(true);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setHydrated(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const saveProfile = useCallback((updates: Partial<UserProfile>) => {
-    setProfile((prev) => {
-      const next = { ...prev, ...updates };
-      saveProfileToStorage(next);
-      return next;
-    });
+  const saveProfile = useCallback(async (next: UserProfile) => {
+    const { error } = await saveMyProfileAction(next);
+    if (error) throw new Error(error);
+    setProfile(next);
   }, []);
 
-  const resetProfile = useCallback(() => {
+  const resetProfile = useCallback(async () => {
     const blank = { ...DEFAULT_PROFILE };
+    const { error } = await saveMyProfileAction(blank);
+    if (error) throw new Error(error);
     setProfile(blank);
-    saveProfileToStorage(blank);
   }, []);
 
   return { profile, saveProfile, resetProfile, hydrated };

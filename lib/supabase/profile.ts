@@ -1,0 +1,86 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { ProfileRow, ProfileUpsertResult, ProfileYesNo, UserProfile } from "@/types";
+import { DEFAULT_PROFILE, STUDENT_TYPE_VALUES } from "@/types";
+
+function yn(v: unknown): ProfileYesNo {
+  return v === "yes" || v === "no" ? v : "";
+}
+
+function normalizeStudentType(v: unknown): UserProfile["studentType"] {
+  return typeof v === "string" && (STUDENT_TYPE_VALUES as readonly string[]).includes(v)
+    ? (v as UserProfile["studentType"])
+    : "";
+}
+
+export function profileRowToUserProfile(row: ProfileRow | null): UserProfile {
+  if (!row) return { ...DEFAULT_PROFILE };
+  const p: UserProfile = {
+    firstName: typeof row.first_name === "string" ? row.first_name : "",
+    lastName: typeof row.last_name === "string" ? row.last_name : "",
+    email: typeof row.email === "string" ? row.email : "",
+    phone: typeof row.phone === "string" ? row.phone : "",
+    country: typeof row.country === "string" ? row.country : "",
+    dateOfBirth: typeof row.date_of_birth === "string" ? row.date_of_birth : "",
+    university: typeof row.university === "string" ? row.university : "",
+    program: typeof row.program === "string" ? row.program : "",
+    studentType: normalizeStudentType(row.student_type),
+    campusCity: typeof row.campus_city === "string" ? row.campus_city : "",
+    academicYear: typeof row.academic_year === "string" ? row.academic_year : "",
+    alreadyInFrance: yn(row.already_in_france),
+    arrivalDate: typeof row.arrival_date === "string" ? row.arrival_date : "",
+    addressCity: typeof row.address_city === "string" ? row.address_city : "",
+    hasAccommodation: yn(row.has_accommodation),
+  };
+  return p;
+}
+
+export function userProfileToUpsertRow(userId: string, profile: UserProfile): ProfileRow {
+  return {
+    id: userId,
+    first_name: profile.firstName ?? "",
+    last_name: profile.lastName ?? "",
+    email: profile.email ?? "",
+    phone: profile.phone ?? "",
+    country: profile.country ?? "",
+    date_of_birth: profile.dateOfBirth ?? "",
+    university: profile.university ?? "",
+    program: profile.program ?? "",
+    student_type: profile.studentType ?? "",
+    campus_city: profile.campusCity ?? "",
+    academic_year: profile.academicYear ?? "",
+    already_in_france: yn(profile.alreadyInFrance),
+    arrival_date: profile.arrivalDate ?? "",
+    address_city: profile.addressCity ?? "",
+    has_accommodation: yn(profile.hasAccommodation),
+  };
+}
+
+export async function fetchProfileForUser(
+  supabase: SupabaseClient,
+  userId: string,
+): Promise<UserProfile> {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select(
+      "id, first_name, last_name, email, phone, country, date_of_birth, university, program, student_type, campus_city, academic_year, already_in_france, arrival_date, address_city, has_accommodation",
+    )
+    .eq("id", userId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("[profiles] fetch error", error.message);
+    return { ...DEFAULT_PROFILE };
+  }
+  return profileRowToUserProfile(data as ProfileRow | null);
+}
+
+export async function upsertProfileForUser(
+  supabase: SupabaseClient,
+  userId: string,
+  profile: UserProfile,
+): Promise<ProfileUpsertResult> {
+  const row = userProfileToUpsertRow(userId, profile);
+  const { error } = await supabase.from("profiles").upsert(row, { onConflict: "id" });
+  if (error) return { error: error.message };
+  return {};
+}

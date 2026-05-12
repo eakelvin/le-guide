@@ -19,7 +19,7 @@ export async function registerAction(_prevState: RegisterState, formData: FormDa
   const password = String(formData.get("password") ?? "");
 
   const university = String(formData.get("university") ?? "").trim();
-  const nationality = String(formData.get("nationality") ?? "").trim();
+  const country = String(formData.get("country") ?? "").trim();
 
   if (!firstName || !lastName || !email || !password) return { error: "Please fill in all fields." };
   if (password.length < 8) return { error: "Password must be at least 8 characters." };
@@ -39,7 +39,7 @@ export async function registerAction(_prevState: RegisterState, formData: FormDa
         first_name: firstName,
         last_name: lastName,
         ...(university ? { university } : {}),
-        ...(nationality ? { nationality } : {}),
+        ...(country ? { country } : {}),
       },
     },
   });

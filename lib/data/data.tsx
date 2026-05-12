@@ -68,7 +68,7 @@ export const FAQS = [
 ];
 
 export const HOW_STEPS = [
-    { num: "1", title: "Set up your profile", desc: "Tell us your arrival date, university, and nationality. We personalise your checklist based on your situation." },
+    { num: "1", title: "Set up your profile", desc: "Tell us your arrival date, university, and country. We personalise your checklist based on your situation." },
     { num: "2", title: "Follow your steps", desc: "Each process is broken into clear steps with exact documents needed, tips, deadlines, and official links." },
     { num: "3", title: "Track your progress", desc: "Check off documents and steps as you go. Progress is saved automatically — pick up where you left off." },
     { num: "4", title: "Stay ahead of deadlines", desc: "Urgency indicators and deadline tracking make sure nothing slips through the cracks." },

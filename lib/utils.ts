@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import type { Process, ProgressState } from "@/types";
+import type { Process, ProgressState, UserProfile } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -74,3 +74,4 @@ export const TIP_CONFIG = {
   warn:   { bg: "bg-gold-50",   text: "text-gold-600",   icon: "!" },
   urgent: { bg: "bg-coral-50",  text: "text-coral-600",  icon: "⚠" },
 } as const;
+

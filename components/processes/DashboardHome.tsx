@@ -12,14 +12,16 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { cn, COLOR_CONFIG, getProcessProgress } from "@/lib/utils";
 import type { Process, ProgressState } from "@/types";
-import Link from "next/link";
-import { AlertTriangle, UserRound } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
+import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
 
 interface Props {
     processes: Process[];
     progress: ProgressState;
     onNavigate: (id: string) => void;
     name?: string | null;
+    /** When false, hide the profile banner (profile already satisfies minimum fields). */
+    showCompleteProfileBanner?: boolean;
 }
 
 const PROCESS_ICONS: Record<string, React.ReactNode> = {
@@ -97,7 +99,13 @@ function ProcessStatusBadge({
     );
 }
 
-export function DashboardHome({ processes, progress, onNavigate, name }: Props) {
+export function DashboardHome({
+    processes,
+    progress,
+    onNavigate,
+    name,
+    showCompleteProfileBanner = true,
+}: Props) {
     return (
         <div className="animate-fade-up">
             <div className="border-b border-border bg-card px-9 pb-8 pt-10">
@@ -126,16 +134,7 @@ export function DashboardHome({ processes, progress, onNavigate, name }: Props) 
             </div>
 
             <div className="space-y-5 px-9 py-7">
-                <Link href="/profile" className="block no-underline">
-                    <Alert className="cursor-pointer border-azure-100 bg-azure-50 text-azure-900 shadow-none transition-colors hover:bg-azure-100 [&>svg]:text-azure-600">
-                        <UserRound className="size-4" aria-hidden />
-                        <AlertTitle className="text-azure-950">Complete your profile</AlertTitle>
-                        <AlertDescription className="text-azure-700">
-                            Add your university, arrival date and visa type to personalise your checklist.{" "}
-                            <span className="font-medium text-azure-800">Set up →</span>
-                        </AlertDescription>
-                    </Alert>
-                </Link>
+                {showCompleteProfileBanner ? <CompleteProfileAlert /> : null}
 
                 <Alert className="border-coral-200 bg-coral-50 text-coral-900 shadow-none [&>svg]:text-coral-600">
                     <AlertTriangle className="size-4" aria-hidden />

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useFormStatus } from "react-dom";
 import {
     Eye, EyeOff, ArrowRight, Mail, Lock,
-    User, GraduationCap, Globe, CheckCircle2,
+    User, GraduationCap, CheckCircle2,
     KeyRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ import {
 import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { cn } from "@/lib/utils";
 import { RegisterPanel } from "../layout/LeftPanel";
+import { CountryCombobox } from "@/components/ui/CountryCombobox";
 import { registerAction } from "@/features/auth/register";
 import { googleLogin } from "@/features/auth/google-login";
 
@@ -83,7 +84,7 @@ export function RegisterForm() {
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
     const [university, setUniversity] = useState("");
-    const [nationality, setNationality] = useState("");
+    const [country, setCountry] = useState("");
 
     const strength = getStrength(password);
     const pwMatch = password && confirm && password === confirm;
@@ -269,7 +270,7 @@ export function RegisterForm() {
                                         <input type="hidden" name="lastName" value={lastName} />
                                         <input type="hidden" name="email" value={email} />
                                         <input type="hidden" name="university" value={university} />
-                                        <input type="hidden" name="nationality" value={nationality} />
+                                        <input type="hidden" name="country" value={country} />
 
                                         {/* Password */}
                                         <div className="space-y-2">
@@ -360,14 +361,14 @@ export function RegisterForm() {
                                             )}
                                         </div>
 
-                                        {/* Optional: university + nationality */}
+                                        {/* Optional: university + country */}
                                         <div className="grid grid-cols-2 gap-3">
                                             <div className="space-y-2">
                                                 <Label htmlFor="university">
                                                     University <span className="text-muted-foreground font-normal">(optional)</span>
                                                 </Label>
                                                 <div className="relative">
-                                                    <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                                                    <GraduationCap className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                                                     <Input
                                                         id="university"
                                                         placeholder="Sciences Po"
@@ -378,19 +379,15 @@ export function RegisterForm() {
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
-                                                <Label htmlFor="nationality">
-                                                    Nationality <span className="text-muted-foreground font-normal">(optional)</span>
+                                                <Label htmlFor="register-country">
+                                                    Country <span className="text-muted-foreground font-normal">(optional)</span>
                                                 </Label>
-                                                <div className="relative">
-                                                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                                                    <Input
-                                                        id="nationality"
-                                                        placeholder="Swedish"
-                                                        className="pl-9"
-                                                        value={nationality}
-                                                        onChange={(e) => setNationality(e.target.value)}
-                                                    />
-                                                </div>
+                                                <CountryCombobox
+                                                    id="register-country"
+                                                    value={country}
+                                                    onChange={setCountry}
+                                                    placeholder="Select country…"
+                                                />
                                             </div>
                                         </div>
 

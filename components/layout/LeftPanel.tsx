@@ -1,4 +1,4 @@
-import { PERKS, steps } from "@/lib/data";
+import { PERKS, steps } from "@/lib/data/data";
 import Link from "next/link";
 
 export function LoginPanel() {

@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { PROC_CARDS } from "@/lib/data";
-import { HOW_STEPS } from "@/lib/data";
-import { TESTIMONIALS } from "@/lib/data";
-import { FAQS } from "@/lib/data";
+import { PROC_CARDS } from "@/lib/data/data";
+import { HOW_STEPS } from "@/lib/data/data";
+import { TESTIMONIALS } from "@/lib/data/data";
+import { FAQS } from "@/lib/data/data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export function Hero() {
