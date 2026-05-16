@@ -16,13 +16,15 @@ create table public.checklist_items (
   applies_to_non_eu_students boolean not null default false,
   applies_to_eu_students boolean not null default false,
   deadline text,
-  sort_order int not null default 0,
+  order_index int not null default 0,
+  common_options text[] not null default '{}',
+  recommended_timing text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
 create index checklist_items_category_idx on public.checklist_items (category);
-create index checklist_items_sort_order_idx on public.checklist_items (sort_order);
+create index checklist_items_order_index_idx on public.checklist_items (category, order_index);
 
 comment on table public.checklist_items is 'Student admin checklist definitions (visa, CAF, etc.).';
 

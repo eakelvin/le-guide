@@ -1,0 +1,406 @@
+[
+    {
+        "id": "sim-card",
+        "slug": "getting-a-sim-card",
+        "title": "Getting a SIM Card",
+        "short_description": "Getting a SIM Card is a crucial step for international students. It allows you to make and receive calls, send and receive texts, and access the internet.",
+        "category": "arrival",
+        "order_index": 0,
+        "requirements": [
+            "Valid passport"
+        ],
+        "common_options": [
+            "Free Mobile",
+            "Orange",
+            "Lyca Mobile",
+            "SFR",
+            "Bouygues Telecom"
+        ],
+        "recommended_timing": "Within your first few days in France",
+        "estimated_time": "15-30 mins",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "online-bank-account",
+        "slug": "opening-an-online-bank-account",
+        "title": "Opening an online bank account",
+        "short_description": "Opening an online bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
+        "category": "first-days",
+        "order_index": 1,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Valid proof of address"
+        ],
+        "common_options": [
+            "Revolut",
+            "Nickel"
+        ],
+        "recommended_timing": "anytime",
+        "estimated_time": "30-60 mins",
+        "difficulty": "easy",
+        "priority": "low",
+        "is_required": false,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "visa-validation",
+        "slug": "validating-your-visa",
+        "title": "Validating your visa",
+        "short_description": "Validating your visa is a crucial step for international students. It allows you to stay in France and study.",
+        "category": "settling",
+        "order_index": 2,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "within your first 3 months in France",
+        "estimated_time": "1-2 hours",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "3 months",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "navigo",
+        "slug": "navigo-transport",
+        "title": "Navigo Transport",
+        "short_description": "Navigo Transport is a public transport system in France. It allows you to travel around France and study.",
+        "category": "settling",
+        "order_index": 3,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "within your first month in France",
+        "estimated_time": "1-2 weeks",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": true
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "housing-and-caf",
+        "slug": "housing-and-caf",
+        "title": "Housing and CAF",
+        "short_description": "Housing and CAF is a crucial step for international students. It allows you to live in France and study.",
+        "category": "settling",
+        "order_index": 4,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "within your first month in France",
+        "estimated_time": "1-2 weeks",
+        "difficulty": "easy",
+        "priority": "low",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": true
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "traditional-bank-account",
+        "slug": "traditional-bank-account",
+        "title": "Traditional bank account",
+        "short_description": "Traditional bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
+        "category": "settling",
+        "order_index": 5,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [
+            "Société Générale",
+            "BNP Paribas",
+            "LCL",
+            "CIC",
+            "Crédit Agricole",
+            "HSBC"
+        ],
+        "recommended_timing": "within your first three months in France",
+        "estimated_time": "2-3 weeks",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "social-security",
+        "slug": "social-security",
+        "title": "Social Security",
+        "short_description": "Social Security is a crucial step for international students. It allows you to get medical care and study.",
+        "category": "settling",
+        "order_index": 6,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "within your first 2 months in France",
+        "estimated_time": "1-2 weeks",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "declaration-of-tax",
+        "slug": "declaration-of-tax",
+        "title": "Declaration of tax",
+        "short_description": "Declaration of tax is a crucial step for international students. It allows you to declare your taxes and study.",
+        "category": "settling",
+        "order_index": 7,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "",
+        "estimated_time": "",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "",
+        "slug": "",
+        "title": "",
+        "short_description": "",
+        "category": "settling",
+        "order_index": 8,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "",
+        "estimated_time": "",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "",
+        "slug": "",
+        "title": "",
+        "short_description": "",
+        "category": "settling",
+        "order_index": 9,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "",
+        "estimated_time": "",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "",
+        "slug": "",
+        "title": "",
+        "short_description": "",
+        "category": "settling",
+        "order_index": 10,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "",
+        "estimated_time": "",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "",
+        "slug": "",
+        "title": "",
+        "short_description": "",
+        "category": "settling",
+        "order_index": 11,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "",
+        "estimated_time": "",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    },
+    {
+        "id": "",
+        "slug": "",
+        "title": "",
+        "short_description": "",
+        "category": "settling",
+        "order_index": 1,
+        "requirements": [
+            "Valid passport",
+            "Valid visa",
+            "Proof of address"
+        ],
+        "common_options": [],
+        "recommended_timing": "",
+        "estimated_time": "",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "applies_to": {
+            "non_eu_students": true,
+            "eu_students": false
+        },
+        "deadline": "",
+        "official_links": [
+            {
+                "label": "",
+                "url": ""
+            }
+        ]
+    }
+]

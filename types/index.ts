@@ -135,59 +135,16 @@ export interface ProgressState {
   checkedDocs: Record<string, boolean>;
 }
 
-export type ChecklistDifficulty = "easy" | "medium" | "hard";
-export type ChecklistPriority = "low" | "medium" | "high";
-
-/** One row in `public.checklist_items`. */
-export interface ChecklistItemRow {
-  id: string;
-  slug: string;
-  title: string;
-  short_description: string;
-  category: string;
-  estimated_time: string | null;
-  difficulty: ChecklistDifficulty;
-  priority: ChecklistPriority;
-  is_required: boolean;
-  applies_to_non_eu_students: boolean;
-  applies_to_eu_students: boolean;
-  deadline: string | null;
-  sort_order: number;
-  created_at?: string;
-  updated_at?: string;
-}
-
-export interface ChecklistItemRequirementRow {
-  id: string;
-  checklist_item_id: string;
-  requirement: string;
-  sort_order: number;
-}
-
-export interface ChecklistItemLinkRow {
-  id: string;
-  checklist_item_id: string;
-  label: string;
-  url: string;
-  sort_order: number;
-}
-
-/** Checklist item with nested requirements and links (app shape). */
-export interface ChecklistItem {
-  id: string;
-  slug: string;
-  title: string;
-  shortDescription: string;
-  category: string;
-  requirements: string[];
-  estimatedTime: string | null;
-  difficulty: ChecklistDifficulty;
-  priority: ChecklistPriority;
-  isRequired: boolean;
-  appliesTo: {
-    nonEuStudents: boolean;
-    euStudents: boolean;
-  };
-  deadline: string | null;
-  officialLinks: ResourceLink[];
-}
+export type {
+  ChecklistDifficulty,
+  ChecklistPriority,
+  ChecklistOfficialLink,
+  ChecklistItemAppliesToRow,
+  ChecklistItemAppliesTo,
+  ChecklistItemJson,
+  ChecklistItemRow,
+  ChecklistItemRequirementRow,
+  ChecklistItemLinkRow,
+  ChecklistItem,
+  ChecklistItemWithRelations,
+} from "@/types/checklist";
