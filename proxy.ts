@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
-import { updateSession } from "@/lib/supabase/middleware";
+import { updateSession } from "@/lib/supabase/proxy";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { response } = await updateSession(request);
   response.headers.set("x-pathname", request.nextUrl.pathname);
   return response;
@@ -11,4 +11,3 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/dashboard/:path*", "/profile/:path*"],
 };
-
