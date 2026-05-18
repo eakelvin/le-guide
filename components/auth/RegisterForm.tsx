@@ -446,7 +446,7 @@ export function RegisterForm() {
                     </Card>
 
                     <p className="text-center text-xs text-muted-foreground mt-6 leading-relaxed">
-                        ArriveFrance is free and never shares your data with third parties.
+                        LeGuide is free and never shares your data with third parties.
                     </p>
                 </div>
             </div>

@@ -73,7 +73,7 @@ export function LoginPanel() {
             {/* Quote */}
             <div className="relative z-10">
                 <blockquote className="text-white/60 text-sm leading-relaxed italic font-serif font-light">
-                    &ldquo;ArriveFrance saved me hours of confusion. I knew exactly what to do, in what order, from day one.&rdquo;
+                    &ldquo;LeGuide saved me hours of confusion. I knew exactly what to do, in what order, from day one.&rdquo;
                 </blockquote>
                 <div className="flex items-center gap-2.5 mt-4">
                     <div className="w-7 h-7 rounded-full bg-forest-50 flex items-center justify-center text-[10px] font-medium text-forest-600">

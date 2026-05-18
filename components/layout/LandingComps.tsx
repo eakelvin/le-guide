@@ -81,7 +81,7 @@ export function Hero() {
                             ))}
                         </div>
                         <p className="text-[13px] text-sand-600">
-                            <strong className="text-sand-800">1,200+ students</strong> arrived in France with ArriveFrance this year
+                            <strong className="text-sand-800">1,200+ students</strong> arrived in France with LeGuide this year
                         </p>
                     </div>
                 </div>

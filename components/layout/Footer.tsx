@@ -24,7 +24,7 @@ export function Footer() {
                     ))}
                 </div>
                 <div className="text-[12px] text-white/40">
-                    © {year} ArriveFrance. Made with ♥ for international students.
+                    © {year} LeGuide. Made with ♥ for international students.
                 </div>
             </div>
         </footer>

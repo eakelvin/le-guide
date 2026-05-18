@@ -7,7 +7,7 @@ import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Guides for students in France | ArriveFrance",
+  title: "Guides for students in France | LeGuide",
   description:
     "Practical articles on alternance, internships (stages), working on a student visa, and everyday admin in France — for international students.",
 };
@@ -110,7 +110,7 @@ export default async function BlogPage({
       )}
 
       <p className="mt-14 max-w-2xl text-xs leading-relaxed text-sand-400">
-        ArriveFrance does not provide legal advice. Procedures and thresholds change — verify on{" "}
+        LeGuide does not provide legal advice. Procedures and thresholds change — verify on{" "}
         <a href="https://www.service-public.fr" className="text-azure-600 underline underline-offset-2" target="_blank" rel="noreferrer">
           service-public.fr
         </a>{" "}

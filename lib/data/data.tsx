@@ -31,7 +31,7 @@ export const steps = [
 
 export const TESTIMONIALS = [
     {
-        quote: "I had no idea OFII validation was separate from having a valid visa. ArriveFrance caught it for me with two months to spare.",
+        quote: "I had no idea OFII validation was separate from having a valid visa. LeGuide caught it for me with two months to spare.",
         name: "Mia Andersson", role: "Sciences Po, Sweden", initials: "MA", bg: "bg-forest-50", text: "text-forest-600",
     },
     {
@@ -58,8 +58,8 @@ export const FAQS = [
         a: "Typically 3–6 months after registering with CPAM. In the meantime, download an attestation de droits from your ameli.fr account — this proves your insurance coverage and is accepted at pharmacies and doctors' offices.",
     },
     {
-        q: "Is ArriveFrance free to use?",
-        a: "Yes, completely free. ArriveFrance is a student-built guide with no fees, no subscription, and no ads. Progress is saved locally in your browser — no account required to get started.",
+        q: "Is LeGuide free to use?",
+        a: "Yes, completely free. LeGuide is a student-built guide with no fees, no subscription, and no ads. Progress is saved locally in your browser — no account required to get started.",
     },
     {
         q: "I'm over 28 — does the healthcare guide still apply to me?",

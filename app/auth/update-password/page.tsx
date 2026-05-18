@@ -6,7 +6,7 @@ import { getAppUser } from "@/lib/supabase/user";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "New password — ArriveFrance",
+    title: "New password — LeGuide",
     description: "Choose a new password for your account.",
 };
 

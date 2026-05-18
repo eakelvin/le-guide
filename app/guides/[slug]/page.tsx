@@ -22,9 +22,9 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) return { title: "Article | ArriveFrance" };
+  if (!post) return { title: "Article | LeGuide" };
   return {
-    title: `${post.title} | ArriveFrance`,
+    title: `${post.title} | LeGuide`,
     description: post.excerpt,
   };
 }

@@ -4,7 +4,7 @@ import { getMyProfileAction } from "@/features/profile/actions";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "My Profile — ArriveFrance",
+    title: "My Profile — LeGuide",
     description: "Manage your personal, academic and stay information.",
 };
 

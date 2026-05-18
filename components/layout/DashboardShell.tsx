@@ -70,7 +70,7 @@ export function DashboardShell({
                     <div className="animate-fade-up">
                         <div className="border-b border-border bg-card px-9 pb-8 pt-10">
                             <p className="mb-2 text-xs text-sand-400">
-                                <span>ArriveFrance</span>
+                                <span>LeGuide</span>
                                 <span aria-hidden className="mx-1 text-sand-300">
                                     &gt;
                                 </span>
