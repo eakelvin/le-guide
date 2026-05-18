@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const page = () => {
+export default async function ContactPage() {
     return (
         <div>page</div>
     )
