@@ -3,6 +3,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import type { AppUser } from "@/lib/supabase/user";
 import { Footer } from "./Footer";
+import { ContactSection } from "@/components/layout/ContactSection";
 import { Hero, UrgencyBanner, Processes, HowItWorks, Testimonials, FAQ, CTASection } from "./LandingComps";
 
 export function LandingPage({ initialUser }: { initialUser: AppUser | null }) {
@@ -15,6 +16,7 @@ export function LandingPage({ initialUser }: { initialUser: AppUser | null }) {
             <HowItWorks />
             <Testimonials />
             <FAQ />
+            <ContactSection />
             <CTASection />
             <Footer />
         </div>

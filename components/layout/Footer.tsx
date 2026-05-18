@@ -13,6 +13,9 @@ export function Footer() {
                     <Link href="/guides" className="text-white/40 no-underline transition-colors hover:text-white/75">
                         Guides
                     </Link>
+                    <Link href="/#contact" className="text-white/40 no-underline transition-colors hover:text-white/75">
+                        Contact
+                    </Link>
                     {["Visa", "Housing", "Healthcare", "Banking", "Transport"].map((l) => (
                         <Link
                             key={l}

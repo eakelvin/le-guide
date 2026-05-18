@@ -35,6 +35,12 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                     >
                         FAQ
                     </a>
+                    <a
+                        href="#contact"
+                        className="text-[13.5px] text-sand-600 transition-colors no-underline hover:text-sand-800"
+                    >
+                        Contact
+                    </a>
                     <Link
                         href="/guides"
                         className="text-[13.5px] text-sand-600 transition-colors no-underline hover:text-sand-800"
