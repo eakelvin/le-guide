@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const PrivacyPage = () => {
+export default async function PrivacyPage() {
     return (
         <div>PrivacyPage</div>
     )

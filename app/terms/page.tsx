@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const TermsPage = () => {
+export default async function TermsPage() {
     return (
         <div>Terms</div>
     )
