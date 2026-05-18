@@ -23,7 +23,7 @@ export function LoginPanel() {
             <div className="relative z-10">
                 <Link href="/" className="text-white no-underline">
                     <div className="font-serif text-2xl font-light tracking-tight">
-                        Arrive<span className="text-[#9ECC60]">France</span>
+                        Le<span className="text-[#9ECC60]">Guide</span>
                     </div>
                     <div className="text-white/40 text-xs mt-1 tracking-widest uppercase">
                         Student Admin Guide
@@ -110,7 +110,7 @@ export function RegisterPanel() {
             <div className="relative z-10">
                 <Link href="/" className="text-white no-underline">
                     <div className="font-serif text-2xl font-light tracking-tight">
-                        Arrive<span className="text-[#9ECC60]">France</span>
+                        Le<span className="text-[#9ECC60]">Guide</span>
                     </div>
                     <div className="text-white/40 text-xs mt-1 tracking-widest uppercase">
                         Student Admin Guide

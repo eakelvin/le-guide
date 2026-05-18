@@ -26,7 +26,7 @@ export function BlogHeader() {
             href="/guides"
             className="font-heading truncate text-lg font-normal tracking-tight text-sand-800 no-underline md:text-[18px]"
           >
-            Arrive<span className="text-forest-900">France</span>
+            Le<span className="text-forest-900">Guide</span>
             <span className="font-sans text-sm font-normal text-sand-500"> · Guides</span>
           </Link>
         </div>

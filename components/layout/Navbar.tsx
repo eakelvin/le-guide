@@ -13,7 +13,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                 href="/"
                 className="font-heading text-[18px] font-normal tracking-tight text-sand-800 no-underline"
             >
-                Arrive<span className="text-forest-900">France</span>
+                Le<span className="text-forest-900">Guide</span>
             </Link>
             <div className="flex items-center gap-4 md:gap-7">
                 <div className="hidden items-center gap-7 md:flex">

@@ -129,7 +129,7 @@ export function LoginForm() {
                     <div className="lg:hidden mb-8 text-center">
                         <Link href="/" className="no-underline">
                             <span className="font-serif text-2xl font-light tracking-tight text-foreground">
-                                Arrive<span className="text-forest-900">France</span>
+                                Le<span className="text-forest-900">Guide</span>
                             </span>
                         </Link>
                     </div>

@@ -112,7 +112,7 @@ export function Sidebar({
         <aside className="flex h-screen w-64 min-w-[256px] flex-col overflow-y-auto border-r border-border bg-white text-foreground sticky top-0">
             <div className="border-b border-border px-6 py-7">
                 <div className="font-heading text-xl font-normal tracking-tight text-sand-800">
-                    Arrive<span className="text-forest-700">France</span>
+                    Le<span className="text-forest-700">Guide</span>
                 </div>
                 <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-sand-600">
                     Student Admin Guide
