@@ -144,6 +144,7 @@ export type {
   ChecklistItemJson,
   ChecklistItemRow,
   ChecklistItemRequirementRow,
+  ChecklistItemStepsSummaryRow,
   ChecklistItemLinkRow,
   ChecklistItem,
   ChecklistItemWithRelations,

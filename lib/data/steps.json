@@ -16,7 +16,13 @@
             "SFR",
             "Bouygues Telecom"
         ],
+        "steps_summary": [
+            "Get a SIM card from your provider",
+            "Activate the SIM card",
+            "Connect to the internet"
+        ],
         "recommended_timing": "Within your first few days in France",
+        "warning": "Make sure you have your passport ready before you start.",
         "estimated_time": "15-30 mins",
         "difficulty": "easy",
         "priority": "high",
@@ -49,8 +55,16 @@
             "Revolut",
             "Nickel"
         ],
+        "steps_summary": [
+            "Choose a bank (Revolut, Nickel, etc.)",
+            "Create account online",
+            "Upload identity documents",
+            "Verify identity",
+            "Receive IBAN"
+        ],
         "recommended_timing": "anytime",
-        "estimated_time": "30-60 mins",
+        "warning": "Make sure you have your documents ready before you start.",
+        "estimated_time": "20-30 minutes online",
         "difficulty": "easy",
         "priority": "low",
         "is_required": false,
@@ -61,8 +75,12 @@
         "deadline": "",
         "official_links": [
             {
-                "label": "",
-                "url": ""
+                "label": "Revolut",
+                "url": "https://www.revolut.com"
+            },
+            {
+                "label": "Nickel",
+                "url": "https://nickel.eu"
             }
         ]
     },
@@ -79,8 +97,15 @@
             "Proof of address"
         ],
         "common_options": [],
+        "steps_summary": [
+            "Go to the digital administration for foreigners in France",
+            "Enter your visa number",
+            "Verify your identity",
+            "Receive your visa validation"
+        ],
         "recommended_timing": "within your first 3 months in France",
-        "estimated_time": "1-2 hours",
+        "warning": "You must do this even if you already have a valid visa sticker. The online validation is a seperate legal requirememt.",
+        "estimated_time": "20-30 minutes online",
         "difficulty": "easy",
         "priority": "high",
         "is_required": true,
@@ -91,8 +116,12 @@
         "deadline": "3 months",
         "official_links": [
             {
-                "label": "",
-                "url": ""
+                "label": "Digital administration for foreigners in France",
+                "url": "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/"
+            },
+            {
+                "label": "Online validation of the Long Stay Visa equivalent to a Residence Permit",
+                "url": "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/vls-ts/demarches/etape/numero-visa"
             }
         ]
     },
@@ -109,7 +138,13 @@
             "Proof of address"
         ],
         "common_options": [],
+        "steps_summary": [
+            "Apply for a Navigo card",
+            "Activate the Navigo card",
+            "Use the Navigo card to travel"
+        ],
         "recommended_timing": "within your first month in France",
+        "warning": "Make sure you have your documents ready before you start.",
         "estimated_time": "1-2 weeks",
         "difficulty": "easy",
         "priority": "high",
@@ -139,7 +174,13 @@
             "Proof of address"
         ],
         "common_options": [],
+        "steps_summary": [
+            "Find a housing",
+            "Apply for a CAF",
+            "Receive your housing and CAF"
+        ],
         "recommended_timing": "within your first month in France",
+        "warning": "Make sure you have your documents ready before you start.",
         "estimated_time": "1-2 weeks",
         "difficulty": "easy",
         "priority": "low",
@@ -176,7 +217,11 @@
             "Crédit Agricole",
             "HSBC"
         ],
+        "steps_summary": [
+            ""
+        ],
         "recommended_timing": "within your first three months in France",
+        "warning": "Make sure you have your documents ready before you start.",
         "estimated_time": "2-3 weeks",
         "difficulty": "easy",
         "priority": "high",
@@ -206,7 +251,11 @@
             "Proof of address"
         ],
         "common_options": [],
+        "steps_summary": [
+            ""
+        ],
         "recommended_timing": "within your first 2 months in France",
+        "warning": "Make sure you have your documents ready before you start.",
         "estimated_time": "1-2 weeks",
         "difficulty": "easy",
         "priority": "high",
@@ -236,7 +285,11 @@
             "Proof of address"
         ],
         "common_options": [],
+        "steps_summary": [
+            ""
+        ],
         "recommended_timing": "",
+        "warning": "Make sure you have your documents ready before you start.",
         "estimated_time": "",
         "difficulty": "easy",
         "priority": "high",

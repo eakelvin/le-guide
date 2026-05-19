@@ -26,6 +26,7 @@ export interface ChecklistItemJson {
   order_index: number;
   requirements: string[];
   common_options: string[];
+  steps_summary: string[];
   recommended_timing: string;
   estimated_time: string;
   difficulty: ChecklistDifficulty;
@@ -33,6 +34,7 @@ export interface ChecklistItemJson {
   is_required: boolean;
   applies_to: ChecklistItemAppliesToRow;
   deadline: string;
+  warning?: string;
   official_links: ChecklistOfficialLink[];
 }
 
@@ -53,6 +55,7 @@ export interface ChecklistItemRow {
   applies_to_non_eu_students: boolean;
   applies_to_eu_students: boolean;
   deadline: string | null;
+  warning: string | null;
   created_at?: string;
   updated_at?: string;
 }
@@ -61,6 +64,13 @@ export interface ChecklistItemRequirementRow {
   id: string;
   checklist_item_id: string;
   requirement: string;
+  sort_order: number;
+}
+
+export interface ChecklistItemStepsSummaryRow {
+  id: string;
+  checklist_item_id: string;
+  summary: string;
   sort_order: number;
 }
 
@@ -82,6 +92,7 @@ export interface ChecklistItem {
   orderIndex: number;
   requirements: string[];
   commonOptions: string[];
+  stepsSummary: string[];
   recommendedTiming: string | null;
   estimatedTime: string | null;
   difficulty: ChecklistDifficulty;
@@ -89,6 +100,7 @@ export interface ChecklistItem {
   isRequired: boolean;
   appliesTo: ChecklistItemAppliesTo;
   deadline: string | null;
+  warning: string | null;
   officialLinks: ChecklistOfficialLink[];
 }
 
@@ -96,5 +108,6 @@ export interface ChecklistItem {
 export interface ChecklistItemWithRelations {
   item: ChecklistItemRow;
   requirements: ChecklistItemRequirementRow[];
+  stepsSummary: ChecklistItemStepsSummaryRow[];
   links: ChecklistItemLinkRow[];
 }
