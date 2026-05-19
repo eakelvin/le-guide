@@ -29,6 +29,32 @@ const SECTIONS = [
     { id: "account", label: "Account", icon: KeyRound },
 ] as const;
 
+function SaveChangesButton({
+    saving,
+    onClick,
+    size = "default",
+    className,
+}: {
+    saving: boolean;
+    onClick: () => void;
+    size?: "default" | "sm";
+    className?: string;
+}) {
+    return (
+        <Button onClick={onClick} size={size} className={cn("gap-1.5", className)} disabled={saving}>
+            {saving ? (
+                <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                </svg>
+            ) : (
+                <Save className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} aria-hidden />
+            )}
+            {saving ? "Saving…" : "Save changes"}
+        </Button>
+    );
+}
+
 /* ─── Main profile page ─────────────────────────────────────────────── */
 export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
     const { profile, saveProfile, hydrated } = useProfile(initialProfile);
@@ -36,6 +62,7 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
     const [draft, setDraft] = useState<UserProfile>(profile);
     const [toast, setToast] = useState<"saved" | "error" | null>(null);
     const [dirty, setDirty] = useState(false);
+    const [saving, setSaving] = useState(false);
 
     /* Sync draft from saved profile; seed empty fields from auth user */
     useEffect(() => {
@@ -63,6 +90,8 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
     }
 
     async function handleSave() {
+        if (saving) return;
+        setSaving(true);
         try {
             await saveProfile(draft);
             setDirty(false);
@@ -71,6 +100,8 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
         } catch {
             setToast("error");
             setTimeout(() => setToast(null), 3000);
+        } finally {
+            setSaving(false);
         }
     }
 
@@ -114,10 +145,7 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                                 Unsaved changes
                             </span>
                         )}
-                        <Button onClick={handleSave} size="sm" className="gap-1.5 h-8">
-                            <Save className="w-3.5 h-3.5" />
-                            Save changes
-                        </Button>
+                        <SaveChangesButton saving={saving} onClick={handleSave} size="sm" className="h-8" />
                     </div>
                 </div>
             </div>
@@ -288,10 +316,7 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
 
                             {activeSection !== "account" && (
                                 <div className="flex justify-end mt-8 pt-6 border-t border-border">
-                                    <Button onClick={handleSave} className="gap-2">
-                                        <Save className="w-4 h-4" />
-                                        Save changes
-                                    </Button>
+                                    <SaveChangesButton saving={saving} onClick={handleSave} className="gap-2" />
                                 </div>
                             )}
                         </CardContent>
