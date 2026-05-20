@@ -432,143 +432,31 @@
         "title": "",
         "short_description": "",
         "category": "settling",
-        "order_index": 8,
-        "requirements": [
-            "Valid passport",
-            "Valid visa",
-            "Proof of address"
-        ],
-        "common_options": [],
-        "recommended_timing": "",
-        "estimated_time": "",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
-        "applies_to": {
-            "non_eu_students": true,
-            "eu_students": false
-        },
-        "deadline": "",
-        "official_links": [
-            {
-                "label": "",
-                "url": ""
-            }
-        ]
-    },
-    {
-        "id": "",
-        "slug": "",
-        "title": "",
-        "short_description": "",
-        "category": "settling",
         "order_index": 9,
-        "requirements": [
-            "Valid passport",
-            "Valid visa",
-            "Proof of address"
-        ],
-        "common_options": [],
-        "recommended_timing": "",
         "estimated_time": "",
         "difficulty": "easy",
         "priority": "high",
         "is_required": true,
-        "applies_to": {
-            "non_eu_students": true,
-            "eu_students": false
-        },
+        "recommended_timing": "",
+        "why_this_matters": "",
         "deadline": "",
-        "official_links": [
-            {
-                "label": "",
-                "url": ""
-            }
-        ]
-    },
-    {
-        "id": "",
-        "slug": "",
-        "title": "",
-        "short_description": "",
-        "category": "settling",
-        "order_index": 10,
         "requirements": [
-            "Valid passport",
-            "Valid visa",
-            "Proof of address"
+            ""
         ],
         "common_options": [],
-        "recommended_timing": "",
-        "estimated_time": "",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
-        "applies_to": {
-            "non_eu_students": true,
-            "eu_students": false
-        },
-        "deadline": "",
-        "official_links": [
-            {
-                "label": "",
-                "url": ""
-            }
-        ]
-    },
-    {
-        "id": "",
-        "slug": "",
-        "title": "",
-        "short_description": "",
-        "category": "settling",
-        "order_index": 11,
-        "requirements": [
-            "Valid passport",
-            "Valid visa",
-            "Proof of address"
+        "steps_summary": [
+            ""
         ],
-        "common_options": [],
-        "recommended_timing": "",
-        "estimated_time": "",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
-        "applies_to": {
-            "non_eu_students": true,
-            "eu_students": false
-        },
-        "deadline": "",
-        "official_links": [
-            {
-                "label": "",
-                "url": ""
-            }
-        ]
-    },
-    {
-        "id": "",
-        "slug": "",
-        "title": "",
-        "short_description": "",
-        "category": "settling",
-        "order_index": 1,
-        "requirements": [
-            "Valid passport",
-            "Valid visa",
-            "Proof of address"
+        "warnings": [
+            ""
         ],
-        "common_options": [],
-        "recommended_timing": "",
-        "estimated_time": "",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
         "applies_to": {
             "non_eu_students": true,
             "eu_students": false
         },
-        "deadline": "",
+        "depends_on": [
+            ""
+        ],
         "official_links": [
             {
                 "label": "",
