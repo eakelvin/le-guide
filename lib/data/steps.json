@@ -3,11 +3,22 @@
         "id": "sim-card",
         "slug": "getting-a-sim-card",
         "title": "Getting a SIM Card",
-        "short_description": "Getting a SIM Card is a crucial step. It allows you to make and receive calls, send and receive texts, and access the internet.",
+        "short_description": "A French SIM card helps you access mobile data, calls, SMS, and important verification services after arriving in France.",
         "category": "arrival",
         "order_index": 0,
+        "estimated_time": "15-30 mins",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Within your first few days in France",
+        "why_this_matters": "You will need a French phone number for banking, deliveries, verification codes, and administrative services.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
         "requirements": [
-            "Valid passport"
+            {
+                "name": "Valid passport",
+                "required": true
+            }
         ],
         "common_options": [
             "Free Mobile",
@@ -25,18 +36,11 @@
             "Bring your passport when purchasing in-store",
             "Some providers may request proof of address"
         ],
-        "recommended_timing": "Within your first few days in France",
-        "why_this_matters": "You will need a French phone number for banking, deliveries, verification codes, and administrative services.",
-        "estimated_time": "15-30 mins",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
         "applies_to": {
             "non_eu_students": true,
             "eu_students": true,
             "all_students_in_france": true
         },
-        "deadline": "",
         "official_links": [
             {
                 "label": "",
@@ -51,10 +55,27 @@
         "short_description": "Opening an online bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
         "category": "first-days",
         "order_index": 1,
+        "estimated_time": "20-30 minutes online",
+        "difficulty": "easy",
+        "priority": "medium",
+        "is_required": false,
+        "recommended_timing": "Before paying for visa validation or receiving money",
+        "why_this_matters": "An online bank account allows you to pay visa-validation fees, receive money, and make transactions immediately while waiting for a traditional French bank account.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
         "requirements": [
-            "Valid passport",
-            "Valid visa",
-            "Valid proof of address"
+            {
+                "name": "Valid passport",
+                "required": true
+            },
+            {
+                "name": "Valid visa",
+                "required": true
+            },
+            {
+                "name": "Valid proof of address",
+                "required": true
+            }
         ],
         "common_options": [
             "Revolut",
@@ -67,21 +88,14 @@
             "Verify identity",
             "Receive IBAN"
         ],
-        "recommended_timing": "Before paying for visa validation or receiving money",
         "warnings": [
             "Make sure you have your documents ready before you start."
         ],
-        "why_this_matters": "An online bank account allows you to pay visa-validation fees, receive money, and make transactions immediately while waiting for a traditional French bank account.",
-        "estimated_time": "20-30 minutes online",
-        "difficulty": "easy",
-        "priority": "medium",
-        "is_required": false,
         "applies_to": {
             "non_eu_students": true,
             "eu_students": true,
             "all_students_in_france": true
         },
-        "deadline": "",
         "official_links": [
             {
                 "label": "Revolut",
@@ -97,13 +111,30 @@
         "id": "visa-validation",
         "slug": "validating-your-visa",
         "title": "Validating your visa",
-        "short_description": "Validating your visa is a crucial step for international students. It allows you to stay in France and study.",
-        "category": "settling",
+        "short_description": "Visa validation is required to activate your long-stay visa and legally stay in France as a student.",
+        "category": "first-days",
         "order_index": 2,
+        "estimated_time": "20-30 minutes online",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Within your first 3 months in France",
+        "why_this_matters": "Your visa may become invalid and you could lose legal residency status in France.",
+        "deadline": "3 months",
+        "last_verified_at": "2026-05-20",
         "requirements": [
-            "Valid passport",
-            "Valid visa",
-            "Proof of address"
+            {
+                "name": "Valid passport",
+                "required": true
+            },
+            {
+                "name": "Valid visa",
+                "required": true
+            },
+            {
+                "name": "Proof of address",
+                "required": true
+            }
         ],
         "common_options": [],
         "steps_summary": [
@@ -114,21 +145,14 @@
             "Pay the required fee if applicable",
             "Download your visa validation confirmation"
         ],
-        "recommended_timing": "within your first 3 months in France",
         "warnings": [
             "You must do this even if you already have a valid visa sticker.",
             "The online validation is a seperate legal requirememt."
         ],
-        "what_happens_if_you_dont_complete": "Your visa may become invalid and you could lose legal residency status in France.",
-        "estimated_time": "20-30 minutes online",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
         "applies_to": {
             "non_eu_students": true,
             "eu_students": false
         },
-        "deadline": "3 months",
         "official_links": [
             {
                 "label": "Digital administration for foreigners in France",
@@ -145,12 +169,25 @@
         "slug": "navigo-transport",
         "title": "Get a Navigo Transport Pass",
         "short_description": "It allows you to use public transport (metro, bus, RER) in the Île-de-France region, including Paris.",
-        "category": "transport",
+        "category": "arrival",
         "order_index": 3,
+        "estimated_time": "1-2 weeks",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "within your first month in France",
+        "why_this_matters": "Public transport is the main way to travel in Paris and Île-de-France. The Navigo pass gives you unlimited access to metro, bus, and RER at a fixed monthly cost, making daily life significantly easier and cheaper.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
         "requirements": [
-            "Valid passport",
-            "Valid visa",
-            "Proof of address"
+            {
+                "name": "Proof of identity (passport or ID card)",
+                "required": true
+            },
+            {
+                "name": "Proof of address in Île-de-France",
+                "required": true
+            }
         ],
         "common_options": [],
         "steps_summary": [
@@ -161,21 +198,14 @@
             "Receive or collect your Navigo card",
             "Activate and use it for transport"
         ],
-        "recommended_timing": "within your first month in France",
-        "why_this_matters": "Public transport is the main way to travel in Paris and Île-de-France. The Navigo pass gives you unlimited access to metro, bus, and RER at a fixed monthly cost, making daily life significantly easier and cheaper.",
         "warnings": [
             "You pay a fine of 120 if you are caught without a valid Navigo pass."
         ],
-        "estimated_time": "15-30 minutes online",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
         "applies_to": {
             "non_eu_students": true,
             "eu_students": true,
             "all_students_in_france": true
         },
-        "deadline": "",
         "official_links": [
             {
                 "label": "Île-de-France Mobilités",
@@ -188,7 +218,7 @@
         "slug": "finding-accommodation",
         "title": "Finding Accommodation in France",
         "short_description": "Find and secure accommodation before applying for housing aid (CAF).",
-        "category": "settling",
+        "category": "first-days",
         "order_index": 4,
         "estimated_time": "1-4 weeks",
         "difficulty": "medium",
@@ -196,10 +226,19 @@
         "is_required": true,
         "recommended_timing": "Immediately after arriving in France",
         "why_this_matters": "You need a valid accommodation contract before applying for CAF housing aid.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
         "requirements": [
-            "Valid passport",
-            "Visa or residence permit"
+            {
+                "name": "Valid passport",
+                "required": true
+            },
+            {
+                "name": "Visa or residence permit",
+                "required": true
+            }
         ],
+        "common_options": [],
         "steps_summary": [
             "Search for accommodation (CROUS, private rentals, shared flats)",
             "Visit or verify listings",
@@ -214,7 +253,6 @@
         "applies_to": {
             "all_students_in_france": true
         },
-        "deadline": "",
         "official_links": [
             {
                 "label": "",
@@ -235,11 +273,23 @@
         "is_required": false,
         "recommended_timing": "After signing your rental agreement",
         "why_this_matters": "CAF helps reduce your monthly rent by providing housing financial support.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
         "requirements": [
-            "Rental contract (proof of housing)",
-            "French bank account (RIB)",
-            "Valid visa or residence permit"
+            {
+                "name": "Rental contract (proof of housing)",
+                "required": true
+            },
+            {
+                "name": "French bank account (RIB)",
+                "required": true
+            },
+            {
+                "name": "Valid visa or residence permit",
+                "required": true
+            }
         ],
+        "common_options": [],
         "steps_summary": [
             "Go to the CAF website",
             "Create an account",
@@ -265,14 +315,31 @@
     {
         "id": "traditional-bank-account",
         "slug": "traditional-bank-account",
-        "title": "Traditional bank account",
-        "short_description": "Traditional bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
-        "category": "settling",
+        "title": "Opening a Traditional Bank Account",
+        "short_description": "Open a traditional French bank account to access long-term banking services, salary payments, and administrative processes.",
+        "category": "first-days",
         "order_index": 6,
+        "estimated_time": "2-3 weeks",
+        "difficulty": "medium",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "within your first 1-3 months",
+        "why_this_matters": "Traditional bank accounts are required for long-term financial stability, salary payments, rental contracts, and administrative procedures in France.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
         "requirements": [
-            "Valid passport",
-            "Valid visa or residence permit",
-            "Proof of address"
+            {
+                "name": "Valid passport",
+                "required": true
+            },
+            {
+                "name": "Valid visa or residence permit",
+                "required": true
+            },
+            {
+                "name": "Proof of address",
+                "required": true
+            }
         ],
         "common_options": [
             "Société Générale",
@@ -291,24 +358,17 @@
             "Wait for account approval (1–2 weeks)",
             "Receive bank details and card"
         ],
-        "recommended_timing": "within your first three months in France",
         "warnings": [
             "Make sure you have your documents ready before you start.",
             "Account approval may take several weeks",
             "Some banks require in-person appointments",
             "Fees may vary depending on student status"
         ],
-        "why_this_matters": "Traditional bank accounts are required for long-term financial stability, salary payments, rental contracts, and administrative procedures in France.",
-        "estimated_time": "2-3 weeks",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
         "applies_to": {
             "non_eu_students": true,
             "eu_students": true,
             "all_students_in_france": true
         },
-        "deadline": "",
         "official_links": [
             {
                 "label": "Société Générale",
@@ -343,11 +403,31 @@
         "short_description": "Register with the French health insurance system to access medical care and healthcare reimbursements while studying in France.",
         "category": "settling",
         "order_index": 7,
+        "estimated_time": "1-2 weeks",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Within your first 1–2 months in France",
+        "why_this_matters": "Health insurance is required to access medical care and receive reimbursements for healthcare expenses in France.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
         "requirements": [
-            "Valid passport",
-            "Visa or residence permit",
-            "Proof of address in France",
-            "Student enrollment certificate"
+            {
+                "name": "Valid passport",
+                "required": true
+            },
+            {
+                "name": "Visa or residence permit",
+                "required": true
+            },
+            {
+                "name": "Proof of address in France",
+                "required": true
+            },
+            {
+                "name": "Student enrollment certificate",
+                "required": true
+            }
         ],
         "common_options": [],
         "steps_summary": [
@@ -359,22 +439,15 @@
             "Receive your social security number",
             "Activate your health insurance account"
         ],
-        "recommended_timing": "Within your first 1–2 months in France",
         "warnings": [
             "Processing may take several weeks",
             "You may not receive immediate confirmation",
             "You must complete this even if you already have private insurance"
         ],
-        "why_this_matters": "Health insurance is required to access medical care and receive reimbursements for healthcare expenses in France.",
-        "estimated_time": "1-2 weeks",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
         "applies_to": {
             "non_eu_students": true,
             "eu_students": false
         },
-        "deadline": "",
         "official_links": [
             {
                 "label": "Ameli Official Website",
@@ -387,13 +460,33 @@
         "slug": "declaration-of-tax",
         "title": "French Tax Declaration",
         "short_description": "Declare your annual income to the French tax authorities, even if you have no income.",
-        "category": "settling",
+        "category": "long-term",
         "order_index": 8,
+        "estimated_time": "30–60 minutes",
+        "difficulty": "medium",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Between April and June each year (after your first year in France)",
+        "why_this_matters": "Tax declaration is a legal requirement in France, even for students with no income. It is used to calculate eligibility for housing aid and official documentation.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
         "requirements": [
-            "Valid passport or residence permit",
-            "French tax number (if already assigned)",
-            "Proof of income (if applicable)",
-            "Bank account details (optional)"
+            {
+                "name": "Valid passport or residence permit",
+                "required": true
+            },
+            {
+                "name": "French tax number (if already assigned)",
+                "required": false
+            },
+            {
+                "name": "Proof of income (if applicable)",
+                "required": false
+            },
+            {
+                "name": "Bank account details (optional)",
+                "required": false
+            }
         ],
         "common_options": [],
         "steps_summary": [
@@ -404,21 +497,14 @@
             "Submit your tax declaration",
             "Download your tax notice (avis d'imposition)"
         ],
-        "recommended_timing": "Between April and June each year (after your first year in France)",
-        "why_this_matters": "Tax declaration is a legal requirement in France, even for students with no income. It is used to calculate eligibility for housing aid and official documentation.",
         "warnings": [
             "Even if you have no income, you must still submit a declaration",
             "Missing the deadline may result in penalties or delays in benefits"
         ],
-        "estimated_time": "",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
         "applies_to": {
             "non_eu_students": true,
             "eu_students": false
         },
-        "deadline": "",
         "official_links": [
             {
                 "label": "French Tax Portal",
@@ -440,8 +526,12 @@
         "recommended_timing": "",
         "why_this_matters": "",
         "deadline": "",
+        "last_verified_at": "",
         "requirements": [
-            ""
+            {
+                "name": "",
+                "required": true
+            }
         ],
         "common_options": [],
         "steps_summary": [
