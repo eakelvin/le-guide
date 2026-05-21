@@ -13,7 +13,8 @@
         "recommended_timing": "Within your first few days in France",
         "why_this_matters": "You will need a French phone number for banking, deliveries, verification codes, and administrative services.",
         "deadline": "",
-        "last_verified_at": "2026-05-20",
+        "last_verified_at": "",
+        "status": "active",
         "depends_on": [],
         "requirements": [
             {
@@ -29,15 +30,21 @@
             "Bouygues Telecom"
         ],
         "steps_summary": [
-            "Get a SIM card from your provider",
-            "Activate the SIM card",
-            "Connect to the internet"
+            "Get a SIM card from your provider"
         ],
         "warnings": [
             "Bring your passport when purchasing in-store",
-            "Some providers may request proof of address"
+            "Some providers may request proof of address",
+            "Some providers require address registration",
+            "Prepaid SIMs may still require ID verification (EU regulation)"
         ],
-        "applies_to": {},
+        "applies_to": {
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
+        },
         "official_links": []
     },
     {
@@ -54,7 +61,8 @@
         "recommended_timing": "Immediately after arriving in France",
         "why_this_matters": "You need a valid accommodation contract before applying for CAF housing aid.",
         "deadline": "",
-        "last_verified_at": "2026-05-20",
+        "last_verified_at": "",
+        "status": "active",
         "depends_on": [],
         "requirements": [
             {
@@ -106,7 +114,8 @@
         "recommended_timing": "Before paying for visa validation or receiving money",
         "why_this_matters": "An online bank account allows you to pay visa-validation fees, receive money, and make transactions immediately while waiting for a traditional French bank account.",
         "deadline": "",
-        "last_verified_at": "2026-05-20",
+        "last_verified_at": "",
+        "status": "active",
         "depends_on": [],
         "requirements": [
             {
@@ -118,7 +127,7 @@
                 "required": true
             },
             {
-                "name": "Valid proof of address",
+                "name": "Address",
                 "required": true
             }
         ],
@@ -168,7 +177,8 @@
         "recommended_timing": "within your first month in France",
         "why_this_matters": "Public transport is the main way to travel in Paris and Île-de-France. The Navigo pass gives you unlimited access to metro, bus, and RER at a fixed monthly cost, making daily life significantly easier and cheaper.",
         "deadline": "",
-        "last_verified_at": "2026-05-20",
+        "last_verified_at": "",
+        "status": "active",
         "depends_on": [],
         "requirements": [
             {
@@ -190,7 +200,7 @@
             "Activate and use it for transport"
         ],
         "warnings": [
-            "You pay a fine of 120 if you are caught without a valid Navigo pass."
+            "You pay a fine typically range depending on situation if you are caught without a valid Navigo pass."
         ],
         "applies_to": {
             "student_groups": [
@@ -220,7 +230,8 @@
         "recommended_timing": "Within your first 3 months in France",
         "why_this_matters": "Your visa may become invalid and you could lose legal residency status in France.",
         "deadline": "3 months",
-        "last_verified_at": "2026-05-20",
+        "last_verified_at": "",
+        "status": "active",
         "depends_on": [],
         "requirements": [
             {
@@ -246,6 +257,7 @@
             "Download your visa validation confirmation"
         ],
         "warnings": [
+            "The fee is typically ~€50–€60 (varies slightly).",
             "You must do this even if you already have a valid visa sticker.",
             "The online validation is a seperate legal requirememt."
         ],
@@ -282,7 +294,8 @@
         "recommended_timing": "within your first 1-3 months",
         "why_this_matters": "Traditional bank accounts are required for long-term financial stability, salary payments, rental contracts, and administrative procedures in France.",
         "deadline": "",
-        "last_verified_at": "2026-05-20",
+        "last_verified_at": "",
+        "status": "active",
         "depends_on": [],
         "requirements": [
             {
@@ -358,7 +371,7 @@
     {
         "id": "student-social-security",
         "slug": "social-security",
-        "title": "Register for French Student Health Insurance",
+        "title": "Register for public health system",
         "short_description": "Register with the French health insurance system to access medical care and healthcare reimbursements while studying in France.",
         "category": "settling",
         "order_index": 7,
@@ -369,7 +382,8 @@
         "recommended_timing": "Within your first 1–2 months in France",
         "why_this_matters": "Health insurance is required to access medical care and receive reimbursements for healthcare expenses in France.",
         "deadline": "",
-        "last_verified_at": "2026-05-20",
+        "last_verified_at": "",
+        "status": "active",
         "depends_on": [
             "online-bank-account"
         ],
@@ -435,7 +449,8 @@
         "recommended_timing": "After signing your rental agreement",
         "why_this_matters": "CAF helps reduce your monthly rent by providing housing financial support.",
         "deadline": "",
-        "last_verified_at": "2026-05-20",
+        "last_verified_at": "",
+        "status": "active",
         "depends_on": [
             "find-housing",
             "online-bank-account"
@@ -464,8 +479,8 @@
             "Wait for approval"
         ],
         "warnings": [
-            "CAF processing can take several weeks",
-            "You must already have accommodation before applying"
+            "You need a valid accommodation contract before applying for CAF.",
+            "CAF processing can take several weeks"
         ],
         "applies_to": {
             "student_groups": [
@@ -495,7 +510,8 @@
         "recommended_timing": "Between April and June each year (after your first year in France)",
         "why_this_matters": "Tax declaration is a legal requirement in France, even for students with no income. It is used to calculate eligibility for housing aid and official documentation.",
         "deadline": "",
-        "last_verified_at": "2026-05-20",
+        "last_verified_at": "",
+        "status": "active",
         "depends_on": [],
         "requirements": [
             {
@@ -540,50 +556,6 @@
             {
                 "label": "French Tax Portal",
                 "url": "https://www.impots.gouv.fr"
-            }
-        ]
-    },
-    {
-        "id": "",
-        "slug": "",
-        "title": "",
-        "short_description": "",
-        "category": "settling",
-        "order_index": 9,
-        "estimated_time": "",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
-        "recommended_timing": "",
-        "why_this_matters": "",
-        "deadline": "",
-        "last_verified_at": "",
-        "depends_on": [],
-        "requirements": [
-            {
-                "name": "",
-                "required": true
-            }
-        ],
-        "common_options": [],
-        "steps_summary": [
-            ""
-        ],
-        "warnings": [
-            ""
-        ],
-        "applies_to": {
-            "student_groups": [
-                "non_eu_students"
-            ],
-            "visa_types": [
-                "long_stay"
-            ]
-        },
-        "official_links": [
-            {
-                "label": "",
-                "url": ""
             }
         ]
     }

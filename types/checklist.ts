@@ -1,5 +1,7 @@
 export type ChecklistDifficulty = "easy" | "medium" | "hard";
 export type ChecklistPriority = "low" | "medium" | "high";
+export type ChecklistCategory = "arrival" | "first-days" | "settling" | "long-term";
+export type ChecklistStatus = "active" | "draft" | "deprecated";
 
 export type StudentGroup = "eu_students" | "non_eu_students";
 export type VisaType = "long_stay" | "short_stay" | "none";
@@ -35,7 +37,7 @@ export interface ChecklistItemJson {
   slug: string;
   title: string;
   short_description: string;
-  category: string;
+  category: ChecklistCategory;
   order_index: number;
   estimated_time: string;
   difficulty: ChecklistDifficulty;
@@ -46,12 +48,13 @@ export interface ChecklistItemJson {
   what_happens_if_you_dont_complete?: string;
   deadline: string;
   last_verified_at: string;
+  status: ChecklistStatus;
+  depends_on: string[];
   requirements: ChecklistRequirementJson[];
   common_options: string[];
   steps_summary: string[];
   warnings: string[];
   applies_to: ChecklistItemAppliesToJson;
-  depends_on: string[];
   official_links: ChecklistOfficialLink[];
 }
 
@@ -61,7 +64,7 @@ export interface ChecklistItemRow {
   slug: string;
   title: string;
   short_description: string;
-  category: string;
+  category: ChecklistCategory;
   order_index: number;
   common_options: string[];
   recommended_timing: string | null;
@@ -73,6 +76,7 @@ export interface ChecklistItemRow {
   applies_to_visa_types: VisaType[];
   deadline: string | null;
   last_verified_at: string | null;
+  status: ChecklistStatus;
   why_this_matters: string | null;
   created_at?: string;
   updated_at?: string;
@@ -120,7 +124,7 @@ export interface ChecklistItem {
   slug: string;
   title: string;
   shortDescription: string;
-  category: string;
+  category: ChecklistCategory;
   orderIndex: number;
   estimatedTime: string | null;
   difficulty: ChecklistDifficulty;
@@ -130,12 +134,13 @@ export interface ChecklistItem {
   whyThisMatters: string | null;
   deadline: string | null;
   lastVerifiedAt: string | null;
+  status: ChecklistStatus;
+  dependsOn: string[];
   requirements: ChecklistRequirement[];
   commonOptions: string[];
   stepsSummary: string[];
   warnings: string[];
   appliesTo: ChecklistItemAppliesTo;
-  dependsOn: string[];
   officialLinks: ChecklistOfficialLink[];
 }
 

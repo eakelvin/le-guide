@@ -138,6 +138,8 @@ export interface ProgressState {
 export type {
   ChecklistDifficulty,
   ChecklistPriority,
+  ChecklistCategory,
+  ChecklistStatus,
   StudentGroup,
   VisaType,
   ChecklistOfficialLink,

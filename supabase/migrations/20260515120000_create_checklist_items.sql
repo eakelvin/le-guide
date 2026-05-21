@@ -2,13 +2,15 @@
 
 create type public.checklist_difficulty as enum ('easy', 'medium', 'hard');
 create type public.checklist_priority as enum ('low', 'medium', 'high');
+create type public.checklist_category as enum ('arrival', 'first-days', 'settling', 'long-term');
+create type public.checklist_status as enum ('active', 'draft', 'deprecated');
 
 create table public.checklist_items (
   id text primary key,
   slug text not null unique,
   title text not null,
   short_description text not null,
-  category text not null,
+  category public.checklist_category not null,
   estimated_time text,
   difficulty public.checklist_difficulty not null,
   priority public.checklist_priority not null,
@@ -19,6 +21,7 @@ create table public.checklist_items (
     check (applies_to_visa_types <@ array['long_stay', 'short_stay', 'none']),
   deadline text,
   last_verified_at date,
+  status public.checklist_status not null default 'draft',
   order_index int not null default 0,
   common_options text[] not null default '{}',
   recommended_timing text,
