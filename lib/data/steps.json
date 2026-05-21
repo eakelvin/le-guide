@@ -5,7 +5,7 @@
         "title": "Getting a SIM Card",
         "short_description": "A French SIM card helps you access mobile data, calls, SMS, and important verification services after arriving in France.",
         "category": "arrival",
-        "order_index": 0,
+        "order_index": 1,
         "estimated_time": "15-30 mins",
         "difficulty": "easy",
         "priority": "high",
@@ -14,6 +14,7 @@
         "why_this_matters": "You will need a French phone number for banking, deliveries, verification codes, and administrative services.",
         "deadline": "",
         "last_verified_at": "2026-05-20",
+        "depends_on": [],
         "requirements": [
             {
                 "name": "Valid passport",
@@ -36,10 +37,53 @@
             "Bring your passport when purchasing in-store",
             "Some providers may request proof of address"
         ],
+        "applies_to": {},
+        "official_links": []
+    },
+    {
+        "id": "find-housing",
+        "slug": "finding-accommodation",
+        "title": "Finding Accommodation in France",
+        "short_description": "Find and secure accommodation before applying for housing aid (CAF).",
+        "category": "first-days",
+        "order_index": 2,
+        "estimated_time": "1-4 weeks",
+        "difficulty": "medium",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Immediately after arriving in France",
+        "why_this_matters": "You need a valid accommodation contract before applying for CAF housing aid.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
+        "depends_on": [],
+        "requirements": [
+            {
+                "name": "Valid passport",
+                "required": true
+            },
+            {
+                "name": "Visa or residence permit",
+                "required": true
+            }
+        ],
+        "common_options": [],
+        "steps_summary": [
+            "Search for accommodation (CROUS, private rentals, shared flats)",
+            "Visit or verify listings",
+            "Sign rental agreement",
+            "Pay deposit",
+            "Receive proof of address"
+        ],
+        "warnings": [
+            "Beware of housing scams",
+            "Never send money before verifying listings"
+        ],
         "applies_to": {
-            "non_eu_students": true,
-            "eu_students": true,
-            "all_students_in_france": true
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
         },
         "official_links": [
             {
@@ -54,7 +98,7 @@
         "title": "Opening an online bank account",
         "short_description": "Opening an online bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
         "category": "first-days",
-        "order_index": 1,
+        "order_index": 3,
         "estimated_time": "20-30 minutes online",
         "difficulty": "easy",
         "priority": "medium",
@@ -63,6 +107,7 @@
         "why_this_matters": "An online bank account allows you to pay visa-validation fees, receive money, and make transactions immediately while waiting for a traditional French bank account.",
         "deadline": "",
         "last_verified_at": "2026-05-20",
+        "depends_on": [],
         "requirements": [
             {
                 "name": "Valid passport",
@@ -92,9 +137,11 @@
             "Make sure you have your documents ready before you start."
         ],
         "applies_to": {
-            "non_eu_students": true,
-            "eu_students": true,
-            "all_students_in_france": true
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
         },
         "official_links": [
             {
@@ -108,12 +155,64 @@
         ]
     },
     {
+        "id": "navigo",
+        "slug": "navigo-transport",
+        "title": "Get a Navigo Transport Pass",
+        "short_description": "It allows you to use public transport (metro, bus, RER) in the Île-de-France region, including Paris.",
+        "category": "arrival",
+        "order_index": 4,
+        "estimated_time": "1-2 weeks",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "within your first month in France",
+        "why_this_matters": "Public transport is the main way to travel in Paris and Île-de-France. The Navigo pass gives you unlimited access to metro, bus, and RER at a fixed monthly cost, making daily life significantly easier and cheaper.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
+        "depends_on": [],
+        "requirements": [
+            {
+                "name": "Proof of identity (passport or ID card)",
+                "required": true
+            },
+            {
+                "name": "Proof of address in Île-de-France",
+                "required": true
+            }
+        ],
+        "common_options": [],
+        "steps_summary": [
+            "Go to Île-de-France Mobilités website or metro station",
+            "Choose a Navigo pass type (weekly, monthly, student)",
+            "Upload required documents",
+            "Pay for your subscription",
+            "Receive or collect your Navigo card",
+            "Activate and use it for transport"
+        ],
+        "warnings": [
+            "You pay a fine of 120 if you are caught without a valid Navigo pass."
+        ],
+        "applies_to": {
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
+        },
+        "official_links": [
+            {
+                "label": "Île-de-France Mobilités",
+                "url": "https://www.iledefrance-mobilites.fr"
+            }
+        ]
+    },
+    {
         "id": "visa-validation",
         "slug": "validating-your-visa",
         "title": "Validating your visa",
         "short_description": "Visa validation is required to activate your long-stay visa and legally stay in France as a student.",
         "category": "first-days",
-        "order_index": 2,
+        "order_index": 5,
         "estimated_time": "20-30 minutes online",
         "difficulty": "easy",
         "priority": "high",
@@ -122,6 +221,7 @@
         "why_this_matters": "Your visa may become invalid and you could lose legal residency status in France.",
         "deadline": "3 months",
         "last_verified_at": "2026-05-20",
+        "depends_on": [],
         "requirements": [
             {
                 "name": "Valid passport",
@@ -150,8 +250,12 @@
             "The online validation is a seperate legal requirememt."
         ],
         "applies_to": {
-            "non_eu_students": true,
-            "eu_students": false
+            "student_groups": [
+                "non_eu_students"
+            ],
+            "visa_types": [
+                "long_stay"
+            ]
         },
         "official_links": [
             {
@@ -161,154 +265,6 @@
             {
                 "label": "Online validation of the Long Stay Visa equivalent to a Residence Permit",
                 "url": "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/vls-ts/demarches/etape/numero-visa"
-            }
-        ]
-    },
-    {
-        "id": "navigo",
-        "slug": "navigo-transport",
-        "title": "Get a Navigo Transport Pass",
-        "short_description": "It allows you to use public transport (metro, bus, RER) in the Île-de-France region, including Paris.",
-        "category": "arrival",
-        "order_index": 3,
-        "estimated_time": "1-2 weeks",
-        "difficulty": "easy",
-        "priority": "high",
-        "is_required": true,
-        "recommended_timing": "within your first month in France",
-        "why_this_matters": "Public transport is the main way to travel in Paris and Île-de-France. The Navigo pass gives you unlimited access to metro, bus, and RER at a fixed monthly cost, making daily life significantly easier and cheaper.",
-        "deadline": "",
-        "last_verified_at": "2026-05-20",
-        "requirements": [
-            {
-                "name": "Proof of identity (passport or ID card)",
-                "required": true
-            },
-            {
-                "name": "Proof of address in Île-de-France",
-                "required": true
-            }
-        ],
-        "common_options": [],
-        "steps_summary": [
-            "Go to Île-de-France Mobilités website or metro station",
-            "Choose a Navigo pass type (weekly, monthly, student)",
-            "Upload required documents",
-            "Pay for your subscription",
-            "Receive or collect your Navigo card",
-            "Activate and use it for transport"
-        ],
-        "warnings": [
-            "You pay a fine of 120 if you are caught without a valid Navigo pass."
-        ],
-        "applies_to": {
-            "non_eu_students": true,
-            "eu_students": true,
-            "all_students_in_france": true
-        },
-        "official_links": [
-            {
-                "label": "Île-de-France Mobilités",
-                "url": "https://www.iledefrance-mobilites.fr"
-            }
-        ]
-    },
-    {
-        "id": "find-housing",
-        "slug": "finding-accommodation",
-        "title": "Finding Accommodation in France",
-        "short_description": "Find and secure accommodation before applying for housing aid (CAF).",
-        "category": "first-days",
-        "order_index": 4,
-        "estimated_time": "1-4 weeks",
-        "difficulty": "medium",
-        "priority": "high",
-        "is_required": true,
-        "recommended_timing": "Immediately after arriving in France",
-        "why_this_matters": "You need a valid accommodation contract before applying for CAF housing aid.",
-        "deadline": "",
-        "last_verified_at": "2026-05-20",
-        "requirements": [
-            {
-                "name": "Valid passport",
-                "required": true
-            },
-            {
-                "name": "Visa or residence permit",
-                "required": true
-            }
-        ],
-        "common_options": [],
-        "steps_summary": [
-            "Search for accommodation (CROUS, private rentals, shared flats)",
-            "Visit or verify listings",
-            "Sign rental agreement",
-            "Pay deposit",
-            "Receive proof of address"
-        ],
-        "warnings": [
-            "Beware of housing scams",
-            "Never send money before verifying listings"
-        ],
-        "applies_to": {
-            "all_students_in_france": true
-        },
-        "official_links": [
-            {
-                "label": "",
-                "url": ""
-            }
-        ]
-    },
-    {
-        "id": "caf-application",
-        "slug": "apply-for-caf-housing-aid",
-        "title": "Apply for CAF Housing Aid (CAF)",
-        "short_description": "Apply for housing assistance from CAF after securing accommodation in France.",
-        "category": "settling",
-        "order_index": 5,
-        "estimated_time": "20-40 mins",
-        "difficulty": "medium",
-        "priority": "high",
-        "is_required": false,
-        "recommended_timing": "After signing your rental agreement",
-        "why_this_matters": "CAF helps reduce your monthly rent by providing housing financial support.",
-        "deadline": "",
-        "last_verified_at": "2026-05-20",
-        "requirements": [
-            {
-                "name": "Rental contract (proof of housing)",
-                "required": true
-            },
-            {
-                "name": "French bank account (RIB)",
-                "required": true
-            },
-            {
-                "name": "Valid visa or residence permit",
-                "required": true
-            }
-        ],
-        "common_options": [],
-        "steps_summary": [
-            "Go to the CAF website",
-            "Create an account",
-            "Enter personal and housing details",
-            "Upload required documents",
-            "Submit application",
-            "Wait for approval"
-        ],
-        "warnings": [
-            "CAF processing can take several weeks",
-            "You must already have accommodation before applying"
-        ],
-        "applies_to": {
-            "all_students_in_france": true
-        },
-        "official_links": [
-            {
-                "label": "CAF official website",
-                "url": "https://www.caf.fr"
             }
         ]
     },
@@ -327,6 +283,7 @@
         "why_this_matters": "Traditional bank accounts are required for long-term financial stability, salary payments, rental contracts, and administrative procedures in France.",
         "deadline": "",
         "last_verified_at": "2026-05-20",
+        "depends_on": [],
         "requirements": [
             {
                 "name": "Valid passport",
@@ -365,9 +322,11 @@
             "Fees may vary depending on student status"
         ],
         "applies_to": {
-            "non_eu_students": true,
-            "eu_students": true,
-            "all_students_in_france": true
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
         },
         "official_links": [
             {
@@ -411,6 +370,9 @@
         "why_this_matters": "Health insurance is required to access medical care and receive reimbursements for healthcare expenses in France.",
         "deadline": "",
         "last_verified_at": "2026-05-20",
+        "depends_on": [
+            "online-bank-account"
+        ],
         "requirements": [
             {
                 "name": "Valid passport",
@@ -445,8 +407,12 @@
             "You must complete this even if you already have private insurance"
         ],
         "applies_to": {
-            "non_eu_students": true,
-            "eu_students": false
+            "student_groups": [
+                "non_eu_students"
+            ],
+            "visa_types": [
+                "long_stay"
+            ]
         },
         "official_links": [
             {
@@ -456,12 +422,72 @@
         ]
     },
     {
+        "id": "caf-application",
+        "slug": "apply-for-caf-housing-aid",
+        "title": "Apply for CAF Housing Aid (CAF)",
+        "short_description": "Apply for housing assistance from CAF after securing accommodation in France.",
+        "category": "settling",
+        "order_index": 8,
+        "estimated_time": "20-40 mins",
+        "difficulty": "medium",
+        "priority": "high",
+        "is_required": false,
+        "recommended_timing": "After signing your rental agreement",
+        "why_this_matters": "CAF helps reduce your monthly rent by providing housing financial support.",
+        "deadline": "",
+        "last_verified_at": "2026-05-20",
+        "depends_on": [
+            "find-housing",
+            "online-bank-account"
+        ],
+        "requirements": [
+            {
+                "name": "Rental contract (proof of housing)",
+                "required": true
+            },
+            {
+                "name": "French bank account (RIB)",
+                "required": true
+            },
+            {
+                "name": "Valid visa or residence permit",
+                "required": true
+            }
+        ],
+        "common_options": [],
+        "steps_summary": [
+            "Go to the CAF website",
+            "Create an account",
+            "Enter personal and housing details",
+            "Upload required documents",
+            "Submit application",
+            "Wait for approval"
+        ],
+        "warnings": [
+            "CAF processing can take several weeks",
+            "You must already have accommodation before applying"
+        ],
+        "applies_to": {
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
+        },
+        "official_links": [
+            {
+                "label": "CAF official website",
+                "url": "https://www.caf.fr"
+            }
+        ]
+    },
+    {
         "id": "declaration-of-tax",
         "slug": "declaration-of-tax",
         "title": "French Tax Declaration",
         "short_description": "Declare your annual income to the French tax authorities, even if you have no income.",
         "category": "long-term",
-        "order_index": 8,
+        "order_index": 9,
         "estimated_time": "30–60 minutes",
         "difficulty": "medium",
         "priority": "high",
@@ -470,6 +496,7 @@
         "why_this_matters": "Tax declaration is a legal requirement in France, even for students with no income. It is used to calculate eligibility for housing aid and official documentation.",
         "deadline": "",
         "last_verified_at": "2026-05-20",
+        "depends_on": [],
         "requirements": [
             {
                 "name": "Valid passport or residence permit",
@@ -502,8 +529,12 @@
             "Missing the deadline may result in penalties or delays in benefits"
         ],
         "applies_to": {
-            "non_eu_students": true,
-            "eu_students": false
+            "student_groups": [
+                "non_eu_students"
+            ],
+            "visa_types": [
+                "long_stay"
+            ]
         },
         "official_links": [
             {
@@ -527,6 +558,7 @@
         "why_this_matters": "",
         "deadline": "",
         "last_verified_at": "",
+        "depends_on": [],
         "requirements": [
             {
                 "name": "",
@@ -541,12 +573,13 @@
             ""
         ],
         "applies_to": {
-            "non_eu_students": true,
-            "eu_students": false
+            "student_groups": [
+                "non_eu_students"
+            ],
+            "visa_types": [
+                "long_stay"
+            ]
         },
-        "depends_on": [
-            ""
-        ],
         "official_links": [
             {
                 "label": "",
