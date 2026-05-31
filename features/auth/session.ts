@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { AUTH_ROUTES } from "@/lib/auth-routes";
-import { getAppUser, type AppUser } from "@/lib/supabase/user";
+import { getAppUser, type AppUser } from "./user";
 
 async function redirectUnauthenticatedToLogin(): Promise<never> {
     const h = await headers();

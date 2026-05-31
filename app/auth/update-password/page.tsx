@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { UpdatePasswordForm } from "@/components/auth/UpdatePasswordForm";
 import { AUTH_ROUTES } from "@/lib/auth-routes";
-import { getAppUser } from "@/lib/supabase/user";
+import { getAppUser } from "@/features/auth/user";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

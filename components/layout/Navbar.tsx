@@ -1,4 +1,4 @@
-import type { AppUser } from "@/lib/supabase/user";
+import type { AppUser } from "@/features/auth/user";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";

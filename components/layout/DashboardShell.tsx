@@ -4,26 +4,31 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Sidebar } from "./Sidebar";
-import { getTotalProgress } from "@/lib/utils";
 import { PROCESSES } from "@/lib/data/processes";
+import { getChecklistTotalProgress } from "@/lib/helpers/checklist-helpers";
 import { useProgress, useProfile } from "@/lib/hooks";
 import { DashboardHome } from "../processes/DashboardHome";
 import { ProcessView } from "../processes/ProcessView";
-import type { AppUser } from "@/lib/supabase/user";
-import { isProfileMinimumComplete } from "@/lib/helpers";
+import { ChecklistItemView } from "../processes/ChecklistItemView";
+import type { AppUser } from "@/features/auth/user";
+import type { ChecklistItem } from "@/types";
+import { isProfileMinimumComplete } from "@/lib/helpers/helpers";
 import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
 
 export type ActiveView = "home" | string; // string = process id
 
-export function DashboardShell({
-    initialUser,
-    showSignedInToast = false,
-    showPasswordUpdatedToast = false,
-}: {
-    initialUser: AppUser | null;
-    showSignedInToast?: boolean;
-    showPasswordUpdatedToast?: boolean;
-}) {
+export function
+    DashboardShell({
+        initialUser,
+        initialChecklist,
+        showSignedInToast = false,
+        showPasswordUpdatedToast = false,
+    }: {
+        initialUser: AppUser | null;
+        initialChecklist: ChecklistItem[];
+        showSignedInToast?: boolean;
+        showPasswordUpdatedToast?: boolean;
+    }) {
     const router = useRouter();
     const signedInToasted = useRef(false);
     const passwordUpdatedToasted = useRef(false);
@@ -47,8 +52,15 @@ export function DashboardShell({
         router.replace("/dashboard", { scroll: false });
     }, [showPasswordUpdatedToast, router]);
 
-    const totalProgress = getTotalProgress(PROCESSES, progress);
+    const totalProgress = getChecklistTotalProgress(initialChecklist, progress);
     const activeProcess = PROCESSES.find((p) => p.id === activeView);
+    const activeChecklistItem = useMemo(
+        () =>
+            activeView === "home"
+                ? null
+                : initialChecklist.find((it) => it.slug === activeView || it.id === activeView) ?? null,
+        [activeView, initialChecklist],
+    );
     const greetingName = useMemo(() => {
         const n = user?.name?.trim();
         if (n) return n.split(/\s+/)[0] ?? n;
@@ -97,7 +109,7 @@ export function DashboardShell({
     return (
         <div className="flex min-h-screen bg-white">
             <Sidebar
-                processes={PROCESSES}
+                checklist={initialChecklist}
                 progress={progress}
                 activeView={activeView}
                 onNavigate={setActiveView}
@@ -106,15 +118,23 @@ export function DashboardShell({
                 showCompleteProfileCta={!isProfileMinimumComplete(profile)}
             />
             <main className="bg-canvas flex flex-1 min-h-0 min-w-0 flex-col overflow-y-auto">
-                {activeView === "home" || !activeProcess ? (
+                {activeView === "home" ? (
                     <DashboardHome
-                        processes={PROCESSES}
+                        checklist={initialChecklist}
                         progress={progress}
                         onNavigate={setActiveView}
                         name={greetingName}
                         showCompleteProfileBanner={!isProfileMinimumComplete(profile)}
                     />
-                ) : (
+                ) : activeChecklistItem ? (
+                    <ChecklistItemView
+                        item={activeChecklistItem}
+                        progress={progress}
+                        onMarkDone={markStepDone}
+                        onMarkUndone={markStepUndone}
+                        onBack={() => setActiveView("home")}
+                    />
+                ) : activeProcess ? (
                     <ProcessView
                         process={activeProcess}
                         progress={progress}
@@ -122,6 +142,14 @@ export function DashboardShell({
                         onMarkUndone={markStepUndone}
                         onToggleDoc={toggleDoc}
                         onBack={() => setActiveView("home")}
+                    />
+                ) : (
+                    <DashboardHome
+                        checklist={initialChecklist}
+                        progress={progress}
+                        onNavigate={setActiveView}
+                        name={greetingName}
+                        showCompleteProfileBanner={!isProfileMinimumComplete(profile)}
                     />
                 )}
             </main>

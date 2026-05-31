@@ -10,52 +10,34 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
-import { cn, COLOR_CONFIG, getProcessProgress } from "@/lib/utils";
-import type { Process, ProgressState } from "@/types";
-import { AlertTriangle } from "lucide-react";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn, COLOR_CONFIG } from "@/lib/utils";
+import {
+    getCategoryColorKey,
+    getChecklistItemProgress,
+    getChecklistItemStatus,
+    getUnmetDependencies,
+    isChecklistItemLocked,
+    type ChecklistItemStatus,
+} from "@/lib/helpers/checklist-helpers";
+import type { ChecklistItem, ProgressState } from "@/types";
+import { AlertTriangle, Lock } from "lucide-react";
 import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
+import { getChecklistIcon } from "@/lib/data/checklist-icons";
 
 interface Props {
-    processes: Process[];
+    checklist: ChecklistItem[];
     progress: ProgressState;
     onNavigate: (id: string) => void;
     name?: string | null;
     /** When false, hide the profile banner (profile already satisfies minimum fields). */
     showCompleteProfileBanner?: boolean;
 }
-
-const PROCESS_ICONS: Record<string, React.ReactNode> = {
-    visa: (
-        <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="3" y="4" width="14" height="12" rx="2" />
-            <path d="M3 8h14M7 12h2M11 12h2" />
-        </svg>
-    ),
-    housing: (
-        <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M3 10L10 3l7 7v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7z" />
-            <path d="M8 17v-6h4v6" />
-        </svg>
-    ),
-    health: (
-        <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M10 3v14M3 10h14" />
-        </svg>
-    ),
-    bank: (
-        <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="2" y="6" width="16" height="12" rx="2" />
-            <path d="M2 10h16M6 15h2" />
-        </svg>
-    ),
-    transport: (
-        <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M4 10h12M4 10a4 4 0 014-4h4a4 4 0 014 4v4H4v-4z" />
-            <circle cx="7" cy="15" r="1.5" />
-            <circle cx="13" cy="15" r="1.5" />
-        </svg>
-    ),
-};
 
 const TIMELINE = [
     { label: "Week 1–2", text: "OFII + Bank", chipClass: "bg-coral-50 text-coral-600" },
@@ -64,18 +46,11 @@ const TIMELINE = [
     { label: "Month 3", text: "Follow-ups", chipClass: "bg-sand-100 text-sand-600" },
 ];
 
-/** Card labels match the reference: sidebar can still show “Urgent” for visa. */
-function processStatus(_proc: Process, pct: number) {
-    if (pct === 100) return "Complete" as const;
-    if (pct > 0) return "In progress" as const;
-    return "Not started" as const;
-}
-
-function ProcessStatusBadge({
+function StatusBadge({
     status,
     colorBadge,
 }: {
-    status: ReturnType<typeof processStatus>;
+    status: ChecklistItemStatus;
     colorBadge: string;
 }) {
     if (status === "Complete") {
@@ -100,7 +75,7 @@ function ProcessStatusBadge({
 }
 
 export function DashboardHome({
-    processes,
+    checklist,
     progress,
     onNavigate,
     name,
@@ -122,13 +97,13 @@ export function DashboardHome({
                             <CardTitle className="font-heading font-normal text-3xl tracking-tight text-sand-800 sm:text-[2rem] leading-tight">
                                 Welcome back{name ? `, ${name}` : ""} 👋
                             </CardTitle>
-                            <CardDescription className="max-w-md text-sm leading-relaxed text-sand-600">
+                            <CardDescription className="text-sm leading-relaxed text-sand-600">
                                 You arrived in France [12] days ago. Here&apos;s what needs your attention this week.
                             </CardDescription>
                         </div>
-                        <Badge variant="outline" className="shrink-0 border-gold-200 bg-gold-50 font-medium text-gold-600">
+                        {/* <Badge variant="outline" className="shrink-0 border-gold-200 bg-gold-50 font-medium text-gold-600">
                             Month 1 of 12
-                        </Badge>
+                        </Badge> */}
                     </div>
                 </CardHeader>
             </div>
@@ -147,65 +122,112 @@ export function DashboardHome({
                 </Alert>
 
                 <section>
-                    <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-sand-400">Your Processes</h2>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                        {processes.map((proc) => {
-                            const { done, total, pct } = getProcessProgress(proc, progress);
-                            const colors = COLOR_CONFIG[proc.colorKey];
-                            const status = processStatus(proc, pct);
+                    <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-sand-400">Your Checklist</h2>
+                    {checklist.length === 0 ? (
+                        <p className="text-sm text-sand-500">
+                            No checklist items yet.
+                        </p>
+                    ) : (
+                        <TooltipProvider delayDuration={200}>
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                                {checklist.map((item) => {
+                                    const { done, total, pct } = getChecklistItemProgress(item, progress);
+                                    const colorKey = getCategoryColorKey(item.category);
+                                    const colors = COLOR_CONFIG[colorKey];
+                                    const status = getChecklistItemStatus(item, progress);
+                                    const locked = isChecklistItemLocked(item, checklist, progress);
+                                    const unmet = locked ? getUnmetDependencies(item, checklist, progress) : [];
 
-                            return (
-                                <Card
-                                    key={proc.id}
-                                    role="button"
-                                    tabIndex={0}
-                                    size="sm"
-                                    className={cn(
-                                        "cursor-pointer gap-5 py-5 shadow-xs ring-1 ring-border transition-[box-shadow,transform] hover:-translate-y-px hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                                    )}
-                                    onClick={() => onNavigate(proc.id)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter" || e.key === " ") {
-                                            e.preventDefault();
-                                            onNavigate(proc.id);
-                                        }
-                                    }}
-                                >
-                                    <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-2 space-y-0 px-6">
-                                        <div
+                                    const card = (
+                                        <Card
+                                            role="button"
+                                            tabIndex={locked ? -1 : 0}
+                                            aria-disabled={locked || undefined}
+                                            aria-label={`${item.title}${locked ? " (locked)" : ""}`}
+                                            size="sm"
                                             className={cn(
-                                                "flex size-10 items-center justify-center rounded-lg",
-                                                colors.light,
-                                                colors.text,
+                                                "gap-5 py-5 shadow-xs ring-1 ring-border transition-[box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                                                locked
+                                                    ? "cursor-not-allowed opacity-60"
+                                                    : "cursor-pointer hover:-translate-y-px hover:shadow-sm",
                                             )}
+                                            onClick={() => {
+                                                if (locked) return;
+                                                onNavigate(item.slug);
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (locked) return;
+                                                if (e.key === "Enter" || e.key === " ") {
+                                                    e.preventDefault();
+                                                    onNavigate(item.slug);
+                                                }
+                                            }}
                                         >
-                                            {PROCESS_ICONS[proc.id]}
-                                        </div>
-                                        <ProcessStatusBadge status={status} colorBadge={colors.badge} />
-                                    </CardHeader>
-                                    <CardContent className="space-y-3 px-6">
-                                        <div>
-                                            <p className="text-sm font-semibold leading-snug text-sand-800">{proc.title}</p>
-                                            <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-sand-500">{proc.subtitle}</p>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <div className="flex justify-between text-[11px] text-sand-400">
-                                                <span>
-                                                    {done} of {total} steps done
+                                            <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-2 space-y-0 px-6">
+                                                <div
+                                                    className={cn(
+                                                        "flex size-10 items-center justify-center rounded-lg",
+                                                        colors.light,
+                                                        colors.text,
+                                                    )}
+                                                >
+                                                    {getChecklistIcon(item.id)}
+                                                </div>
+                                                {locked ? (
+                                                    <Badge
+                                                        variant="outline"
+                                                        className="border-transparent bg-sand-100 font-medium text-sand-600"
+                                                    >
+                                                        <Lock className="mr-1 size-3" aria-hidden />
+                                                        Locked
+                                                    </Badge>
+                                                ) : (
+                                                    <StatusBadge status={status} colorBadge={colors.badge} />
+                                                )}
+                                            </CardHeader>
+                                            <CardContent className="space-y-3 px-6">
+                                                <div>
+                                                    <p className="text-sm font-semibold leading-snug text-sand-800">{item.title}</p>
+                                                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-sand-500">
+                                                        {item.shortDescription}
+                                                    </p>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <div className="flex justify-between text-[11px] text-sand-400">
+                                                        <span>
+                                                            {total > 0 ? `${done} of ${total} steps done` : "No sub-steps"}
+                                                        </span>
+                                                        <span className="font-medium text-sand-700">{pct}%</span>
+                                                    </div>
+                                                    <Progress
+                                                        value={pct}
+                                                        className="h-[3px] rounded-full bg-sand-100"
+                                                        indicatorClassName={cn(colors.progress)}
+                                                    />
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    );
+
+                                    if (!locked) {
+                                        return <div key={item.id}>{card}</div>;
+                                    }
+
+                                    return (
+                                        <Tooltip key={item.id}>
+                                            <TooltipTrigger asChild>{card}</TooltipTrigger>
+                                            <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+                                                Complete first:{" "}
+                                                <span className="font-medium">
+                                                    {unmet.map((u) => u.title).join(", ")}
                                                 </span>
-                                                <span className="font-medium text-sand-700">{pct}%</span>
-                                            </div>
-                                            <Progress
-                                                value={pct}
-                                                className="h-[3px] rounded-full bg-sand-100"
-                                                indicatorClassName={cn(colors.progress)}
-                                            />
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            );
-                        })}
-                    </div>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    );
+                                })}
+                            </div>
+                        </TooltipProvider>
+                    )}
                 </section>
 
                 <section>

@@ -7,7 +7,7 @@ export function Footer() {
         <footer className="bg-sand-800 py-12">
             <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-5 px-6 md:px-12">
                 <div className="font-heading text-[16px] font-normal text-white/75">
-                    Le<span className="text-forest-400">France</span>
+                    Le<span className="text-forest-400">Guide</span>
                 </div>
                 <div className="flex flex-wrap gap-6 text-[13px]">
                     <Link href="/guides" className="text-white/40 no-underline transition-colors hover:text-white/75">

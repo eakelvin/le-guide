@@ -1,5 +1,5 @@
 import { ProfilePage } from "@/components/layout/Profile/ProfilePage";
-import { requireAppUser } from "@/lib/auth/session";
+import { requireAppUser } from "@/features/auth/session";
 import { getMyProfileAction } from "@/features/profile/actions";
 import type { Metadata } from "next";
 

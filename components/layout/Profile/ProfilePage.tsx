@@ -18,7 +18,7 @@ import { useProfile } from "@/lib/hooks";
 import type { ProfilePageProps, ProfileFieldKey, ProfileSectionProps, UserProfile } from "@/types";
 import { STUDENT_TYPE_OPTIONS } from "@/types";
 import { UpdatePasswordForm } from "@/components/auth/UpdatePasswordForm";
-import { getCompletionBySection, getCompletionPct, getInitials } from "@/lib/helpers";
+import { getCompletionBySection, getCompletionPct, getInitials } from "@/lib/helpers/helpers";
 import { SectionPersonal, SectionAcademic, SectionStay, SaveToast, ProfilePasswordToast } from "./SubComponents";
 
 /* ─── Constants ────────────────────────────────────────────────────── */

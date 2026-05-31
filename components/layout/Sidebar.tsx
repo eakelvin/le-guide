@@ -3,23 +3,31 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { DEADLINES } from "@/lib/data/processes";
-import { cn, COLOR_CONFIG, getProcessProgress } from "@/lib/utils";
-import type { Process, ProgressState } from "@/types";
+import { cn, COLOR_CONFIG } from "@/lib/utils";
+import {
+    getCategoryColorKey,
+    getChecklistItemProgress,
+} from "@/lib/helpers/checklist-helpers";
+import { getChecklistIcon } from "@/lib/data/checklist-icons";
+import { SIDEBAR_ITEM_IDS } from "@/lib/data/sidebar-items";
+import type { ChecklistItem, ProgressState } from "@/types";
 import Link from "next/link";
+import { useMemo } from "react";
 import { BookOpen, Home } from "lucide-react";
 import { UserMenu } from "@/components/layout/UserMenu";
 
-const ACTIVE_NAV_BORDER: Record<Process["colorKey"], string> = {
+type SidebarColorKey = "coral" | "azure" | "forest" | "gold";
+
+const ACTIVE_NAV_BORDER: Record<SidebarColorKey, string> = {
     coral: "border-l-coral-600",
-    forest: "border-l-forest-600",
     azure: "border-l-azure-600",
-    violet: "border-l-violet-600",
+    forest: "border-l-forest-600",
     gold: "border-l-gold-600",
 };
 
 interface SidebarProps {
-    processes: Process[];
+    /** Full active checklist; the sidebar slices to SIDEBAR_ITEM_IDS internally. */
+    checklist: ChecklistItem[];
     progress: ProgressState;
     activeView: string;
     onNavigate: (view: string) => void;
@@ -29,41 +37,8 @@ interface SidebarProps {
     showCompleteProfileCta?: boolean;
 }
 
-const PROCESS_ICONS: Record<string, React.ReactNode> = {
-    visa: (
-        <svg className="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="3" y="4" width="14" height="12" rx="2" />
-            <path d="M3 8h14M7 12h2M11 12h2" />
-        </svg>
-    ),
-    housing: (
-        <svg className="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M3 10L10 3l7 7v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7z" />
-            <path d="M8 17v-6h4v6" />
-        </svg>
-    ),
-    health: (
-        <svg className="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M10 3v14M3 10h14" />
-        </svg>
-    ),
-    bank: (
-        <svg className="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="2" y="6" width="16" height="12" rx="2" />
-            <path d="M2 10h16M6 15h2" />
-        </svg>
-    ),
-    transport: (
-        <svg className="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M4 10h12M4 10a4 4 0 014-4h4a4 4 0 014 4v4H4v-4z" />
-            <circle cx="7" cy="15" r="1.5" />
-            <circle cx="13" cy="15" r="1.5" />
-        </svg>
-    ),
-};
-
-function StatusBadge({ pct, processId }: { pct: number; processId: string }) {
-    if (processId === "visa" && pct < 100) {
+function StatusBadge({ pct, itemId }: { pct: number; itemId: string }) {
+    if (itemId === "visa-validation" && pct < 100) {
         return (
             <Badge variant="outline" className="ml-auto shrink-0 text-[10px] border-transparent bg-coral-50 px-2 py-0.5 font-medium text-coral-600">
                 Urgent
@@ -92,7 +67,7 @@ function StatusBadge({ pct, processId }: { pct: number; processId: string }) {
 }
 
 export function Sidebar({
-    processes,
+    checklist,
     progress,
     activeView,
     onNavigate,
@@ -107,6 +82,14 @@ export function Sidebar({
             .slice(0, 2)
             .map((p) => p[0]?.toUpperCase())
             .join("") || "U";
+
+    // Resolve the 5 sidebar items in the configured order, dropping unknowns.
+    const sidebarItems = useMemo(() => {
+        const byId = new Map(checklist.map((it) => [it.id, it]));
+        return SIDEBAR_ITEM_IDS
+            .map((id) => byId.get(id))
+            .filter((it): it is ChecklistItem => it !== undefined);
+    }, [checklist]);
 
     return (
         <aside className="flex h-screen w-64 min-w-[256px] flex-col overflow-y-auto border-r border-border bg-white text-foreground sticky top-0">
@@ -180,28 +163,29 @@ export function Sidebar({
                     Administrative Steps
                 </p>
                 <div className="flex flex-col gap-0.5 px-2 pb-4">
-                    {processes.map((proc) => {
-                        const { pct } = getProcessProgress(proc, progress);
-                        const isActive = activeView === proc.id;
-                        const colors = COLOR_CONFIG[proc.colorKey];
+                    {sidebarItems.map((item) => {
+                        const { pct } = getChecklistItemProgress(item, progress);
+                        const isActive = activeView === item.slug;
+                        const colorKey = getCategoryColorKey(item.category);
+                        const colors = COLOR_CONFIG[colorKey];
 
                         return (
                             <Button
-                                key={proc.id}
+                                key={item.id}
                                 variant="ghost"
                                 className={cn(
                                     "relative h-auto w-full justify-start gap-2.5 border-l-4 px-4 py-2.5 text-left text-[13px] font-normal hover:bg-accent rounded-md shadow-none border-y-0 border-r-0",
                                     isActive
-                                        ? cn(ACTIVE_NAV_BORDER[proc.colorKey], colors.light, colors.text, "font-medium")
+                                        ? cn(ACTIVE_NAV_BORDER[colorKey], colors.light, colors.text, "font-medium")
                                         : "border-l-transparent text-sand-600 hover:text-sand-800",
                                 )}
-                                onClick={() => onNavigate(proc.id)}
+                                onClick={() => onNavigate(item.slug)}
                             >
                                 <span className={cn("shrink-0", isActive ? colors.text : "text-muted-foreground")}>
-                                    {PROCESS_ICONS[proc.id]}
+                                    {getChecklistIcon(item.id, "w-4 h-4")}
                                 </span>
-                                <span className="truncate">{proc.title}</span>
-                                <StatusBadge pct={pct} processId={proc.id} />
+                                <span className="truncate">{item.title}</span>
+                                <StatusBadge pct={pct} itemId={item.id} />
                             </Button>
                         );
                     })}
@@ -222,27 +206,6 @@ export function Sidebar({
                         My Profile
                     </Link>
                 </div>
-
-                {/* <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-sand-400">Deadlines</p>
-                <ul className="space-y-2">
-                    {DEADLINES.map((d) => (
-                        <li key={d.label} className="flex items-center justify-between gap-2">
-                            <div className="text-foreground flex min-w-0 items-center gap-2 text-[12px]">
-                                <span
-                                    className={cn(
-                                        "size-1.5 shrink-0 rounded-full",
-                                        d.variant === "urgent" ? "bg-coral-500" : d.variant === "warn" ? "bg-gold-400" : "bg-sand-400",
-                                    )}
-                                />
-                                <span className="truncate">{d.label}</span>
-                            </div>
-                            <span className="text-muted-foreground shrink-0 text-[11px] tabular-nums">
-                                {d.daysLeft < 7 ? `${d.daysLeft} days` : `${Math.ceil(d.daysLeft / 7)}w`}
-                            </span>
-                        </li>
-                    ))}
-                </ul> */}
-
             </div>
         </aside>
     );

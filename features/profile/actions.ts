@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
-import { fetchProfileForUser, upsertProfileForUser } from "@/lib/supabase/profile";
+import { fetchProfileForUser, upsertProfileForUser } from "./queries";
 import type { ProfileUpsertResult, UserProfile } from "@/types";
 import { DEFAULT_PROFILE } from "@/types";
 

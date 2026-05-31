@@ -48,4 +48,3 @@ export const getAppUser = cache(async function getAppUser(): Promise<AppUser | n
     hasEmailPasswordIdentity,
   };
 });
-

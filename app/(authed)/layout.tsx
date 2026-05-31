@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { ensureAuthenticated } from "@/lib/auth/session";
+import { ensureAuthenticated } from "@/features/auth/session";
 
 /**
  * Shared guard for authenticated routes.

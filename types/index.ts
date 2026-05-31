@@ -1,4 +1,4 @@
-import type { AppUser } from "@/lib/supabase/user";
+import type { AppUser } from "@/features/auth/user";
 
 export type TagVariant = "time" | "cost" | "docs" | "urgent";
 export type TipVariant = "tip" | "warn" | "urgent";
