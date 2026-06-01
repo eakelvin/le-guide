@@ -17,7 +17,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "LeGuide — Student Admin Guide",
   description:
-    "Step-by-step guide for international students navigating French administrative processes.",
+    // "Step-by-step guide for international students navigating French administrative processes.",
+    "A step-by-step survival guide that helps international students navigate life and bureaucracy in France.",
 };
 
 export default function RootLayout({

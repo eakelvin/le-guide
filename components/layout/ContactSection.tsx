@@ -66,13 +66,13 @@ export function ContactSection() {
             Whether you&apos;re stuck on OFII, CAF, or just planning your arrival — send us a message and
             we&apos;ll get back to you as soon as we can.
           </p>
-          <a
+          {/* <a
             href="mailto:hello@leguide.com"
             className="inline-flex items-center gap-2 text-[15px] font-medium text-forest-900 no-underline transition-colors hover:text-forest-700"
           >
             <Mail className="size-4" aria-hidden />
-            hello@leguide.com
-          </a>
+            hello(@)leguide.com
+          </a> */}
         </div>
 
         <div className="rounded-xl border border-sand-200 bg-card p-6 shadow-xs md:p-8">

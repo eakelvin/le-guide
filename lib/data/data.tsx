@@ -59,7 +59,7 @@ export const FAQS = [
     },
     {
         q: "Is LeGuide free to use?",
-        a: "Yes, completely free. LeGuide is a student-built guide with no fees, no subscription, and no ads. Progress is saved locally in your browser — no account required to get started.",
+        a: "Yes, completely free. LeGuide is a student-built guide with no fees, no subscription, and no ads.",
     },
     {
         q: "I'm over 28 — does the healthcare guide still apply to me?",

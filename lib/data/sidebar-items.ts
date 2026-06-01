@@ -8,7 +8,7 @@
 export const SIDEBAR_ITEM_IDS = [
     "visa-validation",
     "find-housing",
-    "online-bank-account",
+    "traditional-bank-account",
     "student-social-security",
     "navigo",
 ] as const;

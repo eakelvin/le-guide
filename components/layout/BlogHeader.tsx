@@ -27,7 +27,7 @@ export function BlogHeader() {
             className="font-heading truncate text-lg font-normal tracking-tight text-sand-800 no-underline md:text-[18px]"
           >
             Le<span className="text-forest-900">Guide</span>
-            <span className="font-sans text-sm font-normal text-sand-500"> · Guides</span>
+            {/* <span className="font-sans text-sm font-normal text-sand-500"> · Guides</span> */}
           </Link>
         </div>
         <Button size="sm" className="shrink-0 rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
