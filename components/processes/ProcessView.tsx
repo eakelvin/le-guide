@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,7 +13,6 @@ import {
   getProcessProgress,
   isStepActive,
   isStepDone,
-  getDocKey,
 } from "@/lib/utils";
 import type { Process, ProgressState, Step } from "@/types";
 import { ChevronLeft, ExternalLink } from "lucide-react";
@@ -22,7 +22,6 @@ interface ProcessViewProps {
   progress: ProgressState;
   onMarkDone: (processId: string, stepId: string) => void;
   onMarkUndone: (processId: string, stepId: string) => void;
-  onToggleDoc: (processId: string, stepId: string, index: number) => void;
   onBack: () => void;
 }
 
@@ -33,7 +32,6 @@ interface StepCardProps {
   progress: ProgressState;
   onMarkDone: (processId: string, stepId: string) => void;
   onMarkUndone: (processId: string, stepId: string) => void;
-  onToggleDoc: (processId: string, stepId: string, index: number) => void;
 }
 
 function getColor(colorKey: string) {
@@ -54,12 +52,18 @@ function StepCard({
   progress,
   onMarkDone,
   onMarkUndone,
-  onToggleDoc,
 }: StepCardProps) {
   const done = isStepDone(process, step.id, progress);
   const active = isStepActive(process, index, progress);
   const colors = COLOR_CONFIG[process.colorKey];
   const isLast = index === process.steps.length - 1;
+  // Session-only doc checkboxes (not persisted anywhere).
+  const docCount = step.documents?.length ?? 0;
+  const [docChecked, setDocChecked] = useState<boolean[]>(() =>
+    Array.from({ length: docCount }, () => false),
+  );
+  const toggleDoc = (i: number) =>
+    setDocChecked((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
 
   return (
     <div className="flex gap-0">
@@ -133,8 +137,7 @@ function StepCard({
               </p>
               <div className="flex flex-col gap-2">
                 {step.documents.map((doc, i) => {
-                  const key = getDocKey(process.id, step.id, i);
-                  const checked = progress.checkedDocs[key] === true;
+                  const checked = docChecked[i] === true;
                   return (
                     <label
                       key={i}
@@ -154,7 +157,7 @@ function StepCard({
                               }
                             : undefined
                         }
-                        onCheckedChange={() => onToggleDoc(process.id, step.id, i)}
+                        onCheckedChange={() => toggleDoc(i)}
                       />
                       <span
                         className={cn(
@@ -235,7 +238,6 @@ export function ProcessView({
   progress,
   onMarkDone,
   onMarkUndone,
-  onToggleDoc,
   onBack,
 }: ProcessViewProps) {
   const { done, total, pct } = getProcessProgress(process, progress);
@@ -301,7 +303,6 @@ export function ProcessView({
               progress={progress}
               onMarkDone={onMarkDone}
               onMarkUndone={onMarkUndone}
-              onToggleDoc={onToggleDoc}
             />
           ))}
         </div>

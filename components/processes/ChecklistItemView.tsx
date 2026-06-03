@@ -1,40 +1,47 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
-import { cn, COLOR_CONFIG, getDocKey } from "@/lib/utils";
+import { cn, COLOR_CONFIG } from "@/lib/utils";
 import {
     getCategoryColorKey,
     getChecklistItemProgress,
+    isChecklistItemDone,
     isChecklistStepDone,
 } from "@/lib/helpers/checklist-helpers";
 import { getChecklistIcon } from "@/lib/data/checklist-icons";
 import type { ChecklistItem, ProgressState } from "@/types";
 import { AlertTriangle, ChevronLeft, Clock, Info } from "lucide-react";
 
-/** Sentinel "step id" used when storing doc-checkbox state for item-level requirements. */
-const REQUIREMENTS_DOC_KEY = "requirements";
-
 interface ChecklistItemViewProps {
     item: ChecklistItem;
     progress: ProgressState;
     onMarkDone: (itemId: string, stepKey: string) => void;
     onMarkUndone: (itemId: string, stepKey: string) => void;
-    /** Toggles a single document/requirement checkbox. Wired through `useProgress.toggleDoc`. */
-    onToggleDoc: (itemId: string, stepKey: string, index: number) => void;
+    /** Marks the entire item complete (independent of sub-step ticks). */
+    onMarkItemDone: (itemId: string) => void;
+    onMarkItemUndone: (itemId: string) => void;
     onBack: () => void;
 }
 
-interface RequirementsSectionProps {
-    item: ChecklistItem;
-    progress: ProgressState;
-    onToggleDoc: (itemId: string, stepKey: string, index: number) => void;
-}
+/**
+ * Document checkboxes are intentionally NOT persisted (no DB, no localStorage).
+ * They are session-only working notes — resetting on navigation is the desired
+ * behaviour. If a student wants to track which docs they've gathered for the
+ * long term, the per-item completion (final button) is the source of truth.
+ */
+function RequirementsSection({ item }: { item: ChecklistItem }) {
+    const [checked, setChecked] = useState<boolean[]>(() =>
+        item.requirements.map(() => false),
+    );
 
-function RequirementsSection({ item, progress, onToggleDoc }: RequirementsSectionProps) {
     if (item.requirements.length === 0) return null;
     const colorKey = getCategoryColorKey(item.category);
+
+    const toggle = (i: number) =>
+        setChecked((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
 
     return (
         <section className="mb-8">
@@ -44,33 +51,32 @@ function RequirementsSection({ item, progress, onToggleDoc }: RequirementsSectio
             <div className="rounded-lg border border-border bg-card p-4">
                 <div className="flex flex-col gap-2.5">
                     {item.requirements.map((req, i) => {
-                        const key = getDocKey(item.id, REQUIREMENTS_DOC_KEY, i);
-                        const checked = progress.checkedDocs[key] === true;
+                        const isChecked = checked[i] === true;
                         return (
                             <label
                                 key={i}
                                 className={cn(
                                     "flex cursor-pointer items-start gap-2.5 text-left hover:opacity-90",
-                                    checked && "text-muted-foreground",
+                                    isChecked && "text-muted-foreground",
                                 )}
                             >
                                 <Checkbox
-                                    checked={checked}
+                                    checked={isChecked}
                                     className="mt-0.5 shrink-0 data-[state=checked]:text-primary-foreground"
                                     style={
-                                        checked
+                                        isChecked
                                             ? {
                                                 borderColor: getColor(colorKey),
                                                 backgroundColor: getColor(colorKey),
                                             }
                                             : undefined
                                     }
-                                    onCheckedChange={() => onToggleDoc(item.id, REQUIREMENTS_DOC_KEY, i)}
+                                    onCheckedChange={() => toggle(i)}
                                 />
                                 <span
                                     className={cn(
                                         "flex-1 text-[13px] leading-relaxed",
-                                        checked ? "text-muted-foreground line-through" : "text-foreground",
+                                        isChecked ? "text-muted-foreground line-through" : "text-foreground",
                                     )}
                                 >
                                     {req.name}
@@ -247,20 +253,14 @@ export function ChecklistItemView({
     progress,
     onMarkDone,
     onMarkUndone,
-    onToggleDoc,
+    onMarkItemDone,
+    onMarkItemUndone,
     onBack,
 }: ChecklistItemViewProps) {
     const { done, total, pct } = getChecklistItemProgress(item, progress);
     const colorKey = getCategoryColorKey(item.category);
     const colors = COLOR_CONFIG[colorKey];
-    const allDone = total > 0 && done === total;
-
-    const markAllDone = () => {
-        item.stepsSummary.forEach((_, i) => onMarkDone(item.id, String(i)));
-    };
-    const markAllUndone = () => {
-        item.stepsSummary.forEach((_, i) => onMarkUndone(item.id, String(i)));
-    };
+    const itemDone = isChecklistItemDone(item, progress);
 
     return (
         <div className="animate-fade-up">
@@ -297,17 +297,26 @@ export function ChecklistItemView({
                         </div>
 
                         <div className="shrink-0 text-right">
-                            <p className={cn("text-2xl font-semibold tabular-nums", colors.text)}>{pct}%</p>
-                            <p className="text-xs text-sand-400">
-                                {done} of {total} done
-                            </p>
+                            {itemDone ? (
+                                <>
+                                    <p className="text-base font-semibold text-forest-700">Complete</p>
+                                    <p className="text-xs text-sand-400">Marked as done</p>
+                                </>
+                            ) : (
+                                <>
+                                    <p className={cn("text-2xl font-semibold tabular-nums", colors.text)}>{pct}%</p>
+                                    <p className="text-xs text-sand-400">
+                                        {done} of {total} done
+                                    </p>
+                                </>
+                            )}
                         </div>
                     </div>
 
                     <Progress
-                        value={pct}
+                        value={itemDone ? 100 : pct}
                         className="h-[5px] max-w-full overflow-hidden rounded-full bg-sand-100"
-                        indicatorClassName={cn(colors.progress)}
+                        indicatorClassName={cn(itemDone ? "bg-forest-500" : colors.progress)}
                     />
                 </div>
             </div>
@@ -316,49 +325,41 @@ export function ChecklistItemView({
                 <div className="max-w-2xl">
                     <WhyThisMattersSection text={item.whyThisMatters} />
                     <WarningsSection warnings={item.warnings} />
-                    <RequirementsSection
-                        item={item}
-                        progress={progress}
-                        onToggleDoc={onToggleDoc}
-                    />
+                    <RequirementsSection item={item} />
                     <CommonOptionsSection options={item.commonOptions} />
-                    {item.stepsSummary.length === 0 ? (
-                        <p className="text-sm text-sand-500">No sub-steps yet for this item.</p>
-                    ) : (
-                        <>
-                            {item.stepsSummary.map((summary, i) => (
-                                <StepCard
-                                    key={i}
-                                    item={item}
-                                    summary={summary}
-                                    index={i}
-                                    progress={progress}
-                                    onMarkDone={onMarkDone}
-                                    onMarkUndone={onMarkUndone}
-                                />
-                            ))}
-                            <div className="mt-4">
-                                {allDone ? (
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={markAllUndone}
-                                    >
-                                        Mark all as not done
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        size="sm"
-                                        className="text-white shadow-none"
-                                        style={{ backgroundColor: getColor(colorKey) }}
-                                        onClick={markAllDone}
-                                    >
-                                        Mark all as done
-                                    </Button>
-                                )}
-                            </div>
-                        </>
-                    )}
+                    {item.stepsSummary.length > 0 &&
+                        item.stepsSummary.map((summary, i) => (
+                            <StepCard
+                                key={i}
+                                item={item}
+                                summary={summary}
+                                index={i}
+                                progress={progress}
+                                onMarkDone={onMarkDone}
+                                onMarkUndone={onMarkUndone}
+                            />
+                        ))}
+
+                    <div className="mt-2">
+                        {itemDone ? (
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => onMarkItemUndone(item.id)}
+                            >
+                                Mark as not done
+                            </Button>
+                        ) : (
+                            <Button
+                                size="sm"
+                                className="text-white shadow-none"
+                                style={{ backgroundColor: getColor(colorKey) }}
+                                onClick={() => onMarkItemDone(item.id)}
+                            >
+                                Mark as done
+                            </Button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,56 +1,106 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import type { ProgressState, UserProfile } from "@/types";
+import toast from "react-hot-toast";
+import type { DbProgress, ProgressState, UserProfile } from "@/types";
 import { DEFAULT_PROFILE } from "@/types";
-import { getStepKey, getDocKey } from "./utils";
+import { getStepKey } from "./utils";
 import { getMyProfileAction, saveMyProfileAction } from "@/features/profile/actions";
+import {
+  markStepDoneAction,
+  markStepUndoneAction,
+  markItemDoneAction,
+  markItemUndoneAction,
+} from "@/features/progress/actions";
 
 /* ─── Progress ───────────────────────────────────────────────────── */
-const PROGRESS_KEY = "arrive-france-progress";
 
-function loadProgress(): ProgressState {
-  if (typeof window === "undefined") return { completedSteps: {}, checkedDocs: {} };
-  try {
-    const raw = localStorage.getItem(PROGRESS_KEY);
-    return raw ? JSON.parse(raw) : { completedSteps: {}, checkedDocs: {} };
-  } catch {
-    return { completedSteps: {}, checkedDocs: {} };
-  }
+/** Sub-step keys are stringified non-negative integers; anything else is rejected by the server action. */
+function parseSubStepIndex(stepKey: string): number | null {
+  if (!/^\d+$/.test(stepKey)) return null;
+  const n = Number(stepKey);
+  return Number.isInteger(n) && n >= 0 ? n : null;
 }
 
-function saveProgress(state: ProgressState) {
-  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(state)); } catch {}
-}
+export function useProgress(initialProgress?: Partial<DbProgress>) {
+  const [progress, setProgress] = useState<ProgressState>(() => ({
+    completedSteps: { ...(initialProgress?.completedSteps ?? {}) },
+    completedItems: { ...(initialProgress?.completedItems ?? {}) },
+  }));
 
-export function useProgress() {
-  const [progress, setProgress] = useState<ProgressState>({ completedSteps: {}, checkedDocs: {} });
-
-  useEffect(() => { setProgress(loadProgress()); }, []);
-
-  const markStepDone = useCallback((processId: string, stepId: string) => {
-    setProgress((prev) => {
-      const next = { ...prev, completedSteps: { ...prev.completedSteps, [getStepKey(processId, stepId)]: true } };
-      saveProgress(next); return next;
-    });
+  const markStepDone = useCallback(async (itemId: string, stepKey: string) => {
+    const k = getStepKey(itemId, stepKey);
+    setProgress((prev) => ({
+      ...prev,
+      completedSteps: { ...prev.completedSteps, [k]: true },
+    }));
+    const idx = parseSubStepIndex(stepKey);
+    if (idx === null) return;
+    const { error } = await markStepDoneAction(itemId, idx);
+    if (error) {
+      setProgress((prev) => ({
+        ...prev,
+        completedSteps: { ...prev.completedSteps, [k]: false },
+      }));
+      toast.error("Couldn't save your progress.");
+    }
   }, []);
 
-  const markStepUndone = useCallback((processId: string, stepId: string) => {
-    setProgress((prev) => {
-      const next = { ...prev, completedSteps: { ...prev.completedSteps, [getStepKey(processId, stepId)]: false } };
-      saveProgress(next); return next;
-    });
+  const markStepUndone = useCallback(async (itemId: string, stepKey: string) => {
+    const k = getStepKey(itemId, stepKey);
+    setProgress((prev) => ({
+      ...prev,
+      completedSteps: { ...prev.completedSteps, [k]: false },
+    }));
+    const idx = parseSubStepIndex(stepKey);
+    if (idx === null) return;
+    const { error } = await markStepUndoneAction(itemId, idx);
+    if (error) {
+      setProgress((prev) => ({
+        ...prev,
+        completedSteps: { ...prev.completedSteps, [k]: true },
+      }));
+      toast.error("Couldn't save your progress.");
+    }
   }, []);
 
-  const toggleDoc = useCallback((processId: string, stepId: string, index: number) => {
-    setProgress((prev) => {
-      const key = getDocKey(processId, stepId, index);
-      const next = { ...prev, checkedDocs: { ...prev.checkedDocs, [key]: !prev.checkedDocs[key] } };
-      saveProgress(next); return next;
-    });
+  const markItemDone = useCallback(async (itemId: string) => {
+    setProgress((prev) => ({
+      ...prev,
+      completedItems: { ...prev.completedItems, [itemId]: true },
+    }));
+    const { error } = await markItemDoneAction(itemId);
+    if (error) {
+      setProgress((prev) => ({
+        ...prev,
+        completedItems: { ...prev.completedItems, [itemId]: false },
+      }));
+      toast.error("Couldn't save your progress.");
+    }
   }, []);
 
-  return { progress, markStepDone, markStepUndone, toggleDoc };
+  const markItemUndone = useCallback(async (itemId: string) => {
+    setProgress((prev) => ({
+      ...prev,
+      completedItems: { ...prev.completedItems, [itemId]: false },
+    }));
+    const { error } = await markItemUndoneAction(itemId);
+    if (error) {
+      setProgress((prev) => ({
+        ...prev,
+        completedItems: { ...prev.completedItems, [itemId]: true },
+      }));
+      toast.error("Couldn't save your progress.");
+    }
+  }, []);
+
+  return {
+    progress,
+    markStepDone,
+    markStepUndone,
+    markItemDone,
+    markItemUndone,
+  };
 }
 
 /* ─── Profile (Supabase `public.profiles`) ───────────────────────── */

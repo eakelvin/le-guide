@@ -131,9 +131,14 @@ export const DEFAULT_PROFILE: UserProfile = {
 };
 
 export interface ProgressState {
+  /** Sub-step ticks. Key: `${itemId}_${subStepIndex}`. Backed by `checklist_step_progress`. */
   completedSteps: Record<string, boolean>;
-  checkedDocs: Record<string, boolean>;
+  /** Explicit item-level completion. Key: itemId. Backed by `checklist_item_completion`. */
+  completedItems: Record<string, boolean>;
 }
+
+/** DB-backed slice of `ProgressState` (currently identical, kept as a distinct name for SSR clarity). */
+export type DbProgress = ProgressState;
 
 export type {
   ChecklistDifficulty,

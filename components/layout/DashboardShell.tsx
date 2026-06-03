@@ -11,7 +11,7 @@ import { DashboardHome } from "../processes/DashboardHome";
 import { ProcessView } from "../processes/ProcessView";
 import { ChecklistItemView } from "../processes/ChecklistItemView";
 import type { AppUser } from "@/features/auth/user";
-import type { ChecklistItem } from "@/types";
+import type { ChecklistItem, DbProgress } from "@/types";
 import { isProfileMinimumComplete } from "@/lib/helpers/helpers";
 import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
 
@@ -21,11 +21,13 @@ export function
     DashboardShell({
         initialUser,
         initialChecklist,
+        initialProgress,
         showSignedInToast = false,
         showPasswordUpdatedToast = false,
     }: {
         initialUser: AppUser | null;
         initialChecklist: ChecklistItem[];
+        initialProgress: DbProgress;
         showSignedInToast?: boolean;
         showPasswordUpdatedToast?: boolean;
     }) {
@@ -33,7 +35,13 @@ export function
     const signedInToasted = useRef(false);
     const passwordUpdatedToasted = useRef(false);
     const [activeView, setActiveView] = useState<ActiveView>("home");
-    const { progress, markStepDone, markStepUndone, toggleDoc } = useProgress();
+    const {
+        progress,
+        markStepDone,
+        markStepUndone,
+        markItemDone,
+        markItemUndone,
+    } = useProgress(initialProgress);
     const { profile, hydrated: profileHydrated } = useProfile();
     const [user] = useState<AppUser | null>(initialUser);
     const profileReady = isProfileMinimumComplete(profile);
@@ -132,7 +140,8 @@ export function
                         progress={progress}
                         onMarkDone={markStepDone}
                         onMarkUndone={markStepUndone}
-                        onToggleDoc={toggleDoc}
+                        onMarkItemDone={markItemDone}
+                        onMarkItemUndone={markItemUndone}
                         onBack={() => setActiveView("home")}
                     />
                 ) : activeProcess ? (
@@ -141,7 +150,6 @@ export function
                         progress={progress}
                         onMarkDone={markStepDone}
                         onMarkUndone={markStepUndone}
-                        onToggleDoc={toggleDoc}
                         onBack={() => setActiveView("home")}
                     />
                 ) : (

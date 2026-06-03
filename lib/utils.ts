@@ -10,10 +10,6 @@ export function getStepKey(processId: string, stepId: string) {
   return `${processId}_${stepId}`;
 }
 
-export function getDocKey(processId: string, stepId: string, index: number) {
-  return `doc_${processId}_${stepId}_${index}`;
-}
-
 export function isStepDone(
   process: Process,
   stepId: string,

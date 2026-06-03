@@ -5,10 +5,8 @@ import type {
 } from "@/types";
 
 /**
- * Progress storage uses the existing `useProgress` keys (`<processId>_<stepId>`).
- * For checklist items, we use the item id as `processId` and the sub-step
- * index as `stepId`. This keeps a single source of truth in localStorage
- * without needing a new bucket.
+ * Composite key for a sub-step inside `progress.completedSteps`. Mirrors the
+ * shape persisted in `checklist_step_progress` (item_id + sub_step_index).
  */
 export function getChecklistStepKey(itemId: string, subStepIndex: number): string {
     return `${itemId}_${subStepIndex}`;
@@ -43,12 +41,21 @@ export function getChecklistItemProgress(
 
 export type ChecklistItemStatus = "Not started" | "In progress" | "Complete";
 
+/**
+ * "Complete" is decided ONLY by the item-completion table — sub-step ticks
+ * never auto-complete an item. Sub-step ticks only push the bar from
+ * "Not started" → "In progress".
+ */
+export function isChecklistItemDone(item: ChecklistItem, progress: ProgressState): boolean {
+    return progress.completedItems[item.id] === true;
+}
+
 export function getChecklistItemStatus(
     item: ChecklistItem,
     progress: ProgressState,
 ): ChecklistItemStatus {
-    const { done, total } = getChecklistItemProgress(item, progress);
-    if (total > 0 && done === total) return "Complete";
+    if (isChecklistItemDone(item, progress)) return "Complete";
+    const { done } = getChecklistItemProgress(item, progress);
     if (done > 0) return "In progress";
     return "Not started";
 }

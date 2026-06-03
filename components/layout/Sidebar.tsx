@@ -37,15 +37,23 @@ interface SidebarProps {
     showCompleteProfileCta?: boolean;
 }
 
-function StatusBadge({ pct, itemId }: { pct: number; itemId: string }) {
-    if (itemId === "visa-validation" && pct < 100) {
+function StatusBadge({
+    pct,
+    itemId,
+    itemDone,
+}: {
+    pct: number;
+    itemId: string;
+    itemDone: boolean;
+}) {
+    if (itemId === "visa-validation" && !itemDone) {
         return (
             <Badge variant="outline" className="ml-auto shrink-0 text-[10px] border-transparent bg-coral-50 px-2 py-0.5 font-medium text-coral-600">
                 Urgent
             </Badge>
         );
     }
-    if (pct === 100) {
+    if (itemDone) {
         return (
             <Badge variant="secondary" className="ml-auto shrink-0 text-[10px] bg-muted px-2 py-0.5 font-normal text-muted-foreground">
                 Done
@@ -165,6 +173,7 @@ export function Sidebar({
                 <div className="flex flex-col gap-0.5 px-2 pb-4">
                     {sidebarItems.map((item) => {
                         const { pct } = getChecklistItemProgress(item, progress);
+                        const itemDone = progress.completedItems[item.id] === true;
                         const isActive = activeView === item.slug;
                         const colorKey = getCategoryColorKey(item.category);
                         const colors = COLOR_CONFIG[colorKey];
@@ -185,7 +194,7 @@ export function Sidebar({
                                     {getChecklistIcon(item.id, "w-4 h-4")}
                                 </span>
                                 <span className="truncate">{item.title}</span>
-                                <StatusBadge pct={pct} itemId={item.id} />
+                                <StatusBadge pct={pct} itemId={item.id} itemDone={itemDone} />
                             </Button>
                         );
                     })}
