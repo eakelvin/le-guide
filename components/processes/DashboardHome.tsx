@@ -39,13 +39,6 @@ interface Props {
     showCompleteProfileBanner?: boolean;
 }
 
-const TIMELINE = [
-    { label: "Week 1–2", text: "OFII + Bank", chipClass: "bg-coral-50 text-coral-600" },
-    { label: "Week 3–4", text: "CAF Dossier", chipClass: "bg-forest-50 text-forest-600" },
-    { label: "Month 2", text: "CPAM + Transport", chipClass: "bg-azure-50 text-azure-600" },
-    { label: "Month 3", text: "Follow-ups", chipClass: "bg-sand-100 text-sand-600" },
-];
-
 function StatusBadge({
     status,
     colorBadge,
@@ -230,24 +223,22 @@ export function DashboardHome({
                     )}
                 </section>
 
-                <section>
+                {/* <section>
                     <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-sand-400">
                         Suggested Timeline — First 3 Months
                     </h2>
                     <Card className="gap-0 shadow-xs">
                         <CardContent className="px-6 pt-6">
                             <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                                {TIMELINE.map((t) => (
-                                    <div key={t.label} className="min-w-0">
-                                        <p className="mb-2 text-center text-[10px] leading-tight text-sand-400">{t.label}</p>
-                                        <div
-                                            className={cn(
-                                                "flex h-10 items-center justify-center rounded-md px-1 text-center text-[11px] font-medium",
-                                                t.chipClass,
-                                            )}
-                                        >
-                                            {t.text}
-                                        </div>
+                                {checklist.slice(1, 5).map((item) => (
+                                    <div
+                                        key={item.id}
+                                        className={cn(
+                                            "flex h-10 min-w-0 items-center justify-center rounded-md px-2 text-center text-[11px] font-medium",
+                                            COLOR_CONFIG[getCategoryColorKey(item.category)].badge,
+                                        )}
+                                    >
+                                        <span className="truncate">{item.title}</span>
                                     </div>
                                 ))}
                             </div>
@@ -257,7 +248,7 @@ export function DashboardHome({
                             </p>
                         </CardContent>
                     </Card>
-                </section>
+                </section> */}
             </div>
         </div>
     );

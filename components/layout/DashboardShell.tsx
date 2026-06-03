@@ -132,6 +132,7 @@ export function
                         progress={progress}
                         onMarkDone={markStepDone}
                         onMarkUndone={markStepUndone}
+                        onToggleDoc={toggleDoc}
                         onBack={() => setActiveView("home")}
                     />
                 ) : activeProcess ? (
