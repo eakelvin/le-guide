@@ -1,6 +1,12 @@
 import type { BlogCategory, BlogPost } from "@/types/blog";
+import { CHECKLIST_GUIDE_POSTS } from "@/lib/checklist-guides";
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
+  {
+    id: "admin",
+    label: "Administrative steps",
+    description: "Walkthroughs for the checklist items: visa, CAF, housing, banking, and more.",
+  },
   {
     id: "general",
     label: "General knowledge",
@@ -23,7 +29,7 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
   },
 ];
 
-export const BLOG_POSTS: BlogPost[] = [
+const EDITORIAL_POSTS: BlogPost[] = [
   {
     slug: "alternance-apprentissage-vs-professionnalisation",
     title: "Alternance: apprenticeship vs professionalisation contract",
@@ -254,8 +260,16 @@ export const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
+/** All posts (editorial + checklist-item walkthroughs) reachable at `/guides/[slug]`. */
+export const BLOG_POSTS: BlogPost[] = [...CHECKLIST_GUIDE_POSTS, ...EDITORIAL_POSTS];
+
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
+}
+
+/** Cheap existence check for the "Read full guide" link in the checklist view. */
+export function hasGuideForSlug(slug: string): boolean {
+  return BLOG_POSTS.some((p) => p.slug === slug);
 }
 
 export function getPostsByCategory(category: string | null): BlogPost[] {

@@ -110,7 +110,9 @@ export function useProfile(initialProfile?: UserProfile | null) {
   );
   const [hydrated, setHydrated] = useState(!!initialProfile);
 
+  // Skip the round-trip when the caller already hydrated us from the server.
   useEffect(() => {
+    if (initialProfile) return;
     let cancelled = false;
     getMyProfileAction()
       .then((p) => {
@@ -125,7 +127,7 @@ export function useProfile(initialProfile?: UserProfile | null) {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [initialProfile]);
 
   const saveProfile = useCallback(async (next: UserProfile) => {
     const { error } = await saveMyProfileAction(next);

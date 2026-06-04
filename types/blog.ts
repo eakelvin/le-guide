@@ -1,4 +1,4 @@
-export type BlogCategoryId = "general" | "alternance" | "stage" | "work";
+export type BlogCategoryId = "general" | "alternance" | "stage" | "work" | "admin";
 
 export interface BlogCategory {
   id: BlogCategoryId;

@@ -22,6 +22,7 @@ import {
     getChecklistItemProgress,
     getChecklistItemStatus,
     getUnmetDependencies,
+    isChecklistItemDone,
     isChecklistItemLocked,
     type ChecklistItemStatus,
 } from "@/lib/helpers/checklist-helpers";
@@ -74,6 +75,10 @@ export function DashboardHome({
     name,
     showCompleteProfileBanner = true,
 }: Props) {
+
+    const visaItem = checklist.find((it) => it.id === "visa-validation");
+    const showVisaUrgent = visaItem ? !isChecklistItemDone(visaItem, progress) : false;
+
     return (
         <div className="animate-fade-up">
             <div className="border-b border-border bg-card px-9 pb-8 pt-10">
@@ -104,15 +109,17 @@ export function DashboardHome({
             <div className="space-y-5 px-9 py-7">
                 {showCompleteProfileBanner ? <CompleteProfileAlert /> : null}
 
-                <Alert className="border-coral-200 bg-coral-50 text-coral-900 shadow-none [&>svg]:text-coral-600">
-                    <AlertTriangle className="size-4" aria-hidden />
-                    <AlertTitle className="text-coral-950">Urgent</AlertTitle>
-                    <AlertDescription className="text-coral-800">
-                        Your OFII visa validation appointment must be completed within 3 months of arrival. You have
-                        approximately <strong className="font-semibold text-coral-900">2 months 18 days</strong>{" "}
-                        remaining. Do this first.
-                    </AlertDescription>
-                </Alert>
+                {showVisaUrgent ? (
+                    <Alert className="border-coral-200 bg-coral-50 text-coral-900 shadow-none [&>svg]:text-coral-600">
+                        <AlertTriangle className="size-4" aria-hidden />
+                        <AlertTitle className="text-coral-950">Urgent</AlertTitle>
+                        <AlertDescription className="text-coral-800">
+                            Your OFII visa validation appointment must be completed within 3 months of arrival. You have
+                            approximately <strong className="font-semibold text-coral-900">[2 months 18 days]</strong>{" "}
+                            remaining. Do this first.
+                        </AlertDescription>
+                    </Alert>
+                ) : null}
 
                 <section>
                     <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-sand-400">Your Checklist</h2>

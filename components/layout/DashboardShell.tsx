@@ -11,7 +11,7 @@ import { DashboardHome } from "../processes/DashboardHome";
 import { ProcessView } from "../processes/ProcessView";
 import { ChecklistItemView } from "../processes/ChecklistItemView";
 import type { AppUser } from "@/features/auth/user";
-import type { ChecklistItem, DbProgress } from "@/types";
+import type { ChecklistItem, DbProgress, UserProfile } from "@/types";
 import { isProfileMinimumComplete } from "@/lib/helpers/helpers";
 import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
 
@@ -22,12 +22,14 @@ export function
         initialUser,
         initialChecklist,
         initialProgress,
+        initialProfile,
         showSignedInToast = false,
         showPasswordUpdatedToast = false,
     }: {
         initialUser: AppUser | null;
         initialChecklist: ChecklistItem[];
         initialProgress: DbProgress;
+        initialProfile: UserProfile;
         showSignedInToast?: boolean;
         showPasswordUpdatedToast?: boolean;
     }) {
@@ -42,7 +44,7 @@ export function
         markItemDone,
         markItemUndone,
     } = useProgress(initialProgress);
-    const { profile, hydrated: profileHydrated } = useProfile();
+    const { profile, hydrated: profileHydrated } = useProfile(initialProfile);
     const [user] = useState<AppUser | null>(initialUser);
     const profileReady = isProfileMinimumComplete(profile);
 

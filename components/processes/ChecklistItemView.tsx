@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
@@ -12,8 +13,9 @@ import {
     isChecklistStepDone,
 } from "@/lib/helpers/checklist-helpers";
 import { getChecklistIcon } from "@/lib/data/checklist-icons";
+import { hasGuideForSlug } from "@/lib/blog";
 import type { ChecklistItem, ProgressState } from "@/types";
-import { AlertTriangle, ChevronLeft, Clock, Info } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, ChevronLeft, Clock, Info } from "lucide-react";
 
 interface ChecklistItemViewProps {
     item: ChecklistItem;
@@ -261,6 +263,7 @@ export function ChecklistItemView({
     const colorKey = getCategoryColorKey(item.category);
     const colors = COLOR_CONFIG[colorKey];
     const itemDone = isChecklistItemDone(item, progress);
+    const hasGuide = hasGuideForSlug(item.slug);
 
     return (
         <div className="animate-fade-up">
@@ -292,6 +295,13 @@ export function ChecklistItemView({
                                     {item.title}
                                 </h1>
                                 <p className="mt-1 text-[13px] text-sand-500">{item.shortDescription}</p>
+                                {hasGuide ? (
+                                    <p className="mt-2 text-[12px] italic leading-relaxed text-sand-500">
+                                        This page covers the essentials. For a deeper walkthrough, use the
+                                        <span className="not-italic"> Read the full guide </span>
+                                        link below.
+                                    </p>
+                                ) : null}
                                 <TimingChip timing={item.recommendedTiming} />
                             </div>
                         </div>
@@ -323,6 +333,20 @@ export function ChecklistItemView({
 
             <div className="px-9 py-7">
                 <div className="max-w-2xl">
+                    {hasGuide ? (
+                        <Link
+                            href={`/guides/${item.slug}`}
+                            className={cn(
+                                "mb-6 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[12px] font-medium no-underline transition-colors",
+                                colors.border,
+                                colors.text,
+                                "hover:bg-accent",
+                            )}
+                        >
+                            Read the full guide
+                            <ArrowUpRight className="size-3.5" aria-hidden />
+                        </Link>
+                    ) : null}
                     <WhyThisMattersSection text={item.whyThisMatters} />
                     <WarningsSection warnings={item.warnings} />
                     <RequirementsSection item={item} />

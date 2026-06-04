@@ -1,8 +1,41 @@
 import type {
     ChecklistItem,
     ChecklistCategory,
+    DbProgress,
     ProgressState,
+    UserProfile,
 } from "@/types";
+
+/**
+ * Item-id constants for completions that are derived from profile fields.
+ * Keep these centralised so the derivation rule and any UI special-cases
+ * agree on the same id.
+ */
+export const PROFILE_DERIVED_ITEM_IDS = {
+    accommodation: "find-housing",
+} as const;
+
+/**
+ * Pure server-side derivation: layer profile-driven completions on top of the
+ * DB-fetched progress map. Used in the dashboard SSR path so the user doesn't
+ * have to manually mark items the profile already implies as done.
+ *
+ * Rules:
+ *   - `hasAccommodation === "yes"` ⇒ `find-housing` is complete.
+ *
+ * No DB writes — the profile field stays the source of truth. If the user
+ * changes the profile back, the derivation goes away on the next render.
+ */
+export function applyProfileDerivedCompletions(
+    progress: DbProgress,
+    profile: UserProfile,
+): DbProgress {
+    const completedItems = { ...progress.completedItems };
+    if (profile.hasAccommodation === "yes") {
+        completedItems[PROFILE_DERIVED_ITEM_IDS.accommodation] = true;
+    }
+    return { ...progress, completedItems };
+}
 
 /**
  * Composite key for a sub-step inside `progress.completedSteps`. Mirrors the

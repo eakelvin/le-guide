@@ -17,6 +17,7 @@ const CATEGORY_BADGE: Record<BlogCategoryId, string> = {
   alternance: "border-transparent bg-forest-50 text-forest-700",
   stage: "border-transparent bg-violet-50 text-violet-700",
   work: "border-transparent bg-gold-50 text-gold-700",
+  admin: "border-transparent bg-coral-50 text-coral-700",
 };
 
 export default async function BlogPage({
