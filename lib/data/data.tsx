@@ -141,3 +141,10 @@ export const PROC_CARDS = [
         desc: "Get 50% off Île-de-France transport with the Imagine R student pass or a monthly Navigo card.",
     },
 ];
+
+
+// before-arrival : Things ideally prepared before entering France.
+// arrival : Things to handle immediately after landing or within the first 1–3 days.
+// first-days: Things usually done during the first week or two.
+// settling : Administrative integration steps after you are stable.
+// long-term : Ongoing/legal obligations after settling in.

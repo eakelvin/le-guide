@@ -132,6 +132,7 @@ export function
                     <DashboardHome
                         checklist={initialChecklist}
                         progress={progress}
+                        profile={profile}
                         onNavigate={setActiveView}
                         name={greetingName}
                         showCompleteProfileBanner={!isProfileMinimumComplete(profile)}
@@ -158,6 +159,7 @@ export function
                     <DashboardHome
                         checklist={initialChecklist}
                         progress={progress}
+                        profile={profile}
                         onNavigate={setActiveView}
                         name={greetingName}
                         showCompleteProfileBanner={!isProfileMinimumComplete(profile)}

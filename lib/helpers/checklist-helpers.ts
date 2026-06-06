@@ -15,6 +15,89 @@ export const PROFILE_DERIVED_ITEM_IDS = {
     accommodation: "find-housing",
 } as const;
 
+export interface ArrivalSnapshot {
+    /** Whole days between `arrivalDate` and `now` (always non-negative). */
+    days: number;
+    /** Pretty-printed elapsed time, scale-adaptive: "today" / "8 days" / "3 months" / "1 year". */
+    pretty: string;
+}
+
+/**
+ * Diff between an arrival date and "now", scale-adaptive for friendly copy.
+ * Returns `null` if the arrival date is missing or unparseable.
+ *
+ * Sign of the diff is intentionally discarded — callers decide whether to
+ * read it as "ago" or "in" using `profile.alreadyInFrance`.
+ */
+export function getArrivalSnapshot(
+    arrivalDate: string | null | undefined,
+    now: Date = new Date(),
+): ArrivalSnapshot | null {
+    if (!arrivalDate) return null;
+    const arrival = new Date(arrivalDate);
+    if (Number.isNaN(arrival.getTime())) return null;
+
+    const dayMs = 1000 * 60 * 60 * 24;
+    const days = Math.abs(Math.floor((now.getTime() - arrival.getTime()) / dayMs));
+    return { days, pretty: formatElapsed(days) };
+}
+
+function formatElapsed(days: number): string {
+    if (days === 0) return "today";
+    if (days === 1) return "1 day";
+    if (days < 30) return `${days} days`;
+    if (days < 365) {
+        const months = Math.floor(days / 30);
+        return `${months} ${months === 1 ? "month" : "months"}`;
+    }
+    const years = Math.floor(days / 365);
+    return `${years} ${years === 1 ? "year" : "years"}`;
+}
+
+export interface OfiiCountdown {
+    /** Whole 30-day "months" remaining until the deadline. */
+    months: number;
+    /** Days remaining within the partial month (0–29). */
+    days: number;
+    /** True when the 3-month deadline has already elapsed. */
+    overdue: boolean;
+    /** Days past the deadline when overdue (0 otherwise). */
+    daysOverdue: number;
+}
+
+/**
+ * The OFII visa validation must be completed within 3 months of arrival.
+ * Returns null when `arrivalDate` is missing or unparseable so callers can
+ * decide whether to render a banner at all.
+ *
+ * Month math is intentionally approximate (30-day buckets) since the banner
+ * copy says "approximately X months Y days" — exact calendar arithmetic isn't
+ * meaningful at that level of precision.
+ */
+export function getOfiiCountdown(
+    arrivalDate: string | null | undefined,
+    now: Date = new Date(),
+): OfiiCountdown | null {
+    if (!arrivalDate) return null;
+    const arrival = new Date(arrivalDate);
+    if (Number.isNaN(arrival.getTime())) return null;
+
+    const deadline = new Date(arrival);
+    deadline.setMonth(deadline.getMonth() + 3);
+
+    const dayMs = 1000 * 60 * 60 * 24;
+    const diffMs = deadline.getTime() - now.getTime();
+
+    if (diffMs <= 0) {
+        const daysOverdue = Math.ceil(-diffMs / dayMs);
+        return { months: 0, days: 0, overdue: true, daysOverdue };
+    }
+    const totalDays = Math.ceil(diffMs / dayMs);
+    const months = Math.floor(totalDays / 30);
+    const days = totalDays - months * 30;
+    return { months, days, overdue: false, daysOverdue: 0 };
+}
+
 /**
  * Pure server-side derivation: layer profile-driven completions on top of the
  * DB-fetched progress map. Used in the dashboard SSR path so the user doesn't

@@ -18,15 +18,17 @@ import {
 } from "@/components/ui/tooltip";
 import { cn, COLOR_CONFIG } from "@/lib/utils";
 import {
+    getArrivalSnapshot,
     getCategoryColorKey,
     getChecklistItemProgress,
     getChecklistItemStatus,
+    getOfiiCountdown,
     getUnmetDependencies,
     isChecklistItemDone,
     isChecklistItemLocked,
     type ChecklistItemStatus,
 } from "@/lib/helpers/checklist-helpers";
-import type { ChecklistItem, ProgressState } from "@/types";
+import type { ChecklistItem, ProgressState, UserProfile } from "@/types";
 import { AlertTriangle, Lock } from "lucide-react";
 import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
 import { getChecklistIcon } from "@/lib/data/checklist-icons";
@@ -34,10 +36,42 @@ import { getChecklistIcon } from "@/lib/data/checklist-icons";
 interface Props {
     checklist: ChecklistItem[];
     progress: ProgressState;
+    profile: UserProfile;
     onNavigate: (id: string) => void;
     name?: string | null;
     /** When false, hide the profile banner (profile already satisfies minimum fields). */
     showCompleteProfileBanner?: boolean;
+}
+
+function formatRemaining(months: number, days: number): string {
+    const parts: string[] = [];
+    if (months > 0) parts.push(`${months} ${months === 1 ? "month" : "months"}`);
+    if (days > 0) parts.push(`${days} ${days === 1 ? "day" : "days"}`);
+    return parts.length > 0 ? parts.join(" ") : "less than a day";
+}
+
+function formatWelcomeBlurb({
+    arrived,
+    planning,
+    snapshot,
+}: {
+    arrived: boolean;
+    planning: boolean;
+    snapshot: { days: number; pretty: string } | null;
+}): string {
+    const tail = "Here's what needs your attention this week.";
+
+    if (arrived && snapshot) {
+        return snapshot.days === 0
+            ? `Welcome to France! ${tail}`
+            : `You arrived in France ${snapshot.pretty} ago. ${tail}`;
+    }
+    if (planning && snapshot) {
+        return snapshot.days === 0
+            ? "You arrive in France today. Here's how to prepare."
+            : `You arrive in France in ${snapshot.pretty}. Here's how to prepare.`;
+    }
+    return tail;
 }
 
 function StatusBadge({
@@ -71,13 +105,30 @@ function StatusBadge({
 export function DashboardHome({
     checklist,
     progress,
+    profile,
     onNavigate,
     name,
     showCompleteProfileBanner = true,
 }: Props) {
-
+    // The visa item only applies to non-EU students on a long-stay visa, so
+    // it may not be in the checklist at all. Show the urgent banner only when:
+    //   - the item is in the checklist
+    //   - the user hasn't marked it complete
+    //   - they are already in France (otherwise the 3-month clock hasn't started)
+    //   - we have a parseable arrival date to compute remaining time from
     const visaItem = checklist.find((it) => it.id === "visa-validation");
-    const showVisaUrgent = visaItem ? !isChecklistItemDone(visaItem, progress) : false;
+    const visaPending = visaItem ? !isChecklistItemDone(visaItem, progress) : false;
+    const arrivedInFrance = profile.alreadyInFrance === "yes";
+    const planningArrival = profile.alreadyInFrance === "no";
+    const ofiiCountdown =
+        visaPending && arrivedInFrance ? getOfiiCountdown(profile.arrivalDate) : null;
+    const showVisaUrgent = ofiiCountdown !== null;
+    const arrivalSnapshot = getArrivalSnapshot(profile.arrivalDate);
+    const welcomeBlurb = formatWelcomeBlurb({
+        arrived: arrivedInFrance,
+        planning: planningArrival,
+        snapshot: arrivalSnapshot,
+    });
 
     return (
         <div className="animate-fade-up">
@@ -96,7 +147,7 @@ export function DashboardHome({
                                 Welcome back{name ? `, ${name}` : ""} 👋
                             </CardTitle>
                             <CardDescription className="text-sm leading-relaxed text-sand-600">
-                                You arrived in France [12] days ago. Here&apos;s what needs your attention this week.
+                                {welcomeBlurb}
                             </CardDescription>
                         </div>
                         {/* <Badge variant="outline" className="shrink-0 border-gold-200 bg-gold-50 font-medium text-gold-600">
@@ -109,14 +160,33 @@ export function DashboardHome({
             <div className="space-y-5 px-9 py-7">
                 {showCompleteProfileBanner ? <CompleteProfileAlert /> : null}
 
-                {showVisaUrgent ? (
+                {showVisaUrgent && ofiiCountdown ? (
                     <Alert className="border-coral-200 bg-coral-50 text-coral-900 shadow-none [&>svg]:text-coral-600">
                         <AlertTriangle className="size-4" aria-hidden />
-                        <AlertTitle className="text-coral-950">Urgent</AlertTitle>
+                        <AlertTitle className="text-coral-950">
+                            {ofiiCountdown.overdue ? "Overdue" : "Urgent"}
+                        </AlertTitle>
                         <AlertDescription className="text-coral-800">
-                            Your OFII visa validation appointment must be completed within 3 months of arrival. You have
-                            approximately <strong className="font-semibold text-coral-900">[2 months 18 days]</strong>{" "}
-                            remaining. Do this first.
+                            {ofiiCountdown.overdue ? (
+                                <>
+                                    Your OFII visa validation appointment was due within 3 months of arrival. You are now
+                                    approximately{" "}
+                                    <strong className="font-semibold text-coral-900">
+                                        {ofiiCountdown.daysOverdue}{" "}
+                                        {ofiiCountdown.daysOverdue === 1 ? "day" : "days"} overdue
+                                    </strong>
+                                    . Complete it as soon as possible.
+                                </>
+                            ) : (
+                                <>
+                                    Your OFII visa validation appointment must be completed within 3 months of arrival. You have
+                                    approximately{" "}
+                                    <strong className="font-semibold text-coral-900">
+                                        {formatRemaining(ofiiCountdown.months, ofiiCountdown.days)}
+                                    </strong>{" "}
+                                    remaining.
+                                </>
+                            )}
                         </AlertDescription>
                     </Alert>
                 ) : null}
