@@ -6,7 +6,7 @@ import { BLOG_CATEGORIES, BLOG_POSTS, getPostBySlug } from "@/lib/blog";
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Lightbulb } from "lucide-react";
 
 const CATEGORY_BADGE: Record<BlogCategoryId, string> = {
   general: "border-transparent bg-azure-50 text-azure-700",
@@ -34,7 +34,6 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) notFound();
-
   const cat = BLOG_CATEGORIES.find((c) => c.id === post.category);
 
   return (
@@ -60,7 +59,17 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         {post.readingMinutes} min read · Last updated {post.updated}
       </p>
 
-      <div className="mt-10 space-y-10 border-t border-sand-100 pt-10">
+      {post.warning ? (
+        <div className="mt-8 flex gap-3 rounded-xl border border-coral-200 bg-coral-50 p-5 text-[15px] leading-relaxed text-coral-900 shadow-xs">
+          <AlertTriangle className="mt-0.5 size-4 shrink-0 text-coral-600" aria-hidden />
+          <p>
+            <strong className="font-medium text-coral-950">Heads up: </strong>
+            {post.warning}
+          </p>
+        </div>
+      ) : null}
+
+      <div className="mt-6 space-y-10 border-t border-sand-100 pt-10">
         {post.sections.map((section) => (
           <section key={section.heading}>
             <h2 className="font-heading text-xl font-medium text-sand-800">{section.heading}</h2>
@@ -68,12 +77,60 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
               {section.paragraphs.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
+              {section.bullets && section.bullets.length > 0 ? (
+                <ul className="list-disc space-y-2 pl-5 marker:text-sand-400">
+                  {section.bullets.map((b, i) => {
+                    if (typeof b === "string") {
+                      return <li key={i}>{b}</li>;
+                    }
+                    const isExternal = !!b.href && /^https?:\/\//i.test(b.href);
+                    const label = b.href ? (
+                      isExternal ? (
+                        <a
+                          href={b.href}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="font-bold text-azure-700 underline-offset-2 hover:underline"
+                        >
+                          {b.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={b.href}
+                          className="font-medium text-azure-700 underline-offset-2 hover:underline"
+                        >
+                          {b.label}
+                        </Link>
+                      )
+                    ) : (
+                      <strong className="font-medium text-sand-800">{b.label}</strong>
+                    );
+                    return (
+                      <li key={i}>
+                        {label}
+                        {" — "}
+                        {b.description}
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : null}
             </div>
           </section>
         ))}
       </div>
 
-      <div className="mt-14 rounded-xl border border-sand-200 bg-card p-6 text-sm leading-relaxed text-sand-600 shadow-xs">
+      {post.recommendation ? (
+        <div className="mt-12 flex gap-3 rounded-xl border border-forest-200 bg-forest-50 p-5 text-[15px] leading-relaxed text-forest-900 shadow-xs">
+          <Lightbulb className="mt-0.5 size-4 shrink-0 text-forest-700" aria-hidden />
+          <p>
+            <strong className="font-medium text-forest-900">Our recommendation: </strong>
+            {post.recommendation}
+          </p>
+        </div>
+      ) : null}
+
+      <div className="mt-8 rounded-xl border border-sand-200 bg-card p-6 text-sm leading-relaxed text-sand-600 shadow-xs">
         <strong className="font-medium text-sand-800">Disclaimer:</strong> This article summarizes common situations for
         international students in France. It is not legal advice. Rules change — check official sources and your
         school’s international office.

@@ -1,5 +1,4 @@
 import type { BlogCategory, BlogPost } from "@/types/blog";
-import { CHECKLIST_GUIDE_POSTS } from "@/lib/checklist-guides";
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
   {
@@ -254,6 +253,215 @@ const EDITORIAL_POSTS: BlogPost[] = [
         heading: "Digital identity",
         paragraphs: [
           "France Connect and university SSO are converging on some campuses. Enable 2FA where offered so you do not lose access during renewal season.",
+        ],
+      },
+    ],
+  },
+];
+
+export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
+  {
+    slug: "getting-a-sim-card",
+    title: "Getting a SIM Card",
+    excerpt:
+      "A French SIM card helps you access mobile data, calls, SMS, and important verification services after arriving in France.",
+    category: "admin",
+    readingMinutes: 4,
+    updated: "2026-06-07",
+    sections: [
+      {
+        heading: "Overview",
+        paragraphs: [
+          "Many students buy the first SIM card they find when they arrive in France. Later, they discover that the network coverage is poor or that they're paying more than necessary.",
+          "The good news is that you can switch (port) your number to another provider later if you're unhappy with your current network.",
+        ],
+      },
+      {
+        heading: "Which SIM card should you choose?",
+        paragraphs: [
+          "There is no perfect option for everyone, but these are some popular choices:",
+        ],
+        bullets: [
+          {
+            label: "Free",
+            href: "https://mobile.free.fr/",
+            description:
+              "One of the most affordable options. Sign-up is simple and usually requires fewer documents.",
+          },
+          {
+            label: "SFR",
+            href: "https://www.sfr.fr/offre-mobile",
+            description:
+              "Quite expensive, good network coverage depending on your location, but may require more documents during registration.",
+          },
+          {
+            label: "Lebara",
+            href: "https://www.lebara.fr/fr/prepaye.html?gad_campaignid=1690636271&gad_source=1&gbraid=0AAAAADe1imN2kbBJykQDMzd_gO66njSgx&gclid=Cj0KCQjwio_RBhDMARIsAJPveNPxcHzKFCE9mXLNQHzJatEFlZ5Y1eA9n7lZZXLtdSiRZfabPLIEze0aAv4zEALw_wcB&loopcd=SEg%7Cc%7Cg%7Clebara%7C765841309184%7Ce&utm_campaign=Brand&utm_medium=cpc&utm_source=google",
+            description:
+              "Budget-friendly and popular among international students.",
+          },
+          {
+            label: "Orange",
+            href: "https://boutique.orange.fr/mobile/offres?internet=false",
+            description:
+              "Generally offers excellent coverage across France, but plans tend to be more expensive.",
+          },
+          {
+            label: "Lyca Mobile",
+            href: "https://www.lycamobile.fr/abo/fr/bundles/sim-only-deals/#1-mois",
+            description: "Affordable and widely used by students.",
+          },
+          {
+            label: "Bouygues Télécom",
+            href: "https://www.bouyguestelecom.fr/forfaits-mobiles/sans-engagement",
+            description: "Good network coverage, but may require more documents during registration.",
+          },
+        ],
+      },
+    ],
+    recommendation: "If you're looking for a low-cost option to get started, Free is usually the easiest and most affordable choice. You can always switch providers later if another network works better in your area.",
+    warning: "Be aware that some plans may automatically change to a more expensive offer after a year, so review your plan from time to time to avoid unexpected charges."
+  },
+  {
+    slug: "finding-accommodation",
+    title: "Finding Accommodation in France",
+    excerpt:
+      "Find and secure accommodation before applying for housing aid (CAF).",
+    category: "admin",
+    readingMinutes: 4,
+    updated: "2026-06-04",
+    sections: [
+      {
+        heading: "Overview",
+        paragraphs: [
+          "Find and secure accommodation before applying for housing aid (CAF).",
+          "You need a valid accommodation contract before applying for CAF housing aid.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "opening-an-online-bank-account",
+    title: "Opening an online bank account",
+    excerpt:
+      "Opening an online bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
+    category: "admin",
+    readingMinutes: 3,
+    updated: "2026-06-04",
+    sections: [
+      {
+        heading: "Overview",
+        paragraphs: [
+          "Opening an online bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
+          "An online bank account allows you to pay visa-validation fees, receive money, and make transactions immediately while waiting for a traditional French bank account.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "navigo-transport",
+    title: "Get a Navigo Transport Pass",
+    excerpt:
+      "It allows you to use public transport (metro, bus, RER) in the Île-de-France region, including Paris.",
+    category: "admin",
+    readingMinutes: 3,
+    updated: "2026-06-04",
+    sections: [
+      {
+        heading: "Overview",
+        paragraphs: [
+          "The Navigo pass lets you use public transport (metro, bus, RER) in the Île-de-France region, including Paris.",
+          "Public transport is the main way to travel in Paris and Île-de-France. The Navigo pass gives you unlimited access to metro, bus, and RER at a fixed monthly cost, making daily life significantly easier and cheaper.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "validating-your-visa",
+    title: "Validating your visa",
+    excerpt:
+      "Visa validation is required to activate your long-stay visa and legally stay in France as a student.",
+    category: "admin",
+    readingMinutes: 4,
+    updated: "2026-06-04",
+    sections: [
+      {
+        heading: "Overview",
+        paragraphs: [
+          "Visa validation is required to activate your long-stay visa and legally stay in France as a student.",
+          "Without validation, your visa may become invalid and you could lose legal residency status in France.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "traditional-bank-account",
+    title: "Opening a Traditional Bank Account",
+    excerpt:
+      "Open a traditional French bank account to access long-term banking services, salary payments, and administrative processes.",
+    category: "admin",
+    readingMinutes: 4,
+    updated: "2026-06-04",
+    sections: [
+      {
+        heading: "Overview",
+        paragraphs: [
+          "Open a traditional French bank account to access long-term banking services, salary payments, and administrative processes.",
+          "Traditional bank accounts are required for long-term financial stability, salary payments, rental contracts, and administrative procedures in France.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "social-security",
+    title: "Register for public health system",
+    excerpt:
+      "Register with the French health insurance system to access medical care and healthcare reimbursements while studying in France.",
+    category: "admin",
+    readingMinutes: 4,
+    updated: "2026-06-04",
+    sections: [
+      {
+        heading: "Overview",
+        paragraphs: [
+          "Register with the French health insurance system to access medical care and healthcare reimbursements while studying in France.",
+          "Health insurance is required to access medical care and receive reimbursements for healthcare expenses in France.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "apply-for-caf-housing-aid",
+    title: "Apply for CAF Housing Aid (CAF)",
+    excerpt:
+      "Apply for housing assistance from CAF after securing accommodation in France.",
+    category: "admin",
+    readingMinutes: 4,
+    updated: "2026-06-04",
+    sections: [
+      {
+        heading: "Overview",
+        paragraphs: [
+          "Apply for housing assistance from CAF after securing accommodation in France.",
+          "CAF helps reduce your monthly rent by providing housing financial support.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "declaration-of-tax",
+    title: "French Tax Declaration",
+    excerpt:
+      "Declare your annual income to the French tax authorities, even if you have no income.",
+    category: "admin",
+    readingMinutes: 4,
+    updated: "2026-06-04",
+    sections: [
+      {
+        heading: "Overview",
+        paragraphs: [
+          "Declare your annual income to the French tax authorities, even if you have no income.",
+          "Tax declaration is a legal requirement in France, even for students with no income. It is used to calculate eligibility for housing aid and official documentation.",
         ],
       },
     ],
