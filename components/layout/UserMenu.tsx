@@ -1,6 +1,7 @@
 "use client";
 
-import { LogOut } from "lucide-react";
+import Link from "next/link";
+import { ChevronsUpDown, LogOut, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -12,17 +13,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logoutAction } from "@/features/auth/logout";
+import { cn } from "@/lib/utils";
 
 export function UserMenu({
   name,
   email,
   imageUrl,
   align = "end",
+  variant = "icon",
 }: {
   name?: string | null;
   email?: string | null;
   imageUrl?: string | null;
   align?: "start" | "end" | "center";
+  /**
+   * Trigger style:
+   *  - "icon" (default) → avatar-only circle, used in the navbar.
+   *  - "row" → full-width row with avatar + name + email + chevron, for sidebar footers.
+   */
+  variant?: "icon" | "row";
 }) {
   const fallback =
     (name ?? email ?? "U")
@@ -34,11 +43,30 @@ export function UserMenu({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-        <Avatar className="size-9 ring-2 ring-border">
+      <DropdownMenuTrigger
+        aria-label={name ?? email ?? "Account menu"}
+        className={cn(
+          "outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          variant === "row"
+            ? "flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-sand-50"
+            : "rounded-full",
+        )}
+      >
+        <Avatar className="size-9 shrink-0 ring-2 ring-border">
           {imageUrl ? <AvatarImage src={imageUrl} alt={name ?? "User avatar"} /> : null}
-          <AvatarFallback className="text-xs font-medium text-sand-700 bg-sand-100">{fallback}</AvatarFallback>
+          <AvatarFallback className="bg-sand-100 text-xs font-medium text-sand-700">
+            {fallback}
+          </AvatarFallback>
         </Avatar>
+        {variant === "row" ? (
+          <>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[13px] font-medium text-sand-800">{name ?? "Account"}</p>
+              {email ? <p className="truncate text-[11px] text-sand-500">{email}</p> : null}
+            </div>
+            <ChevronsUpDown className="size-4 shrink-0 text-sand-400" aria-hidden />
+          </>
+        ) : null}
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align={align} className="w-56">
@@ -46,6 +74,13 @@ export function UserMenu({
           <p className="text-sm font-medium leading-none text-sand-800">{name ?? "Account"}</p>
           {email ? <p className="text-xs font-normal text-sand-500">{email}</p> : null}
         </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href="/profile">
+            <User className="mr-2 size-4" aria-hidden />
+            My Profile
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <form action={logoutAction}>
           <DropdownMenuItem asChild>
@@ -59,4 +94,3 @@ export function UserMenu({
     </DropdownMenu>
   );
 }
-

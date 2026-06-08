@@ -110,7 +110,7 @@ export function Sidebar({
                 </p>
             </div>
 
-            <div className="border-b border-border px-5 py-4">
+            {/* <div className="border-b border-border px-5 py-4">
                 <div className="flex items-center gap-2.5">
                     <div className="bg-forest-50 text-forest-700 flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-medium ring-2 ring-border">
                         {fallback}
@@ -127,18 +127,7 @@ export function Sidebar({
                         ) : null}
                     </div>
                 </div>
-                <div className="mt-4 space-y-2">
-                    <div className="text-muted-foreground flex justify-between text-[11px]">
-                        <span>Overall progress</span>
-                        <span className="text-foreground font-medium">{totalProgress.pct}%</span>
-                    </div>
-                    <Progress
-                        value={totalProgress.pct}
-                        className="h-1 rounded-full bg-secondary"
-                        indicatorClassName="bg-forest-600"
-                    />
-                </div>
-            </div>
+            </div> */}
 
             <nav className="flex flex-1 flex-col py-2">
                 <p className="px-6 py-2 text-[10px] font-semibold uppercase tracking-widest text-sand-400">Getting started</p>
@@ -167,10 +156,22 @@ export function Sidebar({
                     </Link>
                 </Button>
 
-                <p className="mt-4 px-6 py-2 text-[10px] font-semibold uppercase tracking-widest text-sand-400">
-                    Administrative Steps
-                </p>
-                <div className="flex flex-col gap-0.5 px-2 pb-4">
+                <div className="mt-4 px-6">
+                    <div className="flex items-center justify-between py-2">
+                        <p className="text-[10px] font-semibold uppercase tracking-widest text-sand-400">
+                            Administrative Steps
+                        </p>
+                        <span className="text-[10px] font-semibold tabular-nums text-sand-500">
+                            {totalProgress.pct}%
+                        </span>
+                    </div>
+                    <Progress
+                        value={totalProgress.pct}
+                        className="h-1 rounded-full bg-secondary"
+                        indicatorClassName="bg-forest-600"
+                    />
+                </div>
+                <div className="mt-3 flex flex-col gap-0.5 px-2 pb-4">
                     {sidebarItems.map((item) => {
                         const { pct } = getChecklistItemProgress(item, progress);
                         const itemDone = progress.completedItems[item.id] === true;
@@ -201,20 +202,14 @@ export function Sidebar({
                 </div>
             </nav>
 
-            <div className="mt-auto border-t border-border px-5 py-4">
-                <div className="mb-4 flex items-center justify-between">
-                    <UserMenu name={user?.name} email={user?.email} imageUrl={user?.imageUrl} align="start" />
-
-                    <Link
-                        href="/profile"
-                        className={cn(
-                            "w-full flex items-center gap-2.5 px-5 py-2.5 text-[13.5px] border-l-2 transition-all no-underline",
-                            "text-sand-600 border-l-transparent hover:bg-sand-50 hover:text-sand-800"
-                        )}
-                    >
-                        My Profile
-                    </Link>
-                </div>
+            <div className="mt-auto border-t border-border px-3 py-3">
+                <UserMenu
+                    variant="row"
+                    name={user?.name}
+                    email={user?.email}
+                    imageUrl={user?.imageUrl}
+                    align="start"
+                />
             </div>
         </aside>
     );

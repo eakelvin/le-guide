@@ -257,6 +257,7 @@ const EDITORIAL_POSTS: BlogPost[] = [
       },
     ],
   },
+  // cdd vs cdi
 ];
 
 export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
@@ -334,17 +335,33 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
       {
         heading: "Overview",
         paragraphs: [
-          "Find and secure accommodation before applying for housing aid (CAF).",
-          "You need a valid accommodation contract before applying for CAF housing aid.",
+          "Finding accommodation is one of the biggest challenges for international students in France. It's not always easy to secure housing, so start your search as early as possible.",
+          "Where you live can also affect how quickly certain administrative procedures are processed. Some areas have faster paperwork processing than others, which can make settling in easier.",
+          "Most students spend between €500 and €700 per month on accommodation, depending on the city and type of housing.",
+          "Shared Housing (Colocation): If you live in a shared apartment, you may need additional documents to prove your address when completing administrative procedures. Make sure to keep copies of all housing-related documents.",
+        ],
+      },
+      {
+        heading: "Housing Options",
+        paragraphs: [
+          "There are many housing platforms and student communities that can help you find accommodation. Many students also find it easier to secure housing after arriving in France rather than from abroad.",
+        ],
+        bullets: [
+          "Student residences",
+          "Private rentals",
+          "Shared housing (colocation)",
+          "Staying with a family friend or relative",
         ],
       },
     ],
+    recommendation: "",
+    warning: ""
   },
   {
     slug: "opening-an-online-bank-account",
     title: "Opening an online bank account",
     excerpt:
-      "Opening an online bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
+      "(Optional but Useful). Opening an online bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
     category: "admin",
     readingMinutes: 3,
     updated: "2026-06-04",
@@ -352,11 +369,15 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
       {
         heading: "Overview",
         paragraphs: [
-          "Opening an online bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
-          "An online bank account allows you to pay visa-validation fees, receive money, and make transactions immediately while waiting for a traditional French bank account.",
+          "In France, online banks and traditional banks are not the same.",
+          "Traditional banks usually have physical branches and are often required for certain services, such as applying for housing, loans, or other administrative procedures. However, opening an account can take several days or weeks.",
+          "Online banks are faster to set up and can help you manage your finances while waiting for your traditional bank account.",
+          "An online bank account allows you to receive money, make payments, and pay for certain administrative procedures, including visa validation.",
         ],
       },
     ],
+    recommendation: "Open an online bank account shortly after arriving in France, then open a traditional bank account when you have the required documents and proof of address.",
+    warning: ""
   },
   {
     slug: "navigo-transport",

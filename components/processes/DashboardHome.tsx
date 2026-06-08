@@ -59,7 +59,7 @@ function formatWelcomeBlurb({
     planning: boolean;
     snapshot: { days: number; pretty: string } | null;
 }): string {
-    const tail = "Here's what needs your attention this week.";
+    const tail = "Here's what needs your attention.";
 
     if (arrived && snapshot) {
         return snapshot.days === 0
