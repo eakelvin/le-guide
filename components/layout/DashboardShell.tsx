@@ -23,6 +23,7 @@ export function
         initialChecklist,
         initialProgress,
         initialProfile,
+        initialActiveView = "home",
         showSignedInToast = false,
         showPasswordUpdatedToast = false,
     }: {
@@ -30,13 +31,16 @@ export function
         initialChecklist: ChecklistItem[];
         initialProgress: DbProgress;
         initialProfile: UserProfile;
+        /** Server-resolved starting view (e.g. from `/dashboard?item=<slug>`). Defaults to home. */
+        initialActiveView?: ActiveView;
         showSignedInToast?: boolean;
         showPasswordUpdatedToast?: boolean;
     }) {
     const router = useRouter();
     const signedInToasted = useRef(false);
     const passwordUpdatedToasted = useRef(false);
-    const [activeView, setActiveView] = useState<ActiveView>("home");
+    const itemDeepLinkCleaned = useRef(false);
+    const [activeView, setActiveView] = useState<ActiveView>(initialActiveView);
     const {
         progress,
         markStepDone,
@@ -61,6 +65,17 @@ export function
         toast.success("Password updated successfully.");
         router.replace("/dashboard", { scroll: false });
     }, [showPasswordUpdatedToast, router]);
+
+    // Strip ?item=<slug> from the URL once we've consumed it for the initial view.
+    // The active view is local React state, so the URL has done its job — keeping the
+    // param around would just pin the user to that step on every refresh.
+    useEffect(() => {
+        if (itemDeepLinkCleaned.current) return;
+        itemDeepLinkCleaned.current = true;
+        if (initialActiveView !== "home") {
+            router.replace("/dashboard", { scroll: false });
+        }
+    }, [initialActiveView, router]);
 
     const totalProgress = getChecklistTotalProgress(initialChecklist, progress);
     const activeProcess = PROCESSES.find((p) => p.id === activeView);

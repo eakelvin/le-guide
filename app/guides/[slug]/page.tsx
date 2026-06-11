@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BLOG_CATEGORIES, BLOG_POSTS, getPostBySlug } from "@/lib/blog";
+import { BLOG_CATEGORIES, BLOG_POSTS, getPostBySlug, isChecklistGuideSlug } from "@/lib/blog";
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";
@@ -35,6 +35,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   const post = getPostBySlug(slug);
   if (!post) notFound();
   const cat = BLOG_CATEGORIES.find((c) => c.id === post.category);
+  const isChecklistGuide = isChecklistGuideSlug(slug);
 
   return (
     <article className="mx-auto max-w-3xl px-6 pb-20 pt-8 md:px-12 md:pt-10">
@@ -137,9 +138,18 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
       </div>
 
       <div className="mt-8 flex flex-wrap gap-3">
-        <Button className="rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
-          <Link href="/dashboard">Open your checklist</Link>
-        </Button>
+        {isChecklistGuide ? (
+          <Button className="rounded-full bg-forest-900 text-white hover:bg-forest-800 gap-1.5" asChild>
+            <Link href={`/dashboard?item=${slug}`}>
+              <ArrowLeft className="size-4" aria-hidden />
+              Back to this step in your checklist
+            </Link>
+          </Button>
+        ) : (
+          <Button className="rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
+            <Link href="/dashboard">Open your checklist</Link>
+          </Button>
+        )}
         <Button variant="outline" className="rounded-full border-sand-200 shadow-none" asChild>
           <Link href="/guides">More guides</Link>
         </Button>

@@ -391,11 +391,24 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
       {
         heading: "Overview",
         paragraphs: [
-          "The Navigo pass lets you use public transport (metro, bus, RER) in the Île-de-France region, including Paris.",
-          "Public transport is the main way to travel in Paris and Île-de-France. The Navigo pass gives you unlimited access to metro, bus, and RER at a fixed monthly cost, making daily life significantly easier and cheaper.",
+          "If you live in the Paris region, the Navigo Pass is the easiest way to access public transport, including the metro, bus, tram, and train.",
+          "Students under 26 years old may be eligible for discounted transport passes. Check the official transport website for the latest eligibility requirements and pricing.",
+          "When you first arrive, you can also download the official Île-de-France Mobilités app to buy and validate tickets directly from your phone. This is often faster and more convenient than buying tickets at stations."
+        ],
+      },
+      {
+        heading: "Tips",
+        paragraphs: [ 
+        ],
+        bullets: [
+          "For new comers, use the mobile app to buy and validate tickets.",
+          "Under 26 and studying in Île-de-France: Check if you qualify for the Imagine R Student Pass.",
+          "Using transport occasionally: Consider Navigo Liberté+, which lets you pay only for the journeys you make."
         ],
       },
     ],
+    recommendation: "A monthly or annual Navigo pass is usually the best value if you plan to use public transport every day.",
+    warning: "Travelling without a valid ticket can result in an on-the-spot fine if you are inspected by transport officers."
   },
   {
     slug: "validating-your-visa",
@@ -409,11 +422,20 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
       {
         heading: "Overview",
         paragraphs: [
-          "Visa validation is required to activate your long-stay visa and legally stay in France as a student.",
-          "Without validation, your visa may become invalid and you could lose legal residency status in France.",
+          "If you arrived in France with a VLS-TS (Long-Stay Visa), you must validate it within 3 months of your arrival. This is one of the most important administrative steps to complete after arriving in France.",
+          "Visa validation is completed online through the French government's immigration platform. During the process, you will need information from your visa and passport, your address in France, and a payment method to pay the required tax.",
+        ],
+      },
+      {
+        heading: "",
+        paragraphs: [
+        ],
+        bullets: [
         ],
       },
     ],
+    recommendation: "Do not wait until the last minute. Complete your visa validation within your first few weeks in France to avoid unnecessary stress and administrative issues.",
+    warning: "Missing the 3-month deadline can put you in an irregular immigration situation and may affect your ability to travel or complete future residence permit procedures."
   },
   {
     slug: "traditional-bank-account",
@@ -427,11 +449,25 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
       {
         heading: "Overview",
         paragraphs: [
-          "Open a traditional French bank account to access long-term banking services, salary payments, and administrative processes.",
-          "Traditional bank accounts are required for long-term financial stability, salary payments, rental contracts, and administrative procedures in France.",
+          "Traditional banks are widely accepted for official procedures and are often preferred by employers, landlords, and government agencies. They also provide documents such as a French RIB (bank account details), which you will need for many administrative tasks."
+        ],
+      },
+      {
+        heading: "Why Open a Traditional Bank Account?",
+        paragraphs: [
+        ],
+        bullets: [
+          "Receive your salary",
+          "Pay rent and utility bills",
+          "Set up direct debits",
+          "Receive CAF housing assistance payments",
+          "Complete administrative procedures",
+          "Access additional banking services if needed"
         ],
       },
     ],
+    recommendation: "",
+    warning: "Keep a digital copy of your RIB. You will be asked for it frequently when setting up services in France."
   },
   {
     slug: "social-security",
@@ -445,11 +481,23 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
       {
         heading: "Overview",
         paragraphs: [
-          "Register with the French health insurance system to access medical care and healthcare reimbursements while studying in France.",
-          "Health insurance is required to access medical care and receive reimbursements for healthcare expenses in France.",
+          "As a non-working student, you can apply online through the official Ameli platform. Once registered, you can access healthcare coverage while waiting for your physical card.",
+          "You will first receive an “attestation de droits”, which serves as temporary proof of coverage and is accepted until your official card arrives.",
+        ],
+      },
+      {
+        heading: "Why Register with Ameli?",
+        paragraphs: [
+        ],
+        bullets: [
+          "You need it to access healthcare services in France",
+          "Employers often ask for your Social Security number before hiring you",
+          "It is required for many administrative processes",
         ],
       },
     ],
+    recommendation: "Use your traditional bank account when registering, as it is required for healthcare reimbursements and official verification processes.",
+    warning: "Do not wait for your physical documents to arrive before starting the process — the online attestation is enough for most early procedures."
   },
   {
     slug: "apply-for-caf-housing-aid",
@@ -463,11 +511,24 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
       {
         heading: "Overview",
         paragraphs: [
-          "Apply for housing assistance from CAF after securing accommodation in France.",
-          "CAF helps reduce your monthly rent by providing housing financial support.",
+          "CAF is a French housing support system that helps students reduce their monthly rent through government aid.",
+          "CAF (Caisse d’Allocations Familiales) is a French government service that helps people pay part of their rent. Many international students in France are eligible to apply.",
+          "If you qualify, CAF provides monthly financial housing support that is paid directly into your bank account. This helps reduce your rent costs while studying in France.",
+          "The amount varies depending on your rent, city, and personal situation. Most students receive between €100 and €300 per month, sometimes more.",
+          "You should apply as soon as you have your rental contract and address in France. Payments usually start after your application is approved and are not always fully backdated.",
+          "CAF is not automatic—you must apply yourself, and although processing can take several weeks or months, payments usually start after approval, and you do not need to be working to qualify.",
+        ],
+      },
+      {
+        heading: "",
+        paragraphs: [
+        ],
+        bullets: [
         ],
       },
     ],
+    recommendation: "It is strongly recommended to apply early, as CAF can significantly reduce your monthly living costs in France.",
+    warning: ""
   },
   {
     slug: "declaration-of-tax",
@@ -479,13 +540,23 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
     updated: "2026-06-04",
     sections: [
       {
-        heading: "Overview",
+        heading: "",
         paragraphs: [
-          "Declare your annual income to the French tax authorities, even if you have no income.",
-          "Tax declaration is a legal requirement in France, even for students with no income. It is used to calculate eligibility for housing aid and official documentation.",
+          ""
+        ],
+      },
+      {
+        heading: "",
+        paragraphs: [
+          "",
+        ],
+        bullets: [
+          ""
         ],
       },
     ],
+    recommendation: "",
+    warning: ""
   },
 ];
 
@@ -499,6 +570,15 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 /** Cheap existence check for the "Read full guide" link in the checklist view. */
 export function hasGuideForSlug(slug: string): boolean {
   return BLOG_POSTS.some((p) => p.slug === slug);
+}
+
+/**
+ * True when the slug corresponds to one of the curated checklist-step walkthroughs
+ * (i.e. a guide that maps 1:1 to a `ChecklistItem.slug`). Used by the guide page to
+ * deep-link readers back to that step in the dashboard.
+ */
+export function isChecklistGuideSlug(slug: string): boolean {
+  return CHECKLIST_GUIDE_POSTS.some((p) => p.slug === slug);
 }
 
 export function getPostsByCategory(category: string | null): BlogPost[] {
