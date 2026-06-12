@@ -540,22 +540,27 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
     updated: "2026-06-04",
     sections: [
       {
-        heading: "",
+        heading: "Overview",
         paragraphs: [
-          ""
+          "Many international students do not realize that they should declare their taxes in France, even if they are not working.",
+          "Tax declarations become important later when applying for administrative procedures such as citizenship, long-term residency, and other official requests that may require proof of your financial history in France.",
+          "Having little or no income does not necessarily mean you can ignore tax declarations. Check your obligations each year to make sure you remain compliant with French regulations."
         ],
       },
       {
-        heading: "",
+        heading: "Why Declare Your Taxes?",
         paragraphs: [
           "",
         ],
         bullets: [
-          ""
+          "Creates an official tax record in France",
+          "Can be useful for citizenship and residency applications",
+          "Helps demonstrate your financial history",
+          "Required if you earn income in France",
         ],
       },
     ],
-    recommendation: "",
+    recommendation: "Do not wait until you start working. Learn about the tax declaration process early and complete any required tax filings on time to avoid complications in the future.",
     warning: ""
   },
 ];
