@@ -60,7 +60,7 @@ export function Hero() {
                     </div>
 
                     {/* Social proof */}
-                    <div className="flex items-center gap-5 mt-14 pt-8 border-t border-sand-100">
+                    {/* <div className="flex items-center gap-5 mt-14 pt-8 border-t border-sand-100">
                         <div className="flex">
                             {[
                                 { initials: "MA", bg: "bg-forest-50", text: "text-forest-600" },
@@ -83,7 +83,7 @@ export function Hero() {
                         <p className="text-[13px] text-sand-600">
                             <strong className="text-sand-800">1,200+ students</strong> arrived in France with LeGuide this year
                         </p>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Right — floating UI preview */}
