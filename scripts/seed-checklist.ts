@@ -16,7 +16,7 @@
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import steps from "@/lib/data/steps.json";
-import type { ChecklistItemJson } from "@/types";
+import type { ChecklistItemJson, ChecklistStepSummaryJson } from "@/types";
 
 const supabaseUrl =
     process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -41,6 +41,19 @@ const nullable = (value: string): string | null => {
     const trimmed = value.trim();
     return trimmed === "" ? null : trimmed;
 };
+
+function normalizeStepSummary(entry: ChecklistStepSummaryJson): {
+    summary: string;
+    description: string | null;
+} {
+    if (typeof entry === "string") {
+        return { summary: entry, description: null };
+    }
+    return {
+        summary: entry.summary,
+        description: nullable(entry.description ?? ""),
+    };
+}
 
 async function replaceChildren<Row extends Record<string, unknown>>(
     client: SupabaseClient,
@@ -141,10 +154,12 @@ async function main(): Promise<void> {
         itemIds,
         items.flatMap((s) =>
             s.steps_summary
-                .filter((line) => line.trim() !== "")
-                .map((summary, i) => ({
+                .map(normalizeStepSummary)
+                .filter((line) => line.summary.trim() !== "")
+                .map((line, i) => ({
                     checklist_item_id: s.id,
-                    summary,
+                    summary: line.summary,
+                    description: line.description,
                     sort_order: i,
                 })),
         ),

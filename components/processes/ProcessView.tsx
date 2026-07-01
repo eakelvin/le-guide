@@ -15,7 +15,8 @@ import {
   isStepDone,
 } from "@/lib/utils";
 import type { Process, ProgressState, Step } from "@/types";
-import { ChevronLeft, ExternalLink } from "lucide-react";
+import { DashboardBreadcrumb } from "@/components/layout/DashboardBreadcrumb";
+import { ExternalLink } from "lucide-react";
 
 interface ProcessViewProps {
   process: Process;
@@ -82,9 +83,9 @@ function StepCard({
           style={
             done
               ? {
-                  backgroundColor: getColor(process.colorKey),
-                  borderColor: "transparent",
-                }
+                backgroundColor: getColor(process.colorKey),
+                borderColor: "transparent",
+              }
               : undefined
           }
           aria-label={done ? `Mark "${step.title}" not done` : `Mark "${step.title}" done`}
@@ -152,9 +153,9 @@ function StepCard({
                         style={
                           checked
                             ? {
-                                borderColor: getColor(process.colorKey),
-                                backgroundColor: getColor(process.colorKey),
-                              }
+                              borderColor: getColor(process.colorKey),
+                              backgroundColor: getColor(process.colorKey),
+                            }
                             : undefined
                         }
                         onCheckedChange={() => toggleDoc(i)}
@@ -247,15 +248,7 @@ export function ProcessView({
     <div className="animate-fade-up">
       <div className="border-b border-border bg-card px-9 pb-10 pt-8">
         <div className="mx-auto flex max-w-5xl flex-col gap-6">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="-ml-2 h-auto gap-1 px-2 py-1 text-xs font-normal text-sand-500 shadow-none hover:text-sand-800 has-[>svg]:px-2"
-            onClick={onBack}
-          >
-            <ChevronLeft className="size-4" aria-hidden />
-            Dashboard
-          </Button>
+          <DashboardBreadcrumb current={process.title} onDashboardClick={onBack} />
 
           <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex min-w-0 items-start gap-3.5">

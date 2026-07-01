@@ -150,6 +150,8 @@ export type {
   ChecklistOfficialLink,
   ChecklistRequirement,
   ChecklistRequirementJson,
+  ChecklistStepSummary,
+  ChecklistStepSummaryJson,
   ChecklistItemAppliesToJson,
   ChecklistItemAppliesTo,
   ChecklistItemJson,

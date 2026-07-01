@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import type {
     ChecklistItem,
+    ChecklistStepSummary,
     ChecklistRequirement,
     ChecklistOfficialLink,
     ChecklistCategory,
@@ -37,7 +38,7 @@ type RawRow = {
     recommended_timing: string | null;
     common_options: string[];
     requirements: { name: string; required: boolean; sort_order: number }[];
-    steps_summary: { summary: string; sort_order: number }[];
+    steps_summary: { summary: string; description: string | null; sort_order: number }[];
     warnings: { warning: string; sort_order: number }[];
     links: { label: string; url: string; sort_order: number }[];
     dependencies: { depends_on_id: string; sort_order: number }[];
@@ -50,7 +51,7 @@ const SELECT = `
     deadline, last_verified_at, status,
     why_this_matters, recommended_timing, common_options,
     requirements:checklist_item_requirements(name, required, sort_order),
-    steps_summary:checklist_item_steps_summary(summary, sort_order),
+    steps_summary:checklist_item_steps_summary(summary, description, sort_order),
     warnings:checklist_item_warnings(warning, sort_order),
     links:checklist_item_links(label, url, sort_order),
     dependencies:checklist_item_dependencies!checklist_item_id(depends_on_id, sort_order)
@@ -83,7 +84,10 @@ function toAppShape(row: RawRow): ChecklistItem {
             required: r.required,
         })),
         commonOptions: row.common_options,
-        stepsSummary: sortBy(row.steps_summary).map((s) => s.summary),
+        stepsSummary: sortBy(row.steps_summary).map<ChecklistStepSummary>((s) => ({
+            summary: s.summary,
+            ...(s.description ? { description: s.description } : {}),
+        })),
         warnings: sortBy(row.warnings).map((w) => w.warning),
         appliesTo: {
             studentGroups: row.applies_to_student_groups,

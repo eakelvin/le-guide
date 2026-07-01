@@ -21,6 +21,20 @@ export interface ChecklistRequirement {
   required: boolean;
 }
 
+/** One step in the checklist item flow (app shape). */
+export interface ChecklistStepSummary {
+  summary: string;
+  description?: string | null;
+}
+
+/** JSON seed shape — plain strings or objects with an optional description. */
+export type ChecklistStepSummaryJson =
+  | string
+  | {
+      summary: string;
+      description?: string;
+    };
+
 export interface ChecklistItemAppliesToJson {
   student_groups: StudentGroup[];
   visa_types: VisaType[];
@@ -52,7 +66,7 @@ export interface ChecklistItemJson {
   depends_on: string[];
   requirements: ChecklistRequirementJson[];
   common_options: string[];
-  steps_summary: string[];
+  steps_summary: ChecklistStepSummaryJson[];
   warnings: string[];
   applies_to: ChecklistItemAppliesToJson;
   official_links: ChecklistOfficialLink[];
@@ -94,6 +108,7 @@ export interface ChecklistItemStepsSummaryRow {
   id: string;
   checklist_item_id: string;
   summary: string;
+  description: string | null;
   sort_order: number;
 }
 
@@ -138,7 +153,7 @@ export interface ChecklistItem {
   dependsOn: string[];
   requirements: ChecklistRequirement[];
   commonOptions: string[];
-  stepsSummary: string[];
+  stepsSummary: ChecklistStepSummary[];
   warnings: string[];
   appliesTo: ChecklistItemAppliesTo;
   officialLinks: ChecklistOfficialLink[];

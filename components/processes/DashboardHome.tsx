@@ -31,6 +31,7 @@ import {
 import type { ChecklistItem, ProgressState, UserProfile } from "@/types";
 import { AlertTriangle, Lock } from "lucide-react";
 import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
+import { DashboardBreadcrumb } from "@/components/layout/DashboardBreadcrumb";
 import { getChecklistIcon } from "@/lib/data/checklist-icons";
 
 interface Props {
@@ -134,13 +135,7 @@ export function DashboardHome({
         <div className="animate-fade-up">
             <div className="border-b border-border bg-card px-9 pb-8 pt-10">
                 <CardHeader className="gap-0 space-y-0 p-0">
-                    <p className="mb-2 text-xs text-sand-400">
-                        <span>LeGuide</span>
-                        <span aria-hidden className="mx-1 text-sand-300">
-                            &gt;
-                        </span>
-                        <span className="font-medium text-sand-800">Dashboard</span>
-                    </p>
+                    <DashboardBreadcrumb />
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                         <div className="space-y-2">
                             <CardTitle className="font-heading font-normal text-3xl tracking-tight text-sand-800 sm:text-[2rem] leading-tight">

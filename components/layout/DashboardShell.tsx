@@ -14,6 +14,7 @@ import type { AppUser } from "@/features/auth/user";
 import type { ChecklistItem, DbProgress, UserProfile } from "@/types";
 import { isProfileMinimumComplete } from "@/lib/helpers/helpers";
 import { CompleteProfileAlert } from "@/components/layout/Profile/CompleteProfileAlert";
+import { DashboardBreadcrumb } from "@/components/layout/DashboardBreadcrumb";
 
 export type ActiveView = "home" | string; // string = process id
 
@@ -106,13 +107,7 @@ export function
                 <main className="bg-canvas flex flex-1 flex-col overflow-y-auto">
                     <div className="animate-fade-up">
                         <div className="border-b border-border bg-card px-9 pb-8 pt-10">
-                            <p className="mb-2 text-xs text-sand-400">
-                                <span>LeGuide</span>
-                                <span aria-hidden className="mx-1 text-sand-300">
-                                    &gt;
-                                </span>
-                                <span className="font-medium text-sand-800">Dashboard</span>
-                            </p>
+                            <DashboardBreadcrumb />
                             <div className="space-y-2">
                                 <h1 className="font-heading font-normal text-3xl tracking-tight text-sand-800 sm:text-[2rem] leading-tight">
                                     Welcome back{greetingName ? `, ${greetingName}` : ""} 👋

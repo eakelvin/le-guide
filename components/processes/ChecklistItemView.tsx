@@ -14,8 +14,9 @@ import {
 } from "@/lib/helpers/checklist-helpers";
 import { getChecklistIcon } from "@/lib/data/checklist-icons";
 import { hasGuideForSlug } from "@/lib/blog";
-import type { ChecklistItem, ProgressState } from "@/types";
-import { AlertTriangle, ArrowUpRight, ChevronLeft, Clock, Info } from "lucide-react";
+import { DashboardBreadcrumb } from "@/components/layout/DashboardBreadcrumb";
+import type { ChecklistItem, ChecklistStepSummary, ProgressState } from "@/types";
+import { AlertTriangle, ArrowUpRight, Clock, Info } from "lucide-react";
 
 interface ChecklistItemViewProps {
     item: ChecklistItem;
@@ -141,38 +142,33 @@ function WarningsSection({ warnings }: { warnings: string[] }) {
     );
 }
 
-function CommonOptionsSection({ options }: { options: string[] }) {
+function StepCommonOptions({ options }: { options: string[] }) {
     if (options.length === 0) return null;
     return (
-        <section className="mb-6">
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-sand-400">
-                Common Options
-            </h2>
-            <div className="rounded-lg border border-border bg-card p-4">
-                <ul className="space-y-2">
-                    {options.map((option, i) => (
-                        <li
-                            key={i}
-                            className="flex items-start gap-2.5 text-[13px] leading-relaxed text-foreground"
-                        >
-                            <span
-                                className="mt-2 size-1 shrink-0 rounded-full bg-sand-400"
-                                aria-hidden
-                            />
-                            <span className="flex-1">{option}</span>
-                        </li>
-                    ))}
-                </ul>
+        <div className="mt-3">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                Common options
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+                {options.map((option, i) => (
+                    <span
+                        key={i}
+                        className="rounded-full border border-border bg-sand-50 px-2.5 py-0.5 text-[11px] leading-relaxed text-foreground"
+                    >
+                        {option}
+                    </span>
+                ))}
             </div>
-        </section>
+        </div>
     );
 }
 
 interface StepCardProps {
     item: ChecklistItem;
-    summary: string;
+    step: ChecklistStepSummary;
     index: number;
     progress: ProgressState;
+    commonOptions?: string[];
     onMarkDone: (itemId: string, stepKey: string) => void;
     onMarkUndone: (itemId: string, stepKey: string) => void;
 }
@@ -199,7 +195,15 @@ function isStepActive(item: ChecklistItem, index: number, progress: ProgressStat
     return isChecklistStepDone(item.id, index - 1, progress);
 }
 
-function StepCard({ item, summary, index, progress, onMarkDone, onMarkUndone }: StepCardProps) {
+function StepCard({
+    item,
+    step,
+    index,
+    progress,
+    commonOptions = [],
+    onMarkDone,
+    onMarkUndone,
+}: StepCardProps) {
     const stepKey = String(index);
     const done = isChecklistStepDone(item.id, index, progress);
     const active = isStepActive(item, index, progress);
@@ -243,8 +247,19 @@ function StepCard({ item, summary, index, progress, onMarkDone, onMarkUndone }: 
                         done ? "text-muted-foreground line-through" : "text-foreground",
                     )}
                 >
-                    {summary}
+                    {step.summary}
                 </p>
+                {step.description ? (
+                    <p
+                        className={cn(
+                            "text-[13px] leading-relaxed",
+                            done ? "text-muted-foreground/80" : "text-muted-foreground",
+                        )}
+                    >
+                        {step.description}
+                    </p>
+                ) : null}
+                {index === 0 ? <StepCommonOptions options={commonOptions} /> : null}
             </div>
         </div>
     );
@@ -269,15 +284,7 @@ export function ChecklistItemView({
         <div className="animate-fade-up">
             <div className="border-b border-border bg-card px-9 pb-10 pt-8">
                 <div className="mx-auto flex max-w-5xl flex-col gap-6">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        className="-ml-2 h-auto gap-1 px-2 py-1 text-xs font-normal text-sand-500 shadow-none hover:text-sand-800 has-[>svg]:px-2"
-                        onClick={onBack}
-                    >
-                        <ChevronLeft className="size-4" aria-hidden />
-                        Dashboard
-                    </Button>
+                    <DashboardBreadcrumb current={item.title} onDashboardClick={onBack} />
 
                     <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                         <div className="flex min-w-0 items-start gap-3.5">
@@ -296,11 +303,18 @@ export function ChecklistItemView({
                                 </h1>
                                 <p className="mt-1 text-[13px] text-sand-500">{item.shortDescription}</p>
                                 {hasGuide ? (
-                                    <p className="mt-2 text-[12px] italic leading-relaxed text-sand-500">
-                                        This page covers the essentials. For a deeper walkthrough, use the
-                                        <span className="not-italic"> Read the full guide </span>
-                                        link below.
-                                    </p>
+                                    <Link
+                                        href={`/guides/${item.slug}`}
+                                        className={cn(
+                                            "mt-2.5 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[12px] font-medium no-underline transition-colors",
+                                            colors.border,
+                                            colors.text,
+                                            "hover:bg-accent",
+                                        )}
+                                    >
+                                        Read the full guide
+                                        <ArrowUpRight className="size-3.5" aria-hidden />
+                                    </Link>
                                 ) : null}
                                 <TimingChip timing={item.recommendedTiming} />
                             </div>
@@ -333,32 +347,18 @@ export function ChecklistItemView({
 
             <div className="px-9 py-7">
                 <div className="max-w-2xl">
-                    {hasGuide ? (
-                        <Link
-                            href={`/guides/${item.slug}`}
-                            className={cn(
-                                "mb-6 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[12px] font-medium no-underline transition-colors",
-                                colors.border,
-                                colors.text,
-                                "hover:bg-accent",
-                            )}
-                        >
-                            Read the full guide
-                            <ArrowUpRight className="size-3.5" aria-hidden />
-                        </Link>
-                    ) : null}
                     <WhyThisMattersSection text={item.whyThisMatters} />
                     <WarningsSection warnings={item.warnings} />
                     <RequirementsSection item={item} />
-                    <CommonOptionsSection options={item.commonOptions} />
                     {item.stepsSummary.length > 0 &&
-                        item.stepsSummary.map((summary, i) => (
+                        item.stepsSummary.map((step, i) => (
                             <StepCard
                                 key={i}
                                 item={item}
-                                summary={summary}
+                                step={step}
                                 index={i}
                                 progress={progress}
+                                commonOptions={i === 0 ? item.commonOptions : undefined}
                                 onMarkDone={onMarkDone}
                                 onMarkUndone={onMarkUndone}
                             />

@@ -78,7 +78,10 @@
         "steps_summary": [
             "Search for accommodation (CROUS, private rentals, shared flats)",
             "Visit or verify listings",
-            "Sign rental agreement",
+            {
+                "summary": "Sign rental agreement",
+                "description": "The contract should be in your name with a clear start date — you'll need it for CAF and proof of address."
+            },
             "Pay deposit",
             "Receive proof of address"
         ],
@@ -193,7 +196,10 @@
         "common_options": [],
         "steps_summary": [
             "Go to Île-de-France Mobilités website or metro station",
-            "Choose a Navigo pass type (weekly, monthly, student)",
+            {
+                "summary": "Choose a Navigo pass type (weekly, monthly, student)",
+                "description": "Students under 26 can apply for the Imagine R pass for a discounted annual rate."
+            },
             "Upload required documents",
             "Pay for your subscription",
             "Receive or collect your Navigo card",
@@ -249,11 +255,17 @@
         ],
         "common_options": [],
         "steps_summary": [
-            "Go to the official visa validation website",
+            {
+                "summary": "Go to the official visa validation website",
+                "description": "Use the French administration portal linked below — not a third-party site."
+            },
             "Create or log into your account",
             "Enter your visa number and personal details",
             "Complete identity verification",
-            "Pay the required fee if applicable",
+            {
+                "summary": "Pay the required fee if applicable",
+                "description": "The fee is typically around €50–€60 and must be paid online during validation."
+            },
             "Download your visa validation confirmation"
         ],
         "warnings": [
