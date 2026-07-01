@@ -55,7 +55,10 @@ function StatusBadge({
     }
     if (itemDone) {
         return (
-            <Badge variant="secondary" className="ml-auto shrink-0 text-[10px] bg-muted px-2 py-0.5 font-normal text-muted-foreground">
+            <Badge
+                variant="outline"
+                className="ml-auto shrink-0 border-transparent bg-forest-50 px-2 py-0.5 text-[10px] font-medium text-forest-700"
+            >
                 Done
             </Badge>
         );
@@ -68,7 +71,10 @@ function StatusBadge({
         );
     }
     return (
-        <Badge variant="outline" className="ml-auto shrink-0 text-[10px] bg-muted px-2 py-0.5 font-normal text-muted-foreground">
+        <Badge
+            variant="outline"
+            className="ml-auto shrink-0 border-sand-200 bg-sand-50 px-2 py-0.5 text-[10px] font-medium text-sand-600"
+        >
             To do
         </Badge>
     );

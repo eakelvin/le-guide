@@ -3,7 +3,6 @@ import { requireAppUser } from "@/features/auth/session";
 import { getActiveChecklist } from "@/features/checklist/queries";
 import { getMyProgress } from "@/features/progress/queries";
 import { getMyProfileAction } from "@/features/profile/actions";
-import { applyProfileDerivedCompletions } from "@/lib/helpers/checklist-helpers";
 
 export default async function DashboardPage({
     searchParams,
@@ -18,10 +17,6 @@ export default async function DashboardPage({
         getMyProfileAction(),
     ]);
 
-    // Layer profile-driven completions (e.g. hasAccommodation) on top of the
-    // DB-fetched progress so the checklist reflects what the profile implies.
-    const initialProgress = applyProfileDerivedCompletions(dbProgress, initialProfile);
-
     // Deep-link from a guide back to a specific checklist step: /dashboard?item=<slug|id>.
     // Resolve here so the SSR'd shell paints directly on the right view.
     const requestedItem = item?.trim();
@@ -34,7 +29,7 @@ export default async function DashboardPage({
         <DashboardShell
             initialUser={user}
             initialChecklist={checklist}
-            initialProgress={initialProgress}
+            initialProgress={dbProgress}
             initialProfile={initialProfile}
             initialActiveView={initialActiveView}
             showSignedInToast={signedIn === "1"}

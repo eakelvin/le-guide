@@ -15,6 +15,19 @@ export const PROFILE_DERIVED_ITEM_IDS = {
     accommodation: "find-housing",
 } as const;
 
+export function getProfileDerivedCompletionReason(
+    itemId: string,
+    profile: UserProfile,
+): string | null {
+    if (
+        itemId === PROFILE_DERIVED_ITEM_IDS.accommodation &&
+        profile.hasAccommodation === "yes"
+    ) {
+        return "Your profile says you already have accommodation.";
+    }
+    return null;
+}
+
 export interface ArrivalSnapshot {
     /** Whole days between `arrivalDate` and `now` (always non-negative). */
     days: number;
@@ -118,6 +131,28 @@ export function applyProfileDerivedCompletions(
         completedItems[PROFILE_DERIVED_ITEM_IDS.accommodation] = true;
     }
     return { ...progress, completedItems };
+}
+
+/**
+ * Client/server display layer: profile-derived completions behave like complete
+ * checklist items, including their step ticks, without writing synthetic rows.
+ */
+export function applyProfileDerivedProgress(
+    progress: ProgressState,
+    profile: UserProfile,
+    items: ChecklistItem[],
+): ProgressState {
+    const derived = applyProfileDerivedCompletions(progress, profile);
+    const completedSteps = { ...derived.completedSteps };
+
+    for (const item of items) {
+        if (!getProfileDerivedCompletionReason(item.id, profile)) continue;
+        item.stepsSummary.forEach((_, index) => {
+            completedSteps[getChecklistStepKey(item.id, index)] = true;
+        });
+    }
+
+    return { ...derived, completedSteps };
 }
 
 /**

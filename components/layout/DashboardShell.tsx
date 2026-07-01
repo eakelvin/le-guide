@@ -5,7 +5,11 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Sidebar } from "./Sidebar";
 import { PROCESSES } from "@/lib/data/processes";
-import { getChecklistTotalProgress } from "@/lib/helpers/checklist-helpers";
+import {
+    applyProfileDerivedProgress,
+    getChecklistTotalProgress,
+    getProfileDerivedCompletionReason,
+} from "@/lib/helpers/checklist-helpers";
 import { useProgress, useProfile } from "@/lib/hooks";
 import { DashboardHome } from "../processes/DashboardHome";
 import { ProcessView } from "../processes/ProcessView";
@@ -78,7 +82,11 @@ export function
         }
     }, [initialActiveView, router]);
 
-    const totalProgress = getChecklistTotalProgress(initialChecklist, progress);
+    const displayProgress = useMemo(
+        () => applyProfileDerivedProgress(progress, profile, initialChecklist),
+        [progress, profile, initialChecklist],
+    );
+    const totalProgress = getChecklistTotalProgress(initialChecklist, displayProgress);
     const activeProcess = PROCESSES.find((p) => p.id === activeView);
     const activeChecklistItem = useMemo(
         () =>
@@ -130,7 +138,7 @@ export function
         <div className="flex min-h-screen bg-white">
             <Sidebar
                 checklist={initialChecklist}
-                progress={progress}
+                progress={displayProgress}
                 activeView={activeView}
                 onNavigate={setActiveView}
                 totalProgress={totalProgress}
@@ -141,7 +149,7 @@ export function
                 {activeView === "home" ? (
                     <DashboardHome
                         checklist={initialChecklist}
-                        progress={progress}
+                        progress={displayProgress}
                         profile={profile}
                         onNavigate={setActiveView}
                         name={greetingName}
@@ -150,7 +158,11 @@ export function
                 ) : activeChecklistItem ? (
                     <ChecklistItemView
                         item={activeChecklistItem}
-                        progress={progress}
+                        progress={displayProgress}
+                        profileDerivedCompletionReason={getProfileDerivedCompletionReason(
+                            activeChecklistItem.id,
+                            profile,
+                        )}
                         onMarkDone={markStepDone}
                         onMarkUndone={markStepUndone}
                         onMarkItemDone={markItemDone}
@@ -160,7 +172,7 @@ export function
                 ) : activeProcess ? (
                     <ProcessView
                         process={activeProcess}
-                        progress={progress}
+                        progress={displayProgress}
                         onMarkDone={markStepDone}
                         onMarkUndone={markStepUndone}
                         onBack={() => setActiveView("home")}
@@ -168,7 +180,7 @@ export function
                 ) : (
                     <DashboardHome
                         checklist={initialChecklist}
-                        progress={progress}
+                        progress={displayProgress}
                         profile={profile}
                         onNavigate={setActiveView}
                         name={greetingName}

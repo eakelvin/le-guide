@@ -27,7 +27,7 @@ export function Hero() {
                     <h1 className="font-heading mb-6 max-w-[820px] text-[clamp(40px,6vw,72px)] font-light leading-[1.08] tracking-[-0.04em] text-sand-800">
                         Navigate France<br />
                         without the<br />
-                        <em className="italic text-forest-900">administrative fog</em>
+                        <em className="italic text-forest-900">administrative struggles</em>
                     </h1>
 
                     <p className="text-lg text-sand-600 leading-relaxed max-w-[520px] mb-10">

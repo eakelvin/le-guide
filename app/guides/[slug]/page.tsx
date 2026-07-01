@@ -6,7 +6,7 @@ import { BLOG_CATEGORIES, BLOG_POSTS, getPostBySlug, isChecklistGuideSlug } from
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";
-import { AlertTriangle, ArrowLeft, Lightbulb } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Lightbulb, House } from "lucide-react";
 
 const CATEGORY_BADGE: Record<BlogCategoryId, string> = {
   general: "border-transparent bg-azure-50 text-azure-700",
@@ -39,12 +39,26 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
 
   return (
     <article className="mx-auto max-w-3xl px-6 pb-20 pt-8 md:px-12 md:pt-10">
-      <Button variant="ghost" size="sm" className="mb-6 -ml-2 gap-1.5 text-sand-600 hover:text-sand-800" asChild>
-        <Link href="/guides">
-          <ArrowLeft className="size-4" aria-hidden />
-          Back to guides
-        </Link>
-      </Button>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <Button variant="ghost" size="sm" className="-ml-2 gap-1.5 text-sand-600 hover:text-sand-800" asChild>
+          <Link href="/guides">
+            <House className="size-4" aria-hidden />
+            Back to guides
+          </Link>
+        </Button>
+        {isChecklistGuide ? (
+          <Button className="gap-1.5 rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
+            <Link href={`/dashboard?item=${slug}`}>
+              <ArrowLeft className="size-4" aria-hidden />
+              Back to this step in your checklist
+            </Link>
+          </Button>
+        ) : (
+          <Button className="rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
+            <Link href="/dashboard">Open your checklist</Link>
+          </Button>
+        )}
+      </div>
 
       <Badge variant="outline" className={cn("mb-4 text-[10px] font-medium", CATEGORY_BADGE[post.category])}>
         {cat?.label ?? post.category}
@@ -137,19 +151,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         school’s international office.
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-3">
-        {isChecklistGuide ? (
-          <Button className="rounded-full bg-forest-900 text-white hover:bg-forest-800 gap-1.5" asChild>
-            <Link href={`/dashboard?item=${slug}`}>
-              <ArrowLeft className="size-4" aria-hidden />
-              Back to this step in your checklist
-            </Link>
-          </Button>
-        ) : (
-          <Button className="rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
-            <Link href="/dashboard">Open your checklist</Link>
-          </Button>
-        )}
+      <div className="mt-8">
         <Button variant="outline" className="rounded-full border-sand-200 shadow-none" asChild>
           <Link href="/guides">More guides</Link>
         </Button>
