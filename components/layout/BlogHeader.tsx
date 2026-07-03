@@ -4,17 +4,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function BlogHeader() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
-  const isArticle = segments[0] === "blog" && segments.length >= 2;
+  const isGuides = segments[0] === "guides";
+  const isArticle = isGuides && segments.length >= 2;
   const backHref = isArticle ? "/guides" : "/";
   const backLabel = isArticle ? "All guides" : "Home";
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/75">
-      <div className="mx-auto flex h-14 max-w-3xl items-center justify-between gap-4 px-6 md:h-[60px] md:max-w-6xl md:px-12">
+      <div
+        className={cn(
+          "mx-auto flex h-14 items-center justify-between gap-4 px-6 md:h-[60px] md:px-8",
+          isArticle ? "max-w-3xl" : "max-w-6xl md:px-12",
+        )}
+      >
         <div className="flex min-w-0 items-center gap-3">
           <Button variant="ghost" size="sm" className="shrink-0 gap-1.5 px-2 text-sand-600" asChild>
             <Link href={backHref}>

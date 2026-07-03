@@ -376,6 +376,43 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
           "If you have friends who already use an online bank, ask whether they have a referral code before creating your account. Many online banks offer referral programs that reward both the referrer and the new customer with a cash bonus or other incentives after the account is opened and the eligibility conditions are met."
         ],
       },
+      {
+        heading: "Which online bank account should you choose?",
+        paragraphs: [
+          "There is no perfect option for everyone, but these are some popular choices. If you have friends who already use an online bank, ask whether they have a referral code before creating your account. Many online banks offer referral programs that reward both the referrer and the new customer with a cash bonus or other incentives after the account is opened and the eligibility conditions are met.",
+        ],
+        bullets: [
+          {
+            label: "Revolut",
+            href: "https://www.revolut.com/fr-FR/",
+            description:
+              "Spend wisely, send money quickly, automatically split your salary and watch your savings grow with an account with a local IBAN.",
+          },
+          {
+            label: "N26",
+            href: "https://n26.com/fr-fr",
+            description:
+              "Compare N26 accounts and open yours in minute.",
+          },
+          {
+            label: "Nickel",
+            href: "https://nickel.eu/fr?utm_source=google&utm_medium=cpc&utm_campaign=S/Brand-Top-KW_BRAND-Banque&gad_source=1&gad_campaignid=23690138112&gbraid=0AAAAADqJvxTN7bkAdzQX2X2uAkxusU13B&gclid=CjwKCAjwu53SBhAhEiwAJzSLNmZXJ5c9K5TnQYkQbFXuEzmGG2vpfGdgj95VR3krvWH4GnIa0FhPjxoCiMgQAvD_BwE",
+            description:
+              "An account open to people of over 198 nationalities and with no income requirements",
+          },
+          {
+            label: "BoursoBank",
+            href: "https://www.boursobank.com/landing/search?&origine=2238&at_medium=sl&at_campaign=fr_sea&at_platform=google&at_term=&at_creation=marque_cav&at_variant=filrouge&gad_source=1&gad_campaignid=12394005827&gbraid=0AAAAADFboX1xTOUDOP0Ge2NatcqoHiot9&gclid=CjwKCAjwu53SBhAhEiwAJzSLNtyGT5VTIo23hHJ5Vw2ivtBdGT2dcdDEV4NTeOJvTgpZWu-vfWR8wxoCtz0QAvD_BwE",
+            description:
+              "Try BoursoBank without having your salary paid into it . And switch banks by making BoursoBank your main bank",
+          },
+          // {
+          //   label: "",
+          //   href: "",
+          //   description: "",
+          // },
+        ],
+      },
     ],
     recommendation: "Open an online bank account shortly after arriving in France, then open a traditional bank account when you have the required documents and proof of address.",
     warning: ""

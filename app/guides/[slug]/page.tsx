@@ -6,7 +6,7 @@ import { BLOG_CATEGORIES, BLOG_POSTS, getPostBySlug, isChecklistGuideSlug } from
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";
-import { AlertTriangle, ArrowLeft, Lightbulb, House } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowUpRight, Lightbulb } from "lucide-react";
 
 const CATEGORY_BADGE: Record<BlogCategoryId, string> = {
   general: "border-transparent bg-azure-50 text-azure-700",
@@ -38,41 +38,54 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   const isChecklistGuide = isChecklistGuideSlug(slug);
 
   return (
-    <article className="mx-auto max-w-3xl px-6 pb-20 pt-8 md:px-12 md:pt-10">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <Button variant="ghost" size="sm" className="-ml-2 gap-1.5 text-sand-600 hover:text-sand-800" asChild>
-          <Link href="/guides">
-            <House className="size-4" aria-hidden />
-            Back to guides
-          </Link>
-        </Button>
-        {isChecklistGuide ? (
-          <Button className="gap-1.5 rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
-            <Link href={`/dashboard?item=${slug}`}>
-              <ArrowLeft className="size-4" aria-hidden />
-              Back to this step in your checklist
-            </Link>
-          </Button>
-        ) : (
-          <Button className="rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
-            <Link href="/dashboard">Open your checklist</Link>
-          </Button>
-        )}
-      </div>
+    <article className="mx-auto w-full max-w-3xl px-6 pb-16 pt-6 sm:px-8 md:pt-8">
+      <nav aria-label="Breadcrumb" className="mb-6 text-xs text-sand-400">
+        <Link href="/guides" className="text-sand-400 transition-colors hover:text-sand-800 hover:underline">
+          Guides
+        </Link>
+        <span aria-hidden className="mx-1 text-sand-300">
+          &gt;
+        </span>
+        <span className="font-medium text-sand-800">{post.title}</span>
+      </nav>
 
-      <Badge variant="outline" className={cn("mb-4 text-[10px] font-medium", CATEGORY_BADGE[post.category])}>
-        {cat?.label ?? post.category}
-      </Badge>
+      <header className="border-b border-sand-100 pb-8">
+        <Badge variant="outline" className={cn("mb-4 text-[10px] font-medium", CATEGORY_BADGE[post.category])}>
+          {cat?.label ?? post.category}
+        </Badge>
 
-      <h1 className="font-heading text-3xl font-light tracking-tight text-sand-800 md:text-[2.25rem] md:leading-tight">
-        {post.title}
-      </h1>
+        <h1 className="font-heading text-3xl font-light tracking-tight text-sand-800 md:text-[2.25rem] md:leading-tight">
+          {post.title}
+        </h1>
 
-      <p className="mt-3 text-base leading-relaxed text-sand-600">{post.excerpt}</p>
+        <p className="mt-3 text-base leading-relaxed text-sand-600">{post.excerpt}</p>
 
-      <p className="mt-4 text-xs text-sand-400">
-        {post.readingMinutes} min read · Last updated {post.updated}
-      </p>
+        <p className="mt-4 text-xs text-sand-400">
+          {post.readingMinutes} min read · Last updated {post.updated}
+        </p>
+
+        <div className="mt-5">
+          {isChecklistGuide ? (
+            <Button className="h-auto w-full gap-1.5 whitespace-normal rounded-full bg-forest-900 px-4 py-2.5 text-center text-sm text-white hover:bg-forest-800 sm:w-auto" asChild>
+              <Link href={`/dashboard?item=${slug}`}>
+                <ArrowLeft className="size-4 shrink-0" aria-hidden />
+                Back to this step in your checklist
+              </Link>
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              className="h-auto w-full gap-1.5 rounded-full border-sand-200 px-4 py-2.5 text-sm shadow-none sm:w-auto"
+              asChild
+            >
+              <Link href="/dashboard">
+                Open your checklist
+                <ArrowUpRight className="size-3.5 shrink-0" aria-hidden />
+              </Link>
+            </Button>
+          )}
+        </div>
+      </header>
 
       {post.warning ? (
         <div className="mt-8 flex gap-3 rounded-xl border border-coral-200 bg-coral-50 p-5 text-[15px] leading-relaxed text-coral-900 shadow-xs">
@@ -84,7 +97,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         </div>
       ) : null}
 
-      <div className="mt-6 space-y-10 border-t border-sand-100 pt-10">
+      <div className={cn("space-y-10", post.warning ? "mt-8" : "mt-10")}>
         {post.sections.map((section) => (
           <section key={section.heading}>
             <h2 className="font-heading text-xl font-medium text-sand-800">{section.heading}</h2>
@@ -145,17 +158,27 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         </div>
       ) : null}
 
-      <div className="mt-8 rounded-xl border border-sand-200 bg-card p-6 text-sm leading-relaxed text-sand-600 shadow-xs">
-        <strong className="font-medium text-sand-800">Disclaimer:</strong> This article summarizes common situations for
-        international students in France. It is not legal advice. Rules change — check official sources and your
-        school’s international office.
-      </div>
+      <footer className="mt-12 space-y-6 border-t border-sand-100 pt-8">
+        <div className="rounded-xl border border-sand-200 bg-card p-6 text-sm leading-relaxed text-sand-600 shadow-xs">
+          <strong className="font-medium text-sand-800">Disclaimer:</strong> This article summarizes common situations for
+          international students in France. It is not legal advice. Rules change — check official sources and your
+          school&apos;s international office.
+        </div>
 
-      <div className="mt-8">
-        <Button variant="outline" className="rounded-full border-sand-200 shadow-none" asChild>
-          <Link href="/guides">More guides</Link>
-        </Button>
-      </div>
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button variant="outline" className="rounded-full border-sand-200 shadow-none" asChild>
+            <Link href="/guides">More guides</Link>
+          </Button>
+          {isChecklistGuide ? (
+            <Button className="gap-1.5 rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
+              <Link href={`/dashboard?item=${slug}`}>
+                <ArrowLeft className="size-4" aria-hidden />
+                Back to checklist step
+              </Link>
+            </Button>
+          ) : null}
+        </div>
+      </footer>
     </article>
   );
 }
