@@ -140,10 +140,18 @@
         ],
         "steps_summary": [
             "Choose a bank (Revolut, Nickel, etc.)",
-            "Create account online",
-            "Upload identity documents",
-            "Verify identity",
-            "Receive IBAN"
+            {
+                "summary": "Download the Application on your PlayStore(Android) or Appstore(IOS)",
+                "description": "Once installed, open the app and follow the on-screen steps. Fill in the registration form by entering the required details"
+            },
+            {
+                "summary": "Verify identity",
+                "description": "Upload a photo of an ID document — passport, national ID card, or visa (a residence permit may also be accepted depending on your country). Take a selfie to confirm your identity."
+            },
+            {
+                "summary": "Receive IBAN and Order your Card",
+                "description": "You can also create a free virtual card immediately to shop online while waiting for your physical card to arrive. Track the delivery on the application"
+            }
         ],
         "warnings": [
             "Make sure you have your documents ready before you start."
@@ -257,21 +265,27 @@
         "steps_summary": [
             {
                 "summary": "Go to the official visa validation website",
-                "description": "Use the French administration portal linked below — not a third-party site."
+                "description": "Use the French administration portal linked below: https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/"
             },
-            "Create or log into your account",
-            "Enter your visa number and personal details",
-            "Complete identity verification",
             {
-                "summary": "Pay the required fee if applicable",
-                "description": "The fee is typically around €50–€60 and must be paid online during validation."
+                "summary": "Enter your visa number and personal details",
+                "description": "Enter your visa number and confirm it. After confirmation, enter your date of beginning and end of validity, date of issue, reason for stay; "
             },
-            "Download your visa validation confirmation"
+            {
+                "summary": "Complete identity verification",
+                "description": "Enter the additional information: family circumstances, telephone number, email address; Indicate your date of arrival in France and your address in France;"
+            },
+            {
+                "summary": "Pay the required fee",
+                "description": "Pay the stay tax of 50 euros"
+            },
+            {
+                "summary": "Download your visa validation confirmation",
+                "description": "You will receive two emails. A first email with your login details. You will need it to access your account. It will contain the confirmation of the validation of your VLS-TS visa. A second email confirming the information you entered online. You can download the email of confirmation of the validation of your VLS-TS visa."
+            }
         ],
         "warnings": [
-            "The fee is typically ~€50–€60 (varies slightly).",
-            "You must do this even if you already have a valid visa sticker.",
-            "The online validation is a seperate legal requirememt."
+            ""
         ],
         "applies_to": {
             "student_groups": [

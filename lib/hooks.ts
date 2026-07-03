@@ -22,68 +22,185 @@ function parseSubStepIndex(stepKey: string): number | null {
   return Number.isInteger(n) && n >= 0 ? n : null;
 }
 
+function allStepsDone(
+  itemId: string,
+  totalSteps: number,
+  completedSteps: Record<string, boolean>,
+): boolean {
+  if (totalSteps <= 0) return false;
+  return Array.from({ length: totalSteps }, (_, i) =>
+    completedSteps[getStepKey(itemId, String(i))] === true,
+  ).every(Boolean);
+}
+
+function stepKeysForItem(itemId: string, stepCount: number): Record<string, boolean> {
+  const keys: Record<string, boolean> = {};
+  for (let i = 0; i < stepCount; i++) {
+    keys[getStepKey(itemId, String(i))] = true;
+  }
+  return keys;
+}
+
 export function useProgress(initialProgress?: Partial<DbProgress>) {
   const [progress, setProgress] = useState<ProgressState>(() => ({
     completedSteps: { ...(initialProgress?.completedSteps ?? {}) },
     completedItems: { ...(initialProgress?.completedItems ?? {}) },
   }));
 
-  const markStepDone = useCallback(async (itemId: string, stepKey: string) => {
-    const k = getStepKey(itemId, stepKey);
-    setProgress((prev) => ({
-      ...prev,
-      completedSteps: { ...prev.completedSteps, [k]: true },
-    }));
-    const idx = parseSubStepIndex(stepKey);
-    if (idx === null) return;
-    const { error } = await markStepDoneAction(itemId, idx);
-    if (error) {
-      setProgress((prev) => ({
-        ...prev,
-        completedSteps: { ...prev.completedSteps, [k]: false },
-      }));
-      toast.error("Couldn't save your progress.");
-    }
-  }, []);
+  const markStepDone = useCallback(
+    async (itemId: string, stepKey: string, totalSteps?: number) => {
+      const k = getStepKey(itemId, stepKey);
+      const idx = parseSubStepIndex(stepKey);
+      let shouldCompleteItem = false;
+
+      setProgress((prev) => {
+        const completedSteps = { ...prev.completedSteps, [k]: true };
+        shouldCompleteItem =
+          prev.completedItems[itemId] !== true &&
+          totalSteps != null &&
+          totalSteps > 0 &&
+          allStepsDone(itemId, totalSteps, completedSteps);
+
+        return {
+          completedSteps,
+          completedItems: shouldCompleteItem
+            ? { ...prev.completedItems, [itemId]: true }
+            : prev.completedItems,
+        };
+      });
+
+      if (idx === null) return;
+
+      const { error } = await markStepDoneAction(itemId, idx);
+      if (error) {
+        setProgress((prev) => ({
+          ...prev,
+          completedSteps: { ...prev.completedSteps, [k]: false },
+          completedItems: shouldCompleteItem
+            ? { ...prev.completedItems, [itemId]: false }
+            : prev.completedItems,
+        }));
+        toast.error("Couldn't save your progress.");
+        return;
+      }
+
+      if (shouldCompleteItem) {
+        const { error: itemError } = await markItemDoneAction(itemId);
+        if (itemError) {
+          setProgress((prev) => ({
+            ...prev,
+            completedItems: { ...prev.completedItems, [itemId]: false },
+          }));
+          toast.error("Couldn't save your progress.");
+        }
+      }
+    },
+    [],
+  );
 
   const markStepUndone = useCallback(async (itemId: string, stepKey: string) => {
     const k = getStepKey(itemId, stepKey);
-    setProgress((prev) => ({
-      ...prev,
-      completedSteps: { ...prev.completedSteps, [k]: false },
-    }));
     const idx = parseSubStepIndex(stepKey);
+    let wasItemDone = false;
+
+    setProgress((prev) => {
+      wasItemDone = prev.completedItems[itemId] === true;
+      return {
+        completedSteps: { ...prev.completedSteps, [k]: false },
+        completedItems: wasItemDone
+          ? { ...prev.completedItems, [itemId]: false }
+          : prev.completedItems,
+      };
+    });
+
     if (idx === null) return;
+
     const { error } = await markStepUndoneAction(itemId, idx);
     if (error) {
       setProgress((prev) => ({
         ...prev,
         completedSteps: { ...prev.completedSteps, [k]: true },
+        completedItems: wasItemDone
+          ? { ...prev.completedItems, [itemId]: true }
+          : prev.completedItems,
       }));
       toast.error("Couldn't save your progress.");
+      return;
+    }
+
+    if (wasItemDone) {
+      const { error: itemError } = await markItemUndoneAction(itemId);
+      if (itemError) {
+        setProgress((prev) => ({
+          ...prev,
+          completedItems: { ...prev.completedItems, [itemId]: true },
+        }));
+        toast.error("Couldn't save your progress.");
+      }
     }
   }, []);
 
-  const markItemDone = useCallback(async (itemId: string) => {
+  const markItemDone = useCallback(async (itemId: string, stepCount = 0) => {
+    const tickedSteps = stepKeysForItem(itemId, stepCount);
+
     setProgress((prev) => ({
-      ...prev,
       completedItems: { ...prev.completedItems, [itemId]: true },
+      completedSteps: { ...prev.completedSteps, ...tickedSteps },
     }));
+
+    if (stepCount > 0) {
+      const stepResults = await Promise.all(
+        Array.from({ length: stepCount }, (_, i) => markStepDoneAction(itemId, i)),
+      );
+      const stepError = stepResults.find((r) => r.error)?.error;
+      if (stepError) {
+        setProgress((prev) => {
+          const completedSteps = { ...prev.completedSteps };
+          for (let i = 0; i < stepCount; i++) {
+            delete completedSteps[getStepKey(itemId, String(i))];
+          }
+          return {
+            completedItems: { ...prev.completedItems, [itemId]: false },
+            completedSteps,
+          };
+        });
+        toast.error("Couldn't save your progress.");
+        return;
+      }
+    }
+
     const { error } = await markItemDoneAction(itemId);
     if (error) {
-      setProgress((prev) => ({
-        ...prev,
-        completedItems: { ...prev.completedItems, [itemId]: false },
-      }));
+      setProgress((prev) => {
+        const completedSteps = { ...prev.completedSteps };
+        for (let i = 0; i < stepCount; i++) {
+          delete completedSteps[getStepKey(itemId, String(i))];
+        }
+        return {
+          completedItems: { ...prev.completedItems, [itemId]: false },
+          completedSteps,
+        };
+      });
       toast.error("Couldn't save your progress.");
     }
   }, []);
 
-  const markItemUndone = useCallback(async (itemId: string) => {
-    setProgress((prev) => ({
-      ...prev,
-      completedItems: { ...prev.completedItems, [itemId]: false },
-    }));
+  const markItemUndone = useCallback(async (itemId: string, stepCount = 0) => {
+    const clearedKeys = Array.from({ length: stepCount }, (_, i) =>
+      getStepKey(itemId, String(i)),
+    );
+
+    setProgress((prev) => {
+      const completedSteps = { ...prev.completedSteps };
+      for (const key of clearedKeys) {
+        delete completedSteps[key];
+      }
+      return {
+        completedItems: { ...prev.completedItems, [itemId]: false },
+        completedSteps,
+      };
+    });
+
     const { error } = await markItemUndoneAction(itemId);
     if (error) {
       setProgress((prev) => ({
@@ -91,6 +208,17 @@ export function useProgress(initialProgress?: Partial<DbProgress>) {
         completedItems: { ...prev.completedItems, [itemId]: true },
       }));
       toast.error("Couldn't save your progress.");
+      return;
+    }
+
+    if (stepCount > 0) {
+      const stepResults = await Promise.all(
+        Array.from({ length: stepCount }, (_, i) => markStepUndoneAction(itemId, i)),
+      );
+      const stepError = stepResults.find((r) => r.error)?.error;
+      if (stepError) {
+        toast.error("Couldn't save your progress.");
+      }
     }
   }, []);
 

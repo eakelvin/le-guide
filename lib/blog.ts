@@ -373,6 +373,7 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
           "Traditional banks usually have physical branches and are often required for certain services, such as applying for housing, loans, or other administrative procedures. However, opening an account can take several days or weeks.",
           "Online banks are faster to set up and can help you manage your finances while waiting for your traditional bank account.",
           "An online bank account allows you to receive money, make payments, and pay for certain administrative procedures, including visa validation.",
+          "If you have friends who already use an online bank, ask whether they have a referral code before creating your account. Many online banks offer referral programs that reward both the referrer and the new customer with a cash bonus or other incentives after the account is opened and the eligibility conditions are met."
         ],
       },
     ],

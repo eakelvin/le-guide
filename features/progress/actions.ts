@@ -66,7 +66,7 @@ export async function markStepUndoneAction(
   return {};
 }
 
-/** Mark the whole item complete (independent of sub-step ticks). */
+/** Mark the whole item complete. Client syncs sub-step ticks to match. */
 export async function markItemDoneAction(itemId: string): Promise<ActionResult> {
   const { supabase, userId } = await getSessionContext();
   if (!userId) return { error: "Not signed in." };

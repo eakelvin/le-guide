@@ -23,11 +23,11 @@ const SECTION_GAP = "mb-8";
 interface ChecklistItemViewProps {
     item: ChecklistItem;
     progress: ProgressState;
-    onMarkDone: (itemId: string, stepKey: string) => void;
+    onMarkDone: (itemId: string, stepKey: string, totalSteps?: number) => void;
     onMarkUndone: (itemId: string, stepKey: string) => void;
-    /** Marks the entire item complete (independent of sub-step ticks). */
-    onMarkItemDone: (itemId: string) => void;
-    onMarkItemUndone: (itemId: string) => void;
+    /** Marks the entire item complete and ticks all sub-steps. */
+    onMarkItemDone: (itemId: string, stepCount?: number) => void;
+    onMarkItemUndone: (itemId: string, stepCount?: number) => void;
     onBack: () => void;
     profileDerivedCompletionReason?: string | null;
 }
@@ -39,7 +39,7 @@ interface StepCardProps {
     progress: ProgressState;
     commonOptions?: string[];
     readOnlyComplete?: boolean;
-    onMarkDone: (itemId: string, stepKey: string) => void;
+    onMarkDone: (itemId: string, stepKey: string, totalSteps?: number) => void;
     onMarkUndone: (itemId: string, stepKey: string) => void;
 }
 
@@ -331,8 +331,8 @@ function ItemCompletionActions({
     itemDone: boolean;
     itemDoneFromProfile: boolean;
     profileDerivedCompletionReason?: string | null;
-    onMarkItemDone: (itemId: string) => void;
-    onMarkItemUndone: (itemId: string) => void;
+    onMarkItemDone: (itemId: string, stepCount?: number) => void;
+    onMarkItemUndone: (itemId: string, stepCount?: number) => void;
 }) {
     if (itemDoneFromProfile) {
         return (
@@ -349,21 +349,26 @@ function ItemCompletionActions({
 
     if (itemDone) {
         return (
-            <Button variant="outline" size="sm" onClick={() => onMarkItemUndone(item.id)}>
+            <Button variant="outline" size="sm" onClick={() => onMarkItemUndone(item.id, item.stepsSummary.length)}>
                 Mark as not done
             </Button>
         );
     }
 
     return (
-        <Button
-            size="sm"
-            className="text-white shadow-none"
-            style={{ backgroundColor: getColor(colorKey) }}
-            onClick={() => onMarkItemDone(item.id)}
-        >
-            Mark as done
-        </Button>
+        <div className="space-y-2">
+            <Button
+                size="sm"
+                className="text-white shadow-none"
+                style={{ backgroundColor: getColor(colorKey) }}
+                onClick={() => onMarkItemDone(item.id, item.stepsSummary.length)}
+            >
+                Mark as done
+            </Button>
+            <p className="text-xs leading-relaxed text-sand-500">
+                Marks this step complete and checks off all sub-steps.
+            </p>
+        </div>
     );
 }
 
@@ -467,7 +472,9 @@ export function ChecklistItemView({
                                     progress={progress}
                                     commonOptions={i === 0 ? item.commonOptions : undefined}
                                     readOnlyComplete={itemDoneFromProfile}
-                                    onMarkDone={onMarkDone}
+                                    onMarkDone={(itemId, stepKey) =>
+                                        onMarkDone(itemId, stepKey, item.stepsSummary.length)
+                                    }
                                     onMarkUndone={onMarkUndone}
                                 />
                             ))}

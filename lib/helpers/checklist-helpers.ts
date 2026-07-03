@@ -193,9 +193,9 @@ export function getChecklistItemProgress(
 export type ChecklistItemStatus = "Not started" | "In progress" | "Complete";
 
 /**
- * "Complete" is decided ONLY by the item-completion table — sub-step ticks
- * never auto-complete an item. Sub-step ticks only push the bar from
- * "Not started" → "In progress".
+ * Item completion is the source of truth for "Done". Sub-step ticks drive the
+ * in-progress %. Marking an item done ticks all sub-steps; ticking every
+ * sub-step marks the item done; unticking a step clears item completion.
  */
 export function isChecklistItemDone(item: ChecklistItem, progress: ProgressState): boolean {
     return progress.completedItems[item.id] === true;
