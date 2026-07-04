@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BLOG_CATEGORIES, getPostsByCategory } from "@/lib/blog";
+import { BLOG_CATEGORIES, getPublicPostsByCategory } from "@/lib/blog";
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";
@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Guides for students in France | LeGuide",
   description:
-    "Practical articles on alternance, internships (stages), working on a student visa, and everyday admin in France — for international students.",
+    "Practical articles on alternance, internships (stages), working on a student visa, and student life in France — for international students.",
 };
 
 const CATEGORY_BADGE: Record<BlogCategoryId, string> = {
@@ -27,7 +27,7 @@ export default async function BlogPage({
 }) {
   const { category: raw } = await searchParams;
   const category = raw && BLOG_CATEGORIES.some((c) => c.id === raw) ? raw : "all";
-  const posts = getPostsByCategory(category);
+  const posts = getPublicPostsByCategory(category);
 
   return (
     <main className="mx-auto max-w-6xl px-6 pb-20 pt-10 md:px-12 md:pt-14">
@@ -37,10 +37,10 @@ export default async function BlogPage({
           Guides for life & work as a student in France
         </h1>
         <p className="mt-3 text-base leading-relaxed text-sand-600">
-          Clear explainers on <strong className="font-medium text-sand-800">alternance</strong>,{" "}
-          <strong className="font-medium text-sand-800">stages</strong>, working within your permit, and admin habits
-          that save time. These articles are for orientation only — always confirm with your school, employer, or
-          préfecture.
+          Articles on <strong className="font-medium text-sand-800">alternance</strong>,{" "}
+          <strong className="font-medium text-sand-800">internships</strong>, working within your permit, and everyday
+          student life. Step-by-step walkthroughs for your checklist live in the dashboard — open any item and use{" "}
+          <strong className="font-medium text-sand-800">Read the full guide</strong> when you need more detail.
         </p>
       </div>
 

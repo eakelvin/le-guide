@@ -50,8 +50,14 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
       </nav>
 
       <header className="border-b border-sand-100 pb-8">
-        <Badge variant="outline" className={cn("mb-4 text-[10px] font-medium", CATEGORY_BADGE[post.category])}>
-          {cat?.label ?? post.category}
+        <Badge
+          variant="outline"
+          className={cn(
+            "mb-4 text-[10px] font-medium",
+            isChecklistGuide ? CATEGORY_BADGE.admin : CATEGORY_BADGE[post.category],
+          )}
+        >
+          {isChecklistGuide ? "Checklist guide" : (cat?.label ?? post.category)}
         </Badge>
 
         <h1 className="font-heading text-3xl font-light tracking-tight text-sand-800 md:text-[2.25rem] md:leading-tight">

@@ -2,11 +2,6 @@ import type { BlogCategory, BlogPost } from "@/types/blog";
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
   {
-    id: "admin",
-    label: "Administrative steps",
-    description: "Walkthroughs for the checklist items: visa, CAF, housing, banking, and more.",
-  },
-  {
     id: "general",
     label: "General knowledge",
     description: "Rights, paperwork, and everyday student life in France.",
@@ -603,6 +598,16 @@ export const CHECKLIST_GUIDE_POSTS: BlogPost[] = [
   },
 ];
 
+/** Editorial articles shown on the public `/guides` index (excludes checklist walkthroughs). */
+export function getPublicGuidePosts(): BlogPost[] {
+  return EDITORIAL_POSTS;
+}
+
+export function getPublicPostsByCategory(category: string | null): BlogPost[] {
+  if (!category || category === "all") return EDITORIAL_POSTS;
+  return EDITORIAL_POSTS.filter((p) => p.category === category);
+}
+
 /** All posts (editorial + checklist-item walkthroughs) reachable at `/guides/[slug]`. */
 export const BLOG_POSTS: BlogPost[] = [...CHECKLIST_GUIDE_POSTS, ...EDITORIAL_POSTS];
 
@@ -610,9 +615,9 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
 }
 
-/** Cheap existence check for the "Read full guide" link in the checklist view. */
+/** True when a checklist item has a deep-linked walkthrough at `/guides/[slug]`. */
 export function hasGuideForSlug(slug: string): boolean {
-  return BLOG_POSTS.some((p) => p.slug === slug);
+  return isChecklistGuideSlug(slug);
 }
 
 /**
@@ -622,11 +627,6 @@ export function hasGuideForSlug(slug: string): boolean {
  */
 export function isChecklistGuideSlug(slug: string): boolean {
   return CHECKLIST_GUIDE_POSTS.some((p) => p.slug === slug);
-}
-
-export function getPostsByCategory(category: string | null): BlogPost[] {
-  if (!category || category === "all") return BLOG_POSTS;
-  return BLOG_POSTS.filter((p) => p.category === category);
 }
 
 export function categoryMeta(id: string) {
