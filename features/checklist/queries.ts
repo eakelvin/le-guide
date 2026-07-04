@@ -93,10 +93,12 @@ function toAppShape(row: RawRow): ChecklistItem {
             studentGroups: row.applies_to_student_groups,
             visaTypes: row.applies_to_visa_types,
         },
-        officialLinks: sortBy(row.links).map<ChecklistOfficialLink>((l) => ({
-            label: l.label,
-            url: l.url,
-        })),
+        officialLinks: sortBy(row.links)
+            .filter((l) => l.url.trim() !== "")
+            .map<ChecklistOfficialLink>((l) => ({
+                label: l.label.trim() || l.url.trim(),
+                url: l.url.trim(),
+            })),
     };
 }
 

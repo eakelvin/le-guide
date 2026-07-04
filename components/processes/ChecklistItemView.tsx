@@ -10,12 +10,13 @@ import {
     getChecklistItemProgress,
     isChecklistItemDone,
     isChecklistStepDone,
+    showsOfficialLinksOnStepOne,
 } from "@/lib/helpers/checklist-helpers";
 import { getChecklistIcon } from "@/lib/data/checklist-icons";
 import { hasGuideForSlug } from "@/lib/blog";
 import { DashboardBreadcrumb } from "@/components/layout/DashboardBreadcrumb";
-import type { ChecklistItem, ChecklistStepSummary, ProgressState } from "@/types";
-import { AlertTriangle, ArrowUpRight, Clock, Info, Timer } from "lucide-react";
+import type { ChecklistItem, ChecklistOfficialLink, ChecklistStepSummary, ProgressState } from "@/types";
+import { AlertTriangle, ArrowUpRight, Clock, ExternalLink, Info, Timer } from "lucide-react";
 
 const CONTENT_WIDTH = "mx-auto w-full max-w-3xl";
 const SECTION_GAP = "mb-8";
@@ -38,6 +39,7 @@ interface StepCardProps {
     index: number;
     progress: ProgressState;
     commonOptions?: string[];
+    officialLinks?: ChecklistOfficialLink[];
     readOnlyComplete?: boolean;
     onMarkDone: (itemId: string, stepKey: string, totalSteps?: number) => void;
     onMarkUndone: (itemId: string, stepKey: string) => void;
@@ -195,6 +197,33 @@ function WarningsSection({ warnings }: { warnings: string[] }) {
     );
 }
 
+function StepOfficialLinks({ links }: { links: ChecklistOfficialLink[] }) {
+    if (links.length === 0) return null;
+    return (
+        <div className="mt-3">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                Official links
+            </p>
+            <div className="flex flex-col items-start gap-2">
+                {links.map((link, i) => (
+                    <Button
+                        key={i}
+                        variant="outline"
+                        size="sm"
+                        className="h-auto max-w-full gap-1.5 whitespace-normal py-2 text-left text-xs font-normal"
+                        asChild
+                    >
+                        <a href={link.url} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="size-3.5 shrink-0" aria-hidden />
+                            {link.label}
+                        </a>
+                    </Button>
+                ))}
+            </div>
+        </div>
+    );
+}
+
 function StepCommonOptions({ options }: { options: string[] }) {
     if (options.length === 0) return null;
     return (
@@ -244,6 +273,7 @@ function StepCard({
     index,
     progress,
     commonOptions = [],
+    officialLinks = [],
     readOnlyComplete = false,
     onMarkDone,
     onMarkUndone,
@@ -311,6 +341,7 @@ function StepCard({
                         {step.description}
                     </p>
                 ) : null}
+                {index === 0 ? <StepOfficialLinks links={officialLinks} /> : null}
                 {index === 0 ? <StepCommonOptions options={commonOptions} /> : null}
             </div>
         </div>
@@ -471,6 +502,11 @@ export function ChecklistItemView({
                                     index={i}
                                     progress={progress}
                                     commonOptions={i === 0 ? item.commonOptions : undefined}
+                                    officialLinks={
+                                        i === 0 && showsOfficialLinksOnStepOne(item.id)
+                                            ? item.officialLinks
+                                            : undefined
+                                    }
                                     readOnlyComplete={itemDoneFromProfile}
                                     onMarkDone={(itemId, stepKey) =>
                                         onMarkDone(itemId, stepKey, item.stepsSummary.length)

@@ -15,6 +15,19 @@ export const PROFILE_DERIVED_ITEM_IDS = {
     accommodation: "find-housing",
 } as const;
 
+/** Checklist items that surface `officialLinks` under step 1. */
+export const STEP_ONE_OFFICIAL_LINK_ITEM_IDS = new Set([
+    "visa-validation",
+    "caf-application",
+    "declaration-of-tax",
+    "student-social-security",
+    "navigo",
+]);
+
+export function showsOfficialLinksOnStepOne(itemId: string): boolean {
+    return STEP_ONE_OFFICIAL_LINK_ITEM_IDS.has(itemId);
+}
+
 export function getProfileDerivedCompletionReason(
     itemId: string,
     profile: UserProfile,
