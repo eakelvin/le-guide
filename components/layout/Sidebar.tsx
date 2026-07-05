@@ -25,16 +25,17 @@ const ACTIVE_NAV_BORDER: Record<SidebarColorKey, string> = {
     gold: "border-l-gold-600",
 };
 
-interface SidebarProps {
-    /** Full active checklist; the sidebar slices to SIDEBAR_ITEM_IDS internally. */
+export interface SidebarPanelProps {
     checklist: ChecklistItem[];
     progress: ProgressState;
     activeView: string;
     onNavigate: (view: string) => void;
     totalProgress: { done: number; total: number; pct: number };
     user?: { name?: string | null; email?: string | null; imageUrl?: string | null } | null;
-    /** When false, hide the “Complete your profile” CTA (profile satisfies minimum checklist). */
     showCompleteProfileCta?: boolean;
+    /** Called after navigation (e.g. close mobile drawer). */
+    onAfterNavigate?: () => void;
+    className?: string;
 }
 
 function StatusBadge({
@@ -80,24 +81,16 @@ function StatusBadge({
     );
 }
 
-export function Sidebar({
+export function SidebarPanel({
     checklist,
     progress,
     activeView,
     onNavigate,
     totalProgress,
     user,
-    showCompleteProfileCta = true,
-}: SidebarProps) {
-    const displayName = user?.name?.trim() || user?.email?.trim() || "Account";
-    const fallback =
-        displayName
-            .split(/\s+/)
-            .slice(0, 2)
-            .map((p) => p[0]?.toUpperCase())
-            .join("") || "U";
-
-    // Resolve the 5 sidebar items in the configured order, dropping unknowns.
+    onAfterNavigate,
+    className,
+}: SidebarPanelProps) {
     const sidebarItems = useMemo(() => {
         const byId = new Map(checklist.map((it) => [it.id, it]));
         return SIDEBAR_ITEM_IDS
@@ -105,8 +98,13 @@ export function Sidebar({
             .filter((it): it is ChecklistItem => it !== undefined);
     }, [checklist]);
 
+    const navigate = (view: string) => {
+        onNavigate(view);
+        onAfterNavigate?.();
+    };
+
     return (
-        <aside className="flex h-screen w-64 min-w-[256px] flex-col overflow-y-auto border-r border-border bg-white text-foreground sticky top-0">
+        <div className={cn("flex h-full min-h-0 flex-col bg-white text-foreground", className)}>
             <div className="border-b border-border px-6 py-7">
                 <div className="font-heading text-xl font-normal tracking-tight text-sand-800">
                     Le<span className="text-forest-700">Guide</span>
@@ -116,26 +114,7 @@ export function Sidebar({
                 </p>
             </div>
 
-            {/* <div className="border-b border-border px-5 py-4">
-                <div className="flex items-center gap-2.5">
-                    <div className="bg-forest-50 text-forest-700 flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-medium ring-2 ring-border">
-                        {fallback}
-                    </div>
-                    <div className="min-w-0">
-                        <p className="text-foreground truncate text-sm font-medium">{user?.name ?? "Student"}</p>
-                        {showCompleteProfileCta ? (
-                            <Link
-                                href="/profile"
-                                className="mt-0.5 block truncate text-xs font-medium text-azure-700 underline-offset-2 hover:text-azure-900 hover:underline"
-                            >
-                                Complete your profile
-                            </Link>
-                        ) : null}
-                    </div>
-                </div>
-            </div> */}
-
-            <nav className="flex flex-1 flex-col py-2">
+            <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto py-2">
                 <p className="px-6 py-2 text-[10px] font-semibold uppercase tracking-widest text-sand-400">Getting started</p>
                 <Button
                     variant="ghost"
@@ -145,7 +124,7 @@ export function Sidebar({
                             ? "border-l-forest-600 bg-forest-50 font-medium text-forest-900"
                             : "border-l-transparent text-sand-600 hover:text-sand-800",
                     )}
-                    onClick={() => onNavigate("home")}
+                    onClick={() => navigate("home")}
                 >
                     <Home className="size-4 shrink-0 opacity-80" />
                     Dashboard
@@ -155,6 +134,7 @@ export function Sidebar({
                     variant="ghost"
                     className="mx-2 h-auto justify-start gap-2 rounded-md border-l-4 border-l-transparent border-y-0 border-r-0 px-3 py-2.5 text-[13px] font-normal text-sand-600 shadow-none hover:bg-accent hover:text-sand-800"
                     asChild
+                    onClick={onAfterNavigate}
                 >
                     <Link href="/guides">
                         <BookOpen className="size-4 shrink-0 opacity-80" />
@@ -190,12 +170,12 @@ export function Sidebar({
                                 key={item.id}
                                 variant="ghost"
                                 className={cn(
-                                    "relative h-auto w-full justify-start gap-2.5 border-l-4 px-4 py-2.5 text-left text-[13px] font-normal hover:bg-accent rounded-md shadow-none border-y-0 border-r-0",
+                                    "relative h-auto w-full justify-start gap-2.5 rounded-md border-l-4 border-y-0 border-r-0 px-4 py-2.5 text-left text-[13px] font-normal shadow-none hover:bg-accent",
                                     isActive
                                         ? cn(ACTIVE_NAV_BORDER[colorKey], colors.light, colors.text, "font-medium")
                                         : "border-l-transparent text-sand-600 hover:text-sand-800",
                                 )}
-                                onClick={() => onNavigate(item.slug)}
+                                onClick={() => navigate(item.slug)}
                             >
                                 <span className={cn("shrink-0", isActive ? colors.text : "text-muted-foreground")}>
                                     {getChecklistIcon(item.id, "w-4 h-4")}
@@ -208,7 +188,7 @@ export function Sidebar({
                 </div>
             </nav>
 
-            <div className="mt-auto border-t border-border px-3 py-3">
+            <div className="mt-auto shrink-0 border-t border-border px-3 py-3">
                 <UserMenu
                     variant="row"
                     name={user?.name}
@@ -217,6 +197,15 @@ export function Sidebar({
                     align="start"
                 />
             </div>
+        </div>
+    );
+}
+
+/** Desktop sidebar — hidden below `md`. */
+export function Sidebar(props: SidebarPanelProps) {
+    return (
+        <aside className="sticky top-0 hidden h-screen w-64 min-w-[256px] shrink-0 flex-col overflow-hidden border-r border-border md:flex">
+            <SidebarPanel {...props} className="h-full" />
         </aside>
     );
 }

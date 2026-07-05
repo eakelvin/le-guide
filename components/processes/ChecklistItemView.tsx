@@ -422,7 +422,7 @@ export function ChecklistItemView({
 
     return (
         <div className="animate-fade-up">
-            <div className="border-b border-border bg-card px-6 pb-8 pt-8 sm:px-9">
+            <div className="border-b border-border bg-card px-4 pb-6 pt-6 sm:px-6 sm:pb-8 sm:pt-8 md:px-9">
                 <div className={cn(CONTENT_WIDTH, "flex flex-col gap-6")}>
                     <DashboardBreadcrumb current={item.title} onDashboardClick={onBack} />
 
@@ -487,7 +487,7 @@ export function ChecklistItemView({
                 </div>
             </div>
 
-            <div className="px-6 py-7 sm:px-9">
+            <div className="px-4 py-6 sm:px-6 sm:py-7 md:px-9">
                 <div className={CONTENT_WIDTH}>
                     {item.stepsSummary.length > 0 ? (
                         <section className={SECTION_GAP}>

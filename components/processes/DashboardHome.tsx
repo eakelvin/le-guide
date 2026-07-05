@@ -133,12 +133,12 @@ export function DashboardHome({
 
     return (
         <div className="animate-fade-up">
-            <div className="border-b border-border bg-card px-9 pb-8 pt-10">
+            <div className="border-b border-border bg-card px-4 pb-6 pt-6 sm:px-6 sm:pb-8 sm:pt-8 md:px-9 md:pt-10">
                 <CardHeader className="gap-0 space-y-0 p-0">
                     <DashboardBreadcrumb />
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                         <div className="space-y-2">
-                            <CardTitle className="font-heading font-normal text-3xl tracking-tight text-sand-800 sm:text-[2rem] leading-tight">
+                            <CardTitle className="font-heading text-2xl font-normal leading-tight tracking-tight text-sand-800 sm:text-3xl md:text-[2rem]">
                                 Welcome back{name ? `, ${name}` : ""} 👋
                             </CardTitle>
                             <CardDescription className="text-sm leading-relaxed text-sand-600">
@@ -152,7 +152,7 @@ export function DashboardHome({
                 </CardHeader>
             </div>
 
-            <div className="space-y-5 px-9 py-7">
+            <div className="space-y-5 px-4 py-6 sm:px-6 sm:py-7 md:px-9">
                 {showCompleteProfileBanner ? <CompleteProfileAlert /> : null}
 
                 {showVisaUrgent && ofiiCountdown ? (
@@ -194,7 +194,7 @@ export function DashboardHome({
                         </p>
                     ) : (
                         <TooltipProvider delayDuration={200}>
-                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
                                 {checklist.map((item) => {
                                     const { done, total, pct } = getChecklistItemProgress(item, progress);
                                     const colorKey = getCategoryColorKey(item.category);
@@ -211,7 +211,7 @@ export function DashboardHome({
                                             aria-label={`${item.title}${locked ? " (locked)" : ""}`}
                                             size="sm"
                                             className={cn(
-                                                "gap-5 py-5 shadow-xs ring-1 ring-border transition-[box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                                                "gap-4 py-4 shadow-xs ring-1 ring-border transition-[box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:gap-5 sm:py-5",
                                                 locked
                                                     ? "cursor-not-allowed opacity-60"
                                                     : "cursor-pointer hover:-translate-y-px hover:shadow-sm",
@@ -228,7 +228,7 @@ export function DashboardHome({
                                                 }
                                             }}
                                         >
-                                            <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-2 space-y-0 px-6">
+                                            <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-2 space-y-0 px-4 sm:px-6">
                                                 <div
                                                     className={cn(
                                                         "flex size-10 items-center justify-center rounded-lg",
@@ -250,7 +250,7 @@ export function DashboardHome({
                                                     <StatusBadge status={status} colorBadge={colors.badge} />
                                                 )}
                                             </CardHeader>
-                                            <CardContent className="space-y-3 px-6">
+                                            <CardContent className="space-y-3 px-4 sm:px-6">
                                                 <div>
                                                     <p className="text-sm font-semibold leading-snug text-sand-800">{item.title}</p>
                                                     <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-sand-500">

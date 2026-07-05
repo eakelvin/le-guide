@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Sidebar } from "./Sidebar";
+import { MobileDashboardNav } from "./MobileDashboardNav";
 import { PROCESSES } from "@/lib/data/processes";
 import {
     applyProfileDerivedProgress,
@@ -46,6 +47,7 @@ export function
     const passwordUpdatedToasted = useRef(false);
     const itemDeepLinkCleaned = useRef(false);
     const [activeView, setActiveView] = useState<ActiveView>(initialActiveView);
+    const [mobileNavOpen, setMobileNavOpen] = useState(false);
     const {
         progress,
         markStepDone,
@@ -82,6 +84,10 @@ export function
         }
     }, [initialActiveView, router]);
 
+    useEffect(() => {
+        setMobileNavOpen(false);
+    }, [activeView]);
+
     const displayProgress = useMemo(
         () => applyProfileDerivedProgress(progress, profile, initialChecklist),
         [progress, profile, initialChecklist],
@@ -114,7 +120,7 @@ export function
             <div className="flex min-h-screen flex-col bg-white">
                 <main className="bg-canvas flex flex-1 flex-col overflow-y-auto">
                     <div className="animate-fade-up">
-                        <div className="border-b border-border bg-card px-9 pb-8 pt-10">
+                        <div className="border-b border-border bg-card px-4 pb-8 pt-6 sm:px-6 md:px-9 md:pt-10">
                             <DashboardBreadcrumb />
                             <div className="space-y-2">
                                 <h1 className="font-heading font-normal text-3xl tracking-tight text-sand-800 sm:text-[2rem] leading-tight">
@@ -125,7 +131,7 @@ export function
                                 </p>
                             </div>
                         </div>
-                        <div className="px-9 py-7">
+                        <div className="px-4 py-7 sm:px-6 md:px-9">
                             <CompleteProfileAlert />
                         </div>
                     </div>
@@ -134,18 +140,26 @@ export function
         );
     }
 
+    const sidebarProps = {
+        checklist: initialChecklist,
+        progress: displayProgress,
+        activeView,
+        onNavigate: setActiveView,
+        totalProgress,
+        user,
+        showCompleteProfileCta: !isProfileMinimumComplete(profile),
+    };
+
     return (
-        <div className="flex min-h-screen bg-white">
-            <Sidebar
-                checklist={initialChecklist}
-                progress={displayProgress}
-                activeView={activeView}
-                onNavigate={setActiveView}
-                totalProgress={totalProgress}
-                user={user}
-                showCompleteProfileCta={!isProfileMinimumComplete(profile)}
-            />
-            <main className="bg-canvas flex flex-1 min-h-0 min-w-0 flex-col overflow-y-auto">
+        <div className="flex min-h-screen flex-col bg-white md:flex-row">
+            <Sidebar {...sidebarProps} />
+            <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+                <MobileDashboardNav
+                    {...sidebarProps}
+                    open={mobileNavOpen}
+                    onOpenChange={setMobileNavOpen}
+                />
+                <main className="bg-canvas flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
                 {activeView === "home" ? (
                     <DashboardHome
                         checklist={initialChecklist}
@@ -187,7 +201,8 @@ export function
                         showCompleteProfileBanner={!isProfileMinimumComplete(profile)}
                     />
                 )}
-            </main>
+                </main>
+            </div>
         </div>
     );
 }
