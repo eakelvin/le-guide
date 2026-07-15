@@ -99,14 +99,14 @@ export function Hero() {
                                 </svg>
                             </div>
                             <div>
-                                <div className="text-sm font-medium">Visa Validation (OFII)</div>
-                                <div className="text-[11.5px] text-coral-600">⚠ 87 days remaining</div>
+                                <div className="text-sm font-medium">{t("previewOfiiTitle")}</div>
+                                <div className="text-[11.5px] text-coral-600">{t("previewDaysRemaining", { days: 87 })}</div>
                             </div>
                         </div>
                         {[
-                            { num: "✓", done: true, label: "Submit online téléprocédure" },
-                            { num: "2", active: true, label: "Wait for appointment letter", tag: { text: "4–8 weeks", bg: "bg-gold-50", col: "text-gold-600" } },
-                            { num: "3", label: "Attend OFII medical visit" },
+                            { num: "✓", done: true, label: t("previewStep1") },
+                            { num: "2", active: true, label: t("previewStep2"), tag: { text: t("previewStep2Tag"), bg: "bg-gold-50", col: "text-gold-600" } },
+                            { num: "3", label: t("previewStep3") },
                         ].map((step, i) => (
                             <div key={i} className={cn("flex gap-2.5 items-start py-2.5", i < 2 && "border-b border-sand-100")}>
                                 <div className={cn(

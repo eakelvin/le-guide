@@ -59,7 +59,13 @@
     "ctaEyebrow": "Commencez dès aujourd'hui",
     "ctaTitle": "Vos 90 premiers jours en France, maîtrisés.",
     "ctaSubtitle": "Ne laissez pas la paperasse définir votre premier semestre. Lancez votre checklist personnalisée en moins de 2 minutes.",
-    "ctaButton": "Commencer ma checklist — c'est gratuit"
+    "ctaButton": "Commencer ma checklist — c'est gratuit",
+    "previewOfiiTitle": "Validation visa (OFII)",
+    "previewDaysRemaining": "⚠ {days} jours restants",
+    "previewStep1": "Soumettre la téléprocédure en ligne",
+    "previewStep2": "Attendre la lettre de convocation",
+    "previewStep2Tag": "4–8 semaines",
+    "previewStep3": "Passer la visite médicale OFII"
   },
   "footer": {
     "tagline": "© {year} LeGuide. Fait avec ♥ pour les étudiants internationaux."
@@ -237,7 +243,26 @@
     "saveChanges": "Enregistrer les modifications"
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Une question ? Écrivez-nous."
+    "eyebrow": "Contact",
+    "title": "Une question ? On est là pour vous.",
+    "body": "Que vous soyez bloqué sur l'OFII, la CAF, ou simplement en train de préparer votre arrivée — envoyez-nous un message et nous vous répondrons dès que possible.",
+    "nameLabel": "Nom",
+    "namePlaceholder": "Votre nom",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "vous@universite.fr",
+    "subjectLabel": "Sujet (facultatif)",
+    "subjectPlaceholder": "ex. Question sur la validation du visa",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Comment pouvons-nous vous aider ?",
+    "submit": "Envoyer le message",
+    "submitting": "Envoi…",
+    "successTitle": "Message envoyé",
+    "successBody": "Merci de nous avoir contactés. Nous répondrons à votre e-mail sous peu.",
+    "sendAnother": "Envoyer un autre message",
+    "errorNameRequired": "Veuillez saisir votre nom.",
+    "errorEmailInvalid": "Veuillez saisir une adresse e-mail valide.",
+    "errorMessageTooShort": "Veuillez écrire un message d'au moins 10 caractères.",
+    "errorGeneric": "Une erreur s'est produite. Veuillez réessayer dans un instant.",
+    "defaultSubject": "Demande générale"
   }
 }

@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
+import { useTranslations } from "next-intl";
 import { ArrowRight, Mail, MessageSquare, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +12,7 @@ import { submitContactAction } from "@/features/contact/actions";
 import { cn } from "@/lib/utils";
 
 function SubmitButton() {
+  const t = useTranslations("contact");
   const { pending } = useFormStatus();
   return (
     <Button
@@ -28,11 +30,11 @@ function SubmitButton() {
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
           </svg>
-          Sending…
+          {t("submitting")}
         </span>
       ) : (
         <span className="flex items-center gap-2">
-          Send message
+          {t("submit")}
           <ArrowRight className="size-4" aria-hidden />
         </span>
       )}
@@ -41,6 +43,7 @@ function SubmitButton() {
 }
 
 export function ContactSection() {
+  const t = useTranslations("contact");
   const [state, formAction] = useActionState(submitContactAction, {});
   const [showSuccess, setShowSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -57,22 +60,14 @@ export function ContactSection() {
       <div className="mx-auto grid max-w-[1120px] grid-cols-1 items-start gap-12 px-6 md:px-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,480px)]">
         <div>
           <div className="mb-3.5 text-[11px] font-medium uppercase tracking-[2px] text-forest-600">
-            Contact
+            {t("eyebrow")}
           </div>
           <h2 className="font-heading mb-4 text-[clamp(30px,4vw,48px)] font-light leading-[1.15] tracking-tight text-sand-800">
-            Questions? We&apos;re here to help.
+            {t("title")}
           </h2>
           <p className="mb-8 max-w-[440px] text-[16px] leading-relaxed text-sand-600">
-            Whether you&apos;re stuck on OFII, CAF, or just planning your arrival — send us a message and
-            we&apos;ll get back to you as soon as we can.
+            {t("body")}
           </p>
-          {/* <a
-            href="mailto:hello@leguide.com"
-            className="inline-flex items-center gap-2 text-[15px] font-medium text-forest-900 no-underline transition-colors hover:text-forest-700"
-          >
-            <Mail className="size-4" aria-hidden />
-            hello(@)leguide.com
-          </a> */}
         </div>
 
         <div className="rounded-xl border border-sand-200 bg-card p-6 shadow-xs md:p-8">
@@ -81,9 +76,9 @@ export function ContactSection() {
               className="rounded-lg border border-forest-100 bg-forest-50 px-4 py-6 text-center"
               role="status"
             >
-              <p className="text-[15px] font-medium text-forest-900">Message sent</p>
+              <p className="text-[15px] font-medium text-forest-900">{t("successTitle")}</p>
               <p className="mt-1 text-[14px] text-sand-600">
-                Thanks for reaching out. We&apos;ll reply to your email shortly.
+                {t("successBody")}
               </p>
               <Button
                 type="button"
@@ -91,7 +86,7 @@ export function ContactSection() {
                 className="mt-5 rounded-full"
                 onClick={() => setShowSuccess(false)}
               >
-                Send another message
+                {t("sendAnother")}
               </Button>
             </div>
           ) : (
@@ -110,14 +105,14 @@ export function ContactSection() {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="contact-name">Name</Label>
+                  <Label htmlFor="contact-name">{t("nameLabel")}</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       id="contact-name"
                       name="name"
                       type="text"
-                      placeholder="Your name"
+                      placeholder={t("namePlaceholder")}
                       className="pl-9"
                       autoComplete="name"
                       required
@@ -125,14 +120,14 @@ export function ContactSection() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="contact-email">Email</Label>
+                  <Label htmlFor="contact-email">{t("emailLabel")}</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       id="contact-email"
                       name="email"
                       type="email"
-                      placeholder="you@university.edu"
+                      placeholder={t("emailPlaceholder")}
                       className="pl-9"
                       autoComplete="email"
                       required
@@ -142,23 +137,23 @@ export function ContactSection() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="contact-subject">Subject (optional)</Label>
+                <Label htmlFor="contact-subject">{t("subjectLabel")}</Label>
                 <Input
                   id="contact-subject"
                   name="subject"
                   type="text"
-                  placeholder="e.g. Visa validation question"
+                  placeholder={t("subjectPlaceholder")}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="contact-message">Message</Label>
+                <Label htmlFor="contact-message">{t("messageLabel")}</Label>
                 <div className="relative">
                   <MessageSquare className="absolute left-3 top-3 size-4 text-muted-foreground" />
                   <Textarea
                     id="contact-message"
                     name="message"
-                    placeholder="How can we help?"
+                    placeholder={t("messagePlaceholder")}
                     className="min-h-[140px] resize-y pl-9"
                     required
                   />

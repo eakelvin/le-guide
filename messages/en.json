@@ -59,7 +59,13 @@
     "ctaEyebrow": "Get started today",
     "ctaTitle": "Your first 90 days in France, handled.",
     "ctaSubtitle": "Don't let paperwork define your first semester. Start your personalised checklist in under 2 minutes.",
-    "ctaButton": "Start your checklist — it's free"
+    "ctaButton": "Start your checklist — it's free",
+    "previewOfiiTitle": "Visa Validation (OFII)",
+    "previewDaysRemaining": "⚠ {days} days remaining",
+    "previewStep1": "Submit online téléprocédure",
+    "previewStep2": "Wait for appointment letter",
+    "previewStep2Tag": "4–8 weeks",
+    "previewStep3": "Attend OFII medical visit"
   },
   "footer": {
     "tagline": "© {year} LeGuide. Made with ♥ for international students."
@@ -237,7 +243,26 @@
     "saveChanges": "Save changes"
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Have a question? Get in touch."
+    "eyebrow": "Contact",
+    "title": "Questions? We're here to help.",
+    "body": "Whether you're stuck on OFII, CAF, or just planning your arrival — send us a message and we'll get back to you as soon as we can.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@university.edu",
+    "subjectLabel": "Subject (optional)",
+    "subjectPlaceholder": "e.g. Visa validation question",
+    "messageLabel": "Message",
+    "messagePlaceholder": "How can we help?",
+    "submit": "Send message",
+    "submitting": "Sending…",
+    "successTitle": "Message sent",
+    "successBody": "Thanks for reaching out. We'll reply to your email shortly.",
+    "sendAnother": "Send another message",
+    "errorNameRequired": "Please enter your name.",
+    "errorEmailInvalid": "Please enter a valid email address.",
+    "errorMessageTooShort": "Please write a message of at least 10 characters.",
+    "errorGeneric": "Something went wrong. Please try again in a moment.",
+    "defaultSubject": "General enquiry"
   }
 }
