@@ -11,6 +11,9 @@
  *   - lib/data/steps.fr.json  ← locale `fr`
  *
  * Requires `SUPABASE_SERVICE_ROLE_KEY` (service role, not anon key).
+ *
+ * Fetches parents and children in separate queries (avoids PostgREST embedding
+ * ambiguity when checklist_item_dependencies has two FKs to checklist_items).
  */
 
 import { writeFile } from "node:fs/promises";
@@ -36,22 +39,9 @@ const LOCALES: { locale: SeedLocale; relativePath: string }[] = [
   { locale: "fr", relativePath: "lib/data/steps.fr.json" },
 ];
 
-const SELECT = `
-  id, slug, title, short_description, category, order_index,
-  estimated_time, difficulty, priority, is_required,
-  applies_to_student_groups, applies_to_visa_types,
-  deadline, last_verified_at, status,
-  why_this_matters, recommended_timing, common_options,
-  requirements:checklist_item_requirements(name, required, sort_order),
-  steps_summary:checklist_item_steps_summary(summary, description, sort_order),
-  warnings:checklist_item_warnings(warning, sort_order),
-  links:checklist_item_links(label, url, sort_order),
-  dependencies:checklist_item_dependencies!checklist_item_id(depends_on_id, sort_order)
-`;
+type Sorted = { sort_order: number };
 
-type RawChild<T> = T & { sort_order: number };
-
-type RawRow = {
+type ParentRow = {
   id: string;
   slug: string;
   title: string;
@@ -70,11 +60,6 @@ type RawRow = {
   why_this_matters: string | null;
   recommended_timing: string | null;
   common_options: string[];
-  requirements: RawChild<{ name: string; required: boolean }>[];
-  steps_summary: RawChild<{ summary: string; description: string | null }>[];
-  warnings: RawChild<{ warning: string }>[];
-  links: RawChild<{ label: string; url: string }>[];
-  dependencies: RawChild<{ depends_on_id: string }>[];
 };
 
 const supabaseUrl =
@@ -96,63 +81,69 @@ const supabase = createClient(supabaseUrl, serviceRoleKey, {
   auth: { persistSession: false, autoRefreshToken: false },
 });
 
-function sortByOrder<T extends { sort_order: number }>(rows: T[] | null | undefined): T[] {
-  return [...(rows ?? [])].sort((a, b) => a.sort_order - b.sort_order);
+function sortByOrder<T extends Sorted>(rows: T[]): T[] {
+  return [...rows].sort((a, b) => a.sort_order - b.sort_order);
 }
 
-/** Match seed input: DB nulls become empty strings in JSON. */
 function stringOrEmpty(value: string | null | undefined): string {
   return value ?? "";
 }
 
-function toStepSummary(
-  entry: RawChild<{ summary: string; description: string | null }>,
-): ChecklistStepSummaryJson {
+function toStepSummary(entry: {
+  summary: string;
+  description: string | null;
+}): ChecklistStepSummaryJson {
   const description = entry.description?.trim() ?? "";
   if (!description) return entry.summary;
   return { summary: entry.summary, description };
 }
 
-function toJsonItem(row: RawRow): ChecklistItemJson {
-  return {
-    id: row.id,
-    slug: row.slug,
-    title: row.title,
-    short_description: row.short_description,
-    category: row.category,
-    order_index: row.order_index,
-    estimated_time: stringOrEmpty(row.estimated_time),
-    difficulty: row.difficulty,
-    priority: row.priority,
-    is_required: row.is_required,
-    recommended_timing: stringOrEmpty(row.recommended_timing),
-    why_this_matters: stringOrEmpty(row.why_this_matters),
-    deadline: stringOrEmpty(row.deadline),
-    last_verified_at: stringOrEmpty(row.last_verified_at),
-    status: row.status,
-    depends_on: sortByOrder(row.dependencies).map((d) => d.depends_on_id),
-    requirements: sortByOrder(row.requirements).map<ChecklistRequirementJson>((r) => ({
-      name: r.name,
-      required: r.required,
-    })),
-    common_options: row.common_options ?? [],
-    steps_summary: sortByOrder(row.steps_summary).map(toStepSummary),
-    warnings: sortByOrder(row.warnings).map((w) => w.warning),
-    applies_to: {
-      student_groups: row.applies_to_student_groups ?? [],
-      visa_types: row.applies_to_visa_types ?? [],
-    },
-    official_links: sortByOrder(row.links).map<ChecklistOfficialLink>((l) => ({
-      label: l.label,
-      url: l.url,
-    })),
-  };
+function groupByItemId<T extends { checklist_item_id: string }>(
+  rows: T[],
+): Map<string, T[]> {
+  const map = new Map<string, T[]>();
+  for (const row of rows) {
+    const list = map.get(row.checklist_item_id);
+    if (list) list.push(row);
+    else map.set(row.checklist_item_id, [row]);
+  }
+  return map;
+}
+
+async function fetchChildRows<T>(
+  table: string,
+  locale: SeedLocale,
+  itemIds: string[],
+  columns: string,
+): Promise<T[]> {
+  if (itemIds.length === 0) return [];
+
+  const { data, error } = await supabase
+    .from(table)
+    .select(columns)
+    .eq("locale", locale)
+    .in("checklist_item_id", itemIds);
+
+  if (error) {
+    console.error(`✗ ${table} [${locale}]: fetch failed:`, error.message);
+    process.exit(1);
+  }
+
+  return (data ?? []) as T[];
 }
 
 async function dumpLocale(locale: SeedLocale): Promise<ChecklistItemJson[]> {
-  const { data, error } = await supabase
+  const { data: parents, error } = await supabase
     .from("checklist_items")
-    .select(SELECT)
+    .select(
+      `
+      id, slug, title, short_description, category, order_index,
+      estimated_time, difficulty, priority, is_required,
+      applies_to_student_groups, applies_to_visa_types,
+      deadline, last_verified_at, status,
+      why_this_matters, recommended_timing, common_options
+    `,
+    )
     .eq("locale", locale)
     .order("order_index", { ascending: true });
 
@@ -161,8 +152,91 @@ async function dumpLocale(locale: SeedLocale): Promise<ChecklistItemJson[]> {
     process.exit(1);
   }
 
-  const rows = (data ?? []) as unknown as RawRow[];
-  return rows.map(toJsonItem);
+  const items = (parents ?? []) as ParentRow[];
+  const itemIds = items.map((item) => item.id);
+
+  const [requirements, steps, warnings, links, dependencies] = await Promise.all([
+    fetchChildRows<{
+      checklist_item_id: string;
+      name: string;
+      required: boolean;
+      sort_order: number;
+    }>("checklist_item_requirements", locale, itemIds, "checklist_item_id, name, required, sort_order"),
+    fetchChildRows<{
+      checklist_item_id: string;
+      summary: string;
+      description: string | null;
+      sort_order: number;
+    }>(
+      "checklist_item_steps_summary",
+      locale,
+      itemIds,
+      "checklist_item_id, summary, description, sort_order",
+    ),
+    fetchChildRows<{
+      checklist_item_id: string;
+      warning: string;
+      sort_order: number;
+    }>("checklist_item_warnings", locale, itemIds, "checklist_item_id, warning, sort_order"),
+    fetchChildRows<{
+      checklist_item_id: string;
+      label: string;
+      url: string;
+      sort_order: number;
+    }>("checklist_item_links", locale, itemIds, "checklist_item_id, label, url, sort_order"),
+    fetchChildRows<{
+      checklist_item_id: string;
+      depends_on_id: string;
+      sort_order: number;
+    }>(
+      "checklist_item_dependencies",
+      locale,
+      itemIds,
+      "checklist_item_id, depends_on_id, sort_order",
+    ),
+  ]);
+
+  const requirementsById = groupByItemId(requirements);
+  const stepsById = groupByItemId(steps);
+  const warningsById = groupByItemId(warnings);
+  const linksById = groupByItemId(links);
+  const depsById = groupByItemId(dependencies);
+
+  return items.map((item) => ({
+    id: item.id,
+    slug: item.slug,
+    title: item.title,
+    short_description: item.short_description,
+    category: item.category,
+    order_index: item.order_index,
+    estimated_time: stringOrEmpty(item.estimated_time),
+    difficulty: item.difficulty,
+    priority: item.priority,
+    is_required: item.is_required,
+    recommended_timing: stringOrEmpty(item.recommended_timing),
+    why_this_matters: stringOrEmpty(item.why_this_matters),
+    deadline: stringOrEmpty(item.deadline),
+    last_verified_at: stringOrEmpty(item.last_verified_at),
+    status: item.status,
+    depends_on: sortByOrder(depsById.get(item.id) ?? []).map((d) => d.depends_on_id),
+    requirements: sortByOrder(requirementsById.get(item.id) ?? []).map<ChecklistRequirementJson>(
+      (r) => ({
+        name: r.name,
+        required: r.required,
+      }),
+    ),
+    common_options: item.common_options ?? [],
+    steps_summary: sortByOrder(stepsById.get(item.id) ?? []).map(toStepSummary),
+    warnings: sortByOrder(warningsById.get(item.id) ?? []).map((w) => w.warning),
+    applies_to: {
+      student_groups: item.applies_to_student_groups ?? [],
+      visa_types: item.applies_to_visa_types ?? [],
+    },
+    official_links: sortByOrder(linksById.get(item.id) ?? []).map<ChecklistOfficialLink>((l) => ({
+      label: l.label,
+      url: l.url,
+    })),
+  }));
 }
 
 async function writeJson(relativePath: string, items: ChecklistItemJson[]): Promise<void> {
@@ -178,7 +252,10 @@ async function main(): Promise<void> {
   for (const { locale, relativePath } of LOCALES) {
     const items = await dumpLocale(locale);
     if (items.length === 0) {
-      console.warn(`⚠ locale "${locale}": no rows found — writing empty array.`);
+      console.warn(
+        `⚠ locale "${locale}": no rows in DB — leaving ${relativePath} unchanged (not overwriting with []).`,
+      );
+      continue;
     }
     await writeJson(relativePath, items);
   }

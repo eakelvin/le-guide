@@ -58,7 +58,7 @@ const SELECT = `
     steps_summary:checklist_item_steps_summary(summary, description, sort_order),
     warnings:checklist_item_warnings(warning, sort_order),
     links:checklist_item_links(label, url, sort_order),
-    dependencies:checklist_item_dependencies!checklist_item_id(depends_on_id, sort_order)
+    dependencies:checklist_item_dependencies!checklist_item_dependencies_item_locale_fkey(depends_on_id, sort_order)
 `;
 
 function sortBy<T extends { sort_order: number }>(rows: T[]): T[] {
