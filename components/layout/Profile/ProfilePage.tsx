@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import {
     User, GraduationCap, MapPin, Save,
     CheckCircle2, AlertCircle, ChevronRight, Pencil,

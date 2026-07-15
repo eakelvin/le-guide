@@ -1,22 +1,26 @@
 "use client";
 
 import type { AppUser } from "@/features/auth/user";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "@/components/layout/UserMenu";
+import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 
-const MOBILE_LINKS = [
-    { href: "/guides", label: "Guides" },
-    { href: "#contact", label: "Contact" },
-] as const;
-
 export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
+    const t = useTranslations("nav");
+    const tCommon = useTranslations("common");
     const [user] = useState<AppUser | null>(initialUser);
     const [mobileOpen, setMobileOpen] = useState(false);
     const closeMobile = () => setMobileOpen(false);
+
+    const mobileLinks = [
+        { href: "/guides" as const, label: t("guides") },
+        { href: "#contact" as const, label: t("contact") },
+    ];
 
     return (
         <>
@@ -34,33 +38,34 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                             href="#processes"
                             className="text-[13.5px] text-sand-600 transition-colors no-underline hover:text-sand-800"
                         >
-                            Processes
+                            {t("processes")}
                         </a>
                         <a
                             href="#how"
                             className="text-[13.5px] text-sand-600 transition-colors no-underline hover:text-sand-800"
                         >
-                            How it works
+                            {t("howItWorks")}
                         </a>
                         <a
                             href="#faq"
                             className="text-[13.5px] text-sand-600 transition-colors no-underline hover:text-sand-800"
                         >
-                            FAQ
+                            {t("faq")}
                         </a>
                         <a
                             href="#contact"
                             className="text-[13.5px] text-sand-600 transition-colors no-underline hover:text-sand-800"
                         >
-                            Contact
+                            {t("contact")}
                         </a>
                         <Link
                             href="/guides"
                             className="text-[13.5px] text-sand-600 transition-colors no-underline hover:text-sand-800"
                         >
-                            Guides
+                            {t("guides")}
                         </Link>
                     </div>
+                    <LocaleSwitcher variant="pill" className="hidden sm:inline-flex" />
                     {user ? (
                         <div className="flex items-center gap-3">
                             <Button
@@ -69,7 +74,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                                 className="rounded-full border-sand-200 bg-transparent px-4 text-[13px] text-sand-800 shadow-none hover:bg-card"
                                 asChild
                             >
-                                <Link href="/dashboard">Dashboard</Link>
+                                <Link href="/dashboard">{t("dashboard")}</Link>
                             </Button>
                             <UserMenu name={user.name} email={user.email} imageUrl={user.imageUrl} />
                         </div>
@@ -79,7 +84,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                             className="rounded-full bg-forest-900 px-5 text-[13px] text-white hover:bg-forest-800"
                             asChild
                         >
-                            <Link href="/dashboard">Start free →</Link>
+                            <Link href="/dashboard">{t("startFree")}</Link>
                         </Button>
                     )}
                     <Button
@@ -89,7 +94,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                         className="size-9 shrink-0 text-sand-700 md:hidden"
                         aria-expanded={mobileOpen}
                         aria-controls="mobile-nav-menu"
-                        aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                        aria-label={mobileOpen ? tCommon("closeMenu") : tCommon("openMenu")}
                         onClick={() => setMobileOpen((open) => !open)}
                     >
                         {mobileOpen ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
@@ -105,7 +110,10 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                 )}
             >
                 <nav className="flex flex-col gap-1">
-                    {MOBILE_LINKS.map(({ href, label }) =>
+                    <div className="px-2 py-2">
+                        <LocaleSwitcher />
+                    </div>
+                    {mobileLinks.map(({ href, label }) =>
                         href.startsWith("#") ? (
                             <a
                                 key={href}

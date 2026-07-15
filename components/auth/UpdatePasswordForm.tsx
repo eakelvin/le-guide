@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useFormStatus } from "react-dom";
 import { LoginPanel } from "@/components/layout/LeftPanel";
 import { ArrowRight, Eye, EyeOff, Lock } from "lucide-react";

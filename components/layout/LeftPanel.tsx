@@ -1,5 +1,5 @@
 import { PERKS, steps } from "@/lib/data/data";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export function LoginPanel() {
     return (

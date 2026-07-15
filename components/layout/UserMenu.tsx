@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { ChevronsUpDown, LogOut, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -33,6 +34,8 @@ export function UserMenu({
    */
   variant?: "icon" | "row";
 }) {
+  const t = useTranslations("auth");
+  const tCommon = useTranslations("common");
   const fallback =
     (name ?? email ?? "U")
       .trim()
@@ -78,7 +81,7 @@ export function UserMenu({
         <DropdownMenuItem asChild>
           <Link href="/profile">
             <User className="mr-2 size-4" aria-hidden />
-            My Profile
+            {tCommon("profile")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -86,7 +89,7 @@ export function UserMenu({
           <DropdownMenuItem asChild>
             <button type="submit" className="w-full">
               <LogOut className="mr-2 size-4" aria-hidden />
-              Log out
+              {t("signOut")}
             </button>
           </DropdownMenuItem>
         </form>

@@ -1,16 +1,21 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BLOG_CATEGORIES, getPublicPostsByCategory } from "@/lib/blog";
+import { getBlogCategories, getPublicPostsByCategory } from "@/lib/i18n/blog-locale";
+import { isAppLocale } from "@/lib/locale";
+import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";
+import { getLocale, getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Guides for students in France | LeGuide",
-  description:
-    "Practical articles on alternance, internships (stages), working on a student visa, and student life in France — for international students.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("guides");
+  return {
+    title: `${t("pageTitle")} | LeGuide`,
+    description: t("pageDescription"),
+  };
+}
 
 const CATEGORY_BADGE: Record<BlogCategoryId, string> = {
   general: "border-transparent bg-azure-50 text-azure-700",
@@ -25,27 +30,28 @@ export default async function BlogPage({
 }: {
   searchParams: Promise<{ category?: string }>;
 }) {
+  const localeRaw = await getLocale();
+  const locale = isAppLocale(localeRaw) ? localeRaw : routing.defaultLocale;
+  const t = await getTranslations("guides");
+  const categories = getBlogCategories(locale);
   const { category: raw } = await searchParams;
-  const category = raw && BLOG_CATEGORIES.some((c) => c.id === raw) ? raw : "all";
-  const posts = getPublicPostsByCategory(category);
+  const category = raw && categories.some((c) => c.id === raw) ? raw : "all";
+  const posts = getPublicPostsByCategory(category, locale);
 
   return (
     <main className="mx-auto max-w-6xl px-6 pb-20 pt-10 md:px-12 md:pt-14">
       <div className="mb-10 max-w-2xl">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-sand-400">Knowledge base</p>
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-sand-400">{t("knowledgeBase")}</p>
         <h1 className="font-heading text-3xl font-light tracking-tight text-sand-800 md:text-4xl">
-          Guides for life & work as a student in France
+          {t("pageTitle")}
         </h1>
         <p className="mt-3 text-base leading-relaxed text-sand-600">
-          Articles on <strong className="font-medium text-sand-800">alternance</strong>,{" "}
-          <strong className="font-medium text-sand-800">internships</strong>, working within your permit, and everyday
-          student life. Step-by-step walkthroughs for your checklist live in the dashboard — open any item and use{" "}
-          <strong className="font-medium text-sand-800">Read the full guide</strong> when you need more detail.
+          {t("pageDescription")}
         </p>
       </div>
 
       <div className="mb-10 flex flex-col gap-3">
-        <p className="text-xs font-medium uppercase tracking-wide text-sand-400">Browse by topic</p>
+        <p className="text-xs font-medium uppercase tracking-wide text-sand-400">{t("browseByTopic")}</p>
         <div className="flex flex-wrap gap-2">
           <Link href="/guides">
             <Badge
@@ -57,10 +63,10 @@ export default async function BlogPage({
                   : "border-border text-sand-600 hover:bg-sand-50",
               )}
             >
-              All articles
+              {t("allArticles")}
             </Badge>
           </Link>
-          {BLOG_CATEGORIES.map((c) => (
+          {categories.map((c) => (
             <Link key={c.id} href={`/guides?category=${c.id}`}>
               <Badge
                 variant="outline"
@@ -80,7 +86,7 @@ export default async function BlogPage({
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => {
-          const cat = BLOG_CATEGORIES.find((c) => c.id === post.category);
+          const cat = categories.find((c) => c.id === post.category);
           return (
             <Link key={post.slug} href={`/guides/${post.slug}`} className="group block no-underline">
               <Card className="h-full transition-[box-shadow,transform] hover:-translate-y-px hover:shadow-md">
@@ -97,7 +103,7 @@ export default async function BlogPage({
                 </CardHeader>
                 <CardContent className="pt-0">
                   <p className="text-[11px] text-sand-400">
-                    {post.readingMinutes} min read · Updated {post.updated}
+                    {t("minRead", { minutes: post.readingMinutes })} · {t("updated", { date: post.updated })}
                   </p>
                 </CardContent>
               </Card>
@@ -107,15 +113,15 @@ export default async function BlogPage({
       </div>
 
       {posts.length === 0 && (
-        <p className="text-sand-500">No articles in this category yet.</p>
+        <p className="text-sand-500">{t("noArticles")}</p>
       )}
 
       <p className="mt-14 max-w-2xl text-xs leading-relaxed text-sand-400">
-        LeGuide does not provide legal advice. Procedures and thresholds change — verify on{" "}
+        {t("disclaimerPrefix")}{" "}
         <a href="https://www.service-public.fr" className="text-azure-600 underline underline-offset-2" target="_blank" rel="noreferrer">
           service-public.fr
         </a>{" "}
-        and with your institution.
+        {t("disclaimerSuffix")}
       </p>
     </main>
   );

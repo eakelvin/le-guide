@@ -1,7 +1,8 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { redirectWithLocale } from "@/lib/locale-redirect";
 import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { createClient } from "@/lib/supabase/server";
 
@@ -10,14 +11,15 @@ type UpdatePasswordState = { error?: string };
 const RECOVERY_COOKIE = "password_recovery_flow";
 
 export async function updatePasswordAction(_prev: UpdatePasswordState, formData: FormData): Promise<UpdatePasswordState> {
+  const t = await getTranslations("auth");
   const password = String(formData.get("password") ?? "");
   const confirm = String(formData.get("confirm") ?? "");
   const currentPassword = String(formData.get("current_password") ?? "");
   const nextRaw = String(formData.get("next") ?? "/dashboard");
 
-  if (!password || !confirm) return { error: "Please fill in all fields." };
-  if (password !== confirm) return { error: "Passwords do not match." };
-  if (password.length < 8) return { error: "Password must be at least 8 characters." };
+  if (!password || !confirm) return { error: t("fillAllFields") };
+  if (password !== confirm) return { error: t("passwordsMismatch") };
+  if (password.length < 8) return { error: t("passwordMinLength") };
 
   const safeNext = nextRaw.startsWith("/") && !nextRaw.startsWith("//") ? nextRaw : "/dashboard";
 
@@ -26,7 +28,7 @@ export async function updatePasswordAction(_prev: UpdatePasswordState, formData:
 
   const { data: userData } = await supabase.auth.getUser();
   if (!userData.user) {
-    return { error: "Your session expired. Request a new reset link from the forgot password page." };
+    return { error: t("sessionExpired") };
   }
 
   const user = userData.user;
@@ -42,7 +44,7 @@ export async function updatePasswordAction(_prev: UpdatePasswordState, formData:
     const { error } = await supabase.auth.updateUser({ password });
     if (error) return { error: error.message };
     clearRecoveryCookie();
-    redirect(`${safeNext}?passwordUpdated=1`);
+    return redirectWithLocale(`${safeNext}?passwordUpdated=1`);
   };
 
   if (recoveryFlow) {
@@ -58,11 +60,11 @@ export async function updatePasswordAction(_prev: UpdatePasswordState, formData:
   }
 
   if (!email) {
-    return { error: "Your account has no email address; password update isn’t available." };
+    return { error: t("noEmailOnAccount") };
   }
 
   if (!currentPassword) {
-    return { error: "Enter your current password first." };
+    return { error: t("currentPasswordRequired") };
   }
 
   const { error: signError } = await supabase.auth.signInWithPassword({
@@ -70,7 +72,7 @@ export async function updatePasswordAction(_prev: UpdatePasswordState, formData:
     password: currentPassword,
   });
   if (signError) {
-    return { error: "Current password is incorrect." };
+    return { error: t("currentPasswordIncorrect") };
   }
 
   const result = await applyPasswordUpdate();

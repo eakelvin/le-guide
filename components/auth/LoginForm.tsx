@@ -1,8 +1,8 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { useFormStatus } from "react-dom";
 import { LoginPanel } from "@/components/layout/LeftPanel";
@@ -24,6 +24,7 @@ import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { cn } from "@/lib/utils";
 import { loginAction } from "@/features/auth/login";
 import { googleLogin } from "@/features/auth/google-login";
+import { useTranslations } from "next-intl";
 
 function SubmitButton() {
     const { pending } = useFormStatus();
@@ -56,6 +57,7 @@ function SubmitButton() {
 }
 
 export function LoginForm() {
+    const t = useTranslations("auth");
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -76,7 +78,7 @@ export function LoginForm() {
             const k = "signedOut";
             if (authToastRef.current !== k) {
                 authToastRef.current = k;
-                toast.success("You’ve been signed out.");
+                toast.success(t("signedOut"));
                 router.replace(AUTH_ROUTES.login, { scroll: false });
             }
             return;
@@ -86,7 +88,7 @@ export function LoginForm() {
             const k = "fromSignup";
             if (authToastRef.current !== k) {
                 authToastRef.current = k;
-                toast.success("Check your email for a confirmation link.");
+                toast.success(t("checkEmailToast"));
                 const emailParam = signupEmail
                     ? `&email=${encodeURIComponent(signupEmail)}`
                     : "";
@@ -102,7 +104,7 @@ export function LoginForm() {
             const k = "confirmed";
             if (authToastRef.current !== k) {
                 authToastRef.current = k;
-                toast.success("Email confirmed. You can sign in.");
+                toast.success(t("emailConfirmed"));
                 router.replace(AUTH_ROUTES.login, { scroll: false });
             }
         }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useFormStatus } from "react-dom";
 import {
     Eye, EyeOff, ArrowRight, Mail, Lock,

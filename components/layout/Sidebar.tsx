@@ -11,10 +11,12 @@ import {
 import { getChecklistIcon } from "@/lib/data/checklist-icons";
 import { SIDEBAR_ITEM_IDS } from "@/lib/data/sidebar-items";
 import type { ChecklistItem, ProgressState } from "@/types";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { BookOpen, Home } from "lucide-react";
 import { UserMenu } from "@/components/layout/UserMenu";
+import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 
 type SidebarColorKey = "coral" | "azure" | "forest" | "gold";
 
@@ -47,10 +49,11 @@ function StatusBadge({
     itemId: string;
     itemDone: boolean;
 }) {
+    const t = useTranslations("common");
     if (itemId === "visa-validation" && !itemDone) {
         return (
             <Badge variant="outline" className="ml-auto shrink-0 text-[10px] border-transparent bg-coral-50 px-2 py-0.5 font-medium text-coral-600">
-                Urgent
+                {t("urgent")}
             </Badge>
         );
     }
@@ -60,14 +63,14 @@ function StatusBadge({
                 variant="outline"
                 className="ml-auto shrink-0 border-transparent bg-forest-50 px-2 py-0.5 text-[10px] font-medium text-forest-700"
             >
-                Done
+                {t("done")}
             </Badge>
         );
     }
     if (pct > 0) {
         return (
             <Badge variant="outline" className="ml-auto shrink-0 border-transparent bg-forest-50 px-2 py-0.5 font-medium text-forest-600 text-[10px]">
-                Active
+                {t("active")}
             </Badge>
         );
     }
@@ -76,7 +79,7 @@ function StatusBadge({
             variant="outline"
             className="ml-auto shrink-0 border-sand-200 bg-sand-50 px-2 py-0.5 text-[10px] font-medium text-sand-600"
         >
-            To do
+            {t("todo")}
         </Badge>
     );
 }
@@ -91,6 +94,8 @@ export function SidebarPanel({
     onAfterNavigate,
     className,
 }: SidebarPanelProps) {
+    const t = useTranslations("common");
+    const tSidebar = useTranslations("sidebar");
     const sidebarItems = useMemo(() => {
         const byId = new Map(checklist.map((it) => [it.id, it]));
         return SIDEBAR_ITEM_IDS
@@ -110,12 +115,12 @@ export function SidebarPanel({
                     Le<span className="text-forest-700">Guide</span>
                 </div>
                 <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-sand-600">
-                    Student Admin Guide
+                    {tSidebar("tagline")}
                 </p>
             </div>
 
             <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto py-2">
-                <p className="px-6 py-2 text-[10px] font-semibold uppercase tracking-widest text-sand-400">Getting started</p>
+                <p className="px-6 py-2 text-[10px] font-semibold uppercase tracking-widest text-sand-400">{tSidebar("gettingStarted")}</p>
                 <Button
                     variant="ghost"
                     className={cn(
@@ -127,7 +132,7 @@ export function SidebarPanel({
                     onClick={() => navigate("home")}
                 >
                     <Home className="size-4 shrink-0 opacity-80" />
-                    Dashboard
+                    {t("dashboard")}
                 </Button>
 
                 <Button
@@ -138,14 +143,14 @@ export function SidebarPanel({
                 >
                     <Link href="/guides">
                         <BookOpen className="size-4 shrink-0 opacity-80" />
-                        Guides & resources
+                        {tSidebar("guidesResources")}
                     </Link>
                 </Button>
 
                 <div className="mt-4 px-6">
                     <div className="flex items-center justify-between py-2">
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-sand-400">
-                            Administrative Steps
+                            {tSidebar("adminSteps")}
                         </p>
                         <span className="text-[10px] font-semibold tabular-nums text-sand-500">
                             {totalProgress.pct}%
@@ -188,7 +193,8 @@ export function SidebarPanel({
                 </div>
             </nav>
 
-            <div className="mt-auto shrink-0 border-t border-border px-3 py-3">
+            <div className="mt-auto shrink-0 border-t border-border px-3 py-3 space-y-2">
+                <LocaleSwitcher variant="pill" className="w-full justify-center" />
                 <UserMenu
                     variant="row"
                     name={user?.name}
