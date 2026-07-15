@@ -23,8 +23,10 @@ import { RegisterPanel } from "../layout/LeftPanel";
 import { CountryCombobox } from "@/components/ui/CountryCombobox";
 import { registerAction } from "@/features/auth/register";
 import { googleLogin } from "@/features/auth/google-login";
+import { useTranslations } from "next-intl";
 
 function SubmitButton({ disabled }: { disabled: boolean }) {
+    const t = useTranslations("auth");
     const { pending } = useFormStatus();
     return (
         <Button
@@ -39,11 +41,11 @@ function SubmitButton({ disabled }: { disabled: boolean }) {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                     </svg>
-                    Creating account…
+                    {t("creatingAccount")}
                 </span>
             ) : (
                 <span className="flex items-center gap-2">
-                    Create account
+                    {t("createAccount")}
                     <ArrowRight className="size-4" aria-hidden />
                 </span>
             )}
@@ -51,8 +53,10 @@ function SubmitButton({ disabled }: { disabled: boolean }) {
     );
 }
 
-/* ─── Password strength ──────────────────────────────────────────────── */
-function getStrength(pw: string): { score: number; label: string; color: string } {
+function getStrength(
+    pw: string,
+    labels: { weak: string; fair: string; strong: string },
+): { score: number; label: string; color: string } {
     if (!pw) return { score: 0, label: "", color: "" };
     let score = 0;
     if (pw.length >= 8) score++;
@@ -60,58 +64,59 @@ function getStrength(pw: string): { score: number; label: string; color: string 
     if (/[A-Z]/.test(pw)) score++;
     if (/[0-9]/.test(pw)) score++;
     if (/[^A-Za-z0-9]/.test(pw)) score++;
-    if (score <= 1) return { score, label: "Weak", color: "bg-coral-400" };
-    if (score <= 3) return { score, label: "Fair", color: "bg-gold-200" };
-    return { score, label: "Strong", color: "bg-forest-400" };
+    if (score <= 1) return { score, label: labels.weak, color: "bg-coral-400" };
+    if (score <= 3) return { score, label: labels.fair, color: "bg-gold-200" };
+    return { score, label: labels.strong, color: "bg-forest-400" };
 }
 
-/* ─── Register form ──────────────────────────────────────────────────── */
 type Step = 1 | 2;
 
 export function RegisterForm() {
+    const t = useTranslations("auth");
+    const tCommon = useTranslations("common");
     const [step, setStep] = useState<Step>(1);
     const [showPw, setShowPw] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [agreed, setAgreed] = useState(false);
 
-    /* Step 1 fields */
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
 
-    /* Step 2 fields */
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
     const [university, setUniversity] = useState("");
     const [country, setCountry] = useState("");
 
-    const strength = getStrength(password);
+    const strength = getStrength(password, {
+        weak: t("passwordStrengthWeak"),
+        fair: t("passwordStrengthFair"),
+        strong: t("passwordStrengthStrong"),
+    });
     const pwMatch = password && confirm && password === confirm;
     const pwNoMatch = confirm && password !== confirm;
 
-    /* Step 1 validation */
     function handleStep1(e: React.FormEvent) {
         e.preventDefault();
         setError(null);
         if (!firstName.trim() || !lastName.trim() || !email.trim()) {
-            setError("Please fill in all fields.");
+            setError(t("fillAllFields"));
             return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            setError("Please enter a valid email address.");
+            setError(t("invalidEmail"));
             return;
         }
         setStep(2);
     }
 
-    /* Step 2 / final submit */
     function handleSubmitClientValidation() {
         setError(null);
-        if (!password || !confirm) { setError("Please fill in all fields."); return; }
-        if (password !== confirm) { setError("Passwords do not match."); return; }
-        if (password.length < 8) { setError("Password must be at least 8 characters."); return; }
-        if (!agreed) { setError("Please accept the Terms of Service."); return; }
+        if (!password || !confirm) { setError(t("fillAllFields")); return; }
+        if (password !== confirm) { setError(t("passwordsMismatch")); return; }
+        if (password.length < 8) { setError(t("passwordMinLength")); return; }
+        if (!agreed) { setError(t("acceptTermsRequired")); return; }
     }
 
     const [serverState, formAction] = useActionState(registerAction, {});
@@ -121,11 +126,8 @@ export function RegisterForm() {
         <div className="min-h-screen grid lg:grid-cols-2">
             <RegisterPanel />
 
-            {/* Right panel */}
             <div className="flex items-center justify-center p-8 bg-background">
                 <div className="w-full max-w-[420px] animate-fade-up">
-
-                    {/* Mobile logo */}
                     <div className="lg:hidden mb-8 text-center">
                         <Link href="/" className="no-underline">
                             <span className="font-serif text-2xl font-light tracking-tight text-foreground">
@@ -134,7 +136,6 @@ export function RegisterForm() {
                         </Link>
                     </div>
 
-                    {/* Step indicator */}
                     <div className="flex items-center gap-2 mb-6">
                         {([1, 2] as Step[]).map((s) => (
                             <div key={s} className="flex items-center gap-2">
@@ -151,7 +152,7 @@ export function RegisterForm() {
                                     {s < step ? <CheckCircle2 className="w-3.5 h-3.5" /> : s}
                                 </div>
                                 <span className={cn("text-[12px]", s === step ? "text-foreground font-medium" : "text-muted-foreground")}>
-                                    {s === 1 ? "Your info" : "Account"}
+                                    {s === 1 ? t("stepYourInfo") : t("stepAccount")}
                                 </span>
                                 {s < 2 && <div className="w-8 h-px bg-border mx-1" />}
                             </div>
@@ -161,18 +162,16 @@ export function RegisterForm() {
                     <Card className="border-border/60 shadow-sm">
                         <CardHeader className="space-y-1 pb-4">
                             <CardTitle className="text-2xl font-normal tracking-tight">
-                                {step === 1 ? "Create your account" : "Secure your account"}
+                                {step === 1 ? t("registerTitle") : t("registerTitleStep2")}
                             </CardTitle>
                             <CardDescription>
                                 {step === 1
-                                    ? "Free forever — no credit card needed"
-                                    : "Choose a strong password to protect your data"}
+                                    ? t("registerSubtitleStep1")
+                                    : t("registerSubtitleStep2")}
                             </CardDescription>
                         </CardHeader>
 
                         <CardContent className="space-y-4">
-
-                            {/* ── STEP 1 ── */}
                             {step === 1 && (
                                 <>
                                     <Button
@@ -183,13 +182,13 @@ export function RegisterForm() {
                                         onClick={() => googleLogin("/dashboard")}
                                     >
                                         <KeyRound className="size-4" aria-hidden />
-                                        Continue with Google
+                                        {t("continueWithGoogle")}
                                     </Button>
 
                                     <div className="relative">
                                         <Separator />
                                         <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
-                                            or register with email
+                                            {t("orRegisterWithEmail")}
                                         </span>
                                     </div>
 
@@ -200,10 +199,9 @@ export function RegisterForm() {
                                     )}
 
                                     <form onSubmit={handleStep1} className="space-y-4">
-                                        {/* Name row */}
                                         <div className="grid grid-cols-2 gap-3">
                                             <div className="space-y-2">
-                                                <Label htmlFor="firstName">First name</Label>
+                                                <Label htmlFor="firstName">{t("firstName")}</Label>
                                                 <div className="relative">
                                                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                                     <Input
@@ -218,7 +216,7 @@ export function RegisterForm() {
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
-                                                <Label htmlFor="lastName">Last name</Label>
+                                                <Label htmlFor="lastName">{t("lastName")}</Label>
                                                 <Input
                                                     id="lastName"
                                                     placeholder="Andersson"
@@ -230,15 +228,14 @@ export function RegisterForm() {
                                             </div>
                                         </div>
 
-                                        {/* Email */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="email">Email address</Label>
+                                            <Label htmlFor="email">{t("emailAddress")}</Label>
                                             <div className="relative">
                                                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                                 <Input
                                                     id="email"
                                                     type="email"
-                                                    placeholder="you@university.edu"
+                                                    placeholder={t("emailPlaceholder")}
                                                     className="pl-9"
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
@@ -249,14 +246,13 @@ export function RegisterForm() {
                                         </div>
 
                                         <Button type="submit" size="lg" className="w-full font-medium">
-                                            Continue
+                                            {t("continue")}
                                             <ArrowRight className="size-4" aria-hidden />
                                         </Button>
                                     </form>
                                 </>
                             )}
 
-                            {/* ── STEP 2 ── */}
                             {step === 2 && (
                                 <>
                                     {mergedError && (
@@ -272,15 +268,14 @@ export function RegisterForm() {
                                         <input type="hidden" name="university" value={university} />
                                         <input type="hidden" name="country" value={country} />
 
-                                        {/* Password */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="password">Password</Label>
+                                            <Label htmlFor="password">{t("password")}</Label>
                                             <div className="relative">
                                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                                 <Input
                                                     id="password"
                                                     type={showPw ? "text" : "password"}
-                                                    placeholder="Min. 8 characters"
+                                                    placeholder={t("minPasswordChars")}
                                                     className="pl-9 pr-9"
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
@@ -293,12 +288,12 @@ export function RegisterForm() {
                                                     onClick={() => setShowPw(!showPw)}
                                                     className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                                                     tabIndex={-1}
+                                                    aria-label={showPw ? t("hidePassword") : t("showPassword")}
                                                 >
                                                     {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                                 </button>
                                             </div>
 
-                                            {/* Strength bar */}
                                             {password && (
                                                 <div className="space-y-1.5">
                                                     <div className="flex gap-1">
@@ -317,21 +312,20 @@ export function RegisterForm() {
                                                         strength.score <= 1 ? "text-coral-600" :
                                                             strength.score <= 3 ? "text-gold-600" : "text-forest-600"
                                                     )}>
-                                                        {strength.label} password
+                                                        {strength.label} {t("passwordStrengthSuffix")}
                                                     </p>
                                                 </div>
                                             )}
                                         </div>
 
-                                        {/* Confirm password */}
                                         <div className="space-y-2">
-                                            <Label htmlFor="confirm">Confirm password</Label>
+                                            <Label htmlFor="confirm">{t("confirmPassword")}</Label>
                                             <div className="relative">
                                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                                 <Input
                                                     id="confirm"
                                                     type={showConfirm ? "text" : "password"}
-                                                    placeholder="Repeat password"
+                                                    placeholder={t("repeatPassword")}
                                                     className={cn(
                                                         "pl-9 pr-9",
                                                         pwNoMatch && "border-destructive focus-visible:ring-destructive",
@@ -347,25 +341,26 @@ export function RegisterForm() {
                                                     onClick={() => setShowConfirm(!showConfirm)}
                                                     className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                                                     tabIndex={-1}
+                                                    aria-label={showConfirm ? t("hidePassword") : t("showPassword")}
                                                 >
                                                     {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                                 </button>
                                             </div>
                                             {pwNoMatch && (
-                                                <p className="text-[11px] text-destructive">Passwords do not match</p>
+                                                <p className="text-[11px] text-destructive">{t("passwordsNoMatchInline")}</p>
                                             )}
                                             {pwMatch && (
                                                 <p className="text-[11px] text-forest-600 flex items-center gap-1">
-                                                    <CheckCircle2 className="w-3 h-3" /> Passwords match
+                                                    <CheckCircle2 className="w-3 h-3" /> {t("passwordsMatch")}
                                                 </p>
                                             )}
                                         </div>
 
-                                        {/* Optional: university + country */}
                                         <div className="grid grid-cols-2 gap-3">
                                             <div className="space-y-2">
                                                 <Label htmlFor="university">
-                                                    University <span className="text-muted-foreground font-normal">(optional)</span>
+                                                    {t("university")}{" "}
+                                                    <span className="text-muted-foreground font-normal">({t("optional")})</span>
                                                 </Label>
                                                 <div className="relative">
                                                     <GraduationCap className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -380,18 +375,18 @@ export function RegisterForm() {
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="register-country">
-                                                    Country <span className="text-muted-foreground font-normal">(optional)</span>
+                                                    {t("country")}{" "}
+                                                    <span className="text-muted-foreground font-normal">({t("optional")})</span>
                                                 </Label>
                                                 <CountryCombobox
                                                     id="register-country"
                                                     value={country}
                                                     onChange={setCountry}
-                                                    placeholder="Select country…"
+                                                    placeholder={t("selectCountry")}
                                                 />
                                             </div>
                                         </div>
 
-                                        {/* Terms */}
                                         <div className="flex items-start space-x-2 pt-1">
                                             <Checkbox
                                                 id="terms"
@@ -403,18 +398,17 @@ export function RegisterForm() {
                                                 htmlFor="terms"
                                                 className="text-sm font-normal text-muted-foreground leading-relaxed cursor-pointer"
                                             >
-                                                I agree to the{" "}
+                                                {t("agreeToTerms")}{" "}
                                                 <Link href="/terms" className="text-foreground underline underline-offset-4 hover:text-primary transition-colors">
-                                                    Terms of Service
+                                                    {tCommon("terms")}
                                                 </Link>{" "}
-                                                and{" "}
+                                                {t("and")}{" "}
                                                 <Link href="/privacy" className="text-foreground underline underline-offset-4 hover:text-primary transition-colors">
-                                                    Privacy Policy
+                                                    {tCommon("privacy")}
                                                 </Link>
                                             </Label>
                                         </div>
 
-                                        {/* Actions */}
                                         <div className="flex gap-2 pt-1">
                                             <Button
                                                 type="button"
@@ -422,7 +416,7 @@ export function RegisterForm() {
                                                 size="lg"
                                                 onClick={() => { setError(null); setStep(1); }}
                                             >
-                                                Back
+                                                {t("back")}
                                             </Button>
                                             <SubmitButton disabled={!agreed} />
                                         </div>
@@ -434,19 +428,19 @@ export function RegisterForm() {
                         <CardFooter className="flex flex-col gap-3 pt-0">
                             <Separator />
                             <p className="text-sm text-center text-muted-foreground">
-                                Already have an account?{" "}
+                                {t("hasAccount")}{" "}
                                 <Link
                                     href={AUTH_ROUTES.login}
                                     className="font-medium text-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
                                 >
-                                    Sign in
+                                    {t("signIn")}
                                 </Link>
                             </p>
                         </CardFooter>
                     </Card>
 
                     <p className="text-center text-xs text-muted-foreground mt-6 leading-relaxed">
-                        LeGuide is free and never shares your data with third parties.
+                        {t("registerFooter")}
                     </p>
                 </div>
             </div>

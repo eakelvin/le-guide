@@ -310,7 +310,6 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                                     variant="embedded"
                                     next="/profile"
                                     requireCurrentPasswordField={appUser.hasEmailPasswordIdentity}
-                                    submitLabel="Update password"
                                 />
                             )}
 

@@ -1,11 +1,15 @@
 import { Suspense } from "react";
 import { LoginForm } from "@/components/auth/LoginForm";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-    title: "Sign in — LeGuide",
-    description: "Sign in to your LeGuide account.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const t = await getTranslations("auth");
+    return {
+        title: `${t("loginPageTitle")} — LeGuide`,
+        description: t("loginPageDescription"),
+    };
+}
 
 function LoginFormFallback() {
     return (

@@ -4,11 +4,15 @@ import { UpdatePasswordForm } from "@/components/auth/UpdatePasswordForm";
 import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { getAppUser } from "@/features/auth/user";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-    title: "New password — LeGuide",
-    description: "Choose a new password for your account.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const t = await getTranslations("auth");
+    return {
+        title: `${t("updatePasswordPageTitle")} — LeGuide`,
+        description: t("updatePasswordPageDescription"),
+    };
+}
 
 export default async function UpdatePasswordPage() {
     const user = await getAppUser();
@@ -23,13 +27,7 @@ export default async function UpdatePasswordPage() {
         <UpdatePasswordForm
             next="/dashboard"
             requireCurrentPasswordField={!recoveryFlow}
-            title="Set a new password"
-            description={
-                recoveryFlow
-                    ? "Your email was verified. Choose a new password for your account."
-                    : "Enter your current password, then choose a new one."
-            }
-            submitLabel="Save new password"
+            recoveryFlow={recoveryFlow}
         />
     );
 }
