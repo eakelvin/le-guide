@@ -1,8 +1,13 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BLOG_CATEGORIES, BLOG_POSTS, getPostBySlug, isChecklistGuideSlug } from "@/lib/blog";
+import { BLOG_POSTS, isChecklistGuideSlug } from "@/lib/blog";
+import { getBlogCategories, getPostBySlug, mergeChecklistGuidePost } from "@/lib/i18n/blog-locale";
+import { getChecklistItemBySlug } from "@/features/checklist/queries";
+import { isAppLocale } from "@/lib/locale";
+import { routing } from "@/i18n/routing";
+import { getLocale, getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";
@@ -17,31 +22,49 @@ const CATEGORY_BADGE: Record<BlogCategoryId, string> = {
 };
 
 export function generateStaticParams() {
-  return BLOG_POSTS.map((p) => ({ slug: p.slug }));
+  return routing.locales.flatMap((locale) =>
+    BLOG_POSTS.map((p) => ({ locale, slug: p.slug })),
+  );
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
-  if (!post) return { title: "Article | LeGuide" };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>;
+}): Promise<Metadata> {
+  const { slug, locale: localeParam } = await params;
+  const locale = isAppLocale(localeParam) ? localeParam : routing.defaultLocale;
+  const basePost = getPostBySlug(slug, locale);
+  if (!basePost) return { title: "Article | LeGuide" };
+  const checklistItem = isChecklistGuideSlug(slug) ? await getChecklistItemBySlug(slug) : null;
+  const post = mergeChecklistGuidePost(basePost, checklistItem);
   return {
     title: `${post.title} | LeGuide`,
     description: post.excerpt,
   };
 }
 
-export default async function BlogArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
-  if (!post) notFound();
-  const cat = BLOG_CATEGORIES.find((c) => c.id === post.category);
+export default async function BlogArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>;
+}) {
+  const { slug, locale: localeParam } = await params;
+  const locale = isAppLocale(localeParam) ? localeParam : routing.defaultLocale;
+  const t = await getTranslations("guides");
+  const basePost = getPostBySlug(slug, locale);
+  if (!basePost) notFound();
+  const checklistItem = isChecklistGuideSlug(slug) ? await getChecklistItemBySlug(slug) : null;
+  const post = mergeChecklistGuidePost(basePost, checklistItem);
+  const categories = getBlogCategories(locale);
+  const cat = categories.find((c) => c.id === post.category);
   const isChecklistGuide = isChecklistGuideSlug(slug);
 
   return (
     <article className="mx-auto w-full max-w-3xl px-6 pb-16 pt-6 sm:px-8 md:pt-8">
       <nav aria-label="Breadcrumb" className="mb-6 text-xs text-sand-400">
         <Link href="/guides" className="text-sand-400 transition-colors hover:text-sand-800 hover:underline">
-          Guides
+          {t("title")}
         </Link>
         <span aria-hidden className="mx-1 text-sand-300">
           &gt;

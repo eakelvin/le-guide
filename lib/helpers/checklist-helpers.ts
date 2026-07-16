@@ -28,15 +28,17 @@ export function showsOfficialLinksOnStepOne(itemId: string): boolean {
     return STEP_ONE_OFFICIAL_LINK_ITEM_IDS.has(itemId);
 }
 
+export type ProfileDerivedReasonKey = "profileDerivedAccommodation";
+
 export function getProfileDerivedCompletionReason(
     itemId: string,
     profile: UserProfile,
-): string | null {
+): ProfileDerivedReasonKey | null {
     if (
         itemId === PROFILE_DERIVED_ITEM_IDS.accommodation &&
         profile.hasAccommodation === "yes"
     ) {
-        return "Your profile says you already have accommodation.";
+        return "profileDerivedAccommodation";
     }
     return null;
 }
@@ -44,16 +46,15 @@ export function getProfileDerivedCompletionReason(
 export interface ArrivalSnapshot {
     /** Whole days between `arrivalDate` and `now` (always non-negative). */
     days: number;
-    /** Pretty-printed elapsed time, scale-adaptive: "today" / "8 days" / "3 months" / "1 year". */
-    pretty: string;
 }
 
 /**
- * Diff between an arrival date and "now", scale-adaptive for friendly copy.
+ * Diff between an arrival date and "now".
  * Returns `null` if the arrival date is missing or unparseable.
  *
  * Sign of the diff is intentionally discarded — callers decide whether to
- * read it as "ago" or "in" using `profile.alreadyInFrance`.
+ * read it as "ago" or "in" using `profile.alreadyInFrance`, and format
+ * `days` with locale-aware copy at the UI boundary.
  */
 export function getArrivalSnapshot(
     arrivalDate: string | null | undefined,
@@ -65,19 +66,7 @@ export function getArrivalSnapshot(
 
     const dayMs = 1000 * 60 * 60 * 24;
     const days = Math.abs(Math.floor((now.getTime() - arrival.getTime()) / dayMs));
-    return { days, pretty: formatElapsed(days) };
-}
-
-function formatElapsed(days: number): string {
-    if (days === 0) return "today";
-    if (days === 1) return "1 day";
-    if (days < 30) return `${days} days`;
-    if (days < 365) {
-        const months = Math.floor(days / 30);
-        return `${months} ${months === 1 ? "month" : "months"}`;
-    }
-    const years = Math.floor(days / 365);
-    return `${years} ${years === 1 ? "year" : "years"}`;
+    return { days };
 }
 
 export interface OfiiCountdown {
@@ -203,7 +192,7 @@ export function getChecklistItemProgress(
     return { done, total, pct: Math.round((done / total) * 100) };
 }
 
-export type ChecklistItemStatus = "Not started" | "In progress" | "Complete";
+export type ChecklistItemStatus = "notStarted" | "inProgress" | "complete";
 
 /**
  * Item completion is the source of truth for "Done". Sub-step ticks drive the
@@ -218,10 +207,10 @@ export function getChecklistItemStatus(
     item: ChecklistItem,
     progress: ProgressState,
 ): ChecklistItemStatus {
-    if (isChecklistItemDone(item, progress)) return "Complete";
+    if (isChecklistItemDone(item, progress)) return "complete";
     const { done } = getChecklistItemProgress(item, progress);
-    if (done > 0) return "In progress";
-    return "Not started";
+    if (done > 0) return "inProgress";
+    return "notStarted";
 }
 
 /**
@@ -239,7 +228,7 @@ export function isChecklistItemLocked(
     return item.dependsOn.some((depId) => {
         const dep = byId.get(depId);
         if (!dep) return false;
-        return getChecklistItemStatus(dep, progress) !== "Complete";
+        return getChecklistItemStatus(dep, progress) !== "complete";
     });
 }
 
@@ -254,7 +243,7 @@ export function getUnmetDependencies(
     return item.dependsOn
         .map((id) => byId.get(id))
         .filter((dep): dep is ChecklistItem =>
-            !!dep && getChecklistItemStatus(dep, progress) !== "Complete",
+            !!dep && getChecklistItemStatus(dep, progress) !== "complete",
         );
 }
 

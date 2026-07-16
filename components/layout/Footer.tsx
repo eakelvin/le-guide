@@ -1,6 +1,11 @@
-import Link from "next/link";
+"use client";
+
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export function Footer() {
+    const t = useTranslations("footer");
+    const tCommon = useTranslations("common");
     const year = new Date().getFullYear();
 
     return (
@@ -11,23 +16,14 @@ export function Footer() {
                 </div>
                 <div className="flex flex-wrap gap-6 text-[13px]">
                     <Link href="/guides" className="text-white/40 no-underline transition-colors hover:text-white/75">
-                        Guides
+                        {tCommon("guides")}
                     </Link>
                     <Link href="/#contact" className="text-white/40 no-underline transition-colors hover:text-white/75">
-                        Contact
+                        {tCommon("contact")}
                     </Link>
-                    {/* {["Visa", "Housing", "Healthcare", "Banking", "Transport"].map((l) => (
-                        <Link
-                            key={l}
-                            href="/dashboard"
-                            className="text-white/40 no-underline transition-colors hover:text-white/75"
-                        >
-                            {l}
-                        </Link>
-                    ))} */}
                 </div>
                 <div className="text-[12px] text-white/40">
-                    © {year} LeGuide. Made with ♥ for international students.
+                    {t("tagline", { year })}
                 </div>
             </div>
         </footer>

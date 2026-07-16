@@ -27,7 +27,8 @@
             "Orange",
             "Lyca Mobile",
             "SFR",
-            "Bouygues Telecom"
+            "Bouygues Telecom",
+            "Lebara"
         ],
         "steps_summary": [
             "Get a SIM card from your provider"
@@ -58,7 +59,7 @@
         "difficulty": "medium",
         "priority": "high",
         "is_required": true,
-        "recommended_timing": "Immediately after arriving in France",
+        "recommended_timing": "Before or immediately after arriving in France",
         "why_this_matters": "You need a valid accommodation contract before applying for CAF housing aid.",
         "deadline": "",
         "last_verified_at": "",
@@ -78,10 +79,7 @@
         "steps_summary": [
             "Search for accommodation (CROUS, private rentals, shared flats)",
             "Visit or verify listings",
-            {
-                "summary": "Sign rental agreement",
-                "description": "The contract should be in your name with a clear start date — you'll need it for CAF and proof of address."
-            },
+            "Sign rental agreement",
             "Pay deposit",
             "Receive proof of address"
         ],
@@ -96,17 +94,12 @@
             ],
             "visa_types": []
         },
-        "official_links": [
-            {
-                "label": "",
-                "url": ""
-            }
-        ]
+        "official_links": []
     },
     {
         "id": "online-bank-account",
         "slug": "opening-an-online-bank-account",
-        "title": "Opening an online bank account",
+        "title": "Open an online bank account",
         "short_description": "Opening an online bank account is a crucial step for international students. It allows you to manage your finances and make payments.",
         "category": "first-days",
         "order_index": 3,
@@ -142,11 +135,11 @@
             "Choose a bank (Revolut, Nickel, etc.)",
             {
                 "summary": "Download the Application on your PlayStore(Android) or Appstore(IOS)",
-                "description": "Once installed, open the app and follow the on-screen steps. Fill in the registration form by entering the required details"
+                "description": "Once installed, open the app and follow the on-screen steps.\nFill in the registration form by entering the required details"
             },
             {
-                "summary": "Verify identity",
-                "description": "Upload a photo of an ID document — passport, national ID card, or visa (a residence permit may also be accepted depending on your country). Take a selfie to confirm your identity."
+                "summary": "Verify your identity",
+                "description": "Upload a photo of an ID document — passport, national ID card, or visa (a residence permit may also be accepted depending on your country).\nTake a selfie to confirm your identity."
             },
             {
                 "summary": "Receive IBAN and Order your Card",
@@ -185,7 +178,7 @@
         "difficulty": "easy",
         "priority": "high",
         "is_required": true,
-        "recommended_timing": "within your first month in France",
+        "recommended_timing": "Within your first month in France",
         "why_this_matters": "Public transport is the main way to travel in Paris and Île-de-France. The Navigo pass gives you unlimited access to metro, bus, and RER at a fixed monthly cost, making daily life significantly easier and cheaper.",
         "deadline": "",
         "last_verified_at": "",
@@ -204,10 +197,7 @@
         "common_options": [],
         "steps_summary": [
             "Go to Île-de-France Mobilités website or metro station",
-            {
-                "summary": "Choose a Navigo pass type (weekly, monthly, student)",
-                "description": "Students under 26 can apply for the Imagine R pass for a discounted annual rate."
-            },
+            "Choose a Navigo pass type (weekly, monthly, student)",
             "Upload required documents",
             "Pay for your subscription",
             "Receive or collect your Navigo card",
@@ -246,7 +236,9 @@
         "deadline": "3 months",
         "last_verified_at": "",
         "status": "active",
-        "depends_on": [],
+        "depends_on": [
+            "sim-card"
+        ],
         "requirements": [
             {
                 "name": "Valid passport",
@@ -257,7 +249,7 @@
                 "required": true
             },
             {
-                "name": "Proof of address",
+                "name": "Home Address",
                 "required": true
             }
         ],
@@ -265,15 +257,15 @@
         "steps_summary": [
             {
                 "summary": "Go to the official visa validation website",
-                "description": "Use the French administration portal linked below: https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/"
+                "description": "Use the French administration portal link below.\nClick on the card \"Je valide mon VLS-TS\""
             },
             {
                 "summary": "Enter your visa number and personal details",
-                "description": "Enter your visa number and confirm it. After confirmation, enter your date of beginning and end of validity, date of issue, reason for stay; "
+                "description": "Enter your visa number and confirm it.\nAfter confirmation, enter your date of beginning and end of validity, date of issue, reason for stay;"
             },
             {
                 "summary": "Complete identity verification",
-                "description": "Enter the additional information: family circumstances, telephone number, email address; Indicate your date of arrival in France and your address in France;"
+                "description": "Enter the additional information: family circumstances, telephone number, email address; \nIndicate your date of arrival in France and your address in France;"
             },
             {
                 "summary": "Pay the required fee",
@@ -281,10 +273,12 @@
             },
             {
                 "summary": "Download your visa validation confirmation",
-                "description": "You will receive two emails. A first email with your login details. You will need it to access your account. It will contain the confirmation of the validation of your VLS-TS visa. A second email confirming the information you entered online. You can download the email of confirmation of the validation of your VLS-TS visa."
+                "description": "You will receive two emails.\n\nA first email with your login details. You will need it to access your account. It will contain the confirmation of the validation of your VLS-TS visa. \n \nA second email confirming the information you entered online. You can download the email of confirmation of the validation of your VLS-TS visa."
             }
         ],
         "warnings": [
+            "",
+            "",
             ""
         ],
         "applies_to": {
@@ -299,17 +293,13 @@
             {
                 "label": "Digital administration for foreigners in France",
                 "url": "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/"
-            },
-            {
-                "label": "Online validation of the Long Stay Visa equivalent to a Residence Permit",
-                "url": "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/vls-ts/demarches/etape/numero-visa"
             }
         ]
     },
     {
         "id": "traditional-bank-account",
         "slug": "traditional-bank-account",
-        "title": "Opening a Traditional Bank Account",
+        "title": "Open a Traditional Bank Account",
         "short_description": "Open a traditional French bank account to access long-term banking services, salary payments, and administrative processes.",
         "category": "first-days",
         "order_index": 6,
@@ -317,7 +307,7 @@
         "difficulty": "medium",
         "priority": "high",
         "is_required": true,
-        "recommended_timing": "within your first 1-3 months",
+        "recommended_timing": "Within your first 1-3 months",
         "why_this_matters": "Traditional bank accounts are required for long-term financial stability, salary payments, rental contracts, and administrative procedures in France.",
         "deadline": "",
         "last_verified_at": "",
@@ -335,6 +325,14 @@
             {
                 "name": "Proof of address",
                 "required": true
+            },
+            {
+                "name": "School Certificate",
+                "required": true
+            },
+            {
+                "name": "Referral Code",
+                "required": false
             }
         ],
         "common_options": [
@@ -397,7 +395,7 @@
     {
         "id": "student-social-security",
         "slug": "social-security",
-        "title": "Register for public health system",
+        "title": "Register for Public Health System",
         "short_description": "Register with the French health insurance system to access medical care and healthcare reimbursements while studying in France.",
         "category": "settling",
         "order_index": 7,
@@ -411,7 +409,7 @@
         "last_verified_at": "",
         "status": "active",
         "depends_on": [
-            "online-bank-account"
+            "traditional-bank-account"
         ],
         "requirements": [
             {
@@ -428,6 +426,14 @@
             },
             {
                 "name": "Student enrollment certificate",
+                "required": true
+            },
+            {
+                "name": "Proof of Civil Status: Birth Certificate",
+                "required": true
+            },
+            {
+                "name": "Bank Account Statement(RIB)",
                 "required": true
             }
         ],
@@ -479,7 +485,7 @@
         "status": "active",
         "depends_on": [
             "find-housing",
-            "online-bank-account"
+            "traditional-bank-account"
         ],
         "requirements": [
             {
@@ -497,12 +503,26 @@
         ],
         "common_options": [],
         "steps_summary": [
-            "Go to the CAF website",
-            "Create an account",
-            "Enter personal and housing details",
-            "Upload required documents",
-            "Submit application",
-            "Wait for approval"
+            {
+                "summary": "Go to the CAF website",
+                "description": "Visit the CAF website and start a new housing assistance application. Click on « Mes services en ligne/Faire une demande de prestation » and following the online instructions."
+            },
+            {
+                "summary": "Create an account",
+                "description": "If you already have a CAF account, sign in and submit your application from your personal account."
+            },
+            {
+                "summary": "Upload required documents",
+                "description": "Once your application is submitted, upload the requested documents through your CAF account or the CAF mobile app."
+            },
+            {
+                "summary": "Track Your Application",
+                "description": "Monitor your CAF account regularly to check whether additional documents or information are requested. Respond promptly to avoid delays."
+            },
+            {
+                "summary": "Wait for approval",
+                "description": "After your application has been reviewed and approved, CAF will notify you of the outcome. If eligible, your housing assistance payments will begin according to CAF's payment schedule."
+            }
         ],
         "warnings": [
             "You need a valid accommodation contract before applying for CAF.",

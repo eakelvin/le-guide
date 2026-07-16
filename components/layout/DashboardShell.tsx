@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 import { Sidebar } from "./Sidebar";
 import { MobileDashboardNav } from "./MobileDashboardNav";
 import { PROCESSES } from "@/lib/data/processes";
@@ -42,6 +43,8 @@ export function
         showSignedInToast?: boolean;
         showPasswordUpdatedToast?: boolean;
     }) {
+    const t = useTranslations("dashboard");
+    const tCommon = useTranslations("common");
     const router = useRouter();
     const signedInToasted = useRef(false);
     const passwordUpdatedToasted = useRef(false);
@@ -62,14 +65,14 @@ export function
     useEffect(() => {
         if (!showSignedInToast || signedInToasted.current) return;
         signedInToasted.current = true;
-        toast.success("Signed in successfully.");
+        toast.success(t("signedInSuccess"));
         router.replace("/dashboard", { scroll: false });
     }, [showSignedInToast, router]);
 
     useEffect(() => {
         if (!showPasswordUpdatedToast || passwordUpdatedToasted.current) return;
         passwordUpdatedToasted.current = true;
-        toast.success("Password updated successfully.");
+        toast.success(t("passwordUpdatedSuccess"));
         router.replace("/dashboard", { scroll: false });
     }, [showPasswordUpdatedToast, router]);
 
@@ -110,7 +113,7 @@ export function
     if (!profileHydrated) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-white">
-                <p className="text-sm text-muted-foreground">Loading…</p>
+                <p className="text-sm text-muted-foreground">{tCommon("loading")}</p>
             </div>
         );
     }
@@ -124,10 +127,10 @@ export function
                             <DashboardBreadcrumb />
                             <div className="space-y-2">
                                 <h1 className="font-heading font-normal text-3xl tracking-tight text-sand-800 sm:text-[2rem] leading-tight">
-                                    Welcome back{greetingName ? `, ${greetingName}` : ""} 👋
+                                    {greetingName ? t("welcomeBackNamed", { name: greetingName }) : t("welcomeBackGeneric")}
                                 </h1>
                                 <p className="text-sm leading-relaxed text-sand-600">
-                                    Complete your profile to unlock your personalised checklist and processes.
+                                    {t("completeProfileUnlock")}
                                 </p>
                             </div>
                         </div>

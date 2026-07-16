@@ -1,10 +1,10 @@
 "use client";
 
 import {
-    User, GraduationCap, MapPin, Save,
-    CheckCircle2, AlertCircle, ChevronRight, Pencil,
+    User, GraduationCap, MapPin,
+    CheckCircle2, AlertCircle,
     Calendar, Phone, Globe, Building2, Mail,
-    Clock, KeyRound,
+    Clock,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,8 +15,8 @@ import { StudentTypeCombobox } from "@/components/ui/StudentTypeCombobox";
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast as showToast } from "react-hot-toast";
+import { useLocale, useTranslations } from "next-intl";
 
-/* ─── Sub-components ───────────────────────────────────────────────── */
 export function FieldRow({ label, icon: Icon, children, hint }: {
     label: string; icon?: React.FC<{ className?: string }>;
     children: React.ReactNode; hint?: string;
@@ -33,8 +33,8 @@ export function FieldRow({ label, icon: Icon, children, hint }: {
     );
 }
 
-/* ─── Save toast ───────────────────────────────────────────────────── */
 export function SaveToast({ state }: { state: "saved" | "error" | null }) {
+    const t = useTranslations("profile");
     if (!state) return null;
     return (
         <div className={cn(
@@ -44,37 +44,37 @@ export function SaveToast({ state }: { state: "saved" | "error" | null }) {
                 : "bg-coral-50 text-coral-600 border-coral-200"
         )}>
             {state === "saved"
-                ? <><CheckCircle2 className="w-4 h-4" /> Profile saved</>
-                : <><AlertCircle className="w-4 h-4" /> Couldn&apos;t save — try again</>
+                ? <><CheckCircle2 className="w-4 h-4" /> {t("savedToast")}</>
+                : <><AlertCircle className="w-4 h-4" /> {t("saveErrorToast")}</>
             }
         </div>
     );
 }
 
-/* ─── Section: Personal ─────────────────────────────────────────────── */
 export function SectionPersonal({ draft, onChange }: { draft: UserProfile; onChange: (k: keyof UserProfile, v: string) => void }) {
+    const t = useTranslations("profile");
     return (
         <div className="space-y-5">
             <div className="grid grid-cols-2 gap-4">
-                <FieldRow label="First name" icon={User}>
+                <FieldRow label={t("firstName")} icon={User}>
                     <Input placeholder="Mia" value={draft.firstName} onChange={(e) => onChange("firstName", e.target.value)} autoComplete="given-name" />
                 </FieldRow>
-                <FieldRow label="Last name">
+                <FieldRow label={t("lastName")}>
                     <Input placeholder="Andersson" value={draft.lastName} onChange={(e) => onChange("lastName", e.target.value)} autoComplete="family-name" />
                 </FieldRow>
             </div>
-            <FieldRow label="Email address" icon={Mail}>
+            <FieldRow label={t("emailAddress")} icon={Mail}>
                 <Input type="email" placeholder="you@university.edu" value={draft.email} onChange={(e) => onChange("email", e.target.value)} autoComplete="email" />
             </FieldRow>
             <div className="grid grid-cols-2 gap-4">
-                <FieldRow label="Phone number" icon={Phone} hint="Include country code, e.g. +46 70 123 45 67">
+                <FieldRow label={t("phoneNumber")} icon={Phone} hint={t("phoneHint")}>
                     <Input type="tel" placeholder="+46 70 123 45 67" value={draft.phone} onChange={(e) => onChange("phone", e.target.value)} autoComplete="tel" />
                 </FieldRow>
-                <FieldRow label="Date of birth" icon={Calendar}>
+                <FieldRow label={t("dateOfBirth")} icon={Calendar}>
                     <Input type="date" value={draft.dateOfBirth} onChange={(e) => onChange("dateOfBirth", e.target.value)} />
                 </FieldRow>
             </div>
-            <FieldRow label="Country" icon={Globe} hint="Country on your passport or national ID">
+            <FieldRow label={t("country")} icon={Globe} hint={t("countryHint")}>
                 <CountryCombobox
                     id="profile-country"
                     value={draft.country}
@@ -85,11 +85,11 @@ export function SectionPersonal({ draft, onChange }: { draft: UserProfile; onCha
     );
 }
 
-/* ─── Section: Academic ─────────────────────────────────────────────── */
 export function SectionAcademic({ draft, onChange }: ProfileSectionProps) {
+    const t = useTranslations("profile");
     return (
         <div className="space-y-5">
-            <FieldRow label="Student type" icon={GraduationCap} hint="How you are studying or staying in France">
+            <FieldRow label={t("studentType")} icon={GraduationCap} hint={t("studentTypeHint")}>
                 <StudentTypeCombobox
                     id="profile-student-type"
                     value={draft.studentType}
@@ -97,18 +97,18 @@ export function SectionAcademic({ draft, onChange }: ProfileSectionProps) {
                 />
             </FieldRow>
 
-            <FieldRow label="University / Institution" icon={Building2}>
+            <FieldRow label={t("university")} icon={Building2}>
                 <Input placeholder="Sciences Po Paris" value={draft.university} onChange={(e) => onChange("university", e.target.value)} />
             </FieldRow>
             <div className="grid grid-cols-2 gap-4">
-                <FieldRow label="Programme / Field of study" icon={GraduationCap}>
+                <FieldRow label={t("program")} icon={GraduationCap}>
                     <Input placeholder="International Relations" value={draft.program} onChange={(e) => onChange("program", e.target.value)} />
                 </FieldRow>
-                <FieldRow label="Academic year" icon={Clock}>
+                <FieldRow label={t("academicYear")} icon={Clock}>
                     <Input placeholder="2024–2025" value={draft.academicYear} onChange={(e) => onChange("academicYear", e.target.value)} />
                 </FieldRow>
             </div>
-            <FieldRow label="Campus city" icon={MapPin}>
+            <FieldRow label={t("campusCity")} icon={MapPin}>
                 <Input placeholder="Paris" value={draft.campusCity} onChange={(e) => onChange("campusCity", e.target.value)} />
             </FieldRow>
         </div>
@@ -116,6 +116,7 @@ export function SectionAcademic({ draft, onChange }: ProfileSectionProps) {
 }
 
 export function YesNoChoice({ value, onPick }: { value: UserProfile["alreadyInFrance"]; onPick: (v: Exclude<UserProfile["alreadyInFrance"], "">) => void }) {
+    const t = useTranslations("common");
     return (
         <div className="grid max-w-md grid-cols-2 gap-2.5">
             {(["yes", "no"] as const).map((v) => (
@@ -130,19 +131,21 @@ export function YesNoChoice({ value, onPick }: { value: UserProfile["alreadyInFr
                             : "border-border bg-card text-foreground hover:border-sand-300 hover:bg-sand-50",
                     )}
                 >
-                    {v === "yes" ? "Yes" : "No"}
+                    {v === "yes" ? t("yes") : t("no")}
                 </button>
             ))}
         </div>
     );
 }
 
-/* ─── Section: Stay in France ──────────────────────────────────────── */
 export function SectionStay({ draft, onChange }: ProfileSectionProps) {
+    const t = useTranslations("profile");
+    const locale = useLocale();
+
     return (
         <div className="space-y-6">
             <div className="space-y-2">
-                <Label className="text-[13px] text-sand-700">Have you already arrived in France?</Label>
+                <Label className="text-[13px] text-sand-700">{t("alreadyInFrance")}</Label>
                 <YesNoChoice
                     value={draft.alreadyInFrance}
                     onPick={(v) => onChange("alreadyInFrance", v)}
@@ -151,10 +154,10 @@ export function SectionStay({ draft, onChange }: ProfileSectionProps) {
 
             {draft.alreadyInFrance === "yes" && (
                 <div className="space-y-5 border-t border-border pt-5">
-                    <FieldRow label="When did you arrive?" icon={Calendar} hint="Your first day in France on this stay">
+                    <FieldRow label={t("arrivedWhen")} icon={Calendar} hint={t("arrivedWhenHint")}>
                         <Input type="date" value={draft.arrivalDate} onChange={(e) => onChange("arrivalDate", e.target.value)} />
                     </FieldRow>
-                    <FieldRow label="Which city are you in?" icon={MapPin}>
+                    <FieldRow label={t("whichCity")} icon={MapPin}>
                         <Input placeholder="Paris" value={draft.addressCity} onChange={(e) => onChange("addressCity", e.target.value)} autoComplete="address-level2" />
                     </FieldRow>
                 </div>
@@ -162,14 +165,14 @@ export function SectionStay({ draft, onChange }: ProfileSectionProps) {
 
             {draft.alreadyInFrance === "no" && (
                 <div className="space-y-5 border-t border-border pt-5">
-                    <FieldRow label="When do you plan to arrive?" icon={Calendar} hint="Expected first day in France">
+                    <FieldRow label={t("planArriveWhen")} icon={Calendar} hint={t("planArriveHint")}>
                         <Input type="date" value={draft.arrivalDate} onChange={(e) => onChange("arrivalDate", e.target.value)} />
                     </FieldRow>
                 </div>
             )}
 
             <div className="space-y-2 border-t border-border pt-5">
-                <Label className="text-[13px] text-sand-700">Do you already have accommodation?</Label>
+                <Label className="text-[13px] text-sand-700">{t("hasAccommodation")}</Label>
                 <YesNoChoice
                     value={draft.hasAccommodation}
                     onPick={(v) => onChange("hasAccommodation", v)}
@@ -185,6 +188,7 @@ export function SectionStay({ draft, onChange }: ProfileSectionProps) {
                 const isUrgent = daysLeft <= 30 && daysLeft >= 0;
                 const isPast = daysLeft < 0;
                 if (isPast || isUrgent) {
+                    const dateLocale = locale === "fr" ? "fr-FR" : "en-GB";
                     return (
                         <div
                             className={cn(
@@ -197,12 +201,20 @@ export function SectionStay({ draft, onChange }: ProfileSectionProps) {
                             <AlertCircle className="mt-0.5 size-4 shrink-0" />
                             <div>
                                 <p className="font-medium">
-                                    {isPast ? "OFII window may have passed" : `OFII deadline in ${daysLeft} day${daysLeft === 1 ? "" : "s"}`}
+                                    {isPast
+                                        ? t("ofiiWindowPassed")
+                                        : t("ofiiDeadlineInDays", { count: daysLeft })}
                                 </p>
                                 <p className="mt-0.5 text-[12px] opacity-80">
                                     {isPast
-                                        ? "Contact your local OFII office immediately to regularise your situation."
-                                        : `You must validate your visa online before ${deadline.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}.`}
+                                        ? t("ofiiContactOffice")
+                                        : t("ofiiValidateBefore", {
+                                            date: deadline.toLocaleDateString(dateLocale, {
+                                                day: "numeric",
+                                                month: "long",
+                                                year: "numeric",
+                                            }),
+                                        })}
                                 </p>
                             </div>
                         </div>
@@ -214,16 +226,16 @@ export function SectionStay({ draft, onChange }: ProfileSectionProps) {
     );
 }
 
-/* ─── Password updated toast (needs useSearchParams) ─────────────────── */
 export function ProfilePasswordToast() {
+    const t = useTranslations("profile");
     const router = useRouter();
     const searchParams = useSearchParams();
 
     useEffect(() => {
         if (searchParams.get("passwordUpdated") !== "1") return;
-        showToast.success("Password updated successfully.");
+        showToast.success(t("passwordUpdatedToast"));
         router.replace("/profile", { scroll: false });
-    }, [router, searchParams]);
+    }, [router, searchParams, t]);
 
     return null;
 }

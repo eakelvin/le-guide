@@ -75,6 +75,7 @@ export interface ChecklistItemJson {
 /** One row in `public.checklist_items` (snake_case, matches Supabase columns). */
 export interface ChecklistItemRow {
   id: string;
+  locale: string;
   slug: string;
   title: string;
   short_description: string;

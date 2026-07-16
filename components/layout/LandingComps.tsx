@@ -1,13 +1,16 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { useLocale, useTranslations } from "next-intl";
 import { PROC_CARDS } from "@/lib/data/data";
-import { HOW_STEPS } from "@/lib/data/data";
-import { TESTIMONIALS } from "@/lib/data/data";
-import { FAQS } from "@/lib/data/data";
+import { getLandingContent } from "@/lib/data/landing-content";
+import type { AppLocale } from "@/i18n/routing";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export function Hero() {
+    const t = useTranslations("landing");
     return (
         <section className="relative flex min-h-screen flex-col justify-center overflow-hidden pb-20 pt-[100px]">
             {/* Background blobs */}
@@ -21,17 +24,17 @@ export function Hero() {
                 <div>
                     <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-sand-200 bg-card px-3.5 py-1.5 text-xs font-medium text-sand-600 shadow-xs">
                         <span className="h-2 w-2 animate-pulse rounded-full bg-forest-400" />
-                        🇫🇷 &nbsp;Built for international students in France
+                        🇫🇷 &nbsp;{t("badge")}
                     </div>
 
                     <h1 className="font-heading mb-6 max-w-[820px] text-[clamp(40px,6vw,72px)] font-light leading-[1.08] tracking-[-0.04em] text-sand-800">
-                        Navigate France<br />
-                        without the<br />
-                        <em className="italic text-forest-900">administrative struggles</em>
+                        {t("heroTitleLine1")}<br />
+                        {t("heroTitleLine2")}<br />
+                        <em className="italic text-forest-900">{t("heroTitleEmphasis")}</em>
                     </h1>
 
                     <p className="text-lg text-sand-600 leading-relaxed max-w-[520px] mb-10">
-                        Visa validation, CAF housing aid, healthcare, banking, transport — every step explained, tracked, and simplified in one place.
+                        {t("heroSubtitle")}
                     </p>
 
                     <div className="flex flex-wrap items-center gap-3.5">
@@ -44,7 +47,7 @@ export function Hero() {
                                 <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
                                     <path d="M10 2L2 7v11h6v-4h4v4h6V7L10 2z" />
                                 </svg>
-                                Start your checklist
+                                {t("startChecklist")}
                             </Link>
                         </Button>
                         <Button
@@ -54,7 +57,7 @@ export function Hero() {
                             asChild
                         >
                             <a href="#how" className="no-underline">
-                                See how it works
+                                {t("seeHowItWorks")}
                             </a>
                         </Button>
                     </div>
@@ -96,14 +99,14 @@ export function Hero() {
                                 </svg>
                             </div>
                             <div>
-                                <div className="text-sm font-medium">Visa Validation (OFII)</div>
-                                <div className="text-[11.5px] text-coral-600">⚠ 87 days remaining</div>
+                                <div className="text-sm font-medium">{t("previewOfiiTitle")}</div>
+                                <div className="text-[11.5px] text-coral-600">{t("previewDaysRemaining", { days: 87 })}</div>
                             </div>
                         </div>
                         {[
-                            { num: "✓", done: true, label: "Submit online téléprocédure" },
-                            { num: "2", active: true, label: "Wait for appointment letter", tag: { text: "4–8 weeks", bg: "bg-gold-50", col: "text-gold-600" } },
-                            { num: "3", label: "Attend OFII medical visit" },
+                            { num: "✓", done: true, label: t("previewStep1") },
+                            { num: "2", active: true, label: t("previewStep2"), tag: { text: t("previewStep2Tag"), bg: "bg-gold-50", col: "text-gold-600" } },
+                            { num: "3", label: t("previewStep3") },
                         ].map((step, i) => (
                             <div key={i} className={cn("flex gap-2.5 items-start py-2.5", i < 2 && "border-b border-sand-100")}>
                                 <div className={cn(
@@ -152,15 +155,16 @@ export function Hero() {
 }
 
 export function UrgencyBanner() {
+    const t = useTranslations("landing");
     return (
         <div className="border-y border-coral-200/80 bg-coral-50 py-4">
             <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-center gap-2.5 px-6 text-[14px] text-coral-700 md:px-12">
                 <svg className="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M10 1L1 18h18L10 1zm0 3l7 13H3l7-13zm-1 5v4h2v-4h-2zm0 5v2h2v-2h-2z" />
                 </svg>
-                <strong>OFII deadline:</strong> Your visa must be validated within 3 months of arriving — don&apos;t miss it.
+                <strong>{t("urgencyTitle")}</strong> {t("urgencyBody")}
                 <Link href="/dashboard" className="text-coral-600 underline font-medium">
-                    Start validation →
+                    {t("urgencyCta")} →
                 </Link>
             </div>
         </div>
@@ -168,28 +172,33 @@ export function UrgencyBanner() {
 }
 
 export function Processes() {
+    const locale = useLocale() as AppLocale;
+    const content = getLandingContent(locale);
+
     return (
         <section id="processes" className="py-24">
             <div className="mx-auto max-w-[1120px] px-6 md:px-12">
                 <div className="mb-3.5 text-[11px] font-medium uppercase tracking-[2px] text-forest-600">
-                    5 essential processes
+                    {content.processesEyebrow}
                 </div>
                 <div className="mb-14 flex flex-wrap items-end justify-between gap-4">
                     <h2 className="font-heading text-[clamp(30px,4vw,48px)] font-light leading-[1.15] tracking-tight text-sand-800">
-                        Everything you need,
+                        {content.processesTitleLine1}
                         <br />
-                        step by step
+                        {content.processesTitleLine2}
                     </h2>
                     <p className="max-w-[540px] text-[16px] leading-relaxed text-sand-600">
-                        Every major administrative task a student in France faces — broken into clear, actionable steps with
-                        documents, tips, and links.
+                        {content.processesSubtitle}
                     </p>
                 </div>
 
                 <div className="grid divide-y divide-sand-100 overflow-hidden rounded-xl border border-sand-200 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:divide-x xl:divide-y-0">
-                    {PROC_CARDS.map((card) => (
+                    {PROC_CARDS.map((card, index) => {
+                        const text = content.procCards[index];
+                        if (!text) return null;
+                        return (
                         <Link
-                            key={card.title}
+                            key={text.title}
                             href="/dashboard"
                             className="block bg-card p-7 no-underline transition-colors hover:bg-sand-50"
                         >
@@ -201,11 +210,12 @@ export function Processes() {
                             >
                                 {card.icon}
                             </div>
-                            <h3 className="text-[15px] font-medium text-sand-800 mb-1.5">{card.title}</h3>
-                            <p className="text-[13px] text-sand-500 leading-relaxed">{card.desc}</p>
-                            <div className={cn("text-[11.5px] font-medium mt-2.5", card.stepColor)}>{card.steps} →</div>
+                            <h3 className="text-[15px] font-medium text-sand-800 mb-1.5">{text.title}</h3>
+                            <p className="text-[13px] text-sand-500 leading-relaxed">{text.desc}</p>
+                            <div className={cn("text-[11.5px] font-medium mt-2.5", card.stepColor)}>{text.steps} →</div>
                         </Link>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>
@@ -213,24 +223,28 @@ export function Processes() {
 }
 
 export function HowItWorks() {
+    const locale = useLocale() as AppLocale;
+    const content = getLandingContent(locale);
+
     return (
         <section id="how" className="bg-sand-800 py-24">
             <div className="mx-auto max-w-[1120px] px-6 md:px-12">
                 <div className="mb-3.5 text-[11px] font-medium uppercase tracking-[2px] text-forest-400">
-                    How it works
+                    {content.howEyebrow}
                 </div>
                 <div className="mb-14 flex flex-wrap items-end justify-between gap-4">
                     <h2 className="font-heading text-[clamp(30px,4vw,48px)] font-light leading-[1.15] tracking-tight text-white">
-                        Four steps to administrative <em className="italic text-forest-400">clarity</em>
+                        {content.howTitle}{" "}
+                        <em className="italic text-forest-400">{content.howTitleEmphasis}</em>
                     </h2>
                     <p className="max-w-[500px] text-[16px] leading-relaxed text-white/55">
-                        No more lost in translation. No more missing documents. No more missed deadlines.
+                        {content.howSubtitle}
                     </p>
                 </div>
 
                 <div className="relative grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
                     <div className="absolute left-[12.5%] right-[12.5%] top-[22px] hidden h-px bg-white/10 lg:block" />
-                    {HOW_STEPS.map((step) => (
+                    {content.howSteps.map((step) => (
                         <div key={step.num} className="relative z-10 px-0 lg:px-5">
                             <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 font-heading text-[17px] font-normal text-white/80">
                                 {step.num}
@@ -246,17 +260,20 @@ export function HowItWorks() {
 }
 
 export function Testimonials() {
+    const locale = useLocale() as AppLocale;
+    const content = getLandingContent(locale);
+
     return (
         <section className="bg-card py-24">
             <div className="mx-auto max-w-[1120px] px-6 md:px-12">
-                <div className="mb-3.5 text-[11px] font-medium uppercase tracking-[2px] text-forest-600">Student voices</div>
+                <div className="mb-3.5 text-[11px] font-medium uppercase tracking-[2px] text-forest-600">{content.testimonialsEyebrow}</div>
                 <h2 className="font-heading mb-14 text-[clamp(30px,4vw,48px)] font-light leading-[1.15] tracking-tight text-sand-800">
-                    From 40+ countries,
+                    {content.testimonialsTitleLine1}
                     <br />
-                    one shared experience
+                    {content.testimonialsTitleLine2}
                 </h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {TESTIMONIALS.map((t) => (
+                    {content.testimonials.map((t) => (
                         <div key={t.name} className="rounded-xl border border-sand-100 bg-sand-50 p-6 shadow-xs">
                             <div className="mb-3 text-[12px] tracking-wider text-amber-500">★★★★★</div>
                             <p className="mb-5 text-[15px] font-light italic leading-relaxed text-sand-800">&ldquo;{t.quote}&rdquo;</p>
@@ -278,15 +295,18 @@ export function Testimonials() {
 }
 
 export function FAQ() {
+    const locale = useLocale() as AppLocale;
+    const content = getLandingContent(locale);
+
     return (
         <section id="faq" className="py-24">
             <div className="mx-auto max-w-[720px] px-6 md:px-12">
-                <div className="mb-3.5 text-[11px] font-medium uppercase tracking-[2px] text-forest-600">Questions</div>
+                <div className="mb-3.5 text-[11px] font-medium uppercase tracking-[2px] text-forest-600">{content.faqEyebrow}</div>
                 <h2 className="font-heading mb-12 text-[clamp(30px,4vw,48px)] font-light leading-[1.15] tracking-tight text-sand-800">
-                    Common questions
+                    {content.faqTitle}
                 </h2>
                 <Accordion type="single" collapsible defaultValue="item-0" className="border-t border-sand-100">
-                    {FAQS.map((faq, i) => (
+                    {content.faqs.map((faq, i) => (
                         <AccordionItem key={faq.q} value={`item-${i}`} className="border-sand-100">
                             <AccordionTrigger className="py-5 text-left text-[15px] font-medium text-sand-800 hover:no-underline [&>svg]:text-sand-400">
                                 {faq.q}
@@ -303,18 +323,17 @@ export function FAQ() {
 }
 
 export function CTASection() {
+    const t = useTranslations("landing");
     return (
         <section className="relative overflow-hidden bg-forest-900 py-24 text-center">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(255,255,255,0.06)_0%,transparent_60%)]" />
             <div className="relative z-10 mx-auto max-w-[1120px] px-6 md:px-12">
-                <div className="mb-3.5 text-[11px] font-medium uppercase tracking-[2px] text-white/45">Get started today</div>
+                <div className="mb-3.5 text-[11px] font-medium uppercase tracking-[2px] text-white/45">{t("ctaEyebrow")}</div>
                 <h2 className="font-heading mb-4 text-[clamp(32px,5vw,56px)] font-light leading-[1.1] tracking-[-0.04em] text-white">
-                    Your first 90 days in France,
-                    <br />
-                    handled.
+                    {t("ctaTitle")}
                 </h2>
                 <p className="mx-auto mb-9 max-w-[480px] text-[17px] leading-relaxed text-white/60">
-                    Don&apos;t let paperwork define your first semester. Start your personalised checklist in under 2 minutes.
+                    {t("ctaSubtitle")}
                 </p>
                 <Button
                     size="lg"
@@ -322,7 +341,7 @@ export function CTASection() {
                     asChild
                 >
                     <Link href="/dashboard" className="no-underline">
-                        Start your checklist — it&apos;s free →
+                        {t("ctaButton")} →
                     </Link>
                 </Button>
             </div>

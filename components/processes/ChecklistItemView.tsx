@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn, COLOR_CONFIG } from "@/lib/utils";
@@ -11,12 +12,13 @@ import {
     isChecklistItemDone,
     isChecklistStepDone,
     showsOfficialLinksOnStepOne,
+    type ProfileDerivedReasonKey,
 } from "@/lib/helpers/checklist-helpers";
 import { getChecklistIcon } from "@/lib/data/checklist-icons";
 import { hasGuideForSlug } from "@/lib/blog";
 import { DashboardBreadcrumb } from "@/components/layout/DashboardBreadcrumb";
 import type { ChecklistItem, ChecklistOfficialLink, ChecklistStepSummary, ProgressState } from "@/types";
-import { AlertTriangle, ArrowUpRight, Clock, ExternalLink, Info, Timer } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, Clock, ExternalLink, Timer } from "lucide-react";
 
 const CONTENT_WIDTH = "mx-auto w-full max-w-3xl";
 const SECTION_GAP = "mb-8";
@@ -30,7 +32,7 @@ interface ChecklistItemViewProps {
     onMarkItemDone: (itemId: string, stepCount?: number) => void;
     onMarkItemUndone: (itemId: string, stepCount?: number) => void;
     onBack: () => void;
-    profileDerivedCompletionReason?: string | null;
+    profileDerivedCompletionReason?: ProfileDerivedReasonKey | null;
 }
 
 interface StepCardProps {
@@ -52,6 +54,7 @@ interface StepCardProps {
  * long term, the per-item completion (final button) is the source of truth.
  */
 function RequirementsSection({ item }: { item: ChecklistItem }) {
+    const t = useTranslations("dashboard");
     const [checked, setChecked] = useState<boolean[]>(() =>
         item.requirements.map(() => false),
     );
@@ -65,7 +68,7 @@ function RequirementsSection({ item }: { item: ChecklistItem }) {
     return (
         <section className={SECTION_GAP}>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-sand-400">
-                Documents Needed
+                {t("documentsNeeded")}
             </h2>
             <div className="rounded-lg border border-border bg-card p-4">
                 <div className="flex flex-col gap-2.5">
@@ -100,7 +103,7 @@ function RequirementsSection({ item }: { item: ChecklistItem }) {
                                 >
                                     {req.name}
                                     {!req.required && (
-                                        <span className="ml-1.5 text-[11px] text-sand-400">(optional)</span>
+                                        <span className="ml-1.5 text-[11px] text-sand-400">{t("optional")}</span>
                                     )}
                                 </span>
                             </label>
@@ -136,12 +139,13 @@ function ItemHeaderMeta({
     recommendedTiming: string | null;
     hasGuide: boolean;
 }) {
+    const t = useTranslations("dashboard");
     if (!estimatedTime && !recommendedTiming) return null;
 
     return (
         <div className={cn("space-y-1", hasGuide ? "mt-2.5" : "mt-2")}>
             {estimatedTime ? (
-                <ItemMetaLine icon={Timer}>Est. {estimatedTime}</ItemMetaLine>
+                <ItemMetaLine icon={Timer}>{t("estimatedTime", { time: estimatedTime })}</ItemMetaLine>
             ) : null}
             {recommendedTiming ? (
                 <ItemMetaLine icon={Clock}>{recommendedTiming}</ItemMetaLine>
@@ -150,24 +154,8 @@ function ItemHeaderMeta({
     );
 }
 
-function WhyThisMattersSection({ text }: { text: string | null }) {
-    if (!text) return null;
-    return (
-        <section className={SECTION_GAP}>
-            <div className="flex gap-3 rounded-lg bg-azure-50 p-4">
-                <Info className="mt-0.5 size-4 shrink-0 text-azure-600" aria-hidden />
-                <div className="min-w-0 space-y-1.5">
-                    <h2 className="text-[11px] font-semibold uppercase tracking-widest text-azure-700">
-                        Why This Matters
-                    </h2>
-                    <p className="text-[13px] leading-relaxed text-azure-900">{text}</p>
-                </div>
-            </div>
-        </section>
-    );
-}
-
 function WarningsSection({ warnings }: { warnings: string[] }) {
+    const t = useTranslations("dashboard");
     if (warnings.length === 0) return null;
     return (
         <section className={SECTION_GAP}>
@@ -175,7 +163,7 @@ function WarningsSection({ warnings }: { warnings: string[] }) {
                 <AlertTriangle className="mt-0.5 size-4 shrink-0 text-coral-600" aria-hidden />
                 <div className="min-w-0 space-y-2">
                     <h2 className="text-[11px] font-semibold uppercase tracking-widest text-coral-700">
-                        Warnings
+                        {t("warnings")}
                     </h2>
                     <ul className="space-y-2">
                         {warnings.map((warning, i) => (
@@ -198,11 +186,12 @@ function WarningsSection({ warnings }: { warnings: string[] }) {
 }
 
 function StepOfficialLinks({ links }: { links: ChecklistOfficialLink[] }) {
+    const t = useTranslations("dashboard");
     if (links.length === 0) return null;
     return (
         <div className="mt-3">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-                Official links
+                {t("officialLinks")}
             </p>
             <div className="flex flex-col items-start gap-2">
                 {links.map((link, i) => (
@@ -225,11 +214,12 @@ function StepOfficialLinks({ links }: { links: ChecklistOfficialLink[] }) {
 }
 
 function StepCommonOptions({ options }: { options: string[] }) {
+    const t = useTranslations("dashboard");
     if (options.length === 0) return null;
     return (
         <div className="mt-3">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-                Common options
+                {t("commonOptions")}
             </p>
             <div className="flex flex-wrap gap-1.5">
                 {options.map((option, i) => (
@@ -278,12 +268,14 @@ function StepCard({
     onMarkDone,
     onMarkUndone,
 }: StepCardProps) {
+    const t = useTranslations("dashboard");
     const stepKey = String(index);
     const done = isChecklistStepDone(item.id, index, progress);
     const active = isStepActive(item, index, progress);
     const colorKey = getCategoryColorKey(item.category);
     const colors = COLOR_CONFIG[colorKey];
     const isLast = index === item.stepsSummary.length - 1;
+    const n = index + 1;
 
     return (
         <div className="flex gap-0">
@@ -311,13 +303,13 @@ function StepCard({
                     }
                     aria-label={
                         readOnlyComplete
-                            ? `Step ${index + 1} complete from your profile`
+                            ? t("stepCompleteFromProfile", { n })
                             : done
-                                ? `Mark step ${index + 1} not done`
-                                : `Mark step ${index + 1} done`
+                                ? t("markStepNotDone", { n })
+                                : t("markStepDone", { n })
                     }
                 >
-                    {done ? "✓" : index + 1}
+                    {done ? "✓" : n}
                 </button>
                 {!isLast && <div className="bg-border my-1 min-h-6 w-px flex-1" />}
             </div>
@@ -361,18 +353,22 @@ function ItemCompletionActions({
     colorKey: "coral" | "azure" | "forest" | "gold";
     itemDone: boolean;
     itemDoneFromProfile: boolean;
-    profileDerivedCompletionReason?: string | null;
+    profileDerivedCompletionReason?: ProfileDerivedReasonKey | null;
     onMarkItemDone: (itemId: string, stepCount?: number) => void;
     onMarkItemUndone: (itemId: string, stepCount?: number) => void;
 }) {
+    const t = useTranslations("dashboard");
+    const tCommon = useTranslations("common");
+
     if (itemDoneFromProfile) {
         return (
             <div className="space-y-2">
                 <p className="text-xs leading-relaxed text-sand-500">
-                    {profileDerivedCompletionReason} To change this status, update your profile.
+                    {profileDerivedCompletionReason ? t(profileDerivedCompletionReason) : null}{" "}
+                    {t("changeStatusViaProfile")}
                 </p>
                 <Button variant="outline" size="sm" asChild>
-                    <Link href="/profile">Update profile</Link>
+                    <Link href="/profile">{tCommon("updateProfile")}</Link>
                 </Button>
             </div>
         );
@@ -381,7 +377,7 @@ function ItemCompletionActions({
     if (itemDone) {
         return (
             <Button variant="outline" size="sm" onClick={() => onMarkItemUndone(item.id, item.stepsSummary.length)}>
-                Mark as not done
+                {t("markAsNotDone")}
             </Button>
         );
     }
@@ -394,10 +390,10 @@ function ItemCompletionActions({
                 style={{ backgroundColor: getColor(colorKey) }}
                 onClick={() => onMarkItemDone(item.id, item.stepsSummary.length)}
             >
-                Mark as done
+                {t("markAsDone")}
             </Button>
             <p className="text-xs leading-relaxed text-sand-500">
-                Marks this step complete and checks off all sub-steps.
+                {t("markItemDoneHint")}
             </p>
         </div>
     );
@@ -413,6 +409,7 @@ export function ChecklistItemView({
     onBack,
     profileDerivedCompletionReason,
 }: ChecklistItemViewProps) {
+    const t = useTranslations("dashboard");
     const { done, total, pct } = getChecklistItemProgress(item, progress);
     const colorKey = getCategoryColorKey(item.category);
     const colors = COLOR_CONFIG[colorKey];
@@ -454,7 +451,7 @@ export function ChecklistItemView({
                                             "hover:bg-accent",
                                         )}
                                     >
-                                        Read the full guide
+                                        {t("readFullGuide")}
                                         <ArrowUpRight className="size-3.5" aria-hidden />
                                     </Link>
                                 ) : null}
@@ -469,16 +466,16 @@ export function ChecklistItemView({
                         <div className="shrink-0 text-right">
                             {itemDone ? (
                                 <>
-                                    <p className="text-base font-semibold text-forest-700">Complete</p>
+                                    <p className="text-base font-semibold text-forest-700">{t("statusComplete")}</p>
                                     <p className="text-xs text-sand-400">
-                                        {itemDoneFromProfile ? "From your profile" : "Marked as done"}
+                                        {itemDoneFromProfile ? t("fromYourProfile") : t("markedAsDone")}
                                     </p>
                                 </>
                             ) : (
                                 <>
                                     <p className={cn("text-2xl font-semibold tabular-nums", colors.text)}>{pct}%</p>
                                     <p className="text-xs text-sand-400">
-                                        {done} of {total} done
+                                        {t("doneCount", { done, total })}
                                     </p>
                                 </>
                             )}
@@ -492,7 +489,7 @@ export function ChecklistItemView({
                     {item.stepsSummary.length > 0 ? (
                         <section className={SECTION_GAP}>
                             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-sand-400">
-                                Steps
+                                {t("steps")}
                             </h2>
                             {item.stepsSummary.map((step, i) => (
                                 <StepCard
@@ -547,3 +544,4 @@ export function ChecklistItemView({
         </div>
     );
 }
+

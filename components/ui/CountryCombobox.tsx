@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
     Command,
@@ -28,10 +29,12 @@ export function CountryCombobox({
     id,
     value,
     onChange,
-    placeholder = "Select country…",
+    placeholder,
     disabled,
     className,
 }: Props) {
+    const t = useTranslations("auth");
+    const resolvedPlaceholder = placeholder ?? t("selectCountry");
     const [open, setOpen] = React.useState(false);
     const safeValue = value ?? "";
 
@@ -51,7 +54,7 @@ export function CountryCombobox({
                         className,
                     )}
                 >
-                    <span className="truncate">{safeValue || placeholder}</span>
+                    <span className="truncate">{safeValue || resolvedPlaceholder}</span>
                     <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" aria-hidden />
                 </Button>
             </PopoverTrigger>
@@ -61,9 +64,9 @@ export function CountryCombobox({
                 sideOffset={4}
             >
                 <Command>
-                    <CommandInput placeholder="Search countries…" />
+                    <CommandInput placeholder={t("searchCountries")} />
                     <CommandList>
-                        <CommandEmpty>No country found.</CommandEmpty>
+                        <CommandEmpty>{t("noCountryFound")}</CommandEmpty>
                         <CommandGroup>
                             {COUNTRY_NAMES.map((name) => (
                                 <CommandItem

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { SidebarPanel, type SidebarPanelProps } from "./Sidebar";
 
@@ -16,6 +17,7 @@ export function MobileDashboardNav({
     onOpenChange,
     ...sidebarProps
 }: MobileDashboardNavProps) {
+    const t = useTranslations("common");
     useEffect(() => {
         if (!open) return;
         const prev = document.body.style.overflow;
@@ -35,7 +37,7 @@ export function MobileDashboardNav({
                     className="size-9 shrink-0 text-sand-700"
                     aria-expanded={open}
                     aria-controls="mobile-dashboard-sidebar"
-                    aria-label={open ? "Close menu" : "Open menu"}
+                    aria-label={open ? t("closeMenu") : t("openMenu")}
                     onClick={() => onOpenChange(!open)}
                 >
                     {open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}

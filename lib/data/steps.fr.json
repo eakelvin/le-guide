@@ -1,0 +1,608 @@
+[
+    {
+        "id": "sim-card",
+        "slug": "getting-a-sim-card",
+        "title": "Obtenir une carte SIM",
+        "short_description": "Une carte SIM française vous permet d'accéder aux données mobiles, appels, SMS et services de vérification après votre arrivée en France.",
+        "category": "arrival",
+        "order_index": 1,
+        "estimated_time": "15-30 min",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Dans les premiers jours suivant votre arrivée en France",
+        "why_this_matters": "Vous aurez besoin d'un numéro français pour la banque, les livraisons, les codes de vérification et les démarches administratives.",
+        "deadline": "",
+        "last_verified_at": "",
+        "status": "active",
+        "depends_on": [],
+        "requirements": [
+            {
+                "name": "Passeport valide",
+                "required": true
+            }
+        ],
+        "common_options": [
+            "Free Mobile",
+            "Orange",
+            "Lyca Mobile",
+            "SFR",
+            "Bouygues Telecom",
+            "Lebara"
+        ],
+        "steps_summary": [
+            "Obtenir une carte SIM auprès de votre opérateur"
+        ],
+        "warnings": [
+            "Apportez votre passeport en magasin",
+            "Certains opérateurs demandent un justificatif de domicile",
+            "Certains opérateurs exigent l'enregistrement de l'adresse",
+            "Les cartes prépayées peuvent nécessiter une vérification d'identité (règlement UE)"
+        ],
+        "applies_to": {
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
+        },
+        "official_links": []
+    },
+    {
+        "id": "find-housing",
+        "slug": "finding-accommodation",
+        "title": "Trouver un logement en France",
+        "short_description": "Trouvez et sécurisez un logement avant de demander l'aide au logement (CAF).",
+        "category": "first-days",
+        "order_index": 2,
+        "estimated_time": "1-4 semaines",
+        "difficulty": "medium",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Avant ou immédiatement après votre arrivée en France",
+        "why_this_matters": "Vous avez besoin d'un contrat de logement valide avant de demander l'aide CAF.",
+        "deadline": "",
+        "last_verified_at": "",
+        "status": "active",
+        "depends_on": [],
+        "requirements": [
+            {
+                "name": "Passeport valide",
+                "required": true
+            },
+            {
+                "name": "Visa ou titre de séjour",
+                "required": true
+            }
+        ],
+        "common_options": [],
+        "steps_summary": [
+            "Rechercher un logement (CROUS, locations privées, colocations)",
+            "Visiter ou vérifier les annonces",
+            "Signer le bail",
+            "Payer la caution",
+            "Obtenir un justificatif de domicile"
+        ],
+        "warnings": [
+            "Méfiez-vous des arnaques au logement",
+            "Ne versez jamais d'argent avant d'avoir vérifié l'annonce"
+        ],
+        "applies_to": {
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
+        },
+        "official_links": []
+    },
+    {
+        "id": "online-bank-account",
+        "slug": "opening-an-online-bank-account",
+        "title": "Ouvrir un compte bancaire en ligne",
+        "short_description": "Ouvrir un compte bancaire en ligne est une étape importante pour les étudiants internationaux. Cela permet de gérer vos finances et d'effectuer des paiements.",
+        "category": "first-days",
+        "order_index": 3,
+        "estimated_time": "20-30 minutes en ligne",
+        "difficulty": "easy",
+        "priority": "medium",
+        "is_required": false,
+        "recommended_timing": "Avant de payer la validation du visa ou de recevoir de l'argent",
+        "why_this_matters": "Un compte en ligne permet de payer les frais de validation du visa, recevoir de l'argent et effectuer des transactions immédiatement en attendant un compte bancaire français traditionnel.",
+        "deadline": "",
+        "last_verified_at": "",
+        "status": "active",
+        "depends_on": [],
+        "requirements": [
+            {
+                "name": "Passeport valide",
+                "required": true
+            },
+            {
+                "name": "Visa valide",
+                "required": true
+            },
+            {
+                "name": "Adresse",
+                "required": true
+            }
+        ],
+        "common_options": [
+            "Revolut",
+            "Nickel"
+        ],
+        "steps_summary": [
+            "Choisir une banque (Revolut, Nickel, etc.)",
+            {
+                "summary": "Télécharger l'application sur le Play Store (Android) ou l'App Store (iOS)",
+                "description": "Une fois installée, ouvrez l'application et suivez les étapes à l'écran.\nRemplissez le formulaire d'inscription en saisissant les informations demandées"
+            },
+            {
+                "summary": "Vérifier votre identité",
+                "description": "Téléversez une photo d'un document d'identité — passeport, carte d'identité nationale ou visa (un titre de séjour peut aussi être accepté selon votre pays).\nPrenez un selfie pour confirmer votre identité."
+            },
+            {
+                "summary": "Recevoir l'IBAN et commander votre carte",
+                "description": "Vous pouvez aussi créer une carte virtuelle gratuite immédiatement pour payer en ligne en attendant la carte physique. Suivez la livraison dans l'application"
+            }
+        ],
+        "warnings": [
+            "Préparez vos documents avant de commencer."
+        ],
+        "applies_to": {
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
+        },
+        "official_links": [
+            {
+                "label": "Revolut",
+                "url": "https://www.revolut.com"
+            },
+            {
+                "label": "Nickel",
+                "url": "https://nickel.eu"
+            }
+        ]
+    },
+    {
+        "id": "navigo",
+        "slug": "navigo-transport",
+        "title": "Obtenir un pass Navigo",
+        "short_description": "Il permet d'utiliser les transports en commun (métro, bus, RER) en Île-de-France, y compris Paris.",
+        "category": "arrival",
+        "order_index": 4,
+        "estimated_time": "1-2 semaines",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Dans le premier mois suivant votre arrivée en France",
+        "why_this_matters": "Les transports en commun sont le principal moyen de déplacement à Paris et en Île-de-France. Le pass Navigo donne un accès illimité au métro, bus et RER à un tarif mensuel fixe, ce qui simplifie et réduit le coût de la vie quotidienne.",
+        "deadline": "",
+        "last_verified_at": "",
+        "status": "active",
+        "depends_on": [],
+        "requirements": [
+            {
+                "name": "Pièce d'identité (passeport ou carte d'identité)",
+                "required": true
+            },
+            {
+                "name": "Justificatif de domicile en Île-de-France",
+                "required": true
+            }
+        ],
+        "common_options": [],
+        "steps_summary": [
+            "Aller sur le site Île-de-France Mobilités ou en station de métro",
+            "Choisir un type de pass Navigo (hebdomadaire, mensuel, étudiant)",
+            "Téléverser les documents requis",
+            "Payer votre abonnement",
+            "Recevoir ou retirer votre carte Navigo",
+            "Activer et utiliser le pass pour les transports"
+        ],
+        "warnings": [
+            "Vous risquez une amende si vous voyagez sans pass Navigo valide (le montant varie selon la situation)."
+        ],
+        "applies_to": {
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
+        },
+        "official_links": [
+            {
+                "label": "Île-de-France Mobilités",
+                "url": "https://www.iledefrance-mobilites.fr"
+            }
+        ]
+    },
+    {
+        "id": "visa-validation",
+        "slug": "validating-your-visa",
+        "title": "Valider votre visa",
+        "short_description": "La validation du visa est requise pour activer votre visa long séjour et séjourner légalement en France en tant qu'étudiant.",
+        "category": "first-days",
+        "order_index": 5,
+        "estimated_time": "20-30 minutes en ligne",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Dans les 3 premiers mois suivant votre arrivée en France",
+        "why_this_matters": "Votre visa peut devenir invalide et vous pourriez perdre votre statut de résident légal en France.",
+        "deadline": "3 months",
+        "last_verified_at": "",
+        "status": "active",
+        "depends_on": [
+            "sim-card"
+        ],
+        "requirements": [
+            {
+                "name": "Passeport valide",
+                "required": true
+            },
+            {
+                "name": "Visa valide",
+                "required": true
+            },
+            {
+                "name": "Adresse de domicile",
+                "required": true
+            }
+        ],
+        "common_options": [],
+        "steps_summary": [
+            {
+                "summary": "Aller sur le site officiel de validation du visa",
+                "description": "Utilisez le portail de l'administration française indiqué ci-dessous.\nCliquez sur la carte « Je valide mon VLS-TS »"
+            },
+            {
+                "summary": "Saisir votre numéro de visa et vos informations personnelles",
+                "description": "Entrez votre numéro de visa et confirmez-le.\nAprès confirmation, indiquez les dates de début et de fin de validité, la date de délivrance et le motif du séjour ;"
+            },
+            {
+                "summary": "Compléter la vérification d'identité",
+                "description": "Renseignez les informations complémentaires : situation familiale, numéro de téléphone, adresse e-mail ;\nIndiquez votre date d'arrivée en France et votre adresse en France ;"
+            },
+            {
+                "summary": "Payer les frais requis",
+                "description": "Payez la taxe de séjour de 50 euros"
+            },
+            {
+                "summary": "Télécharger votre confirmation de validation",
+                "description": "Vous recevrez deux e-mails.\n\nUn premier e-mail avec vos identifiants de connexion. Vous en aurez besoin pour accéder à votre compte. Il contiendra la confirmation de validation de votre visa VLS-TS.\n\nUn second e-mail confirmant les informations saisies en ligne. Vous pourrez télécharger l'e-mail de confirmation de validation de votre visa VLS-TS."
+            }
+        ],
+        "warnings": [
+            "",
+            "",
+            ""
+        ],
+        "applies_to": {
+            "student_groups": [
+                "non_eu_students"
+            ],
+            "visa_types": [
+                "long_stay"
+            ]
+        },
+        "official_links": [
+            {
+                "label": "Administration numérique des étrangers en France",
+                "url": "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/"
+            }
+        ]
+    },
+    {
+        "id": "traditional-bank-account",
+        "slug": "traditional-bank-account",
+        "title": "Ouvrir un compte bancaire traditionnel",
+        "short_description": "Ouvrez un compte bancaire français traditionnel pour accéder aux services bancaires à long terme, aux salaires et aux démarches administratives.",
+        "category": "first-days",
+        "order_index": 6,
+        "estimated_time": "2-3 semaines",
+        "difficulty": "medium",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Dans les 1 à 3 premiers mois",
+        "why_this_matters": "Un compte bancaire traditionnel est requis pour la stabilité financière à long terme, les salaires, les contrats de location et les démarches administratives en France.",
+        "deadline": "",
+        "last_verified_at": "",
+        "status": "active",
+        "depends_on": [],
+        "requirements": [
+            {
+                "name": "Passeport valide",
+                "required": true
+            },
+            {
+                "name": "Visa ou titre de séjour valide",
+                "required": true
+            },
+            {
+                "name": "Justificatif de domicile",
+                "required": true
+            },
+            {
+                "name": "Certificat de scolarité",
+                "required": true
+            },
+            {
+                "name": "Code de parrainage",
+                "required": false
+            }
+        ],
+        "common_options": [
+            "Société Générale",
+            "BNP Paribas",
+            "LCL",
+            "CIC",
+            "Crédit Agricole",
+            "HSBC"
+        ],
+        "steps_summary": [
+            "Choisir une banque traditionnelle",
+            "Prendre rendez-vous en ligne ou en agence",
+            "Préparer les documents requis",
+            "Se rendre au rendez-vous bancaire",
+            "Soumettre la demande",
+            "Attendre l'approbation du compte (1 à 2 semaines)",
+            "Recevoir les coordonnées bancaires et la carte"
+        ],
+        "warnings": [
+            "Préparez vos documents avant de commencer.",
+            "L'approbation du compte peut prendre plusieurs semaines",
+            "Certaines banques exigent un rendez-vous en personne",
+            "Les frais peuvent varier selon le statut étudiant"
+        ],
+        "applies_to": {
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
+        },
+        "official_links": [
+            {
+                "label": "Société Générale",
+                "url": "https://www.societegenerale.fr"
+            },
+            {
+                "label": "BNP Paribas",
+                "url": "https://www.bnpparibas.fr"
+            },
+            {
+                "label": "LCL",
+                "url": "https://www.lcl.fr"
+            },
+            {
+                "label": "CIC",
+                "url": "https://www.cic.fr"
+            },
+            {
+                "label": "Crédit Agricole",
+                "url": "https://www.credit-agricole.fr"
+            },
+            {
+                "label": "HSBC",
+                "url": "https://www.hsbc.fr"
+            }
+        ]
+    },
+    {
+        "id": "student-social-security",
+        "slug": "social-security",
+        "title": "S'inscrire à l'assurance maladie",
+        "short_description": "Inscrivez-vous au système d'assurance maladie français pour accéder aux soins et aux remboursements pendant vos études en France.",
+        "category": "settling",
+        "order_index": 7,
+        "estimated_time": "1-2 semaines",
+        "difficulty": "easy",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Dans les 1 à 2 premiers mois en France",
+        "why_this_matters": "L'assurance maladie est nécessaire pour accéder aux soins et être remboursé des frais de santé en France.",
+        "deadline": "",
+        "last_verified_at": "",
+        "status": "active",
+        "depends_on": [
+            "traditional-bank-account"
+        ],
+        "requirements": [
+            {
+                "name": "Passeport valide",
+                "required": true
+            },
+            {
+                "name": "Visa ou titre de séjour",
+                "required": true
+            },
+            {
+                "name": "Justificatif de domicile en France",
+                "required": true
+            },
+            {
+                "name": "Certificat d'inscription étudiant",
+                "required": true
+            },
+            {
+                "name": "Justificatif d'état civil : acte de naissance",
+                "required": true
+            },
+            {
+                "name": "Relevé d'identité bancaire (RIB)",
+                "required": true
+            }
+        ],
+        "common_options": [],
+        "steps_summary": [
+            "Aller sur le portail officiel de l'assurance maladie (Ameli)",
+            "Créer votre compte personnel",
+            "Téléverser les documents requis",
+            "Soumettre votre demande d'inscription",
+            "Attendre le traitement et la validation",
+            "Recevoir votre numéro de sécurité sociale",
+            "Activer votre compte assurance maladie"
+        ],
+        "warnings": [
+            "Le traitement peut prendre plusieurs semaines",
+            "Vous ne recevrez pas forcément de confirmation immédiate",
+            "Vous devez le faire même si vous avez déjà une assurance privée"
+        ],
+        "applies_to": {
+            "student_groups": [
+                "non_eu_students"
+            ],
+            "visa_types": [
+                "long_stay"
+            ]
+        },
+        "official_links": [
+            {
+                "label": "Site officiel Ameli",
+                "url": "https://www.ameli.fr"
+            }
+        ]
+    },
+    {
+        "id": "caf-application",
+        "slug": "apply-for-caf-housing-aid",
+        "title": "Demander l'aide au logement (CAF)",
+        "short_description": "Demandez l'aide au logement auprès de la CAF après avoir trouvé un logement en France.",
+        "category": "settling",
+        "order_index": 8,
+        "estimated_time": "20-40 min",
+        "difficulty": "medium",
+        "priority": "high",
+        "is_required": false,
+        "recommended_timing": "Après la signature de votre bail",
+        "why_this_matters": "La CAF réduit votre loyer mensuel en versant une aide financière au logement.",
+        "deadline": "",
+        "last_verified_at": "",
+        "status": "active",
+        "depends_on": [
+            "find-housing",
+            "traditional-bank-account"
+        ],
+        "requirements": [
+            {
+                "name": "Contrat de location (justificatif de logement)",
+                "required": true
+            },
+            {
+                "name": "Compte bancaire français (RIB)",
+                "required": true
+            },
+            {
+                "name": "Visa ou titre de séjour valide",
+                "required": true
+            }
+        ],
+        "common_options": [],
+        "steps_summary": [
+            {
+                "summary": "Aller sur le site de la CAF",
+                "description": "Rendez-vous sur le site de la CAF et démarrez une nouvelle demande d'aide au logement. Cliquez sur « Mes services en ligne / Faire une demande de prestation » et suivez les instructions en ligne."
+            },
+            {
+                "summary": "Créer un compte",
+                "description": "Si vous avez déjà un compte CAF, connectez-vous et soumettez votre demande depuis votre espace personnel."
+            },
+            {
+                "summary": "Téléverser les documents requis",
+                "description": "Une fois la demande soumise, téléversez les documents demandés via votre compte CAF ou l'application mobile CAF."
+            },
+            {
+                "summary": "Suivre votre dossier",
+                "description": "Consultez régulièrement votre compte CAF pour vérifier si des documents ou informations supplémentaires sont demandés. Répondez rapidement pour éviter les retards."
+            },
+            {
+                "summary": "Attendre l'approbation",
+                "description": "Après examen et approbation de votre dossier, la CAF vous informera du résultat. Si vous êtes éligible, le versement de l'aide au logement commencera selon le calendrier de paiement de la CAF."
+            }
+        ],
+        "warnings": [
+            "Vous devez avoir un contrat de logement valide avant de demander la CAF.",
+            "Le traitement CAF peut prendre plusieurs semaines"
+        ],
+        "applies_to": {
+            "student_groups": [
+                "eu_students",
+                "non_eu_students"
+            ],
+            "visa_types": []
+        },
+        "official_links": [
+            {
+                "label": "Site officiel de la CAF",
+                "url": "https://www.caf.fr"
+            }
+        ]
+    },
+    {
+        "id": "declaration-of-tax",
+        "slug": "declaration-of-tax",
+        "title": "Déclaration fiscale française",
+        "short_description": "Déclarez vos revenus annuels aux impôts français, même si vous n'avez pas de revenus.",
+        "category": "long-term",
+        "order_index": 9,
+        "estimated_time": "30–60 minutes",
+        "difficulty": "medium",
+        "priority": "high",
+        "is_required": true,
+        "recommended_timing": "Entre avril et juin chaque année (après votre première année en France)",
+        "why_this_matters": "La déclaration fiscale est une obligation légale en France, même pour les étudiants sans revenus. Elle sert au calcul de l'éligibilité à l'aide au logement et des documents officiels.",
+        "deadline": "",
+        "last_verified_at": "",
+        "status": "active",
+        "depends_on": [],
+        "requirements": [
+            {
+                "name": "Passeport ou titre de séjour valide",
+                "required": true
+            },
+            {
+                "name": "Numéro fiscal français (si déjà attribué)",
+                "required": false
+            },
+            {
+                "name": "Justificatif de revenus (le cas échéant)",
+                "required": false
+            },
+            {
+                "name": "Coordonnées bancaires (optionnel)",
+                "required": false
+            }
+        ],
+        "common_options": [],
+        "steps_summary": [
+            "Aller sur le site officiel des impôts",
+            "Créer votre espace fiscal personnel",
+            "Renseigner vos informations personnelles et de résidence",
+            "Déclarer vos revenus (ou déclarer zéro revenu)",
+            "Soumettre votre déclaration",
+            "Télécharger votre avis d'imposition"
+        ],
+        "warnings": [
+            "Même sans revenus, vous devez toujours soumettre une déclaration",
+            "Manquer le délai peut entraîner des pénalités ou retarder vos aides"
+        ],
+        "applies_to": {
+            "student_groups": [
+                "non_eu_students"
+            ],
+            "visa_types": [
+                "long_stay"
+            ]
+        },
+        "official_links": [
+            {
+                "label": "Portail des impôts français",
+                "url": "https://www.impots.gouv.fr"
+            }
+        ]
+    }
+]

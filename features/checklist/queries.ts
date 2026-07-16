@@ -1,6 +1,9 @@
 import { cache } from "react";
 import { cookies } from "next/headers";
+import { getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { routing } from "@/i18n/routing";
+import { isAppLocale } from "@/lib/locale";
 import type {
     ChecklistItem,
     ChecklistStepSummary,
@@ -21,6 +24,7 @@ import type {
 type RawRow = {
     id: string;
     slug: string;
+    locale: string;
     title: string;
     short_description: string;
     category: ChecklistCategory;
@@ -45,7 +49,7 @@ type RawRow = {
 };
 
 const SELECT = `
-    id, slug, title, short_description, category, order_index,
+    id, slug, locale, title, short_description, category, order_index,
     estimated_time, difficulty, priority, is_required,
     applies_to_student_groups, applies_to_visa_types,
     deadline, last_verified_at, status,
@@ -54,7 +58,7 @@ const SELECT = `
     steps_summary:checklist_item_steps_summary(summary, description, sort_order),
     warnings:checklist_item_warnings(warning, sort_order),
     links:checklist_item_links(label, url, sort_order),
-    dependencies:checklist_item_dependencies!checklist_item_id(depends_on_id, sort_order)
+    dependencies:checklist_item_dependencies!checklist_item_dependencies_item_locale_fkey(depends_on_id, sort_order)
 `;
 
 function sortBy<T extends { sort_order: number }>(rows: T[]): T[] {
@@ -102,22 +106,40 @@ function toAppShape(row: RawRow): ChecklistItem {
     };
 }
 
-/**
- * Fetches every `active` checklist item with its nested children, ordered by
- * `order_index`. Memoised per request via `react.cache` so multiple calls
- * within the same Server Component tree only hit Supabase once.
- *
- * Public read RLS is in place, so this works with the publishable/anon key.
- */
-export const getActiveChecklist = cache(async function getActiveChecklist(): Promise<ChecklistItem[]> {
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
+async function resolveLocale(): Promise<(typeof routing.locales)[number]> {
+    const localeRaw = await getLocale();
+    return isAppLocale(localeRaw) ? localeRaw : routing.defaultLocale;
+}
 
-    const { data, error } = await supabase
+async function fetchChecklistRows(
+    supabase: ReturnType<typeof createClient>,
+    locale: (typeof routing.locales)[number],
+) {
+    return supabase
         .from("checklist_items")
         .select(SELECT)
         .eq("status", "active")
+        .eq("locale", locale)
         .order("order_index", { ascending: true });
+}
+
+/**
+ * Fetches every `active` checklist item for the current locale with nested children.
+ * Falls back to English if the locale has not been seeded yet.
+ * Memoised per request via `react.cache`.
+ */
+export const getActiveChecklist = cache(async function getActiveChecklist(): Promise<ChecklistItem[]> {
+    const locale = await resolveLocale();
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+
+    let { data, error } = await fetchChecklistRows(supabase, locale);
+
+    if ((!data || data.length === 0) && locale !== routing.defaultLocale) {
+        const fallback = await fetchChecklistRows(supabase, routing.defaultLocale);
+        data = fallback.data;
+        error = fallback.error;
+    }
 
     if (error) {
         console.error("[checklist] fetch failed:", error.message);
@@ -126,4 +148,12 @@ export const getActiveChecklist = cache(async function getActiveChecklist(): Pro
     if (!data) return [];
 
     return (data as unknown as RawRow[]).map(toAppShape);
+});
+
+/** Look up one checklist item by slug for the current locale. */
+export const getChecklistItemBySlug = cache(async function getChecklistItemBySlug(
+    slug: string,
+): Promise<ChecklistItem | null> {
+    const items = await getActiveChecklist();
+    return items.find((item) => item.slug === slug) ?? null;
 });

@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 interface DashboardBreadcrumbProps {
     /** Current page label shown after Dashboard (e.g. checklist item title). */
     current?: string;
@@ -6,10 +10,12 @@ interface DashboardBreadcrumbProps {
 }
 
 export function DashboardBreadcrumb({ current, onDashboardClick }: DashboardBreadcrumbProps) {
+    const t = useTranslations("dashboard");
     const isDashboardCurrent = !current && !onDashboardClick;
+    const dashboardLabel = t("breadcrumbDashboard");
 
     return (
-        <nav aria-label="Breadcrumb" className="mb-2 text-xs text-sand-400">
+        <nav aria-label={t("breadcrumbAria")} className="mb-2 text-xs text-sand-400">
             <span>LeGuide</span>
             <span aria-hidden className="mx-1 text-sand-300">
                 &gt;
@@ -20,11 +26,11 @@ export function DashboardBreadcrumb({ current, onDashboardClick }: DashboardBrea
                     onClick={onDashboardClick}
                     className="text-sand-400 underline-offset-2 transition-colors hover:text-sand-800 hover:underline"
                 >
-                    Dashboard
+                    {dashboardLabel}
                 </button>
             ) : (
                 <span className={isDashboardCurrent ? "font-medium text-sand-800" : undefined}>
-                    Dashboard
+                    {dashboardLabel}
                 </span>
             )}
             {current ? (
