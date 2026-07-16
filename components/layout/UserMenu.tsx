@@ -47,7 +47,7 @@ export function UserMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label={name ?? email ?? "Account menu"}
+        aria-label={name ?? email ?? tCommon("accountMenu")}
         className={cn(
           "outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           variant === "row"
@@ -56,7 +56,7 @@ export function UserMenu({
         )}
       >
         <Avatar className="size-9 shrink-0 ring-2 ring-border">
-          {imageUrl ? <AvatarImage src={imageUrl} alt={name ?? "User avatar"} /> : null}
+          {imageUrl ? <AvatarImage src={imageUrl} alt={name ?? tCommon("userAvatar")} /> : null}
           <AvatarFallback className="bg-sand-100 text-xs font-medium text-sand-700">
             {fallback}
           </AvatarFallback>
@@ -64,7 +64,7 @@ export function UserMenu({
         {variant === "row" ? (
           <>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-[13px] font-medium text-sand-800">{name ?? "Account"}</p>
+              <p className="truncate text-[13px] font-medium text-sand-800">{name ?? tCommon("account")}</p>
               {email ? <p className="truncate text-[11px] text-sand-500">{email}</p> : null}
             </div>
             <ChevronsUpDown className="size-4 shrink-0 text-sand-400" aria-hidden />
@@ -74,7 +74,7 @@ export function UserMenu({
 
       <DropdownMenuContent align={align} className="w-56">
         <DropdownMenuLabel className="space-y-0.5">
-          <p className="text-sm font-medium leading-none text-sand-800">{name ?? "Account"}</p>
+          <p className="text-sm font-medium leading-none text-sand-800">{name ?? tCommon("account")}</p>
           {email ? <p className="text-xs font-normal text-sand-500">{email}</p> : null}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

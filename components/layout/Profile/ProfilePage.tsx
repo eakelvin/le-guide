@@ -2,32 +2,38 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import {
     User, GraduationCap, MapPin, Save,
-    CheckCircle2, AlertCircle, ChevronRight, Pencil,
-    Calendar, Phone, Globe, Building2, Mail,
-    Clock, KeyRound,
+    CheckCircle2, ChevronRight, Pencil,
+    Globe, Building2, KeyRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useProfile } from "@/lib/hooks";
-import type { ProfilePageProps, ProfileFieldKey, ProfileSectionProps, UserProfile } from "@/types";
-import { STUDENT_TYPE_OPTIONS } from "@/types";
+import type { ProfilePageProps, ProfileFieldKey, UserProfile, StudentType } from "@/types";
 import { UpdatePasswordForm } from "@/components/auth/UpdatePasswordForm";
 import { getCompletionBySection, getCompletionPct, getInitials } from "@/lib/helpers/helpers";
 import { SectionPersonal, SectionAcademic, SectionStay, SaveToast, ProfilePasswordToast } from "./SubComponents";
 
-/* ─── Constants ────────────────────────────────────────────────────── */
-const SECTIONS = [
-    { id: "personal", label: "Personal", icon: User },
-    { id: "academic", label: "Academic", icon: GraduationCap },
-    { id: "stay", label: "Stay", icon: MapPin },
-    { id: "account", label: "Account", icon: KeyRound },
-] as const;
+const SECTION_IDS = ["personal", "academic", "stay", "account"] as const;
+type SectionId = (typeof SECTION_IDS)[number];
+
+const SECTION_ICONS = {
+    personal: User,
+    academic: GraduationCap,
+    stay: MapPin,
+    account: KeyRound,
+} as const;
+
+const STUDENT_TYPE_LABEL_KEYS: Record<StudentType, "studentTypeDegree" | "studentTypeExchange" | "studentTypeIntern" | "studentTypeLanguageSchool"> = {
+    "degree-student": "studentTypeDegree",
+    "exchange-student": "studentTypeExchange",
+    intern: "studentTypeIntern",
+    "language-school": "studentTypeLanguageSchool",
+};
 
 function SaveChangesButton({
     saving,
@@ -40,6 +46,7 @@ function SaveChangesButton({
     size?: "default" | "sm";
     className?: string;
 }) {
+    const t = useTranslations("profile");
     return (
         <Button onClick={onClick} size={size} className={cn("gap-1.5", className)} disabled={saving}>
             {saving ? (
@@ -50,21 +57,42 @@ function SaveChangesButton({
             ) : (
                 <Save className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} aria-hidden />
             )}
-            {saving ? "Saving…" : "Save changes"}
+            {saving ? t("saving") : t("saveChanges")}
         </Button>
     );
 }
 
-/* ─── Main profile page ─────────────────────────────────────────────── */
 export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
+    const t = useTranslations("profile");
+    const tCommon = useTranslations("common");
     const { profile, saveProfile, hydrated } = useProfile(initialProfile);
-    const [activeSection, setActiveSection] = useState("personal");
+    const [activeSection, setActiveSection] = useState<SectionId>("personal");
     const [draft, setDraft] = useState<UserProfile>(profile);
     const [toast, setToast] = useState<"saved" | "error" | null>(null);
     const [dirty, setDirty] = useState(false);
     const [saving, setSaving] = useState(false);
 
-    /* Sync draft from saved profile; seed empty fields from auth user */
+    const sectionLabels: Record<SectionId, string> = {
+        personal: t("sectionPersonal"),
+        academic: t("sectionAcademic"),
+        stay: t("sectionStay"),
+        account: t("sectionAccount"),
+    };
+
+    const sectionTitles: Record<SectionId, string> = {
+        personal: t("sectionPersonalTitle"),
+        academic: t("sectionAcademicTitle"),
+        stay: t("sectionStayTitle"),
+        account: t("sectionAccountTitle"),
+    };
+
+    const sectionDescs: Record<SectionId, string> = {
+        personal: t("sectionPersonalDesc"),
+        academic: t("sectionAcademicDesc"),
+        stay: t("sectionStayDesc"),
+        account: t("sectionAccountDesc"),
+    };
+
     useEffect(() => {
         if (!hydrated) return;
         setDraft(() => {
@@ -108,14 +136,18 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
     const pct = getCompletionPct(draft);
     const initials = getInitials(draft);
     const comp = getCompletionBySection(draft);
-    const fullName = [draft.firstName, draft.lastName].filter(Boolean).join(" ") || "Your Profile";
+    const fullName = [draft.firstName, draft.lastName].filter(Boolean).join(" ") || t("yourProfile");
 
-    const sectionCompletionMap: Record<string, { done: number; total: number }> = {
+    const sectionCompletionMap: Record<SectionId, { done: number; total: number }> = {
         personal: { done: comp.personal, total: comp.personalTotal },
         academic: { done: comp.academic, total: comp.academicTotal },
         stay: { done: comp.stay, total: comp.stayTotal },
         account: { done: comp.account, total: comp.accountTotal },
     };
+
+    const studentTypeLabel = draft.studentType
+        ? t(STUDENT_TYPE_LABEL_KEYS[draft.studentType as StudentType] ?? "studentType")
+        : null;
 
     if (!hydrated) {
         return (
@@ -125,24 +157,25 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
         );
     }
 
+    const ActiveIcon = SECTION_ICONS[activeSection];
+
     return (
         <div className="min-h-screen bg-background">
             <Suspense fallback={null}>
                 <ProfilePasswordToast />
             </Suspense>
-            {/* Top nav */}
             <div className="sticky top-0 z-40 bg-background/90 backdrop-blur border-b border-border">
                 <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Link href="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link>
+                        <Link href="/dashboard" className="hover:text-foreground transition-colors">{tCommon("dashboard")}</Link>
                         <ChevronRight className="w-3.5 h-3.5" />
-                        <span className="text-foreground font-medium">Profile</span>
+                        <span className="text-foreground font-medium">{t("title")}</span>
                     </div>
                     <div className="flex items-center gap-2.5">
                         {dirty && (
                             <span className="text-[12px] text-muted-foreground flex items-center gap-1.5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-gold-200 animate-pulse" />
-                                Unsaved changes
+                                {t("unsavedChanges")}
                             </span>
                         )}
                         <SaveChangesButton saving={saving} onClick={handleSave} size="sm" className="h-8" />
@@ -151,9 +184,7 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
             </div>
 
             <div className="max-w-5xl mx-auto px-6 py-8">
-                {/* Header card */}
                 <div className="flex items-start gap-5 mb-8 p-6 bg-card border border-border rounded-xl">
-                    {/* Avatar */}
                     <div className="relative shrink-0">
                         {appUser.imageUrl ? (
                             // eslint-disable-next-line @next/next/no-img-element -- OAuth avatar URLs are external and dynamic
@@ -172,7 +203,6 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                         </button>
                     </div>
 
-                    {/* Name + meta */}
                     <div className="flex-1 min-w-0">
                         <h1 className="text-xl font-serif font-light tracking-tight text-foreground truncate">
                             {fullName}
@@ -183,10 +213,10 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                                     <Building2 className="w-3.5 h-3.5" /> {draft.university}
                                 </span>
                             )}
-                            {draft.studentType && (
+                            {studentTypeLabel && (
                                 <span className="text-[13px] text-muted-foreground flex items-center gap-1">
                                     <GraduationCap className="w-3.5 h-3.5" />
-                                    {STUDENT_TYPE_OPTIONS.find((t) => t.value === draft.studentType)?.label}
+                                    {studentTypeLabel}
                                 </span>
                             )}
                             {draft.country && (
@@ -196,10 +226,9 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                             )}
                         </div>
 
-                        {/* Completion bar */}
                         <div className="mt-3 max-w-xs">
                             <div className="flex justify-between text-[11px] mb-1">
-                                <span className="text-muted-foreground">Profile completion</span>
+                                <span className="text-muted-foreground">{t("profileCompletion")}</span>
                                 <span className={cn("font-medium", pct === 100 ? "text-forest-600" : "text-muted-foreground")}>
                                     {pct}%
                                 </span>
@@ -212,39 +241,38 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                             </div>
                             {pct < 100 && (
                                 <p className="text-[11px] text-muted-foreground mt-1">
-                                    Complete your profile so we can personalise your checklist
+                                    {t("completionHint")}
                                 </p>
                             )}
                         </div>
                     </div>
                 </div>
 
-                {/* Body: sidebar tabs + form */}
                 <div className="grid grid-cols-[220px_1fr] gap-6">
-                    {/* Section tabs */}
                     <div className="space-y-1">
-                        {SECTIONS.map((sec) => {
-                            const c = sectionCompletionMap[sec.id];
+                        {SECTION_IDS.map((id) => {
+                            const Icon = SECTION_ICONS[id];
+                            const c = sectionCompletionMap[id];
                             const complete = c.done === c.total;
                             return (
                                 <button
-                                    key={sec.id}
-                                    onClick={() => setActiveSection(sec.id)}
+                                    key={id}
+                                    onClick={() => setActiveSection(id)}
                                     className={cn(
                                         "w-full flex items-center justify-between gap-2.5 px-3.5 py-2.5 rounded-lg text-[13.5px] font-medium transition-all border",
-                                        activeSection === sec.id
+                                        activeSection === id
                                             ? "bg-forest-50 border-forest-200 text-forest-800"
                                             : "bg-transparent border-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                                     )}
                                 >
                                     <div className="flex items-center gap-2.5">
-                                        <sec.icon className="w-4 h-4 shrink-0" />
-                                        {sec.label}
+                                        <Icon className="w-4 h-4 shrink-0" />
+                                        {sectionLabels[id]}
                                     </div>
                                     <div className="flex items-center gap-1.5">
-                                        {sec.id === "account" ? (
+                                        {id === "account" ? (
                                             <span className="text-[10px] font-normal uppercase tracking-wider text-muted-foreground">
-                                                Security
+                                                {t("security")}
                                             </span>
                                         ) : (
                                             <>
@@ -264,29 +292,20 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                             className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg text-[13.5px] text-muted-foreground hover:bg-muted/60 hover:text-foreground transition-all no-underline"
                         >
                             <ChevronRight className="w-4 h-4 rotate-180" />
-                            Back to dashboard
+                            {t("backToDashboard")}
                         </Link>
                     </div>
 
-                    {/* Form card */}
                     <Card className="border-border/60">
                         <CardHeader className="pb-4">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <CardTitle className="text-lg font-serif font-light tracking-tight flex items-center gap-2">
-                                        {(() => {
-                                            const s = SECTIONS.find((sec) => sec.id === activeSection)!;
-                                            if (activeSection === "account") {
-                                                return <><s.icon className="w-4.5 h-4.5 text-muted-foreground" /> Account security</>;
-                                            }
-                                            return <><s.icon className="w-4.5 h-4.5 text-muted-foreground" /> {s.label} information</>;
-                                        })()}
+                                        <ActiveIcon className="w-4.5 h-4.5 text-muted-foreground" />
+                                        {sectionTitles[activeSection]}
                                     </CardTitle>
                                     <CardDescription className="mt-1">
-                                        {activeSection === "personal" && "Your basic personal information"}
-                                        {activeSection === "academic" && "Your university and study details"}
-                                        {activeSection === "stay" && "Whether you’re in France yet, your dates and city, and housing"}
-                                        {activeSection === "account" && "Change your password. If you signed up with Google only, set a password here to enable email sign-in as well."}
+                                        {sectionDescs[activeSection]}
                                     </CardDescription>
                                 </div>
                                 {activeSection !== "account" && (
@@ -296,7 +315,10 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                                             ? "bg-forest-50 text-forest-600"
                                             : "bg-muted text-muted-foreground"
                                     )}>
-                                        {sectionCompletionMap[activeSection].done}/{sectionCompletionMap[activeSection].total} filled
+                                        {t("filledCount", {
+                                            done: sectionCompletionMap[activeSection].done,
+                                            total: sectionCompletionMap[activeSection].total,
+                                        })}
                                     </div>
                                 )}
                             </div>
