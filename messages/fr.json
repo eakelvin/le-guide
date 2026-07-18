@@ -284,10 +284,21 @@
     "allArticles": "Tous les articles",
     "minRead": "{minutes} min de lecture",
     "updated": "Mis à jour le {date}",
+    "minReadUpdated": "{minutes} min de lecture · Mis à jour le {date}",
     "noArticles": "Aucun article dans cette catégorie pour le moment.",
     "disclaimerPrefix": "LeGuide ne fournit pas de conseil juridique. Les procédures évoluent — vérifiez sur",
     "disclaimerSuffix": "et auprès de votre établissement.",
-    "readFullGuide": "Lire le guide complet"
+    "disclaimerFull": "Cet article résume des situations courantes pour les étudiants internationaux en France. Ce n'est pas un conseil juridique. Les règles évoluent — consultez les sources officielles et le service international de votre établissement.",
+    "disclaimerLabel": "Avertissement :",
+    "readFullGuide": "Lire le guide complet",
+    "checklistGuide": "Guide checklist",
+    "headsUp": "Attention :",
+    "ourRecommendation": "Notre recommandation :",
+    "backToChecklistStep": "Retour à cette étape dans votre checklist",
+    "backToChecklistStepShort": "Retour à l'étape checklist",
+    "openYourChecklist": "Ouvrir votre checklist",
+    "articleFallbackTitle": "Article | LeGuide",
+    "breadcrumbAria": "Fil d'Ariane"
   },
   "profile": {
     "title": "Profil",

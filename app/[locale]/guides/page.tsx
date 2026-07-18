@@ -1,7 +1,8 @@
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { getBlogCategories, getPublicPostsByCategory } from "@/lib/i18n/blog-locale";
+import { getBlogCategories } from "@/lib/i18n/blog-locale";
+import { getPublicGuidePostsByCategory } from "@/features/guides/queries";
 import { isAppLocale } from "@/lib/locale";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -36,7 +37,7 @@ export default async function BlogPage({
   const categories = getBlogCategories(locale);
   const { category: raw } = await searchParams;
   const category = raw && categories.some((c) => c.id === raw) ? raw : "all";
-  const posts = getPublicPostsByCategory(category, locale);
+  const posts = await getPublicGuidePostsByCategory(category, locale);
 
   return (
     <main className="mx-auto max-w-6xl px-6 pb-20 pt-10 md:px-12 md:pt-14">

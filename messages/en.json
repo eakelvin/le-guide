@@ -284,10 +284,21 @@
     "allArticles": "All articles",
     "minRead": "{minutes} min read",
     "updated": "Updated {date}",
+    "minReadUpdated": "{minutes} min read · Last updated {date}",
     "noArticles": "No articles in this category yet.",
     "disclaimerPrefix": "LeGuide does not provide legal advice. Procedures and thresholds change — verify on",
     "disclaimerSuffix": "and with your institution.",
-    "readFullGuide": "Read the full guide"
+    "disclaimerFull": "This article summarizes common situations for international students in France. It is not legal advice. Rules change — check official sources and your school's international office.",
+    "disclaimerLabel": "Disclaimer:",
+    "readFullGuide": "Read the full guide",
+    "checklistGuide": "Checklist guide",
+    "headsUp": "Heads up:",
+    "ourRecommendation": "Our recommendation:",
+    "backToChecklistStep": "Back to this step in your checklist",
+    "backToChecklistStepShort": "Back to checklist step",
+    "openYourChecklist": "Open your checklist",
+    "articleFallbackTitle": "Article | LeGuide",
+    "breadcrumbAria": "Breadcrumb"
   },
   "profile": {
     "title": "Profile",
