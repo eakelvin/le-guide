@@ -200,7 +200,18 @@
     "forgotPasswordPageTitle": "Forgot password",
     "forgotPasswordPageDescription": "Reset your LeGuide account password.",
     "updatePasswordPageTitle": "New password",
-    "updatePasswordPageDescription": "Choose a new password for your account."
+    "updatePasswordPageDescription": "Choose a new password for your account.",
+    "placeholderFirstName": "Mia",
+    "placeholderLastName": "Andersson",
+    "placeholderUniversity": "Sciences Po",
+    "errorInvalidCredentials": "Invalid email or password.",
+    "errorEmailNotConfirmed": "Please confirm your email before signing in.",
+    "errorAuthGeneric": "Something went wrong. Please try again.",
+    "errorOauthMissingCode": "Sign-in failed. Please try again.",
+    "errorOauthFailed": "Sign-in with the provider failed. Please try again.",
+    "errorTooManyRequests": "Too many attempts. Please wait a moment and try again.",
+    "errorWeakPassword": "Password is too weak. Choose a stronger one.",
+    "errorSamePassword": "New password must be different from your current password."
   },
   "dashboard": {
     "signedInSuccess": "Signed in successfully.",
@@ -258,7 +269,8 @@
     "stepCompleteFromProfile": "Step {n} complete from your profile",
     "markStepDone": "Mark step {n} done",
     "markStepNotDone": "Mark step {n} not done",
-    "readFullGuide": "Read the full guide"
+    "readFullGuide": "Read the full guide",
+    "progressSaveError": "Couldn't save your progress."
   },
   "sidebar": {
     "overview": "Overview",
@@ -362,7 +374,15 @@
     "completeAlertBody": "Add your university and stay details (France arrival and accommodation) to personalise your checklist.",
     "completeAlertCta": "Set up →",
     "metaTitle": "My Profile — LeGuide",
-    "metaDescription": "Manage your personal, academic and stay information."
+    "metaDescription": "Manage your personal, academic and stay information.",
+    "placeholderFirstName": "Mia",
+    "placeholderLastName": "Andersson",
+    "placeholderEmail": "you@university.edu",
+    "placeholderPhone": "+33 6 12 34 56 78",
+    "placeholderUniversity": "Sciences Po Paris",
+    "placeholderProgram": "International Relations",
+    "placeholderAcademicYear": "2024–2025",
+    "placeholderCity": "Paris"
   },
   "contact": {
     "eyebrow": "Contact",

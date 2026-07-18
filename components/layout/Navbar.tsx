@@ -71,7 +71,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                             <Button
                                 size="sm"
                                 variant="outline"
-                                className="rounded-full border-sand-200 bg-transparent px-4 text-[13px] text-sand-800 shadow-none hover:bg-card"
+                                className="hidden rounded-full border-sand-200 bg-transparent px-4 text-[13px] text-sand-800 shadow-none hover:bg-card sm:inline-flex"
                                 asChild
                             >
                                 <Link href="/dashboard">{t("dashboard")}</Link>

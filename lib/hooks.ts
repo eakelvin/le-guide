@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 import type { DbProgress, ProgressState, UserProfile } from "@/types";
 import { DEFAULT_PROFILE } from "@/types";
 import { getStepKey } from "./utils";
@@ -42,10 +43,15 @@ function stepKeysForItem(itemId: string, stepCount: number): Record<string, bool
 }
 
 export function useProgress(initialProgress?: Partial<DbProgress>) {
+  const t = useTranslations("dashboard");
   const [progress, setProgress] = useState<ProgressState>(() => ({
     completedSteps: { ...(initialProgress?.completedSteps ?? {}) },
     completedItems: { ...(initialProgress?.completedItems ?? {}) },
   }));
+
+  const showSaveError = useCallback(() => {
+    toast.error(t("progressSaveError"));
+  }, [t]);
 
   const markStepDone = useCallback(
     async (itemId: string, stepKey: string, totalSteps?: number) => {
@@ -80,7 +86,7 @@ export function useProgress(initialProgress?: Partial<DbProgress>) {
             ? { ...prev.completedItems, [itemId]: false }
             : prev.completedItems,
         }));
-        toast.error("Couldn't save your progress.");
+        showSaveError();
         return;
       }
 
@@ -91,11 +97,11 @@ export function useProgress(initialProgress?: Partial<DbProgress>) {
             ...prev,
             completedItems: { ...prev.completedItems, [itemId]: false },
           }));
-          toast.error("Couldn't save your progress.");
+          showSaveError();
         }
       }
     },
-    [],
+    [showSaveError],
   );
 
   const markStepUndone = useCallback(async (itemId: string, stepKey: string) => {
@@ -124,7 +130,7 @@ export function useProgress(initialProgress?: Partial<DbProgress>) {
           ? { ...prev.completedItems, [itemId]: true }
           : prev.completedItems,
       }));
-      toast.error("Couldn't save your progress.");
+      showSaveError();
       return;
     }
 
@@ -135,10 +141,10 @@ export function useProgress(initialProgress?: Partial<DbProgress>) {
           ...prev,
           completedItems: { ...prev.completedItems, [itemId]: true },
         }));
-        toast.error("Couldn't save your progress.");
+        showSaveError();
       }
     }
-  }, []);
+  }, [showSaveError]);
 
   const markItemDone = useCallback(async (itemId: string, stepCount = 0) => {
     const tickedSteps = stepKeysForItem(itemId, stepCount);
@@ -164,7 +170,7 @@ export function useProgress(initialProgress?: Partial<DbProgress>) {
             completedSteps,
           };
         });
-        toast.error("Couldn't save your progress.");
+        showSaveError();
         return;
       }
     }
@@ -181,9 +187,9 @@ export function useProgress(initialProgress?: Partial<DbProgress>) {
           completedSteps,
         };
       });
-      toast.error("Couldn't save your progress.");
+      showSaveError();
     }
-  }, []);
+  }, [showSaveError]);
 
   const markItemUndone = useCallback(async (itemId: string, stepCount = 0) => {
     const clearedKeys = Array.from({ length: stepCount }, (_, i) =>
@@ -207,7 +213,7 @@ export function useProgress(initialProgress?: Partial<DbProgress>) {
         ...prev,
         completedItems: { ...prev.completedItems, [itemId]: true },
       }));
-      toast.error("Couldn't save your progress.");
+      showSaveError();
       return;
     }
 
@@ -217,10 +223,10 @@ export function useProgress(initialProgress?: Partial<DbProgress>) {
       );
       const stepError = stepResults.find((r) => r.error)?.error;
       if (stepError) {
-        toast.error("Couldn't save your progress.");
+        showSaveError();
       }
     }
-  }, []);
+  }, [showSaveError]);
 
   return {
     progress,

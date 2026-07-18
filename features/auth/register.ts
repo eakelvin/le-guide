@@ -6,13 +6,9 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { withLocalePath, isAppLocale } from "@/lib/locale";
 import { createClient } from "@/lib/supabase/server";
+import { translateAuthError } from "@/lib/auth-errors";
 
 type RegisterState = { error?: string };
-
-function isUserAlreadyRegistered(message: string) {
-  const m = message.toLowerCase();
-  return m.includes("already registered") || m.includes("user already exists") || m.includes("already exists");
-}
 
 export async function registerAction(_prevState: RegisterState, formData: FormData): Promise<RegisterState> {
   const t = await getTranslations("auth");
@@ -50,10 +46,7 @@ export async function registerAction(_prevState: RegisterState, formData: FormDa
   });
 
   if (error) {
-    if (isUserAlreadyRegistered(error.message)) {
-      return { error: t("accountExists") };
-    }
-    return { error: error.message };
+    return { error: translateAuthError(error.message, t) };
   }
 
   // Supabase may return "success" for an email that already exists, but with no identities.

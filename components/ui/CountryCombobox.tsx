@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
     Command,
@@ -14,7 +14,11 @@ import {
 } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { COUNTRY_NAMES } from "@/lib/data/countries-master";
+import {
+    getCountryLabel,
+    getCountryOptions,
+    toCanonicalCountryName,
+} from "@/lib/data/countries-master";
 
 type Props = {
     id?: string;
@@ -34,9 +38,12 @@ export function CountryCombobox({
     className,
 }: Props) {
     const t = useTranslations("auth");
+    const locale = useLocale();
     const resolvedPlaceholder = placeholder ?? t("selectCountry");
     const [open, setOpen] = React.useState(false);
+    const options = React.useMemo(() => getCountryOptions(locale), [locale]);
     const safeValue = value ?? "";
+    const displayLabel = safeValue ? getCountryLabel(safeValue, locale) : "";
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -54,7 +61,7 @@ export function CountryCombobox({
                         className,
                     )}
                 >
-                    <span className="truncate">{safeValue || resolvedPlaceholder}</span>
+                    <span className="truncate">{displayLabel || resolvedPlaceholder}</span>
                     <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" aria-hidden />
                 </Button>
             </PopoverTrigger>
@@ -68,26 +75,26 @@ export function CountryCombobox({
                     <CommandList>
                         <CommandEmpty>{t("noCountryFound")}</CommandEmpty>
                         <CommandGroup>
-                            {COUNTRY_NAMES.map((name) => (
+                            {options.map((opt) => (
                                 <CommandItem
-                                    key={name}
-                                    value={name}
-                                    keywords={[name]}
-                                    onSelect={(raw) => {
-                                        const picked =
-                                            COUNTRY_NAMES.find((n) => n.toLowerCase() === raw.toLowerCase()) ?? raw;
-                                        onChange(picked);
+                                    key={opt.value}
+                                    value={opt.label}
+                                    keywords={[opt.value, opt.label]}
+                                    onSelect={() => {
+                                        onChange(toCanonicalCountryName(opt.value));
                                         setOpen(false);
                                     }}
                                 >
                                     <Check
                                         className={cn(
                                             "mr-2 size-4 shrink-0",
-                                            safeValue === name ? "opacity-100" : "opacity-0",
+                                            toCanonicalCountryName(safeValue) === opt.value
+                                                ? "opacity-100"
+                                                : "opacity-0",
                                         )}
                                         aria-hidden
                                     />
-                                    {name}
+                                    {opt.label}
                                 </CommandItem>
                             ))}
                         </CommandGroup>

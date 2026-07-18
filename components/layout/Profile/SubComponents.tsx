@@ -57,18 +57,18 @@ export function SectionPersonal({ draft, onChange }: { draft: UserProfile; onCha
         <div className="space-y-5">
             <div className="grid grid-cols-2 gap-4">
                 <FieldRow label={t("firstName")} icon={User}>
-                    <Input placeholder="Mia" value={draft.firstName} onChange={(e) => onChange("firstName", e.target.value)} autoComplete="given-name" />
+                    <Input placeholder={t("placeholderFirstName")} value={draft.firstName} onChange={(e) => onChange("firstName", e.target.value)} autoComplete="given-name" />
                 </FieldRow>
                 <FieldRow label={t("lastName")}>
-                    <Input placeholder="Andersson" value={draft.lastName} onChange={(e) => onChange("lastName", e.target.value)} autoComplete="family-name" />
+                    <Input placeholder={t("placeholderLastName")} value={draft.lastName} onChange={(e) => onChange("lastName", e.target.value)} autoComplete="family-name" />
                 </FieldRow>
             </div>
             <FieldRow label={t("emailAddress")} icon={Mail}>
-                <Input type="email" placeholder="you@university.edu" value={draft.email} onChange={(e) => onChange("email", e.target.value)} autoComplete="email" />
+                <Input type="email" placeholder={t("placeholderEmail")} value={draft.email} onChange={(e) => onChange("email", e.target.value)} autoComplete="email" />
             </FieldRow>
             <div className="grid grid-cols-2 gap-4">
                 <FieldRow label={t("phoneNumber")} icon={Phone} hint={t("phoneHint")}>
-                    <Input type="tel" placeholder="+46 70 123 45 67" value={draft.phone} onChange={(e) => onChange("phone", e.target.value)} autoComplete="tel" />
+                    <Input type="tel" placeholder={t("placeholderPhone")} value={draft.phone} onChange={(e) => onChange("phone", e.target.value)} autoComplete="tel" />
                 </FieldRow>
                 <FieldRow label={t("dateOfBirth")} icon={Calendar}>
                     <Input type="date" value={draft.dateOfBirth} onChange={(e) => onChange("dateOfBirth", e.target.value)} />
@@ -98,18 +98,18 @@ export function SectionAcademic({ draft, onChange }: ProfileSectionProps) {
             </FieldRow>
 
             <FieldRow label={t("university")} icon={Building2}>
-                <Input placeholder="Sciences Po Paris" value={draft.university} onChange={(e) => onChange("university", e.target.value)} />
+                <Input placeholder={t("placeholderUniversity")} value={draft.university} onChange={(e) => onChange("university", e.target.value)} />
             </FieldRow>
             <div className="grid grid-cols-2 gap-4">
                 <FieldRow label={t("program")} icon={GraduationCap}>
-                    <Input placeholder="International Relations" value={draft.program} onChange={(e) => onChange("program", e.target.value)} />
+                    <Input placeholder={t("placeholderProgram")} value={draft.program} onChange={(e) => onChange("program", e.target.value)} />
                 </FieldRow>
                 <FieldRow label={t("academicYear")} icon={Clock}>
-                    <Input placeholder="2024–2025" value={draft.academicYear} onChange={(e) => onChange("academicYear", e.target.value)} />
+                    <Input placeholder={t("placeholderAcademicYear")} value={draft.academicYear} onChange={(e) => onChange("academicYear", e.target.value)} />
                 </FieldRow>
             </div>
             <FieldRow label={t("campusCity")} icon={MapPin}>
-                <Input placeholder="Paris" value={draft.campusCity} onChange={(e) => onChange("campusCity", e.target.value)} />
+                <Input placeholder={t("placeholderCity")} value={draft.campusCity} onChange={(e) => onChange("campusCity", e.target.value)} />
             </FieldRow>
         </div>
     );
@@ -158,7 +158,7 @@ export function SectionStay({ draft, onChange }: ProfileSectionProps) {
                         <Input type="date" value={draft.arrivalDate} onChange={(e) => onChange("arrivalDate", e.target.value)} />
                     </FieldRow>
                     <FieldRow label={t("whichCity")} icon={MapPin}>
-                        <Input placeholder="Paris" value={draft.addressCity} onChange={(e) => onChange("addressCity", e.target.value)} autoComplete="address-level2" />
+                        <Input placeholder={t("placeholderCity")} value={draft.addressCity} onChange={(e) => onChange("addressCity", e.target.value)} autoComplete="address-level2" />
                     </FieldRow>
                 </div>
             )}
