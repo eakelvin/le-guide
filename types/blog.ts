@@ -34,4 +34,11 @@ export interface BlogPost {
   sections: BlogSection[];
   recommendation?: string;
   warning?: string;
+  /** Editorial posts appear on `/guides`; checklist posts are deep-linked from the dashboard. */
+  kind?: "editorial" | "checklist";
+}
+
+export interface GuidesFile {
+  categories: BlogCategory[];
+  posts: BlogPost[];
 }

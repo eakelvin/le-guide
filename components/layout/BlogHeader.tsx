@@ -1,18 +1,21 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function BlogHeader() {
+  const t = useTranslations("guides");
+  const tCommon = useTranslations("common");
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
   const isGuides = segments[0] === "guides";
   const isArticle = isGuides && segments.length >= 2;
   const backHref = isArticle ? "/guides" : "/";
-  const backLabel = isArticle ? "All guides" : "Home";
+  const backLabel = isArticle ? t("allGuides") : tCommon("home");
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/75">
@@ -29,16 +32,13 @@ export function BlogHeader() {
               <span className="hidden sm:inline">{backLabel}</span>
             </Link>
           </Button>
-          {/* <Link
-            href="/guides"
-            className="font-heading truncate text-lg font-normal tracking-tight text-sand-800 no-underline md:text-[18px]"
-          >
-            Le<span className="text-forest-900">Guide</span>
-          </Link> */}
         </div>
-        <Button size="sm" className="shrink-0 rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
-          <Link href="/dashboard">Dashboard</Link>
-        </Button>
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <LocaleSwitcher variant="pill" />
+          <Button size="sm" className="rounded-full bg-forest-900 text-white hover:bg-forest-800" asChild>
+            <Link href="/dashboard">{tCommon("dashboard")}</Link>
+          </Button>
+        </div>
       </div>
     </header>
   );

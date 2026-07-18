@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import {
     User, GraduationCap, MapPin, Save,
     CheckCircle2, ChevronRight, Pencil,
@@ -16,6 +16,7 @@ import { useProfile } from "@/lib/hooks";
 import type { ProfilePageProps, ProfileFieldKey, UserProfile, StudentType } from "@/types";
 import { UpdatePasswordForm } from "@/components/auth/UpdatePasswordForm";
 import { getCompletionBySection, getCompletionPct, getInitials } from "@/lib/helpers/helpers";
+import { getCountryLabel } from "@/lib/data/countries-master";
 import { SectionPersonal, SectionAcademic, SectionStay, SaveToast, ProfilePasswordToast } from "./SubComponents";
 
 const SECTION_IDS = ["personal", "academic", "stay", "account"] as const;
@@ -65,6 +66,7 @@ function SaveChangesButton({
 export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
     const t = useTranslations("profile");
     const tCommon = useTranslations("common");
+    const locale = useLocale();
     const { profile, saveProfile, hydrated } = useProfile(initialProfile);
     const [activeSection, setActiveSection] = useState<SectionId>("personal");
     const [draft, setDraft] = useState<UserProfile>(profile);
@@ -221,7 +223,7 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                             )}
                             {draft.country && (
                                 <span className="text-[13px] text-muted-foreground flex items-center gap-1">
-                                    <Globe className="w-3.5 h-3.5" /> {draft.country}
+                                    <Globe className="w-3.5 h-3.5" /> {getCountryLabel(draft.country, locale)}
                                 </span>
                             )}
                         </div>

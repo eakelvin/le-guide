@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
   if (!code) {
     return NextResponse.redirect(
       new URL(
-        withLocalePath(locale, `${AUTH_ROUTES.login}?error=${encodeURIComponent("Missing OAuth code")}`),
+        withLocalePath(locale, `${AUTH_ROUTES.login}?error=oauth_missing_code`),
         url.origin,
       ),
     );
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
   if (error) {
     return NextResponse.redirect(
       new URL(
-        withLocalePath(locale, `${AUTH_ROUTES.login}?error=${encodeURIComponent(error.message)}`),
+        withLocalePath(locale, `${AUTH_ROUTES.login}?error=oauth_failed`),
         url.origin,
       ),
     );

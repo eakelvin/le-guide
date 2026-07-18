@@ -1,0 +1,579 @@
+{
+  "categories": [
+    {
+      "id": "general",
+      "label": "Connaissances générales",
+      "description": "Droits, démarches administratives et vie étudiante au quotidien en France."
+    },
+    {
+      "id": "alternance",
+      "label": "Alternance",
+      "description": "Contrats d’apprentissage et de professionnalisation (formation en alternance)."
+    },
+    {
+      "id": "stage",
+      "label": "Stages",
+      "description": "Conventions de stage, durée, rémunération et stages à l’international."
+    },
+    {
+      "id": "work",
+      "label": "Travailler pendant ses études",
+      "description": "Jobs étudiants, heures de travail et questions liées au titre de séjour."
+    },
+    {
+      "id": "admin",
+      "label": "Administratif",
+      "description": "Guides pas à pas pour vos démarches administratives en France."
+    }
+  ],
+  "posts": [
+    {
+      "slug": "alternance-apprentissage-vs-professionnalisation",
+      "title": "Alternance : contrat d’apprentissage vs contrat de professionnalisation",
+      "excerpt": "Les deux principales voies d’alternance en France — qui signe quoi, les profils types et en quoi elles diffèrent d’un simple job étudiant.",
+      "category": "alternance",
+      "readingMinutes": 8,
+      "updated": "2026-05-01",
+      "sections": [
+        {
+          "heading": "Ce que signifie « l’alternance »",
+          "paragraphs": [
+            "En France, l’alternance signifie généralement que vous partagez votre temps entre une école ou un centre de formation et une entreprise. L’entreprise vous rémunère et vous avez un véritable contrat de travail, et non un simple stage étudiant.",
+            "Pour les étudiants internationaux, l’éligibilité dépend de votre statut de séjour, de votre établissement et du type de contrat. Vérifiez toujours auprès du service alternance de votre école et des RH avant de signer."
+          ]
+        },
+        {
+          "heading": "Contrat d’apprentissage",
+          "paragraphs": [
+            "Utilisé généralement pour les diplômes professionnels (CAP, BTS, licences pro, certains masters) enregistrés auprès de France Compétences. Vous êtes apprenti : une partie de votre formation est assurée par l’entreprise et une partie par l’école.",
+            "Un OPCO (opérateur de compétences) intervient ; les contributions sont partagées entre l’État et l’employeur. La rémunération minimale est fixée par la loi (grille nationale) selon votre âge et votre année dans le programme — votre école peut vous donner le montant exact pour votre promotion."
+          ]
+        },
+        {
+          "heading": "Contrat de professionnalisation",
+          "paragraphs": [
+            "Souvent utilisé pour les demandeurs d’emploi ou les personnes en reconversion, mais aussi pour certains parcours étudiants. L’objectif est une insertion rapide dans un poste précis. Les règles et le financement diffèrent de l’apprentissage ; le contrat doit correspondre à un plan de formation éligible.",
+            "Ne partez pas du principe que « l’alternance » est un contrat unique : l’intitulé sur le contrat (apprentissage vs professionnalisation) modifie les cotisations sociales, qui paie quoi, et parfois la durée maximale."
+          ]
+        },
+        {
+          "heading": "Checklist pratique",
+          "paragraphs": [
+            "Vérifiez que votre titre de séjour autorise le type de contrat proposé par votre employeur.",
+            "Faites signer la convention tripartite (vous, l’école, l’entreprise) avant la date de début.",
+            "Demandez aux RH le nom de l’OPCO, le calendrier de paie et les règles de période d’essai par écrit."
+          ]
+        }
+      ],
+      "kind": "editorial"
+    },
+    {
+      "slug": "alternance-remuneration-et-droits",
+      "title": "Alternance : rémunération, couverture sociale et avantages étudiants",
+      "excerpt": "Comment fonctionnent les grilles de rémunération dans les grandes lignes, CPAM vs mutuelle, et ce qui change lorsque vous devenez salarié en alternance.",
+      "category": "alternance",
+      "readingMinutes": 7,
+      "updated": "2026-05-01",
+      "sections": [
+        {
+          "heading": "Rémunération minimale",
+          "paragraphs": [
+            "Les apprentis perçoivent un pourcentage légal du SMIC (ou du minimum conventionnel) selon leur âge et leur progression dans le programme. Les contrats de professionnalisation suivent leurs propres minima — votre lettre d’offre doit indiquer clairement la rémunération brute mensuelle.",
+            "Les primes et avantages (tickets restaurant, transport) peuvent être contractuels ; consultez votre convention collective si elle s’applique."
+          ]
+        },
+        {
+          "heading": "Sécurité sociale",
+          "paragraphs": [
+            "En tant qu’alternant, vous êtes généralement couvert comme un salarié pour les accidents du travail et la santé au titre du régime général de la sécurité sociale des salariés, la CPAM gérant une grande partie des démarches.",
+            "Vous pourriez tout de même avoir besoin d’une complémentaire santé (mutuelle) pour l’optique, le dentaire ou une meilleure couverture hospitalière — de nombreux employeurs proposent un contrat après la période d’essai."
+          ]
+        },
+        {
+          "heading": "CAF et aide au logement",
+          "paragraphs": [
+            "Les revenus d’une alternance rémunérée sont pris en compte dans les simulations de la CAF. Signalez rapidement les changements de revenus et de situation dans votre compte CAF pour éviter les trop-perçus.",
+            "Si vous perceviez l’APL ou l’ALS en tant qu’étudiant à temps plein, refaites le calcul après vos premières fiches de paie ; les droits changent souvent."
+          ]
+        }
+      ],
+      "kind": "editorial"
+    },
+    {
+      "slug": "stage-convention-duree-gratification",
+      "title": "Les stages en France : convention de stage, durée et gratification",
+      "excerpt": "Quand une convention est obligatoire, quelle durée peuvent avoir les stages, et quand les employeurs doivent verser une gratification.",
+      "category": "stage",
+      "readingMinutes": 9,
+      "updated": "2026-05-01",
+      "sections": [
+        {
+          "heading": "Convention de stage obligatoire",
+          "paragraphs": [
+            "Pour un stage obligatoire qui compte pour l’obtention de votre diplôme, la loi française exige une convention tripartite entre vous, votre école et l’organisme d’accueil (convention de stage). Sans elle, l’organisme d’accueil ne devrait pas vous faire « travailler » en tant que stagiaire.",
+            "La convention fixe les dates, les missions, l’encadrement, l’assurance et parfois des clauses de télétravail. Ne commencez jamais une présence à temps plein sur site avant les trois signatures, sauf si votre école autorise explicitement un démarrage progressif."
+          ]
+        },
+        {
+          "heading": "Durée et équivalence temps plein",
+          "paragraphs": [
+            "Il existe des limites au nombre d’heures ou de semaines consécutives de stage selon votre niveau (bac+2, bac+3, etc.) et les règles de votre école. Les dépasser peut bloquer la validation de votre année.",
+            "Si vous prolongez le stage, signez un avenant par l’intermédiaire de votre école — les prolongations verbales sont risquées pour l’assurance et la validation du diplôme."
+          ]
+        },
+        {
+          "heading": "Gratification (rémunération de stage)",
+          "paragraphs": [
+            "Au-delà d’un seuil légal de durée (en vigueur à partir de 2 mois de présence à temps plein dans le même organisme d’accueil, sous réserve des évolutions de la loi), une gratification minimale par heure s’applique. Vérifiez le taux horaire en vigueur sur service-public ou auprès du bureau des stages de votre école.",
+            "Les stages plus courts peuvent ne pas être rémunérés s’ils sont en dessous du seuil, mais la convention vous protège tout de même (heures, tuteur, assurance)."
+          ]
+        },
+        {
+          "heading": "Erreurs fréquentes",
+          "paragraphs": [
+            "Traiter une longue « période d’essai » non rémunérée comme un stage sans convention — risqué pour vous comme pour l’entreprise.",
+            "Signer un contrat freelance ou de prestation de service à la place d’un stage alors que le travail relève clairement du cursus — cela peut invalider votre statut social étudiant ; demandez conseil à votre bureau international."
+          ]
+        }
+      ],
+      "kind": "editorial"
+    },
+    {
+      "slug": "stage-etranger-teletravail",
+      "title": "Stage à l’étranger, travail hybride et assurance",
+      "excerpt": "Ce qu’il faut clarifier lorsqu’une partie de votre stage se déroule hors de France ou à distance pour un siège étranger.",
+      "category": "stage",
+      "readingMinutes": 6,
+      "updated": "2026-05-01",
+      "sections": [
+        {
+          "heading": "Mobilité physique",
+          "paragraphs": [
+            "Si vous quittez la France pendant la durée de votre titre de séjour, vérifiez les dates de validité et les éventuelles conditions de la préfecture. Votre école peut exiger que l’organisme d’accueil étranger figure sur la convention ou sur un avenant.",
+            "L’assurance santé et responsabilité civile pour le voyage doit être mentionnée dans la convention ; Erasmus+ ou les dispositifs des campus incluent parfois une couverture."
+          ]
+        },
+        {
+          "heading": "Télétravail pour une entité non française",
+          "paragraphs": [
+            "Les stages hybrides ou en full remote sont de plus en plus acceptés si le tuteur pédagogique peut superviser les acquis d’apprentissage. L’employeur légal désigné dans la convention reste généralement l’organisme signataire français.",
+            "La fiscalité et la sécurité sociale des dispositifs de télétravail transfrontalier deviennent vite complexes — impliquez tôt le contact juridique de votre école."
+          ]
+        }
+      ],
+      "kind": "editorial"
+    },
+    {
+      "slug": "travailler-avec-un-titre-etudiant",
+      "title": "Travailler en France avec un titre de séjour étudiant",
+      "excerpt": "Plafonds annuels d’heures, autorisation provisoire de travail (APT), et quand un véritable contrat de travail remplace les règles étudiantes.",
+      "category": "work",
+      "readingMinutes": 8,
+      "updated": "2026-05-01",
+      "sections": [
+        {
+          "heading": "Règle standard du travail étudiant",
+          "paragraphs": [
+            "De nombreux titres de séjour étudiants autorisent un travail salarié jusqu’à 964 heures par an (l’équivalent d’un temps partiel), dans le cadre du droit du travail français. Le compteur se réinitialise à une date fixe — vérifiez sur votre titre ou auprès de la préfecture.",
+            "Les employeurs peuvent demander une autorisation provisoire de travail (APT) pour certains contrats ; les délais de traitement varient selon le département."
+          ]
+        },
+        {
+          "heading": "Alternance et CDI pendant les études",
+          "paragraphs": [
+            "Un contrat d’alternance n’est pas du « travail étudiant à 964 h » — c’est un contrat de travail à part entière avec son propre régime. Votre titre doit explicitement autoriser ce type de contrat.",
+            "Passer du statut d’étudiant au statut de salarié constitue un changement de titre de séjour : anticipez plusieurs mois à l’avance avec les RH et un conseil juridique."
+          ]
+        },
+        {
+          "heading": "Pôle emploi et chômage",
+          "paragraphs": [
+            "Les jobs étudiants ouvrent rarement des droits complets au chômage. Si vous terminez un diplôme et détenez un statut recherche d’emploi / jeune diplômé, des règles différentes s’appliquent — consultez les informations officielles de Pôle emploi pour votre situation."
+          ]
+        }
+      ],
+      "kind": "editorial"
+    },
+    {
+      "slug": "vie-etudiante-droit-au-compte-et-assurances",
+      "title": "L’essentiel de l’étudiant : compte bancaire, assurance et courrier",
+      "excerpt": "Pourquoi un IBAN français est important au-delà de la CAF, et comment rester joignable pour l’administration (téléprocédures, courriers).",
+      "category": "general",
+      "readingMinutes": 6,
+      "updated": "2026-05-01",
+      "sections": [
+        {
+          "heading": "Droit au compte de paiement de base",
+          "paragraphs": [
+            "Le droit de l’Union européenne garantit aux résidents un droit à un compte de paiement de base. En pratique, les banques demandent un justificatif de domicile, un visa et parfois une attestation d’inscription ; comptez 1 à 2 semaines d’échanges.",
+            "Un IBAN français est requis pour la CAF, de nombreux employeurs et la plupart des paiements de loyer — prévoyez cela avant de figer votre calendrier de logement."
+          ]
+        },
+        {
+          "heading": "Formules d’assurance",
+          "paragraphs": [
+            "L’assurance habitation est obligatoire pour de nombreux baux et bon marché comparée aux litiges liés au dépôt de garantie.",
+            "La responsabilité civile vie privée est souvent incluse dans les offres de mutuelle étudiante — vérifiez si elle couvre les stages à l’étranger."
+          ]
+        },
+        {
+          "heading": "Rester joignable",
+          "paragraphs": [
+            "Créez des règles de redirection pour votre e-mail universitaire ; de nombreuses notifications de la préfecture arrivent encore par courrier physique à l’adresse que vous avez déclarée.",
+            "Mettez à jour votre adresse dans l’ANTS / la messagerie lorsque vous déménagez — les courriers manqués sont l’une des principales causes d’expiration des titres."
+          ]
+        }
+      ],
+      "kind": "editorial"
+    },
+    {
+      "slug": "comprendre-les-guichets-unica-etudiant",
+      "title": "Messagerie étudiante, CVEC et portails de campus",
+      "excerpt": "Comment les universités françaises centralisent les attestations d’inscription, les frais et parfois les déclarations de santé.",
+      "category": "general",
+      "readingMinutes": 5,
+      "updated": "2026-05-01",
+      "sections": [
+        {
+          "heading": "CVEC (Contribution vie étudiante et de campus)",
+          "paragraphs": [
+            "La plupart des étudiants paient la CVEC via le portail du CROUS avant l’inscription définitive. Conservez le PDF de l’attestation — les préfectures et les banques la demandent parfois."
+          ]
+        },
+        {
+          "heading": "Attestations d’inscription",
+          "paragraphs": [
+            "Les banques et la CAF veulent souvent une attestation de scolarité de moins de 3 mois. Téléchargez-la depuis votre portail universitaire plutôt que de scanner un ancien PDF."
+          ]
+        },
+        {
+          "heading": "Identité numérique",
+          "paragraphs": [
+            "FranceConnect et le SSO universitaire convergent sur certains campus. Activez la double authentification (2FA) lorsqu’elle est proposée afin de ne pas perdre l’accès pendant la période de renouvellement."
+          ]
+        }
+      ],
+      "kind": "editorial"
+    },
+    {
+      "slug": "getting-a-sim-card",
+      "title": "Obtenir une carte SIM",
+      "excerpt": "Une carte SIM française vous aide à accéder aux données mobiles, aux appels, aux SMS et à d’importants services de vérification après votre arrivée en France.",
+      "category": "admin",
+      "readingMinutes": 4,
+      "updated": "2026-06-07",
+      "sections": [
+        {
+          "heading": "Aperçu",
+          "paragraphs": [
+            "Beaucoup d’étudiants achètent la première carte SIM qu’ils trouvent à leur arrivée en France. Plus tard, ils découvrent que la couverture réseau est mauvaise ou qu’ils paient plus que nécessaire.",
+            "La bonne nouvelle, c’est que vous pouvez transférer (porter) votre numéro vers un autre opérateur par la suite si vous n’êtes pas satisfait de votre réseau actuel."
+          ]
+        },
+        {
+          "heading": "Quelle carte SIM choisir ?",
+          "paragraphs": [
+            "Il n’existe pas d’option parfaite pour tout le monde, mais voici quelques choix populaires :"
+          ],
+          "bullets": [
+            {
+              "label": "Free",
+              "href": "https://mobile.free.fr/",
+              "description": "L’une des options les plus abordables. L’inscription est simple et nécessite généralement moins de documents."
+            },
+            {
+              "label": "SFR",
+              "href": "https://www.sfr.fr/offre-mobile",
+              "description": "Assez cher, bonne couverture réseau selon votre localisation, mais peut exiger davantage de documents lors de l’inscription."
+            },
+            {
+              "label": "Lebara",
+              "href": "https://www.lebara.fr/fr/prepaye.html?gad_campaignid=1690636271&gad_source=1&gbraid=0AAAAADe1imN2kbBJykQDMzd_gO66njSgx&gclid=Cj0KCQjwio_RBhDMARIsAJPveNPxcHzKFCE9mXLNQHzJatEFlZ5Y1eA9n7lZZXLtdSiRZfabPLIEze0aAv4zEALw_wcB&loopcd=SEg%7Cc%7Cg%7Clebara%7C765841309184%7Ce&utm_campaign=Brand&utm_medium=cpc&utm_source=google",
+              "description": "Économique et populaire auprès des étudiants internationaux."
+            },
+            {
+              "label": "Orange",
+              "href": "https://boutique.orange.fr/mobile/offres?internet=false",
+              "description": "Offre généralement une excellente couverture dans toute la France, mais les forfaits ont tendance à être plus chers."
+            },
+            {
+              "label": "Lyca Mobile",
+              "href": "https://www.lycamobile.fr/abo/fr/bundles/sim-only-deals/#1-mois",
+              "description": "Abordable et largement utilisé par les étudiants."
+            },
+            {
+              "label": "Bouygues Télécom",
+              "href": "https://www.bouyguestelecom.fr/forfaits-mobiles/sans-engagement",
+              "description": "Bonne couverture réseau, mais peut exiger davantage de documents lors de l’inscription."
+            }
+          ]
+        }
+      ],
+      "recommendation": "Si vous cherchez une option peu coûteuse pour démarrer, Free est généralement le choix le plus simple et le plus abordable. Vous pourrez toujours changer d’opérateur plus tard si un autre réseau fonctionne mieux dans votre zone.",
+      "warning": "Sachez que certains forfaits peuvent basculer automatiquement vers une offre plus chère au bout d’un an ; vérifiez donc votre forfait de temps en temps pour éviter les mauvaises surprises.",
+      "kind": "checklist"
+    },
+    {
+      "slug": "finding-accommodation",
+      "title": "Trouver un logement en France",
+      "excerpt": "Trouvez et sécurisez un logement avant de demander l’aide au logement (CAF).",
+      "category": "admin",
+      "readingMinutes": 4,
+      "updated": "2026-06-04",
+      "sections": [
+        {
+          "heading": "Aperçu",
+          "paragraphs": [
+            "Trouver un logement est l’un des plus grands défis pour les étudiants internationaux en France. Il n’est pas toujours facile de sécuriser un logement, alors commencez votre recherche le plus tôt possible.",
+            "L’endroit où vous vivez peut aussi influencer la rapidité de traitement de certaines démarches administratives. Certaines zones traitent les dossiers plus vite que d’autres, ce qui peut faciliter votre installation.",
+            "La plupart des étudiants dépensent entre 500 € et 700 € par mois pour le logement, selon la ville et le type de logement.",
+            "Logement partagé (colocation) : si vous vivez en colocation, vous pourriez avoir besoin de documents supplémentaires pour justifier de votre adresse lors de vos démarches administratives. Veillez à conserver des copies de tous les documents liés au logement."
+          ]
+        },
+        {
+          "heading": "Options de logement",
+          "paragraphs": [
+            "Il existe de nombreuses plateformes de logement et communautés étudiantes qui peuvent vous aider à trouver un logement. De nombreux étudiants trouvent également plus facile de sécuriser un logement une fois arrivés en France plutôt que depuis l’étranger."
+          ],
+          "bullets": [
+            "Résidences étudiantes",
+            "Locations privées",
+            "Logement partagé (colocation)",
+            "Hébergement chez un ami de la famille ou un proche"
+          ]
+        }
+      ],
+      "recommendation": "",
+      "warning": "",
+      "kind": "checklist"
+    },
+    {
+      "slug": "opening-an-online-bank-account",
+      "title": "Ouvrir un compte bancaire en ligne",
+      "excerpt": "(Facultatif mais utile). Ouvrir un compte bancaire en ligne est une étape cruciale pour les étudiants internationaux. Cela vous permet de gérer vos finances et d’effectuer des paiements.",
+      "category": "admin",
+      "readingMinutes": 3,
+      "updated": "2026-06-04",
+      "sections": [
+        {
+          "heading": "Aperçu",
+          "paragraphs": [
+            "En France, les banques en ligne et les banques traditionnelles ne sont pas la même chose.",
+            "Les banques traditionnelles disposent généralement d’agences physiques et sont souvent exigées pour certains services, comme une demande de logement, un prêt ou d’autres démarches administratives. Toutefois, l’ouverture d’un compte peut prendre plusieurs jours ou semaines.",
+            "Les banques en ligne sont plus rapides à mettre en place et peuvent vous aider à gérer vos finances en attendant votre compte bancaire traditionnel.",
+            "Un compte bancaire en ligne vous permet de recevoir de l’argent, d’effectuer des paiements et de régler certaines démarches administratives, y compris la validation du visa.",
+            "Si vous avez des amis qui utilisent déjà une banque en ligne, demandez-leur s’ils ont un code de parrainage avant de créer votre compte. De nombreuses banques en ligne proposent des programmes de parrainage qui récompensent à la fois le parrain et le nouveau client par une prime en espèces ou d’autres avantages une fois le compte ouvert et les conditions d’éligibilité remplies."
+          ]
+        },
+        {
+          "heading": "Quel compte bancaire en ligne choisir ?",
+          "paragraphs": [
+            "Il n’existe pas d’option parfaite pour tout le monde, mais voici quelques choix populaires. Si vous avez des amis qui utilisent déjà une banque en ligne, demandez-leur s’ils ont un code de parrainage avant de créer votre compte. De nombreuses banques en ligne proposent des programmes de parrainage qui récompensent à la fois le parrain et le nouveau client par une prime en espèces ou d’autres avantages une fois le compte ouvert et les conditions d’éligibilité remplies."
+          ],
+          "bullets": [
+            {
+              "label": "Revolut",
+              "href": "https://www.revolut.com/fr-FR/",
+              "description": "Dépensez intelligemment, envoyez de l’argent rapidement, répartissez automatiquement votre salaire et regardez votre épargne fructifier avec un compte doté d’un IBAN local."
+            },
+            {
+              "label": "N26",
+              "href": "https://n26.com/fr-fr",
+              "description": "Comparez les comptes N26 et ouvrez le vôtre en quelques minutes."
+            },
+            {
+              "label": "Nickel",
+              "href": "https://nickel.eu/fr?utm_source=google&utm_medium=cpc&utm_campaign=S/Brand-Top-KW_BRAND-Banque&gad_source=1&gad_campaignid=23690138112&gbraid=0AAAAADqJvxTN7bkAdzQX2X2uAkxusU13B&gclid=CjwKCAjwu53SBhAhEiwAJzSLNmZXJ5c9K5TnQYkQbFXuEzmGG2vpfGdgj95VR3krvWH4GnIa0FhPjxoCiMgQAvD_BwE",
+              "description": "Un compte ouvert aux personnes de plus de 198 nationalités et sans condition de revenus."
+            },
+            {
+              "label": "BoursoBank",
+              "href": "https://www.boursobank.com/landing/search?&origine=2238&at_medium=sl&at_campaign=fr_sea&at_platform=google&at_term=&at_creation=marque_cav&at_variant=filrouge&gad_source=1&gad_campaignid=12394005827&gbraid=0AAAAADFboX1xTOUDOP0Ge2NatcqoHiot9&gclid=CjwKCAjwu53SBhAhEiwAJzSLNtyGT5VTIo23hHJ5Vw2ivtBdGT2dcdDEV4NTeOJvTgpZWu-vfWR8wxoCtz0QAvD_BwE",
+              "description": "Essayez BoursoBank sans y domicilier votre salaire. Et changez de banque en faisant de BoursoBank votre banque principale."
+            }
+          ]
+        }
+      ],
+      "recommendation": "Ouvrez un compte bancaire en ligne peu après votre arrivée en France, puis ouvrez un compte bancaire traditionnel lorsque vous disposez des documents requis et d’un justificatif de domicile.",
+      "warning": "",
+      "kind": "checklist"
+    },
+    {
+      "slug": "navigo-transport",
+      "title": "Obtenir un pass de transport Navigo",
+      "excerpt": "Il vous permet d’utiliser les transports en commun (métro, bus, RER) dans la région Île-de-France, y compris à Paris.",
+      "category": "admin",
+      "readingMinutes": 3,
+      "updated": "2026-06-04",
+      "sections": [
+        {
+          "heading": "Aperçu",
+          "paragraphs": [
+            "Si vous vivez en région parisienne, le pass Navigo est le moyen le plus simple d’accéder aux transports en commun, y compris le métro, le bus, le tram et le train.",
+            "Les étudiants de moins de 26 ans peuvent être éligibles à des pass de transport à tarif réduit. Consultez le site officiel des transports pour connaître les dernières conditions d’éligibilité et les tarifs.",
+            "À votre arrivée, vous pouvez aussi télécharger l’application officielle Île-de-France Mobilités pour acheter et valider vos titres directement depuis votre téléphone. C’est souvent plus rapide et plus pratique que d’acheter des tickets en gare."
+          ]
+        },
+        {
+          "heading": "Conseils",
+          "paragraphs": [],
+          "bullets": [
+            "Pour les nouveaux arrivants, utilisez l’application mobile pour acheter et valider vos titres.",
+            "Moins de 26 ans et études en Île-de-France : vérifiez si vous êtes éligible au forfait étudiant Imagine R.",
+            "Utilisation occasionnelle des transports : envisagez le Navigo Liberté+, qui vous permet de ne payer que les trajets que vous effectuez."
+          ]
+        }
+      ],
+      "recommendation": "Un pass Navigo mensuel ou annuel est généralement la meilleure option si vous prévoyez d’utiliser les transports en commun tous les jours.",
+      "warning": "Voyager sans titre de transport valide peut entraîner une amende sur-le-champ si vous êtes contrôlé par les agents de transport.",
+      "kind": "checklist"
+    },
+    {
+      "slug": "validating-your-visa",
+      "title": "Valider votre visa",
+      "excerpt": "La validation du visa est nécessaire pour activer votre visa de long séjour et séjourner légalement en France en tant qu’étudiant.",
+      "category": "admin",
+      "readingMinutes": 4,
+      "updated": "2026-06-04",
+      "sections": [
+        {
+          "heading": "Aperçu",
+          "paragraphs": [
+            "Si vous êtes arrivé en France avec un VLS-TS (visa de long séjour), vous devez le valider dans les 3 mois suivant votre arrivée. C’est l’une des démarches administratives les plus importantes à réaliser après votre arrivée en France.",
+            "La validation du visa se fait en ligne sur la plateforme d’immigration du gouvernement français. Au cours de la procédure, vous aurez besoin des informations de votre visa et de votre passeport, de votre adresse en France et d’un moyen de paiement pour régler la taxe requise."
+          ]
+        },
+        {
+          "heading": "",
+          "paragraphs": [],
+          "bullets": []
+        }
+      ],
+      "recommendation": "N’attendez pas la dernière minute. Effectuez la validation de votre visa dans les premières semaines suivant votre arrivée en France pour éviter le stress et les problèmes administratifs inutiles.",
+      "warning": "Dépasser le délai de 3 mois peut vous placer en situation irrégulière et affecter votre capacité à voyager ou à effectuer vos futures démarches de titre de séjour.",
+      "kind": "checklist"
+    },
+    {
+      "slug": "traditional-bank-account",
+      "title": "Ouvrir un compte bancaire traditionnel",
+      "excerpt": "Ouvrez un compte bancaire traditionnel français pour accéder à des services bancaires de long terme, au versement de votre salaire et aux démarches administratives.",
+      "category": "admin",
+      "readingMinutes": 4,
+      "updated": "2026-06-04",
+      "sections": [
+        {
+          "heading": "Aperçu",
+          "paragraphs": [
+            "Les banques traditionnelles sont largement acceptées pour les démarches officielles et sont souvent préférées par les employeurs, les propriétaires et les administrations. Elles fournissent également des documents tels qu’un RIB français (coordonnées bancaires), dont vous aurez besoin pour de nombreuses démarches administratives."
+          ]
+        },
+        {
+          "heading": "Pourquoi ouvrir un compte bancaire traditionnel ?",
+          "paragraphs": [],
+          "bullets": [
+            "Recevoir votre salaire",
+            "Payer le loyer et les factures d’énergie",
+            "Mettre en place des prélèvements automatiques",
+            "Recevoir les versements de l’aide au logement de la CAF",
+            "Effectuer des démarches administratives",
+            "Accéder à des services bancaires supplémentaires si nécessaire"
+          ]
+        }
+      ],
+      "recommendation": "",
+      "warning": "Conservez une copie numérique de votre RIB. On vous le demandera fréquemment lors de la mise en place de services en France.",
+      "kind": "checklist"
+    },
+    {
+      "slug": "social-security",
+      "title": "S’inscrire au système de santé public",
+      "excerpt": "Inscrivez-vous au système d’assurance maladie français pour accéder aux soins médicaux et aux remboursements de santé pendant vos études en France.",
+      "category": "admin",
+      "readingMinutes": 4,
+      "updated": "2026-06-04",
+      "sections": [
+        {
+          "heading": "Aperçu",
+          "paragraphs": [
+            "En tant qu’étudiant sans activité professionnelle, vous pouvez faire votre demande en ligne sur la plateforme officielle Ameli. Une fois inscrit, vous pouvez accéder à la couverture santé en attendant votre carte physique.",
+            "Vous recevrez d’abord une « attestation de droits », qui sert de justificatif temporaire de couverture et est acceptée jusqu’à l’arrivée de votre carte officielle."
+          ]
+        },
+        {
+          "heading": "Pourquoi s’inscrire sur Ameli ?",
+          "paragraphs": [],
+          "bullets": [
+            "Vous en avez besoin pour accéder aux services de santé en France",
+            "Les employeurs demandent souvent votre numéro de sécurité sociale avant de vous embaucher",
+            "C’est nécessaire pour de nombreuses démarches administratives"
+          ]
+        }
+      ],
+      "recommendation": "Utilisez votre compte bancaire traditionnel lors de l’inscription, car il est requis pour les remboursements de santé et les processus de vérification officiels.",
+      "warning": "N’attendez pas la réception de vos documents physiques pour commencer la démarche — l’attestation en ligne suffit pour la plupart des premières formalités.",
+      "kind": "checklist"
+    },
+    {
+      "slug": "apply-for-caf-housing-aid",
+      "title": "Demander l’aide au logement de la CAF (CAF)",
+      "excerpt": "Demandez l’aide au logement de la CAF après avoir sécurisé un logement en France.",
+      "category": "admin",
+      "readingMinutes": 4,
+      "updated": "2026-06-04",
+      "sections": [
+        {
+          "heading": "Aperçu",
+          "paragraphs": [
+            "La CAF est un dispositif français d’aide au logement qui aide les étudiants à réduire leur loyer mensuel grâce à une aide de l’État.",
+            "La CAF (Caisse d’Allocations Familiales) est un service public français qui aide les personnes à payer une partie de leur loyer. De nombreux étudiants internationaux en France peuvent y prétendre.",
+            "Si vous êtes éligible, la CAF verse une aide financière mensuelle au logement, directement sur votre compte bancaire. Cela contribue à réduire le coût de votre loyer pendant vos études en France.",
+            "Le montant varie selon votre loyer, votre ville et votre situation personnelle. La plupart des étudiants reçoivent entre 100 € et 300 € par mois, parfois plus.",
+            "Vous devez faire votre demande dès que vous disposez de votre contrat de location et de votre adresse en France. Les versements commencent généralement après l’approbation de votre demande et ne sont pas toujours entièrement rétroactifs.",
+            "La CAF n’est pas automatique — vous devez faire la démarche vous-même, et bien que le traitement puisse prendre plusieurs semaines ou mois, les versements commencent généralement après l’approbation, et vous n’avez pas besoin de travailler pour y être éligible."
+          ]
+        },
+        {
+          "heading": "",
+          "paragraphs": [],
+          "bullets": []
+        }
+      ],
+      "recommendation": "Il est fortement recommandé de faire votre demande tôt, car la CAF peut réduire considérablement vos frais de vie mensuels en France.",
+      "warning": "",
+      "kind": "checklist"
+    },
+    {
+      "slug": "declaration-of-tax",
+      "title": "Déclaration d’impôts en France",
+      "excerpt": "Déclarez vos revenus annuels à l’administration fiscale française, même si vous n’avez aucun revenu.",
+      "category": "admin",
+      "readingMinutes": 4,
+      "updated": "2026-06-04",
+      "sections": [
+        {
+          "heading": "Aperçu",
+          "paragraphs": [
+            "De nombreux étudiants internationaux ne réalisent pas qu’ils devraient déclarer leurs impôts en France, même s’ils ne travaillent pas.",
+            "Les déclarations d’impôts deviennent importantes plus tard lors de démarches administratives telles que la naturalisation, la résidence longue durée et d’autres demandes officielles qui peuvent exiger une preuve de votre historique financier en France.",
+            "Avoir peu ou pas de revenus ne signifie pas nécessairement que vous pouvez ignorer les déclarations d’impôts. Vérifiez vos obligations chaque année pour vous assurer de rester en conformité avec la réglementation française."
+          ]
+        },
+        {
+          "heading": "Pourquoi déclarer vos impôts ?",
+          "paragraphs": [
+            ""
+          ],
+          "bullets": [
+            "Crée un dossier fiscal officiel en France",
+            "Peut être utile pour les demandes de naturalisation et de résidence",
+            "Aide à démontrer votre historique financier",
+            "Obligatoire si vous percevez des revenus en France"
+          ]
+        }
+      ],
+      "recommendation": "N’attendez pas de commencer à travailler. Renseignez-vous tôt sur le processus de déclaration d’impôts et effectuez toute déclaration requise dans les délais afin d’éviter des complications à l’avenir.",
+      "warning": "",
+      "kind": "checklist"
+    }
+  ]
+}

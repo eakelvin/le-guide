@@ -69,9 +69,19 @@ export function LoginForm() {
     const confirmed = searchParams.get("confirmed") === "1";
     const fromSignup = searchParams.get("fromSignup") === "1";
     const signedOut = searchParams.get("signedOut") === "1";
+    const oauthError = searchParams.get("error");
 
     const router = useRouter();
     const authToastRef = useRef<string | null>(null);
+
+    const oauthErrorMessage =
+        oauthError === "oauth_missing_code"
+            ? t("errorOauthMissingCode")
+            : oauthError === "oauth_failed"
+                ? t("errorOauthFailed")
+                : oauthError
+                    ? t("errorAuthGeneric")
+                    : null;
 
     useEffect(() => {
         if (signedOut) {
@@ -173,10 +183,10 @@ export function LoginForm() {
                                 </span>
                             </div>
 
-                            {state?.error && (
+                            {(state?.error || oauthErrorMessage) && (
                                 <div className="flex items-center gap-2 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-md px-3 py-2">
                                     <span className="shrink-0">⚠</span>
-                                    {state.error}
+                                    {state?.error ?? oauthErrorMessage}
                                 </div>
                             )}
 

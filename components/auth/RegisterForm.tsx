@@ -206,7 +206,7 @@ export function RegisterForm() {
                                                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                                     <Input
                                                         id="firstName"
-                                                        placeholder="Mia"
+                                                        placeholder={t("placeholderFirstName")}
                                                         className="pl-9"
                                                         value={firstName}
                                                         onChange={(e) => setFirstName(e.target.value)}
@@ -219,7 +219,7 @@ export function RegisterForm() {
                                                 <Label htmlFor="lastName">{t("lastName")}</Label>
                                                 <Input
                                                     id="lastName"
-                                                    placeholder="Andersson"
+                                                    placeholder={t("placeholderLastName")}
                                                     value={lastName}
                                                     onChange={(e) => setLastName(e.target.value)}
                                                     autoComplete="family-name"
@@ -366,7 +366,7 @@ export function RegisterForm() {
                                                     <GraduationCap className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                                                     <Input
                                                         id="university"
-                                                        placeholder="Sciences Po"
+                                                        placeholder={t("placeholderUniversity")}
                                                         className="pl-9"
                                                         value={university}
                                                         onChange={(e) => setUniversity(e.target.value)}

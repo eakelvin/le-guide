@@ -200,7 +200,18 @@
     "forgotPasswordPageTitle": "Mot de passe oublié",
     "forgotPasswordPageDescription": "Réinitialisez le mot de passe de votre compte LeGuide.",
     "updatePasswordPageTitle": "Nouveau mot de passe",
-    "updatePasswordPageDescription": "Choisissez un nouveau mot de passe pour votre compte."
+    "updatePasswordPageDescription": "Choisissez un nouveau mot de passe pour votre compte.",
+    "placeholderFirstName": "Léa",
+    "placeholderLastName": "Martin",
+    "placeholderUniversity": "Sciences Po",
+    "errorInvalidCredentials": "E-mail ou mot de passe incorrect.",
+    "errorEmailNotConfirmed": "Veuillez confirmer votre e-mail avant de vous connecter.",
+    "errorAuthGeneric": "Une erreur s'est produite. Veuillez réessayer.",
+    "errorOauthMissingCode": "La connexion a échoué. Veuillez réessayer.",
+    "errorOauthFailed": "La connexion avec le fournisseur a échoué. Veuillez réessayer.",
+    "errorTooManyRequests": "Trop de tentatives. Veuillez patienter un moment et réessayer.",
+    "errorWeakPassword": "Mot de passe trop faible. Choisissez-en un plus robuste.",
+    "errorSamePassword": "Le nouveau mot de passe doit être différent de l'actuel."
   },
   "dashboard": {
     "signedInSuccess": "Connexion réussie.",
@@ -258,7 +269,8 @@
     "stepCompleteFromProfile": "Étape {n} terminée d'après votre profil",
     "markStepDone": "Marquer l'étape {n} comme terminée",
     "markStepNotDone": "Marquer l'étape {n} comme non terminée",
-    "readFullGuide": "Lire le guide complet"
+    "readFullGuide": "Lire le guide complet",
+    "progressSaveError": "Impossible d'enregistrer votre progression."
   },
   "sidebar": {
     "overview": "Vue d'ensemble",
@@ -284,10 +296,21 @@
     "allArticles": "Tous les articles",
     "minRead": "{minutes} min de lecture",
     "updated": "Mis à jour le {date}",
+    "minReadUpdated": "{minutes} min de lecture · Mis à jour le {date}",
     "noArticles": "Aucun article dans cette catégorie pour le moment.",
     "disclaimerPrefix": "LeGuide ne fournit pas de conseil juridique. Les procédures évoluent — vérifiez sur",
     "disclaimerSuffix": "et auprès de votre établissement.",
-    "readFullGuide": "Lire le guide complet"
+    "disclaimerFull": "Cet article résume des situations courantes pour les étudiants internationaux en France. Ce n'est pas un conseil juridique. Les règles évoluent — consultez les sources officielles et le service international de votre établissement.",
+    "disclaimerLabel": "Avertissement :",
+    "readFullGuide": "Lire le guide complet",
+    "checklistGuide": "Guide checklist",
+    "headsUp": "Attention :",
+    "ourRecommendation": "Notre recommandation :",
+    "backToChecklistStep": "Retour à cette étape dans votre checklist",
+    "backToChecklistStepShort": "Retour à l'étape checklist",
+    "openYourChecklist": "Ouvrir votre checklist",
+    "articleFallbackTitle": "Article | LeGuide",
+    "breadcrumbAria": "Fil d'Ariane"
   },
   "profile": {
     "title": "Profil",
@@ -351,7 +374,15 @@
     "completeAlertBody": "Ajoutez votre université et les détails de séjour (arrivée en France et logement) pour personnaliser votre checklist.",
     "completeAlertCta": "Configurer →",
     "metaTitle": "Mon profil — LeGuide",
-    "metaDescription": "Gérez vos informations personnelles, académiques et de séjour."
+    "metaDescription": "Gérez vos informations personnelles, académiques et de séjour.",
+    "placeholderFirstName": "Léa",
+    "placeholderLastName": "Martin",
+    "placeholderEmail": "vous@universite.fr",
+    "placeholderPhone": "+33 6 12 34 56 78",
+    "placeholderUniversity": "Sciences Po Paris",
+    "placeholderProgram": "Relations internationales",
+    "placeholderAcademicYear": "2024–2025",
+    "placeholderCity": "Paris"
   },
   "contact": {
     "eyebrow": "Contact",

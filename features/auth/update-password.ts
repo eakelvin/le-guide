@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { redirectWithLocale } from "@/lib/locale-redirect";
 import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { createClient } from "@/lib/supabase/server";
+import { translateAuthError } from "@/lib/auth-errors";
 
 type UpdatePasswordState = { error?: string };
 
@@ -42,7 +43,7 @@ export async function updatePasswordAction(_prev: UpdatePasswordState, formData:
 
   const applyPasswordUpdate = async (): Promise<UpdatePasswordState | void> => {
     const { error } = await supabase.auth.updateUser({ password });
-    if (error) return { error: error.message };
+    if (error) return { error: translateAuthError(error.message, t) };
     clearRecoveryCookie();
     return redirectWithLocale(`${safeNext}?passwordUpdated=1`);
   };
