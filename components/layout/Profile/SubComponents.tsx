@@ -38,14 +38,14 @@ export function SaveToast({ state }: { state: "saved" | "error" | null }) {
     if (!state) return null;
     return (
         <div className={cn(
-            "fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg text-sm font-medium border transition-all animate-fade-up",
+            "fixed inset-x-4 bottom-24 z-50 flex items-center gap-2.5 rounded-xl border px-4 py-3 text-sm font-medium shadow-lg transition-all animate-fade-up md:inset-x-auto md:bottom-6 md:right-6",
             state === "saved"
                 ? "bg-forest-50 text-forest-600 border-forest-200"
                 : "bg-coral-50 text-coral-600 border-coral-200"
         )}>
             {state === "saved"
-                ? <><CheckCircle2 className="w-4 h-4" /> {t("savedToast")}</>
-                : <><AlertCircle className="w-4 h-4" /> {t("saveErrorToast")}</>
+                ? <><CheckCircle2 className="w-4 h-4 shrink-0" /> {t("savedToast")}</>
+                : <><AlertCircle className="w-4 h-4 shrink-0" /> {t("saveErrorToast")}</>
             }
         </div>
     );
@@ -55,7 +55,7 @@ export function SectionPersonal({ draft, onChange }: { draft: UserProfile; onCha
     const t = useTranslations("profile");
     return (
         <div className="space-y-5">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FieldRow label={t("firstName")} icon={User}>
                     <Input placeholder={t("placeholderFirstName")} value={draft.firstName} onChange={(e) => onChange("firstName", e.target.value)} autoComplete="given-name" />
                 </FieldRow>
@@ -66,7 +66,7 @@ export function SectionPersonal({ draft, onChange }: { draft: UserProfile; onCha
             <FieldRow label={t("emailAddress")} icon={Mail}>
                 <Input type="email" placeholder={t("placeholderEmail")} value={draft.email} onChange={(e) => onChange("email", e.target.value)} autoComplete="email" />
             </FieldRow>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FieldRow label={t("phoneNumber")} icon={Phone} hint={t("phoneHint")}>
                     <Input type="tel" placeholder={t("placeholderPhone")} value={draft.phone} onChange={(e) => onChange("phone", e.target.value)} autoComplete="tel" />
                 </FieldRow>
@@ -100,7 +100,7 @@ export function SectionAcademic({ draft, onChange }: ProfileSectionProps) {
             <FieldRow label={t("university")} icon={Building2}>
                 <Input placeholder={t("placeholderUniversity")} value={draft.university} onChange={(e) => onChange("university", e.target.value)} />
             </FieldRow>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FieldRow label={t("program")} icon={GraduationCap}>
                     <Input placeholder={t("placeholderProgram")} value={draft.program} onChange={(e) => onChange("program", e.target.value)} />
                 </FieldRow>
@@ -118,7 +118,7 @@ export function SectionAcademic({ draft, onChange }: ProfileSectionProps) {
 export function YesNoChoice({ value, onPick }: { value: UserProfile["alreadyInFrance"]; onPick: (v: Exclude<UserProfile["alreadyInFrance"], "">) => void }) {
     const t = useTranslations("common");
     return (
-        <div className="grid max-w-md grid-cols-2 gap-2.5">
+        <div className="grid max-w-md grid-cols-2 gap-2">
             {(["yes", "no"] as const).map((v) => (
                 <button
                     key={v}
