@@ -24,7 +24,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
 
     return (
         <>
-            <nav className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-b border-border bg-background/90 px-6 backdrop-blur-md supports-[backdrop-filter]:bg-background/75 md:h-[60px] md:px-12">
+            <nav className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-b border-border bg-background/90 px-4 backdrop-blur-md supports-[backdrop-filter]:bg-background/75 md:h-[60px] md:px-12">
                 <Link
                     href="/"
                     className="font-heading text-[18px] font-normal tracking-tight text-sand-800 no-underline"
@@ -32,7 +32,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                 >
                     Le<span className="text-forest-900">Guide</span>
                 </Link>
-                <div className="flex items-center gap-3 md:gap-7">
+                <div className="flex items-center gap-2 md:gap-7">
                     <div className="hidden items-center gap-7 md:flex">
                         <a
                             href="#processes"
@@ -65,9 +65,9 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                             {t("guides")}
                         </Link>
                     </div>
-                    <LocaleSwitcher variant="pill" className="hidden sm:inline-flex" />
+                    <LocaleSwitcher variant="pill" />
                     {user ? (
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3">
                             <Button
                                 size="sm"
                                 variant="outline"
@@ -81,7 +81,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                     ) : (
                         <Button
                             size="sm"
-                            className="rounded-full bg-forest-900 px-5 text-[13px] text-white hover:bg-forest-800"
+                            className="rounded-full bg-forest-900 px-4 text-[13px] text-white hover:bg-forest-800 sm:px-5"
                             asChild
                         >
                             <Link href="/dashboard">{t("startFree")}</Link>
@@ -110,9 +110,6 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                 )}
             >
                 <nav className="flex flex-col gap-1">
-                    <div className="px-2 py-2">
-                        <LocaleSwitcher />
-                    </div>
                     {mobileLinks.map(({ href, label }) =>
                         href.startsWith("#") ? (
                             <a
