@@ -4,18 +4,27 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { getBlogCategories } from "@/lib/i18n/blog-locale";
 import { getPublicGuidePostsByCategory } from "@/features/guides/queries";
 import { isAppLocale } from "@/lib/locale";
-import { routing } from "@/i18n/routing";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { routing, type AppLocale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("guides");
-  return {
-    title: `${t("pageTitle")} | LeGuide`,
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: localeParam } = await params;
+  const locale = (isAppLocale(localeParam) ? localeParam : routing.defaultLocale) as AppLocale;
+  const t = await getTranslations({ locale, namespace: "guides" });
+  return buildPageMetadata({
+    title: t("pageTitle"),
     description: t("pageDescription"),
-  };
+    path: "/guides",
+    locale,
+  });
 }
 
 const CATEGORY_BADGE: Record<BlogCategoryId, string> = {

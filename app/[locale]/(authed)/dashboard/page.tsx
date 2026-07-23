@@ -3,6 +3,13 @@ import { requireAppUser } from "@/features/auth/session";
 import { getActiveChecklist } from "@/features/checklist/queries";
 import { getMyProgress } from "@/features/progress/queries";
 import { getMyProfileAction } from "@/features/profile/actions";
+import { noIndexRobots } from "@/lib/seo/metadata";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Dashboard",
+    robots: noIndexRobots,
+};
 
 export default async function DashboardPage({
     searchParams,

@@ -1,7 +1,98 @@
 {
   "metadata": {
     "title": "LeGuide — Student Admin Guide",
-    "description": "A step-by-step survival guide that helps international students navigate life and bureaucracy in France."
+    "description": "A step-by-step survival guide that helps international students navigate life and bureaucracy in France.",
+    "titleTemplate": "%s | LeGuide"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "heading": "Page not found",
+    "body": "This page does not exist or may have moved. Go home or browse our guides for international students in France."
+  },
+  "legal": {
+    "lastUpdated": "Last updated: July 2026",
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "How LeGuide collects, uses, and protects your personal data.",
+      "intro": "LeGuide (“we”, “us”) helps international students navigate French administration. This policy explains what data we process when you use our website and checklist.",
+      "sections": [
+        {
+          "heading": "Who we are",
+          "body": "LeGuide is an educational guide and checklist tool for international students in France. For privacy questions, contact us via the form on our homepage."
+        },
+        {
+          "heading": "Data we collect",
+          "body": "Account data (email, name if provided), profile details you enter (arrival date, university, housing situation, etc.), checklist progress, and messages you send through the contact form. We also receive technical logs needed to run and secure the service (e.g. authentication cookies)."
+        },
+        {
+          "heading": "How we use your data",
+          "body": "We use your data to authenticate you, personalise your checklist, save progress, respond to support requests, and improve the product. We do not sell your personal data."
+        },
+        {
+          "heading": "Legal bases (GDPR)",
+          "body": "Processing is based on contract performance (providing the checklist), legitimate interests (security, product improvement), and consent where required (e.g. optional marketing — we currently do not send marketing emails)."
+        },
+        {
+          "heading": "Storage and processors",
+          "body": "Data is stored with infrastructure providers we use to host the app and authentication (including Supabase). They process data on our instructions and under appropriate safeguards."
+        },
+        {
+          "heading": "Retention",
+          "body": "We keep account and progress data while your account is active. You may request deletion of your account data; contact us and we will process the request within a reasonable time, subject to legal retention duties."
+        },
+        {
+          "heading": "Your rights",
+          "body": "Depending on your location, you may have rights to access, rectify, erase, restrict, or port your data, and to object to certain processing. You may also lodge a complaint with a supervisory authority (in France: CNIL)."
+        },
+        {
+          "heading": "Cookies",
+          "body": "We use essential cookies for authentication and locale preference (e.g. NEXT_LOCALE). We do not currently run third-party advertising cookies."
+        },
+        {
+          "heading": "Changes",
+          "body": "We may update this policy as the product evolves. The “Last updated” date at the top of this page will change when we do."
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "Terms that govern your use of LeGuide.",
+      "intro": "By using LeGuide, you agree to these terms. If you do not agree, please do not use the service.",
+      "sections": [
+        {
+          "heading": "What LeGuide is",
+          "body": "LeGuide provides informational guides and a personal checklist for common administrative steps students face in France. It is an educational tool — not a law firm, government service, or immigration advisor."
+        },
+        {
+          "heading": "No legal or official advice",
+          "body": "Content may summarise procedures and link to official sources, but rules change. Always verify requirements with official sites (e.g. service-public.fr, OFII, CAF, ameli.fr) and your institution. You remain responsible for your applications and deadlines."
+        },
+        {
+          "heading": "Accounts",
+          "body": "You must provide accurate registration details and keep your login credentials secure. You are responsible for activity under your account."
+        },
+        {
+          "heading": "Acceptable use",
+          "body": "Do not misuse the service (including attempting to break security, scrape in a way that harms availability, or use the platform for unlawful purposes)."
+        },
+        {
+          "heading": "Availability",
+          "body": "We aim for reliable access but do not guarantee uninterrupted service. Features may change as we improve the product."
+        },
+        {
+          "heading": "Intellectual property",
+          "body": "LeGuide branding, UI, and original content are protected. You may not copy substantial parts of the guides for republication without permission. Official government materials remain under their respective rights."
+        },
+        {
+          "heading": "Limitation of liability",
+          "body": "To the fullest extent permitted by law, LeGuide is not liable for decisions you make based on the guides, missed deadlines, or third-party (including government) outcomes. The service is provided “as is”."
+        },
+        {
+          "heading": "Contact",
+          "body": "Questions about these terms: use the contact form on the homepage."
+        }
+      ]
+    }
   },
   "common": {
     "language": "Language",
@@ -52,6 +143,7 @@
     "heroSubtitle": "Visa validation, CAF housing aid, healthcare, banking, transport — every step explained, tracked, and simplified in one place.",
     "startChecklist": "Start your checklist",
     "seeHowItWorks": "See how it works",
+    "browseGuides": "Browse guides",
     "urgencyTitle": "3 months to validate your visa",
     "urgencyBody": "OFII validation is mandatory within 3 months of your first entry to France — even if you already have a valid visa sticker.",
     "urgencyCta": "Start visa validation",
@@ -309,8 +401,10 @@
     "backToChecklistStep": "Back to this step in your checklist",
     "backToChecklistStepShort": "Back to checklist step",
     "openYourChecklist": "Open your checklist",
-    "articleFallbackTitle": "Article | LeGuide",
-    "breadcrumbAria": "Breadcrumb"
+    "articleFallbackTitle": "Article",
+    "breadcrumbAria": "Breadcrumb",
+    "relatedGuides": "Related guides",
+    "homeCrumb": "Home"
   },
   "profile": {
     "title": "Profile",
