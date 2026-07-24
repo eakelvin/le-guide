@@ -21,6 +21,12 @@ export function Footer() {
                     <Link href="/#contact" className="text-white/40 no-underline transition-colors hover:text-white/75">
                         {tCommon("contact")}
                     </Link>
+                    <Link href="/privacy" className="text-white/40 no-underline transition-colors hover:text-white/75">
+                        {tCommon("privacy")}
+                    </Link>
+                    <Link href="/terms" className="text-white/40 no-underline transition-colors hover:text-white/75">
+                        {tCommon("terms")}
+                    </Link>
                 </div>
                 <div className="text-[12px] text-white/40">
                     {t("tagline", { year })}

@@ -75,3 +75,16 @@ export function isChecklistGuideSlug(slug: string): boolean {
 export function categoryMeta(id: string, locale: AppLocale = "en") {
   return getGuidesFile(locale).categories.find((c) => c.id === id);
 }
+
+/** Same-category guides for internal linking (excludes the current slug). */
+export function getRelatedGuides(
+  slug: string,
+  locale: AppLocale = "en",
+  limit = 3,
+): BlogPost[] {
+  const current = getPostBySlug(slug, locale);
+  if (!current) return [];
+  return getAllGuidePosts(locale)
+    .filter((p) => p.slug !== slug && p.category === current.category)
+    .slice(0, limit);
+}

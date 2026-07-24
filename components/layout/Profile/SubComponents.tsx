@@ -22,7 +22,7 @@ export function FieldRow({ label, icon: Icon, children, hint }: {
     children: React.ReactNode; hint?: string;
 }) {
     return (
-        <div className="space-y-1.5">
+        <div className="min-w-0 space-y-1.5">
             <Label className="flex items-center gap-1.5 text-[13px] text-sand-700">
                 {Icon && <Icon className="w-3.5 h-3.5 text-muted-foreground" />}
                 {label}

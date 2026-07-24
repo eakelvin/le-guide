@@ -1,4 +1,4 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient, User as SupabaseAuthUser } from "@supabase/supabase-js";
 import type { ProfileRow, ProfileUpsertResult, ProfileYesNo, UserProfile } from "@/types";
 import { DEFAULT_PROFILE, STUDENT_TYPE_VALUES } from "@/types";
 
@@ -10,6 +10,49 @@ function normalizeStudentType(v: unknown): UserProfile["studentType"] {
   return typeof v === "string" && (STUDENT_TYPE_VALUES as readonly string[]).includes(v)
     ? (v as UserProfile["studentType"])
     : "";
+}
+
+function metaString(meta: Record<string, unknown>, ...keys: string[]): string {
+  for (const key of keys) {
+    const v = meta[key];
+    if (typeof v === "string" && v.trim()) return v.trim();
+  }
+  return "";
+}
+
+/** Fill empty profile fields from auth user_metadata / email (signup leftovers). */
+export function seedProfileFromAuthUser(
+  profile: UserProfile,
+  user: SupabaseAuthUser,
+): { profile: UserProfile; changed: boolean } {
+  const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
+  const next = { ...profile };
+  let changed = false;
+
+  const fill = (key: keyof UserProfile, value: string) => {
+    if (!(next[key] ?? "").toString().trim() && value) {
+      (next as Record<string, string>)[key] = value;
+      changed = true;
+    }
+  };
+
+  fill("firstName", metaString(meta, "first_name"));
+  fill("lastName", metaString(meta, "last_name"));
+  fill("email", (user.email ?? "").trim());
+  fill("country", metaString(meta, "country", "nationality"));
+  fill("university", metaString(meta, "university"));
+
+  if (!(next.firstName ?? "").trim() && !(next.lastName ?? "").trim()) {
+    const full = metaString(meta, "full_name", "name");
+    if (full) {
+      const parts = full.split(/\s+/);
+      next.firstName = parts[0] ?? "";
+      next.lastName = parts.length > 1 ? parts.slice(1).join(" ") : "";
+      changed = true;
+    }
+  }
+
+  return { profile: next, changed };
 }
 
 export function profileRowToUserProfile(row: ProfileRow | null): UserProfile {

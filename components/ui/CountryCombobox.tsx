@@ -56,21 +56,22 @@ export function CountryCombobox({
                     aria-expanded={open}
                     disabled={disabled}
                     className={cn(
-                        "h-9 w-full justify-between font-normal text-left",
+                        "h-9 w-full min-w-0 max-w-full justify-between overflow-hidden font-normal text-left",
                         !safeValue && "text-muted-foreground",
                         className,
                     )}
                 >
-                    <span className="truncate">{displayLabel || resolvedPlaceholder}</span>
+                    <span className="min-w-0 flex-1 truncate">{displayLabel || resolvedPlaceholder}</span>
                     <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" aria-hidden />
                 </Button>
             </PopoverTrigger>
             <PopoverContent
-                className="w-[min(calc(100vw-2rem),24rem)] p-0"
+                className="w-[var(--radix-popover-trigger-width)] max-w-[calc(100vw-2rem)] p-0"
                 align="start"
                 sideOffset={4}
+                collisionPadding={16}
             >
-                <Command>
+                <Command className="max-w-full">
                     <CommandInput placeholder={t("searchCountries")} />
                     <CommandList>
                         <CommandEmpty>{t("noCountryFound")}</CommandEmpty>
@@ -80,6 +81,7 @@ export function CountryCombobox({
                                     key={opt.value}
                                     value={opt.label}
                                     keywords={[opt.value, opt.label]}
+                                    className="min-w-0"
                                     onSelect={() => {
                                         onChange(toCanonicalCountryName(opt.value));
                                         setOpen(false);
@@ -94,7 +96,7 @@ export function CountryCombobox({
                                         )}
                                         aria-hidden
                                     />
-                                    {opt.label}
+                                    <span className="min-w-0 truncate">{opt.label}</span>
                                 </CommandItem>
                             ))}
                         </CommandGroup>

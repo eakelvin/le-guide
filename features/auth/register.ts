@@ -7,6 +7,8 @@ import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { withLocalePath, isAppLocale } from "@/lib/locale";
 import { createClient } from "@/lib/supabase/server";
 import { translateAuthError } from "@/lib/auth-errors";
+import { upsertProfileForUser } from "@/features/profile/queries";
+import { DEFAULT_PROFILE } from "@/types";
 
 type RegisterState = { error?: string };
 
@@ -55,6 +57,19 @@ export async function registerAction(_prevState: RegisterState, formData: FormDa
     return { error: t("accountExists") };
   }
 
+  // Persist signup fields onto public.profiles when we already have a session
+  // (email confirmations off). With confirmations on, the DB trigger seeds the row.
+  if (data.user && data.session) {
+    await upsertProfileForUser(supabase, data.user.id, {
+      ...DEFAULT_PROFILE,
+      firstName,
+      lastName,
+      email,
+      university,
+      country,
+    });
+  }
+
   // If email confirmations are enabled, there may be no session yet.
   if (!data.session) {
     return redirectWithLocale(`${AUTH_ROUTES.login}?checkEmail=1&email=${encodeURIComponent(email)}&fromSignup=1`);
@@ -62,4 +77,3 @@ export async function registerAction(_prevState: RegisterState, formData: FormDa
 
   return redirectWithLocale("/dashboard?signedIn=1");
 }
-

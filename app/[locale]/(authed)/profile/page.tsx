@@ -1,6 +1,7 @@
 import { ProfilePage } from "@/components/layout/Profile/ProfilePage";
 import { requireAppUser } from "@/features/auth/session";
 import { getMyProfileAction } from "@/features/profile/actions";
+import { noIndexRobots } from "@/lib/seo/metadata";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -9,6 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
         title: t("metaTitle"),
         description: t("metaDescription"),
+        robots: noIndexRobots,
     };
 }
 

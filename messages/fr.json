@@ -1,7 +1,98 @@
 {
   "metadata": {
     "title": "LeGuide — Guide administratif étudiant",
-    "description": "Un guide pas à pas pour aider les étudiants internationaux à naviguer la vie et la bureaucratie en France."
+    "description": "Un guide pas à pas pour aider les étudiants internationaux à naviguer la vie et la bureaucratie en France.",
+    "titleTemplate": "%s | LeGuide"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "heading": "Page introuvable",
+    "body": "Cette page n'existe pas ou a peut-être été déplacée. Retournez à l'accueil ou parcourez nos guides pour étudiants internationaux en France."
+  },
+  "legal": {
+    "lastUpdated": "Dernière mise à jour : juillet 2026",
+    "privacy": {
+      "title": "Politique de confidentialité",
+      "description": "Comment LeGuide collecte, utilise et protège vos données personnelles.",
+      "intro": "LeGuide (« nous ») aide les étudiants internationaux à naviguer l'administration française. Cette politique explique quelles données nous traitons lorsque vous utilisez le site et la checklist.",
+      "sections": [
+        {
+          "heading": "Qui nous sommes",
+          "body": "LeGuide est un guide éducatif et un outil de checklist pour les étudiants internationaux en France. Pour toute question relative à la vie privée, contactez-nous via le formulaire sur la page d'accueil."
+        },
+        {
+          "heading": "Données collectées",
+          "body": "Données de compte (e-mail, nom le cas échéant), informations de profil que vous saisissez (date d'arrivée, université, logement, etc.), progression de la checklist, et messages envoyés via le formulaire de contact. Nous recevons aussi des journaux techniques nécessaires au fonctionnement et à la sécurité du service (ex. cookies d'authentification)."
+        },
+        {
+          "heading": "Finalités",
+          "body": "Nous utilisons vos données pour vous authentifier, personnaliser votre checklist, enregistrer votre progression, répondre aux demandes d'assistance et améliorer le produit. Nous ne vendons pas vos données personnelles."
+        },
+        {
+          "heading": "Bases légales (RGPD)",
+          "body": "Le traitement repose sur l'exécution du contrat (fourniture de la checklist), l'intérêt légitime (sécurité, amélioration du produit) et le consentement lorsque requis (ex. marketing optionnel — nous n'envoyons pas d'e-mails marketing actuellement)."
+        },
+        {
+          "heading": "Hébergement et sous-traitants",
+          "body": "Les données sont stockées chez les prestataires d'infrastructure que nous utilisons pour héberger l'application et l'authentification (notamment Supabase). Ils traitent les données selon nos instructions et avec des garanties appropriées."
+        },
+        {
+          "heading": "Conservation",
+          "body": "Nous conservons les données de compte et de progression tant que votre compte est actif. Vous pouvez demander la suppression de vos données ; contactez-nous et nous traiterons la demande dans un délai raisonnable, sous réserve d'obligations légales de conservation."
+        },
+        {
+          "heading": "Vos droits",
+          "body": "Selon votre situation, vous pouvez disposer de droits d'accès, de rectification, d'effacement, de limitation, de portabilité, et d'opposition à certains traitements. Vous pouvez aussi saisir une autorité de contrôle (en France : la CNIL)."
+        },
+        {
+          "heading": "Cookies",
+          "body": "Nous utilisons des cookies essentiels pour l'authentification et la préférence de langue (ex. NEXT_LOCALE). Nous n'utilisons pas actuellement de cookies publicitaires tiers."
+        },
+        {
+          "heading": "Modifications",
+          "body": "Nous pouvons mettre à jour cette politique à mesure que le produit évolue. La date de « Dernière mise à jour » en haut de cette page sera modifiée le cas échéant."
+        }
+      ]
+    },
+    "terms": {
+      "title": "Conditions d'utilisation",
+      "description": "Conditions régissant l'utilisation de LeGuide.",
+      "intro": "En utilisant LeGuide, vous acceptez ces conditions. Si vous n'êtes pas d'accord, veuillez ne pas utiliser le service.",
+      "sections": [
+        {
+          "heading": "Objet du service",
+          "body": "LeGuide fournit des guides informatifs et une checklist personnelle pour des démarches administratives courantes des étudiants en France. C'est un outil éducatif — pas un cabinet d'avocats, un service public, ni un conseiller en immigration."
+        },
+        {
+          "heading": "Pas de conseil juridique ou officiel",
+          "body": "Les contenus peuvent résumer des procédures et renvoyer vers des sources officielles, mais les règles évoluent. Vérifiez toujours auprès des sites officiels (ex. service-public.fr, OFII, CAF, ameli.fr) et de votre établissement. Vous restez responsable de vos dossiers et échéances."
+        },
+        {
+          "heading": "Comptes",
+          "body": "Vous devez fournir des informations d'inscription exactes et protéger vos identifiants. Vous êtes responsable de l'activité réalisée via votre compte."
+        },
+        {
+          "heading": "Usage acceptable",
+          "body": "N'utilisez pas le service de façon abusive (tentative de contournement de sécurité, scraping nuisible à la disponibilité, usage illicite, etc.)."
+        },
+        {
+          "heading": "Disponibilité",
+          "body": "Nous visons un accès fiable mais ne garantissons pas un service ininterrompu. Les fonctionnalités peuvent évoluer."
+        },
+        {
+          "heading": "Propriété intellectuelle",
+          "body": "La marque LeGuide, l'interface et les contenus originaux sont protégés. Vous ne pouvez pas republier une partie substantielle des guides sans autorisation. Les contenus des administrations restent soumis à leurs droits respectifs."
+        },
+        {
+          "heading": "Limitation de responsabilité",
+          "body": "Dans les limites autorisées par la loi, LeGuide n'est pas responsable des décisions prises sur la base des guides, des échéances manquées, ou des décisions de tiers (y compris l'administration). Le service est fourni « en l'état »."
+        },
+        {
+          "heading": "Contact",
+          "body": "Pour toute question relative à ces conditions : utilisez le formulaire de contact sur la page d'accueil."
+        }
+      ]
+    }
   },
   "common": {
     "language": "Langue",
@@ -70,7 +161,8 @@
     "previewStep1": "Soumettre la téléprocédure en ligne",
     "previewStep2": "Attendre la lettre de convocation",
     "previewStep2Tag": "4–8 semaines",
-    "previewStep3": "Passer la visite médicale OFII"
+    "previewStep3": "Passer la visite médicale OFII",
+    "browseGuides": "Parcourir les guides"
   },
   "footer": {
     "tagline": "© {year} LeGuide. Fait avec ♥ pour les étudiants internationaux."
@@ -309,8 +401,10 @@
     "backToChecklistStep": "Retour à cette étape dans votre checklist",
     "backToChecklistStepShort": "Retour à l'étape checklist",
     "openYourChecklist": "Ouvrir votre checklist",
-    "articleFallbackTitle": "Article | LeGuide",
-    "breadcrumbAria": "Fil d'Ariane"
+    "articleFallbackTitle": "Article",
+    "breadcrumbAria": "Fil d'Ariane",
+    "relatedGuides": "Guides associés",
+    "homeCrumb": "Accueil"
   },
   "profile": {
     "title": "Profil",
@@ -321,6 +415,7 @@
     "profileCompletion": "Complétion du profil",
     "completionHint": "Complétez votre profil pour personnaliser votre checklist",
     "backToDashboard": "Retour au tableau de bord",
+    "profileUnlockedToast": "Profil prêt — voici votre checklist",
     "security": "Sécurité",
     "filledCount": "{done}/{total} renseignés",
     "sectionPersonal": "Personnel",

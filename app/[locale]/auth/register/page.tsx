@@ -5,8 +5,9 @@ import { getTranslations } from "next-intl/server";
 export async function generateMetadata(): Promise<Metadata> {
     const t = await getTranslations("auth");
     return {
-        title: `${t("registerPageTitle")} — LeGuide`,
+        title: t("registerPageTitle"),
         description: t("registerPageDescription"),
+        robots: { index: false, follow: false },
     };
 }
 

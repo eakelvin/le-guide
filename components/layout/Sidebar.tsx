@@ -16,7 +16,6 @@ import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { BookOpen, Home } from "lucide-react";
 import { UserMenu } from "@/components/layout/UserMenu";
-import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 
 type SidebarColorKey = "coral" | "azure" | "forest" | "gold";
 
@@ -193,8 +192,7 @@ export function SidebarPanel({
                 </div>
             </nav>
 
-            <div className="mt-auto shrink-0 border-t border-border px-3 py-3 space-y-2">
-                <LocaleSwitcher variant="pill" className="w-full justify-center" />
+            <div className="mt-auto shrink-0 border-t border-border px-3 py-3">
                 <UserMenu
                     variant="row"
                     name={user?.name}

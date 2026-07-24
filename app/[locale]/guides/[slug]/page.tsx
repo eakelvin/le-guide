@@ -2,12 +2,17 @@ import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getAllGuideSlugs, isChecklistGuideSlug } from "@/lib/blog";
+import { GuideBreadcrumb } from "@/components/seo/GuideBreadcrumb";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { RelatedGuides } from "@/components/seo/RelatedGuides";
+import { getAllGuideSlugs, getRelatedGuides, isChecklistGuideSlug } from "@/lib/blog";
 import { getBlogCategories, mergeChecklistGuidePost } from "@/lib/i18n/blog-locale";
 import { getGuidePostBySlug } from "@/features/guides/queries";
 import { getChecklistItemBySlug } from "@/features/checklist/queries";
 import { isAppLocale } from "@/lib/locale";
-import { routing } from "@/i18n/routing";
+import { blogPostingJsonLd } from "@/lib/seo/json-ld/article";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { routing, type AppLocale } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
 import type { BlogCategoryId } from "@/types/blog";
@@ -34,16 +39,23 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
   const { slug, locale: localeParam } = await params;
-  const locale = isAppLocale(localeParam) ? localeParam : routing.defaultLocale;
-  const t = await getTranslations("guides");
+  const locale = (isAppLocale(localeParam) ? localeParam : routing.defaultLocale) as AppLocale;
+  const t = await getTranslations({ locale, namespace: "guides" });
   const basePost = await getGuidePostBySlug(slug, locale);
   if (!basePost) return { title: t("articleFallbackTitle") };
   const checklistItem = isChecklistGuideSlug(slug) ? await getChecklistItemBySlug(slug) : null;
   const post = mergeChecklistGuidePost(basePost, checklistItem);
-  return {
-    title: `${post.title} | LeGuide`,
+  return buildPageMetadata({
+    title: post.title,
     description: post.excerpt,
-  };
+    path: `/guides/${slug}`,
+    locale,
+    type: "article",
+    publishedTime: post.updated,
+    modifiedTime: post.updated,
+    section: post.category,
+    authors: ["LeGuide"],
+  });
 }
 
 export default async function BlogArticlePage({
@@ -52,7 +64,7 @@ export default async function BlogArticlePage({
   params: Promise<{ slug: string; locale: string }>;
 }) {
   const { slug, locale: localeParam } = await params;
-  const locale = isAppLocale(localeParam) ? localeParam : routing.defaultLocale;
+  const locale = (isAppLocale(localeParam) ? localeParam : routing.defaultLocale) as AppLocale;
   const t = await getTranslations("guides");
   const basePost = await getGuidePostBySlug(slug, locale);
   if (!basePost) notFound();
@@ -61,18 +73,20 @@ export default async function BlogArticlePage({
   const categories = getBlogCategories(locale);
   const cat = categories.find((c) => c.id === post.category);
   const isChecklistGuide = isChecklistGuideSlug(slug);
+  const related = getRelatedGuides(slug, locale, 3);
 
   return (
     <article className="mx-auto w-full max-w-3xl px-6 pb-16 pt-6 sm:px-8 md:pt-8">
-      <nav aria-label={t("breadcrumbAria")} className="mb-6 text-xs text-sand-400">
-        <Link href="/guides" className="text-sand-400 transition-colors hover:text-sand-800 hover:underline">
-          {t("title")}
-        </Link>
-        <span aria-hidden className="mx-1 text-sand-300">
-          &gt;
-        </span>
-        <span className="font-medium text-sand-800">{post.title}</span>
-      </nav>
+      <JsonLd data={blogPostingJsonLd(post, locale)} />
+      <GuideBreadcrumb
+        locale={locale}
+        ariaLabel={t("breadcrumbAria")}
+        items={[
+          { label: t("homeCrumb"), href: "/" },
+          { label: t("title"), href: "/guides" },
+          { label: post.title },
+        ]}
+      />
 
       <header className="border-b border-sand-100 pb-8">
         <Badge
@@ -195,6 +209,8 @@ export default async function BlogArticlePage({
           </p>
         </div>
       ) : null}
+
+      <RelatedGuides posts={related} title={t("relatedGuides")} />
 
       <footer className="mt-12 space-y-6 border-t border-sand-100 pt-8">
         <div className="rounded-xl border border-sand-200 bg-card p-6 text-sm leading-relaxed text-sand-600 shadow-xs">

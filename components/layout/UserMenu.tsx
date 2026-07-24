@@ -1,8 +1,8 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
-import { ChevronsUpDown, LayoutDashboard, LogOut, User } from "lucide-react";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { ChevronsUpDown, Languages, LayoutDashboard, LogOut, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -10,11 +10,19 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logoutAction } from "@/features/auth/logout";
+import { routing, type AppLocale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+
+const LOCALE_LABELS: Record<AppLocale, string> = {
+  fr: "Français",
+  en: "English",
+};
 
 export function UserMenu({
   name,
@@ -36,6 +44,9 @@ export function UserMenu({
 }) {
   const t = useTranslations("auth");
   const tCommon = useTranslations("common");
+  const locale = useLocale() as AppLocale;
+  const pathname = usePathname();
+  const router = useRouter();
   const fallback =
     (name ?? email ?? "U")
       .trim()
@@ -43,6 +54,12 @@ export function UserMenu({
       .slice(0, 2)
       .map((p) => p[0]?.toUpperCase())
       .join("") || "U";
+
+  function switchLocale(nextLocale: string) {
+    if (!routing.locales.includes(nextLocale as AppLocale)) return;
+    if (nextLocale === locale) return;
+    router.replace(pathname, { locale: nextLocale as AppLocale });
+  }
 
   return (
     <DropdownMenu>
@@ -90,6 +107,18 @@ export function UserMenu({
             {tCommon("profile")}
           </Link>
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel className="flex items-center gap-2 px-2 py-1.5 text-[11px] font-medium uppercase tracking-wide text-sand-400">
+          <Languages className="size-3.5" aria-hidden />
+          {tCommon("language")}
+        </DropdownMenuLabel>
+        <DropdownMenuRadioGroup value={locale} onValueChange={switchLocale}>
+          {routing.locales.map((code) => (
+            <DropdownMenuRadioItem key={code} value={code}>
+              {LOCALE_LABELS[code]}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
         <form action={logoutAction}>
           <DropdownMenuItem asChild>

@@ -56,10 +56,16 @@ export function Hero() {
                             className="h-auto rounded-full border-sand-200 bg-transparent px-6 py-3.5 text-[15px] text-sand-800 shadow-none hover:-translate-y-0.5 hover:bg-card"
                             asChild
                         >
-                            <a href="#how" className="no-underline">
-                                {t("seeHowItWorks")}
-                            </a>
+                            <Link href="/guides" className="no-underline">
+                                {t("browseGuides")}
+                            </Link>
                         </Button>
+                        <a
+                            href="#how"
+                            className="px-2 text-[14px] text-sand-600 underline-offset-4 transition-colors hover:text-sand-800 hover:underline"
+                        >
+                            {t("seeHowItWorks")}
+                        </a>
                     </div>
 
                     {/* Social proof */}
