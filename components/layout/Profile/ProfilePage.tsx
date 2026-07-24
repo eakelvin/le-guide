@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import {
     User, GraduationCap, MapPin, Save,
@@ -14,9 +14,10 @@ import { cn } from "@/lib/utils";
 import { useProfile } from "@/lib/hooks";
 import type { ProfilePageProps, ProfileFieldKey, UserProfile, StudentType } from "@/types";
 import { UpdatePasswordForm } from "@/components/auth/UpdatePasswordForm";
-import { getCompletionBySection, getCompletionPct, getInitials } from "@/lib/helpers/helpers";
+import { getCompletionBySection, getCompletionPct, getInitials, isProfileMinimumComplete } from "@/lib/helpers/helpers";
 import { getCountryLabel } from "@/lib/data/countries-master";
 import { SectionPersonal, SectionAcademic, SectionStay, SaveToast, ProfilePasswordToast } from "./SubComponents";
+import toast from "react-hot-toast";
 
 const SECTION_IDS = ["personal", "academic", "stay", "account"] as const;
 type SectionId = (typeof SECTION_IDS)[number];
@@ -171,10 +172,11 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
     const t = useTranslations("profile");
     const tCommon = useTranslations("common");
     const locale = useLocale();
+    const router = useRouter();
     const { profile, saveProfile, hydrated } = useProfile(initialProfile);
     const [activeSection, setActiveSection] = useState<SectionId>("personal");
     const [draft, setDraft] = useState<UserProfile>(profile);
-    const [toast, setToast] = useState<"saved" | "error" | null>(null);
+    const [toastState, setToastState] = useState<"saved" | "error" | null>(null);
     const [dirty, setDirty] = useState(false);
     const [saving, setSaving] = useState(false);
 
@@ -205,6 +207,9 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
             const base = { ...profile };
             if (!(base.email ?? "").trim() && appUser.email) base.email = appUser.email;
             if (!(base.country ?? "").trim() && appUser.country?.trim()) base.country = appUser.country.trim();
+            if (!(base.university ?? "").trim() && appUser.university?.trim()) {
+                base.university = appUser.university.trim();
+            }
             if (!(base.firstName ?? "").trim() && !(base.lastName ?? "").trim() && appUser.name?.trim()) {
                 const parts = appUser.name.trim().split(/\s+/);
                 base.firstName = parts[0] ?? "";
@@ -226,14 +231,22 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
     async function handleSave() {
         if (saving) return;
         setSaving(true);
+        const wasIncomplete = !isProfileMinimumComplete(profile);
         try {
             await saveProfile(draft);
             setDirty(false);
-            setToast("saved");
-            setTimeout(() => setToast(null), 3000);
+
+            if (wasIncomplete && isProfileMinimumComplete(draft)) {
+                toast.success(t("profileUnlockedToast"));
+                router.push("/dashboard");
+                return;
+            }
+
+            setToastState("saved");
+            setTimeout(() => setToastState(null), 3000);
         } catch {
-            setToast("error");
-            setTimeout(() => setToast(null), 3000);
+            setToastState("error");
+            setTimeout(() => setToastState(null), 3000);
         } finally {
             setSaving(false);
         }
@@ -470,7 +483,7 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                 </div>
             )}
 
-            <SaveToast state={toast} />
+            <SaveToast state={toastState} />
         </div>
     );
 }

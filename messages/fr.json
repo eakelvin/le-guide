@@ -415,6 +415,7 @@
     "profileCompletion": "Complétion du profil",
     "completionHint": "Complétez votre profil pour personnaliser votre checklist",
     "backToDashboard": "Retour au tableau de bord",
+    "profileUnlockedToast": "Profil prêt — voici votre checklist",
     "security": "Sécurité",
     "filledCount": "{done}/{total} renseignés",
     "sectionPersonal": "Personnel",

@@ -81,7 +81,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                     ) : (
                         <Button
                             size="sm"
-                            className="rounded-full bg-forest-900 px-4 text-[13px] text-white hover:bg-forest-800 sm:px-5"
+                            className="hidden rounded-full bg-forest-900 px-5 text-[13px] text-white hover:bg-forest-800 md:inline-flex"
                             asChild
                         >
                             <Link href="/dashboard">{t("startFree")}</Link>
@@ -131,6 +131,17 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
                             </Link>
                         ),
                     )}
+                    {!user ? (
+                        <Button
+                            size="sm"
+                            className="mt-2 w-full rounded-full bg-forest-900 text-[13px] text-white hover:bg-forest-800"
+                            asChild
+                        >
+                            <Link href="/dashboard" onClick={closeMobile}>
+                                {t("startFree")}
+                            </Link>
+                        </Button>
+                    ) : null}
                 </nav>
             </div>
         </>

@@ -9,6 +9,8 @@ export type AppUser = {
   imageUrl?: string | null;
   /** From `user_metadata` (e.g. signup). Legacy key `nationality` still read. */
   country?: string | null;
+  /** From `user_metadata` (e.g. signup). */
+  university?: string | null;
   /** From Supabase identities — affects password / account UI. */
   hasEmailPasswordIdentity: boolean;
 };
@@ -31,7 +33,9 @@ function mapAuthUser(u: SupabaseAuthUser): Omit<AppUser, "hasEmailPasswordIdenti
     (typeof meta.country === "string" ? meta.country : null) ??
     (typeof meta.nationality === "string" ? meta.nationality : null);
 
-  return { name, email: u.email ?? null, imageUrl, country };
+  const university = typeof meta.university === "string" ? meta.university : null;
+
+  return { name, email: u.email ?? null, imageUrl, country, university };
 }
 
 export const getAppUser = cache(async function getAppUser(): Promise<AppUser | null> {
