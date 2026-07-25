@@ -92,10 +92,7 @@ export default function WorkCalculator({
 
       <main className="mx-auto w-full max-w-2xl space-y-6 px-4 py-6 sm:space-y-8 sm:px-6 sm:py-8">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-forest-700">
-            {t("eyebrow")}
-          </p>
-          <h1 className="mt-1.5 font-heading text-2xl font-light tracking-tight text-sand-800 sm:text-3xl">
+          <h1 className="mt-1 font-heading text-2xl font-light tracking-tight text-sand-800 sm:text-3xl">
             {t("heading")}
           </h1>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-sand-600">{t("subtitle")}</p>

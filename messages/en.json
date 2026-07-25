@@ -379,7 +379,7 @@
     "title": "Work hours",
     "eyebrow": "Time clock",
     "heading": "Hours tracker",
-    "subtitle": "Log your shifts and see a monthly estimate based on the current SMIC.",
+    "subtitle": "Log/Save your work hours to see a monthly estimate based on the current SMIC.",
     "disclaimer": "Your hours are saved to your LeGuide account. Salary estimates use the SMIC rate in effect since 1 June 2026 (€12.31 gross/h) and are indicative only.",
     "saveError": "Couldn't save this entry. Please try again.",
     "deleteError": "Couldn't delete this entry. Please try again.",
