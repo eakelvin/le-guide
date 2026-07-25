@@ -56,17 +56,22 @@ export function StudentTypeCombobox({
                     aria-expanded={open}
                     disabled={disabled}
                     className={cn(
-                        "h-9 w-full justify-between font-normal text-left",
+                        "h-9 w-full min-w-0 max-w-full justify-between overflow-hidden font-normal text-left",
                         !value && "text-muted-foreground",
                         className,
                     )}
                 >
-                    <span className="truncate">{label || resolvedPlaceholder}</span>
+                    <span className="min-w-0 flex-1 truncate">{label || resolvedPlaceholder}</span>
                     <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" aria-hidden />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[min(calc(100vw-2rem),24rem)] p-0" align="start" sideOffset={4}>
-                <Command>
+            <PopoverContent
+                className="w-[var(--radix-popover-trigger-width)] max-w-[calc(100vw-2rem)] p-0"
+                align="start"
+                sideOffset={4}
+                collisionPadding={16}
+            >
+                <Command className="max-w-full">
                     <CommandInput placeholder={t("searchStudentType")} />
                     <CommandList>
                         <CommandEmpty>{t("noStudentTypeFound")}</CommandEmpty>
@@ -78,6 +83,7 @@ export function StudentTypeCombobox({
                                         key={opt.value}
                                         value={optLabel}
                                         keywords={[opt.value, optLabel, opt.label]}
+                                        className="min-w-0"
                                         onSelect={() => {
                                             onChange(opt.value);
                                             setOpen(false);
@@ -90,7 +96,7 @@ export function StudentTypeCombobox({
                                             )}
                                             aria-hidden
                                         />
-                                        {optLabel}
+                                        <span className="min-w-0 truncate">{optLabel}</span>
                                     </CommandItem>
                                 );
                             })}
