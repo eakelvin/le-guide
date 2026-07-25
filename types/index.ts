@@ -164,3 +164,15 @@ export type {
   ChecklistItem,
   ChecklistItemWithRelations,
 } from "@/types/checklist";
+
+export type WorkEntry = {
+  id: string;
+  date: string; // YYYY-MM-DD
+  /** Present when the entry was logged with arrival/sortie times. */
+  startTime?: string; // HH:mm
+  endTime?: string; // HH:mm
+  /** Present when the entry was logged as a duration (already net of breaks). */
+  hours?: number;
+  breakMinutes: number;
+  note?: string;
+};

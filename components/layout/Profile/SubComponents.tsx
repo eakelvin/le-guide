@@ -54,7 +54,7 @@ export function SaveToast({ state }: { state: "saved" | "error" | null }) {
 export function SectionPersonal({ draft, onChange }: { draft: UserProfile; onChange: (k: keyof UserProfile, v: string) => void }) {
     const t = useTranslations("profile");
     return (
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FieldRow label={t("firstName")} icon={User}>
                     <Input placeholder={t("placeholderFirstName")} value={draft.firstName} onChange={(e) => onChange("firstName", e.target.value)} autoComplete="given-name" />
@@ -88,7 +88,7 @@ export function SectionPersonal({ draft, onChange }: { draft: UserProfile; onCha
 export function SectionAcademic({ draft, onChange }: ProfileSectionProps) {
     const t = useTranslations("profile");
     return (
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
             <FieldRow label={t("studentType")} icon={GraduationCap} hint={t("studentTypeHint")}>
                 <StudentTypeCombobox
                     id="profile-student-type"

@@ -56,3 +56,8 @@ export function isProfileMinimumComplete(profile: UserProfile): boolean {
     if (profile.alreadyInFrance === "yes") return !!profile.addressCity?.trim();
     return profile.alreadyInFrance === "no";
 }
+
+export function currentMonthKey() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+}

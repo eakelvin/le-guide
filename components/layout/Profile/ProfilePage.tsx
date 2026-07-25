@@ -450,7 +450,7 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
                                 )}
                             </div>
                         </CardHeader>
-                        <CardContent className="px-4 pb-5 sm:px-6 sm:pb-6">
+                        <CardContent className="min-w-0 px-4 pb-5 sm:px-6 sm:pb-6">
                             {activeSection === "personal" && <SectionPersonal draft={draft} onChange={handleChange} />}
                             {activeSection === "academic" && <SectionAcademic draft={draft} onChange={handleChange} />}
                             {activeSection === "stay" && <SectionStay draft={draft} onChange={handleChange} />}

@@ -14,7 +14,7 @@ import type { ChecklistItem, ProgressState } from "@/types";
 import { Link } from "@/i18n/navigation";
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { BookOpen, Home } from "lucide-react";
+import { BookOpen, Briefcase, Home } from "lucide-react";
 import { UserMenu } from "@/components/layout/UserMenu";
 
 type SidebarColorKey = "coral" | "azure" | "forest" | "gold";
@@ -143,6 +143,18 @@ export function SidebarPanel({
                     <Link href="/guides">
                         <BookOpen className="size-4 shrink-0 opacity-80" />
                         {tSidebar("guidesResources")}
+                    </Link>
+                </Button>
+
+                <Button
+                    variant="ghost"
+                    className="mx-2 h-auto justify-start gap-2 rounded-md border-l-4 border-l-transparent border-y-0 border-r-0 px-3 py-2.5 text-[13px] font-normal text-sand-600 shadow-none hover:bg-accent hover:text-sand-800"
+                    asChild
+                    onClick={onAfterNavigate}
+                >
+                    <Link href="/boulot">
+                        <Briefcase className="size-4 shrink-0 opacity-80" />
+                        {tSidebar("boulot")}
                     </Link>
                 </Button>
 
