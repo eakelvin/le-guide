@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { WorkEntry } from "@/types";
 import { entryHours, isHoursEntry } from "@/lib/helpers/time";
+import { cn } from "@/lib/utils";
 
 export type EntryMode = "times" | "hours";
 
 export type EntryFormValues = Omit<WorkEntry, "id">;
 
 const inputClass =
-  "w-full rounded-lg border border-stone-200 bg-white px-2 py-1.5 text-sm text-stone-900";
+  "mt-1.5 h-11 w-full min-w-0 rounded-lg border border-border bg-background px-3 text-sm text-sand-800 shadow-xs outline-none transition-colors focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 sm:h-10";
 
 export function EntryModeToggle({
   mode,
@@ -18,29 +20,41 @@ export function EntryModeToggle({
   mode: EntryMode;
   onChange: (mode: EntryMode) => void;
 }) {
+  const t = useTranslations("boulot");
+
   return (
-    <div className="grid grid-cols-2 rounded-lg border border-stone-200 p-0.5 bg-stone-50">
+    <div
+      className="grid grid-cols-2 rounded-xl border border-border bg-sand-50 p-1"
+      role="tablist"
+      aria-label={t("modeTimes")}
+    >
       <button
         type="button"
+        role="tab"
+        aria-selected={mode === "times"}
         onClick={() => onChange("times")}
-        className={`rounded-md py-1.5 text-xs font-medium transition ${
+        className={cn(
+          "rounded-lg py-2.5 text-xs font-medium transition sm:py-2",
           mode === "times"
-            ? "bg-white text-stone-900 shadow-sm"
-            : "text-stone-500 hover:text-stone-700"
-        }`}
+            ? "bg-card text-sand-900 shadow-xs"
+            : "text-sand-500 hover:text-sand-700",
+        )}
       >
-        Horaires
+        {t("modeTimes")}
       </button>
       <button
         type="button"
+        role="tab"
+        aria-selected={mode === "hours"}
         onClick={() => onChange("hours")}
-        className={`rounded-md py-1.5 text-xs font-medium transition ${
+        className={cn(
+          "rounded-lg py-2.5 text-xs font-medium transition sm:py-2",
           mode === "hours"
-            ? "bg-white text-stone-900 shadow-sm"
-            : "text-stone-500 hover:text-stone-700"
-        }`}
+            ? "bg-card text-sand-900 shadow-xs"
+            : "text-sand-500 hover:text-sand-700",
+        )}
       >
-        Heures
+        {t("modeHours")}
       </button>
     </div>
   );
@@ -59,7 +73,7 @@ export function useEntryFormState(initial?: WorkEntry) {
       ? String(initial.hours)
       : initial
         ? String(Math.round(entryHours(initial) * 100) / 100)
-        : "8"
+        : "8",
   );
   const [breakMinutes, setBreakMinutes] = useState(initial?.breakMinutes ?? 0);
   const [note, setNote] = useState(initial?.note ?? "");
@@ -141,11 +155,13 @@ export function EntryFormFields({
   onBreakMinutes: (v: number) => void;
   onNote: (v: string) => void;
 }) {
+  const t = useTranslations("boulot");
+
   return (
-    <>
-      <div className="grid grid-cols-2 gap-3">
-        <label className="text-xs text-stone-500 space-y-1">
-          Date
+    <div className="space-y-3">
+      <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-2">
+        <label className="min-w-0 text-xs font-medium text-sand-500">
+          {t("fieldDate")}
           <input
             type="date"
             required
@@ -156,26 +172,28 @@ export function EntryFormFields({
         </label>
 
         {mode === "hours" ? (
-          <label className="text-xs text-stone-500 space-y-1">
-            Heures travaillées
+          <label className="min-w-0 text-xs font-medium text-sand-500">
+            {t("fieldHours")}
             <input
               type="number"
               required
               min={0.25}
               max={24}
               step={0.25}
+              inputMode="decimal"
               value={hours}
               onChange={(e) => onHours(e.target.value)}
               className={inputClass}
             />
           </label>
         ) : (
-          <label className="text-xs text-stone-500 space-y-1">
-            Pause (min)
+          <label className="min-w-0 text-xs font-medium text-sand-500">
+            {t("fieldBreak")}
             <input
               type="number"
               min={0}
               step={5}
+              inputMode="numeric"
               value={breakMinutes}
               onChange={(e) => onBreakMinutes(Number(e.target.value))}
               className={inputClass}
@@ -183,10 +201,10 @@ export function EntryFormFields({
           </label>
         )}
 
-        {mode === "times" && (
+        {mode === "times" ? (
           <>
-            <label className="text-xs text-stone-500 space-y-1">
-              Arrivée
+            <label className="min-w-0 text-xs font-medium text-sand-500">
+              {t("fieldStart")}
               <input
                 type="time"
                 required
@@ -195,8 +213,8 @@ export function EntryFormFields({
                 className={inputClass}
               />
             </label>
-            <label className="text-xs text-stone-500 space-y-1">
-              Sortie
+            <label className="min-w-0 text-xs font-medium text-sand-500">
+              {t("fieldEnd")}
               <input
                 type="time"
                 required
@@ -206,19 +224,19 @@ export function EntryFormFields({
               />
             </label>
           </>
-        )}
+        ) : null}
       </div>
 
-      <label className="text-xs text-stone-500 space-y-1 block">
-        Note (optionnel)
+      <label className="block min-w-0 text-xs font-medium text-sand-500">
+        {t("fieldNote")}
         <input
           type="text"
           value={note}
           onChange={(e) => onNote(e.target.value)}
-          placeholder="Ex. remplacement, formation..."
+          placeholder={t("notePlaceholder")}
           className={inputClass}
         />
       </label>
-    </>
+    </div>
   );
 }

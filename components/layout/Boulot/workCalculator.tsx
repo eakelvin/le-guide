@@ -65,45 +65,59 @@ export default function WorkCalculator({
 
   if (!ready) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="flex min-h-screen items-center justify-center bg-canvas">
         <div className="h-5 w-5 animate-spin rounded-full border-2 border-forest-600 border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-lg items-center px-4">
+    <div className="min-h-screen bg-canvas">
+      <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+        <div className="mx-auto flex h-14 max-w-2xl items-center px-4 sm:px-6">
           <Link
             href="/dashboard"
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground no-underline transition-colors hover:text-foreground"
+            className="inline-flex min-w-0 items-center gap-1.5 text-sm text-muted-foreground no-underline transition-colors hover:text-foreground"
           >
             <ChevronLeft className="size-4 shrink-0" aria-hidden />
-            <span className="truncate">
+            <span className="truncate md:hidden">{t("title")}</span>
+            <span className="hidden truncate md:inline">
               {tCommon("dashboard")}
               <span className="mx-1.5 text-sand-300">/</span>
               <span className="font-medium text-foreground">{t("title")}</span>
             </span>
           </Link>
         </div>
-      </div>
+      </header>
 
-      <main className="mx-auto w-full max-w-lg flex-1 px-4 py-8 space-y-6">
-        <header>
-          <p className="text-xs font-medium uppercase tracking-wide text-emerald-700">
+      <main className="mx-auto w-full max-w-2xl space-y-6 px-4 py-6 sm:space-y-8 sm:px-6 sm:py-8">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-forest-700">
             {t("eyebrow")}
           </p>
-          <h1 className="text-2xl font-medium mt-1">{t("heading")}</h1>
-          <p className="mt-1 text-sm text-stone-500">{t("subtitle")}</p>
-        </header>
+          <h1 className="mt-1.5 font-heading text-2xl font-light tracking-tight text-sand-800 sm:text-3xl">
+            {t("heading")}
+          </h1>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-sand-600">{t("subtitle")}</p>
+        </div>
 
-        <section className="space-y-3">
+        <section className="space-y-3" aria-label={t("heading")}>
           <MonthPicker month={month} onChange={setMonth} />
           <SummaryCards totalHours={totalHours} daysWorked={daysWorked} />
         </section>
 
-        <section className="space-y-3">
+        <section className="space-y-3" aria-labelledby="boulot-entries-heading">
+          <div className="flex items-end justify-between gap-3">
+            <h2
+              id="boulot-entries-heading"
+              className="text-xs font-semibold uppercase tracking-widest text-sand-400"
+            >
+              {t("entriesHeading")}
+            </h2>
+            <span className="text-xs tabular-nums text-sand-500">
+              {monthEntries.length}
+            </span>
+          </div>
           <ManualEntryForm onAdd={handleAdd} />
           <EntryList
             entries={monthEntries}
@@ -112,7 +126,9 @@ export default function WorkCalculator({
           />
         </section>
 
-        <p className="text-center text-[11px] text-stone-400 pt-2">{t("disclaimer")}</p>
+        <p className="pb-4 text-center text-[11px] leading-relaxed text-sand-400 sm:pb-2">
+          {t("disclaimer")}
+        </p>
       </main>
     </div>
   );
