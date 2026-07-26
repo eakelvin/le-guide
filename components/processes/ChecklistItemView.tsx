@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { cn, COLOR_CONFIG } from "@/lib/utils";
 import {
     getCategoryColorKey,
@@ -17,7 +15,13 @@ import {
 import { getChecklistIcon } from "@/lib/data/checklist-icons";
 import { hasGuideForSlug } from "@/lib/blog";
 import { DashboardBreadcrumb } from "@/components/layout/DashboardBreadcrumb";
-import type { ChecklistItem, ChecklistOfficialLink, ChecklistStepSummary, ProgressState } from "@/types";
+import type {
+    ChecklistItem,
+    ChecklistOfficialLink,
+    ChecklistRequirement,
+    ChecklistStepSummary,
+    ProgressState,
+} from "@/types";
 import { AlertTriangle, ArrowUpRight, Clock, ExternalLink, Timer } from "lucide-react";
 
 const CONTENT_WIDTH = "mx-auto w-full max-w-3xl";
@@ -42,76 +46,35 @@ interface StepCardProps {
     progress: ProgressState;
     commonOptions?: string[];
     officialLinks?: ChecklistOfficialLink[];
+    requirements?: ChecklistRequirement[];
     readOnlyComplete?: boolean;
     onMarkDone: (itemId: string, stepKey: string, totalSteps?: number) => void;
     onMarkUndone: (itemId: string, stepKey: string) => void;
 }
 
-/**
- * Document checkboxes are intentionally NOT persisted (no DB, no localStorage).
- * They are session-only working notes — resetting on navigation is the desired
- * behaviour. If a student wants to track which docs they've gathered for the
- * long term, the per-item completion (final button) is the source of truth.
- */
-function RequirementsSection({ item }: { item: ChecklistItem }) {
+function StepDocuments({ requirements }: { requirements: ChecklistRequirement[] }) {
     const t = useTranslations("dashboard");
-    const [checked, setChecked] = useState<boolean[]>(() =>
-        item.requirements.map(() => false),
-    );
-
-    if (item.requirements.length === 0) return null;
-    const colorKey = getCategoryColorKey(item.category);
-
-    const toggle = (i: number) =>
-        setChecked((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
+    if (requirements.length === 0) return null;
 
     return (
-        <section className={SECTION_GAP}>
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-sand-400">
+        <div className="mt-3">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
                 {t("documentsNeeded")}
-            </h2>
-            <div className="rounded-lg border border-border bg-card p-4">
-                <div className="flex flex-col gap-2.5">
-                    {item.requirements.map((req, i) => {
-                        const isChecked = checked[i] === true;
-                        return (
-                            <label
-                                key={i}
-                                className={cn(
-                                    "flex cursor-pointer items-start gap-2.5 text-left hover:opacity-90",
-                                    isChecked && "text-muted-foreground",
-                                )}
-                            >
-                                <Checkbox
-                                    checked={isChecked}
-                                    className="mt-0.5 shrink-0 data-[state=checked]:text-primary-foreground"
-                                    style={
-                                        isChecked
-                                            ? {
-                                                borderColor: getColor(colorKey),
-                                                backgroundColor: getColor(colorKey),
-                                            }
-                                            : undefined
-                                    }
-                                    onCheckedChange={() => toggle(i)}
-                                />
-                                <span
-                                    className={cn(
-                                        "flex-1 text-[13px] leading-relaxed",
-                                        isChecked ? "text-muted-foreground line-through" : "text-foreground",
-                                    )}
-                                >
-                                    {req.name}
-                                    {!req.required && (
-                                        <span className="ml-1.5 text-[11px] text-sand-400">{t("optional")}</span>
-                                    )}
-                                </span>
-                            </label>
-                        );
-                    })}
-                </div>
-            </div>
-        </section>
+            </p>
+            <ul className="flex flex-wrap gap-1.5">
+                {requirements.map((req, i) => (
+                    <li
+                        key={i}
+                        className="inline-flex max-w-full items-baseline gap-1 rounded-full border border-border bg-sand-50 px-2.5 py-0.5 text-[11px] leading-relaxed text-sand-700"
+                    >
+                        <span className="min-w-0">{req.name}</span>
+                        {!req.required ? (
+                            <span className="shrink-0 text-[10px] text-sand-400">{t("optional")}</span>
+                        ) : null}
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 }
 
@@ -264,6 +227,7 @@ function StepCard({
     progress,
     commonOptions = [],
     officialLinks = [],
+    requirements = [],
     readOnlyComplete = false,
     onMarkDone,
     onMarkUndone,
@@ -333,6 +297,7 @@ function StepCard({
                         {step.description}
                     </p>
                 ) : null}
+                {index === 0 ? <StepDocuments requirements={requirements} /> : null}
                 {index === 0 ? <StepOfficialLinks links={officialLinks} /> : null}
                 {index === 0 ? <StepCommonOptions options={commonOptions} /> : null}
             </div>
@@ -499,6 +464,7 @@ export function ChecklistItemView({
                                     index={i}
                                     progress={progress}
                                     commonOptions={i === 0 ? item.commonOptions : undefined}
+                                    requirements={i === 0 ? item.requirements : undefined}
                                     officialLinks={
                                         i === 0 && showsOfficialLinksOnStepOne(item.id)
                                             ? item.officialLinks
@@ -525,6 +491,11 @@ export function ChecklistItemView({
                         </section>
                     ) : (
                         <div className={SECTION_GAP}>
+                            {item.requirements.length > 0 ? (
+                                <div className="mb-6">
+                                    <StepDocuments requirements={item.requirements} />
+                                </div>
+                            ) : null}
                             <ItemCompletionActions
                                 item={item}
                                 colorKey={colorKey}
@@ -537,7 +508,6 @@ export function ChecklistItemView({
                         </div>
                     )}
 
-                    <RequirementsSection item={item} />
                     <WarningsSection warnings={item.warnings} />
                 </div>
             </div>
