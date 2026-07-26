@@ -11,7 +11,7 @@ export type EntryMode = "times" | "hours";
 export type EntryFormValues = Omit<WorkEntry, "id">;
 
 const inputClass =
-  "mt-1.5 h-11 w-full min-w-0 rounded-lg border border-border bg-background px-3 text-sm text-sand-800 shadow-xs outline-none transition-colors focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 sm:h-10";
+  "mt-1.5 h-11 w-full min-w-0 rounded-lg border border-border bg-background px-3 text-base text-sand-800 shadow-xs outline-none transition-colors focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 sm:h-10";
 
 export function EntryModeToggle({
   mode,
