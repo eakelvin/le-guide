@@ -13,7 +13,7 @@
         "recommended_timing": "Dans les premiers jours suivant votre arrivée en France",
         "why_this_matters": "Vous aurez besoin d'un numéro français pour la banque, les livraisons, les codes de vérification et les démarches administratives.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
@@ -31,13 +31,23 @@
             "Lebara"
         ],
         "steps_summary": [
-            "Obtenir une carte SIM auprès de votre opérateur"
+            {
+                "summary": "Choisir un opérateur mobile",
+                "description": "Comparez les forfaits prépayés ou avec engagement (Free Mobile, Orange, SFR, Bouygues Telecom, Lyca Mobile, Lebara, etc.)."
+            },
+            {
+                "summary": "Acheter une SIM ou eSIM avec votre passeport",
+                "description": "Achat en magasin ou en ligne. Présentez un passeport valide (ou une carte d'identité pour les étudiants UE). Les cartes prépayées exigent aussi une vérification d'identité."
+            },
+            {
+                "summary": "Activer votre numéro",
+                "description": "Insérez la SIM ou activez l'eSIM, puis conservez votre numéro français pour la banque et les codes SMS administratifs."
+            }
         ],
         "warnings": [
-            "Apportez votre passeport en magasin",
-            "Certains opérateurs demandent un justificatif de domicile",
-            "Certains opérateurs exigent l'enregistrement de l'adresse",
-            "Les cartes prépayées peuvent nécessiter une vérification d'identité (règlement UE)"
+            "Apportez votre passeport en magasin.",
+            "Certains opérateurs peuvent demander un justificatif de domicile.",
+            "Les cartes SIM prépayées exigent une vérification d'identité (règles européennes)."
         ],
         "applies_to": {
             "student_groups": [
@@ -52,7 +62,7 @@
         "id": "find-housing",
         "slug": "finding-accommodation",
         "title": "Trouver un logement en France",
-        "short_description": "Trouvez et sécurisez un logement avant de demander l'aide au logement (CAF).",
+        "short_description": "Trouvez et sécurisez un logement tôt — un bail signé (ou équivalent) est nécessaire avant de demander l'aide au logement CAF.",
         "category": "first-days",
         "order_index": 2,
         "estimated_time": "1-4 semaines",
@@ -62,30 +72,54 @@
         "recommended_timing": "Avant ou immédiatement après votre arrivée en France",
         "why_this_matters": "Vous avez besoin d'un contrat de logement valide avant de demander l'aide CAF.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
             {
-                "name": "Passeport valide",
+                "name": "Passeport ou carte d'identité valide",
                 "required": true
             },
             {
-                "name": "Visa ou titre de séjour",
-                "required": true
+                "name": "Visa ou titre de séjour (étudiants hors UE)",
+                "required": false
+            },
+            {
+                "name": "Attestation d'inscription / admission (souvent demandée)",
+                "required": false
+            },
+            {
+                "name": "Documents de garant (souvent demandés)",
+                "required": false
             }
         ],
-        "common_options": [],
+        "common_options": [
+            "CROUS",
+            "Location privée",
+            "Colocation"
+        ],
         "steps_summary": [
-            "Rechercher un logement (CROUS, locations privées, colocations)",
-            "Visiter ou vérifier les annonces",
-            "Signer le bail",
-            "Payer la caution",
-            "Obtenir un justificatif de domicile"
+            {
+                "summary": "Rechercher un logement",
+                "description": "Consultez le CROUS, les locations privées et les colocations. Commencez tôt — la demande est forte à la rentrée."
+            },
+            {
+                "summary": "Visiter ou vérifier soigneusement les annonces",
+                "description": "Privilégiez une visite ou un contact de confiance. Ne versez jamais de caution avant d'avoir vérifié le bailleur et l'annonce."
+            },
+            {
+                "summary": "Signer le bail et payer la caution",
+                "description": "Conservez une copie signée du bail et de l'état des lieux — indispensables pour la CAF."
+            },
+            {
+                "summary": "Obtenir un justificatif de domicile",
+                "description": "Gardez le bail et, si possible, une facture ou une attestation du bailleur — utiles pour la banque et les démarches."
+            }
         ],
         "warnings": [
-            "Méfiez-vous des arnaques au logement",
-            "Ne versez jamais d'argent avant d'avoir vérifié l'annonce"
+            "Méfiez-vous des arnaques — ne versez jamais d'argent avant d'avoir vérifié l'annonce et le bailleur.",
+            "Un bail valide (ou une attestation CROUS) est requis avant de demander la CAF.",
+            "L'aide au logement n'est pas rétroactive : faites la demande dès que vous avez les clés."
         ],
         "applies_to": {
             "student_groups": [
@@ -94,7 +128,20 @@
             ],
             "visa_types": []
         },
-        "official_links": []
+        "official_links": [
+            {
+                "label": "CROUS — logement étudiant",
+                "url": "https://www.etudiant.gouv.fr/fr/trouver-un-logement-etudiant-1292"
+            },
+            {
+                "label": "Service-Public — louer un logement",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/N20477"
+            },
+            {
+                "label": "CAF — aide au logement étudiant",
+                "url": "https://www.caf.fr"
+            }
+        ]
     },
     {
         "id": "online-bank-account",
@@ -110,21 +157,21 @@
         "recommended_timing": "Avant de payer la validation du visa ou de recevoir de l'argent",
         "why_this_matters": "Un compte en ligne permet de payer les frais de validation du visa, recevoir de l'argent et effectuer des transactions immédiatement en attendant un compte bancaire français traditionnel.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
             {
-                "name": "Passeport valide",
+                "name": "Passeport ou carte d'identité valide",
                 "required": true
             },
             {
-                "name": "Visa valide",
-                "required": true
+                "name": "Visa ou titre de séjour (hors UE ; certaines apps l'acceptent)",
+                "required": false
             },
             {
-                "name": "Adresse",
-                "required": true
+                "name": "Adresse en France (souvent pour la livraison de la carte)",
+                "required": false
             }
         ],
         "common_options": [
@@ -147,7 +194,9 @@
             }
         ],
         "warnings": [
-            "Préparez vos documents avant de commencer."
+            "Préparez vos documents d'identité avant de commencer.",
+            "Un IBAN en ligne suffit souvent pour payer la taxe de validation du visa et recevoir des virements en attendant une banque traditionnelle.",
+            "Certains bailleurs et employeurs préfèrent encore un compte bancaire traditionnel français."
         ],
         "applies_to": {
             "student_groups": [
@@ -170,8 +219,8 @@
     {
         "id": "navigo",
         "slug": "navigo-transport",
-        "title": "Obtenir un pass Navigo",
-        "short_description": "Il permet d'utiliser les transports en commun (métro, bus, RER) en Île-de-France, y compris Paris.",
+        "title": "Obtenir un pass Navigo / Imagine R",
+        "short_description": "Voyagez en illimité en Île-de-France (métro, bus, RER). Les étudiants de moins de 26 ans résidant en région peuvent demander le forfait annuel Imagine R Étudiant.",
         "category": "arrival",
         "order_index": 4,
         "estimated_time": "1-2 semaines",
@@ -179,9 +228,9 @@
         "priority": "high",
         "is_required": true,
         "recommended_timing": "Dans le premier mois suivant votre arrivée en France",
-        "why_this_matters": "Les transports en commun sont le principal moyen de déplacement à Paris et en Île-de-France. Le pass Navigo donne un accès illimité au métro, bus et RER à un tarif mensuel fixe, ce qui simplifie et réduit le coût de la vie quotidienne.",
+        "why_this_matters": "Les transports en commun sont le moyen principal de se déplacer à Paris et en Île-de-France. Imagine R (étudiant) ou Navigo Mois/Semaine revient moins cher que les tickets à l'unité.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
@@ -190,21 +239,36 @@
                 "required": true
             },
             {
-                "name": "Justificatif de domicile en Île-de-France",
+                "name": "Justificatif de domicile en Île-de-France (Imagine R)",
+                "required": true
+            },
+            {
+                "name": "Certificat d'inscription / de scolarité de l'année en cours (Imagine R Étudiant)",
+                "required": true
+            },
+            {
+                "name": "Photo d'identité récente (nouvelle souscription Imagine R)",
                 "required": true
             }
         ],
         "common_options": [],
         "steps_summary": [
-            "Aller sur le site Île-de-France Mobilités ou en station de métro",
-            "Choisir un type de pass Navigo (hebdomadaire, mensuel, étudiant)",
-            "Téléverser les documents requis",
-            "Payer votre abonnement",
-            "Recevoir ou retirer votre carte Navigo",
-            "Activer et utiliser le pass pour les transports"
+            {
+                "summary": "Choisir le bon forfait",
+                "description": "Imagine R Étudiant : forfait annuel si vous avez moins de 26 ans au 1er septembre, résidez en Île-de-France et êtes inscrit dans une formation éligible. Sinon, utilisez Navigo Mois/Semaine (ou Liber't)."
+            },
+            {
+                "summary": "Souscrire sur Île-de-France Mobilités (ou en guichet)",
+                "description": "Pour Imagine R, souscrivez en ligne sur iledefrance-mobilites.fr. Téléversez le certificat d'inscription (en français) et la photo demandés."
+            },
+            {
+                "summary": "Payer et recevoir votre carte",
+                "description": "Réglez l'abonnement, puis récupérez ou recevez votre carte Navigo et activez le forfait avant de voyager."
+            }
         ],
         "warnings": [
-            "Vous risquez une amende si vous voyagez sans pass Navigo valide (le montant varie selon la situation)."
+            "Imagine R Étudiant est réservé aux résidents d'Île-de-France de moins de 26 ans avec un certificat d'inscription de l'année en cours — hors ÎDF, utilisez les titres locaux.",
+            "Voyager sans titre valide peut entraîner une amende."
         ],
         "applies_to": {
             "student_groups": [
@@ -217,6 +281,14 @@
             {
                 "label": "Île-de-France Mobilités",
                 "url": "https://www.iledefrance-mobilites.fr"
+            },
+            {
+                "label": "Imagine R — pièces justificatives",
+                "url": "https://www.iledefrance-mobilites.fr/aide-et-contacts/passe-navigo-imagine-r/comment-souscrire-ou-renouveler-mon-forfait-imagine-r-quelles-sont-les-pieces-justificatives-necessaires"
+            },
+            {
+                "label": "Imagine R Étudiant",
+                "url": "https://www.iledefrance-mobilites.fr/imagine-r"
             }
         ]
     },
@@ -232,9 +304,9 @@
         "priority": "high",
         "is_required": true,
         "recommended_timing": "Dans les 3 premiers mois suivant votre arrivée en France",
-        "why_this_matters": "Votre visa peut devenir invalide et vous pourriez perdre votre statut de résident légal en France.",
+        "why_this_matters": "Tant que votre VLS-TS n'est pas validé en ligne, il ne vaut pas pleinement titre de séjour. Au-delà de 3 mois sans validation, vous pouvez perdre la libre réentrée en France et vous retrouver en situation irrégulière.",
         "deadline": "3 months",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [
             "sim-card"
@@ -269,7 +341,7 @@
             },
             {
                 "summary": "Payer les frais requis",
-                "description": "Payez la taxe de séjour de 50 euros"
+                "description": "Payez la taxe indiquée sur l'ANEF. Pour un VLS-TS étudiant, le tarif minoré est de 100 € depuis le 1er mai 2026 (il était de 50 € auparavant). Vérifiez toujours le montant affiché à l'écran avant de payer — par carte bancaire ou timbre fiscal électronique."
             },
             {
                 "summary": "Télécharger votre confirmation de validation",
@@ -277,9 +349,10 @@
             }
         ],
         "warnings": [
-            "",
-            "",
-            ""
+            "Validez dans les 3 mois suivant votre première entrée en France (date tamponnée sur le passeport).",
+            "Les montants évoluent : confirmez le montant affiché sur l'ANEF avant de payer (tarif minoré étudiant 100 € depuis le 1er mai 2026).",
+            "Conservez l'e-mail/PDF de confirmation — utile pour la banque, la CAF et l'assurance maladie.",
+            "Une adresse en France et un téléphone/e-mail sont nécessaires ; une adresse temporaire peut suffire au début."
         ],
         "applies_to": {
             "student_groups": [
@@ -291,8 +364,20 @@
         },
         "official_links": [
             {
-                "label": "Administration numérique des étrangers en France",
+                "label": "ANEF — valider mon VLS-TS",
                 "url": "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/"
+            },
+            {
+                "label": "Service-Public — VLS-TS / titre étudiant",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F2231"
+            },
+            {
+                "label": "Acheter un timbre fiscal électronique",
+                "url": "https://timbres.impots.gouv.fr"
+            },
+            {
+                "label": "Campus France — valider son visa long séjour",
+                "url": "https://www.campusfrance.org/fr/comment-valider-son-visa-long-sejour-valant-titre-de-sejour-vls-ts-des-son-arrivee-en-france"
             }
         ]
     },
@@ -308,9 +393,9 @@
         "priority": "high",
         "is_required": true,
         "recommended_timing": "Dans les 1 à 3 premiers mois",
-        "why_this_matters": "Un compte bancaire traditionnel est requis pour la stabilité financière à long terme, les salaires, les contrats de location et les démarches administratives en France.",
+        "why_this_matters": "Un compte bancaire traditionnel français est souvent préféré pour le salaire, le prélèvement du loyer et certaines démarches, même si vous avez déjà un IBAN en ligne.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
@@ -319,19 +404,19 @@
                 "required": true
             },
             {
-                "name": "Visa ou titre de séjour valide",
+                "name": "Visa ou titre de séjour (étudiants hors UE)",
+                "required": false
+            },
+            {
+                "name": "Justificatif de domicile en France",
                 "required": true
             },
             {
-                "name": "Justificatif de domicile",
+                "name": "Certificat de scolarité / d'inscription",
                 "required": true
             },
             {
-                "name": "Certificat de scolarité",
-                "required": true
-            },
-            {
-                "name": "Code de parrainage",
+                "name": "Code de parrainage (optionnel)",
                 "required": false
             }
         ],
@@ -341,7 +426,7 @@
             "LCL",
             "CIC",
             "Crédit Agricole",
-            "HSBC"
+            "La Banque Postale"
         ],
         "steps_summary": [
             "Choisir une banque traditionnelle",
@@ -353,10 +438,10 @@
             "Recevoir les coordonnées bancaires et la carte"
         ],
         "warnings": [
-            "Préparez vos documents avant de commencer.",
-            "L'approbation du compte peut prendre plusieurs semaines",
-            "Certaines banques exigent un rendez-vous en personne",
-            "Les frais peuvent varier selon le statut étudiant"
+            "Préparez vos documents avant de prendre rendez-vous.",
+            "L'ouverture du compte peut prendre plusieurs semaines.",
+            "Certaines banques exigent un rendez-vous en agence.",
+            "Les tarifs varient selon les offres étudiants — renseignez-vous."
         ],
         "applies_to": {
             "student_groups": [
@@ -387,8 +472,8 @@
                 "url": "https://www.credit-agricole.fr"
             },
             {
-                "label": "HSBC",
-                "url": "https://www.hsbc.fr"
+                "label": "La Banque Postale",
+                "url": "https://www.labanquepostale.fr"
             }
         ]
     },
@@ -396,7 +481,7 @@
         "id": "student-social-security",
         "slug": "social-security",
         "title": "S'inscrire à l'assurance maladie",
-        "short_description": "Inscrivez-vous au système d'assurance maladie français pour accéder aux soins et aux remboursements pendant vos études en France.",
+        "short_description": "Inscrivez-vous à l'Assurance Maladie via le portail dédié aux étudiants étrangers — l'affiliation est gratuite et obligatoire pour les étudiants hors UE.",
         "category": "settling",
         "order_index": 7,
         "estimated_time": "1-2 semaines",
@@ -404,12 +489,12 @@
         "priority": "high",
         "is_required": true,
         "recommended_timing": "Dans les 1 à 2 premiers mois en France",
-        "why_this_matters": "L'assurance maladie est nécessaire pour accéder aux soins et être remboursé des frais de santé en France.",
+        "why_this_matters": "Sans affiliation, vous payez en général les soins au plein tarif et n'avez pas les remboursements standards. Les étudiants UE/EEE/Suisse avec une CEAM restent en principe couverts par leur pays d'origine.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [
-            "traditional-bank-account"
+            "visa-validation"
         ],
         "requirements": [
             {
@@ -417,11 +502,11 @@
                 "required": true
             },
             {
-                "name": "Visa ou titre de séjour",
+                "name": "Visa étudiant / VLS-TS validé ou titre de séjour",
                 "required": true
             },
             {
-                "name": "Justificatif de domicile en France",
+                "name": "Adresse postale en France",
                 "required": true
             },
             {
@@ -429,28 +514,42 @@
                 "required": true
             },
             {
-                "name": "Justificatif d'état civil : acte de naissance",
+                "name": "Acte de naissance / justificatif d'état civil (souvent traduit)",
                 "required": true
             },
             {
-                "name": "Relevé d'identité bancaire (RIB)",
+                "name": "RIB (IBAN français ou étranger accepté)",
                 "required": true
             }
         ],
         "common_options": [],
         "steps_summary": [
-            "Aller sur le portail officiel de l'assurance maladie (Ameli)",
-            "Créer votre compte personnel",
-            "Téléverser les documents requis",
-            "Soumettre votre demande d'inscription",
-            "Attendre le traitement et la validation",
-            "Recevoir votre numéro de sécurité sociale",
-            "Activer votre compte assurance maladie"
+            {
+                "summary": "S'inscrire sur etudiant-etranger.ameli.fr",
+                "description": "Utilisez le portail Assurance Maladie pour étudiants étrangers (pas ameli.fr en premier). Saisissez vos informations et la date de début des études."
+            },
+            {
+                "summary": "Téléverser les documents requis",
+                "description": "Téléversez passeport/identité, certificat d'inscription, visa/titre, et justificatif d'état civil (acte de naissance). Une traduction est en général demandée hors UE."
+            },
+            {
+                "summary": "Obtenir un numéro de sécurité sociale provisoire",
+                "description": "Vous recevez un numéro provisoire et une attestation temporaire. Conservez-les pour les soins et remboursements."
+            },
+            {
+                "summary": "Compléter le dossier après validation du visa",
+                "description": "Une fois le VLS-TS validé, ajoutez la preuve de titre validé et votre RIB pour obtenir un numéro définitif."
+            },
+            {
+                "summary": "Créer votre compte ameli.fr",
+                "description": "Après attribution d'un numéro de sécurité sociale, créez votre compte sur ameli.fr pour suivre les remboursements et demander une carte Vitale."
+            }
         ],
         "warnings": [
-            "Le traitement peut prendre plusieurs semaines",
-            "Vous ne recevrez pas forcément de confirmation immédiate",
-            "Vous devez le faire même si vous avez déjà une assurance privée"
+            "Commencez sur etudiant-etranger.ameli.fr — créez un compte ameli.fr seulement après avoir un numéro de sécurité sociale.",
+            "Le traitement peut prendre plusieurs semaines ; conservez l'attestation provisoire.",
+            "Un IBAN étranger peut servir aux remboursements si vous n'avez pas encore de compte français.",
+            "Les étudiants UE/EEE/Suisse avec une CEAM valide ne s'inscrivent en général pas sur ce portail."
         ],
         "applies_to": {
             "student_groups": [
@@ -462,8 +561,16 @@
         },
         "official_links": [
             {
-                "label": "Site officiel Ameli",
-                "url": "https://www.ameli.fr"
+                "label": "Portail d'affiliation étudiants étrangers",
+                "url": "https://etudiant-etranger.ameli.fr"
+            },
+            {
+                "label": "Ameli — venir étudier en France",
+                "url": "https://www.ameli.fr/assure/droits-demarches/europe-international/protection-sociale-france/vous-venez-etudier-en-france"
+            },
+            {
+                "label": "Service-Public — inscription sécurité sociale étudiant étranger",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/R54512"
             }
         ]
     },
@@ -478,27 +585,38 @@
         "difficulty": "medium",
         "priority": "high",
         "is_required": false,
-        "recommended_timing": "Après la signature de votre bail",
-        "why_this_matters": "La CAF réduit votre loyer mensuel en versant une aide financière au logement.",
+        "recommended_timing": "Dès que vous avez les clés / emménagez",
+        "why_this_matters": "L'aide au logement CAF (APL/ALS/ALF) peut fortement réduire votre loyer. Elle n'est pas rétroactive — les droits démarrent en général le mois suivant la demande et l'entrée dans les lieux.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [
-            "find-housing",
-            "traditional-bank-account"
+            "find-housing"
         ],
         "requirements": [
             {
-                "name": "Contrat de location (justificatif de logement)",
+                "name": "Bail signé ou attestation de résidence CROUS",
                 "required": true
             },
             {
-                "name": "Compte bancaire français (RIB)",
+                "name": "RIB (BIC/IBAN) à votre nom",
                 "required": true
             },
             {
-                "name": "Visa ou titre de séjour valide",
+                "name": "Coordonnées du bailleur (et SIRET si société)",
                 "required": true
+            },
+            {
+                "name": "Attestation de loyer signée par le bailleur",
+                "required": true
+            },
+            {
+                "name": "Pièce d'identité / visa ou titre de séjour (selon le dossier CAF)",
+                "required": true
+            },
+            {
+                "name": "Acte de naissance / état civil (souvent demandé)",
+                "required": false
             }
         ],
         "common_options": [],
@@ -513,7 +631,7 @@
             },
             {
                 "summary": "Téléverser les documents requis",
-                "description": "Une fois la demande soumise, téléversez les documents demandés via votre compte CAF ou l'application mobile CAF."
+                "description": "Téléversez les pièces demandées (bail, RIB, attestation de loyer, identité/titre, SIRET du bailleur le cas échéant) via votre compte CAF ou l'appli. Répondez rapidement aux relances."
             },
             {
                 "summary": "Suivre votre dossier",
@@ -521,12 +639,14 @@
             },
             {
                 "summary": "Attendre l'approbation",
-                "description": "Après examen et approbation de votre dossier, la CAF vous informera du résultat. Si vous êtes éligible, le versement de l'aide au logement commencera selon le calendrier de paiement de la CAF."
+                "description": "Après acceptation, la CAF vous notifie. Les droits s'ouvrent en général le mois suivant l'emménagement et la demande ; le premier versement arrive souvent 1 à 2 mois plus tard (ex. clés en septembre → droits en octobre → paiement en novembre)."
             }
         ],
         "warnings": [
-            "Vous devez avoir un contrat de logement valide avant de demander la CAF.",
-            "Le traitement CAF peut prendre plusieurs semaines"
+            "L'aide n'est pas rétroactive — demandez-la dès que vous avez les clés.",
+            "Un bail valide (ou attestation CROUS) et un RIB sont nécessaires.",
+            "Le traitement peut prendre plusieurs semaines ; surveillez les documents manquants.",
+            "À partir du 1er juillet 2026, les conditions se durcissent pour certains étudiants hors UE — vérifiez sur caf.fr."
         ],
         "applies_to": {
             "student_groups": [
@@ -539,6 +659,14 @@
             {
                 "label": "Site officiel de la CAF",
                 "url": "https://www.caf.fr"
+            },
+            {
+                "label": "CAF — aide au logement étudiant",
+                "url": "https://www.caf.fr/allocataires/actualites/actualites-nationales/etudiants-tout-savoir-sur-l-aide-au-logement-0"
+            },
+            {
+                "label": "Service-Public — aides au logement",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/N19904"
             }
         ]
     },
@@ -546,17 +674,17 @@
         "id": "declaration-of-tax",
         "slug": "declaration-of-tax",
         "title": "Déclaration fiscale française",
-        "short_description": "Déclarez vos revenus annuels aux impôts français, même si vous n'avez pas de revenus.",
+        "short_description": "Si vous êtes fiscalement domicilié en France et non rattaché au foyer de vos parents, déclarez vos revenus chaque printemps sur impots.gouv.fr (y compris à zéro si besoin).",
         "category": "long-term",
         "order_index": 9,
         "estimated_time": "30–60 minutes",
         "difficulty": "medium",
         "priority": "high",
-        "is_required": true,
-        "recommended_timing": "Entre avril et juin chaque année (après votre première année en France)",
-        "why_this_matters": "La déclaration fiscale est une obligation légale en France, même pour les étudiants sans revenus. Elle sert au calcul de l'éligibilité à l'aide au logement et des documents officiels.",
+        "is_required": false,
+        "recommended_timing": "Avril–juin chaque année pour l'année civile précédente (souvent après votre première année de résidence fiscale en France)",
+        "why_this_matters": "Une déclaration (ou un avis de non-imposition) est souvent demandée pour la CAF, le logement et d'autres démarches. Déclarer ne signifie pas forcément payer de l'impôt.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
@@ -569,7 +697,7 @@
                 "required": false
             },
             {
-                "name": "Justificatif de revenus (le cas échéant)",
+                "name": "Justificatifs de revenus (le cas échéant)",
                 "required": false
             },
             {
@@ -579,29 +707,48 @@
         ],
         "common_options": [],
         "steps_summary": [
-            "Aller sur le site officiel des impôts",
-            "Créer votre espace fiscal personnel",
-            "Renseigner vos informations personnelles et de résidence",
-            "Déclarer vos revenus (ou déclarer zéro revenu)",
-            "Soumettre votre déclaration",
-            "Télécharger votre avis d'imposition"
+            {
+                "summary": "Vérifier si vous devez déclarer seul",
+                "description": "Si vous avez moins de 25 ans et poursuivez des études, vous pouvez parfois rester rattaché au foyer fiscal de vos parents. Sinon, déclarez vous-même si vous êtes domicilié fiscalement en France."
+            },
+            {
+                "summary": "Aller sur impots.gouv.fr et créer / accéder à votre espace",
+                "description": "Pour une première déclaration, créez votre espace particulier et suivez le parcours « première déclaration »."
+            },
+            {
+                "summary": "Déclarer vos revenus (ou zéro)",
+                "description": "Indiquez salaires, etc. Les jobs étudiants peuvent bénéficier d'une exonération dans la limite annuelle en vigueur si vous remplissez les conditions — vérifiez le montant sur service-public.fr / etudiant.gouv.fr."
+            },
+            {
+                "summary": "Valider et télécharger l'avis",
+                "description": "Après traitement, téléchargez votre avis d'imposition ou de non-imposition — à conserver pour la CAF et d'autres démarches."
+            }
         ],
         "warnings": [
-            "Même sans revenus, vous devez toujours soumettre une déclaration",
-            "Manquer le délai peut entraîner des pénalités ou retarder vos aides"
+            "Tous les étudiants ne doivent pas déclarer seuls : vérifiez le rattachement au foyer fiscal parental.",
+            "Si vous déclarez seul, faites-le même à zéro pour obtenir un avis de non-imposition.",
+            "Manquer le délai de printemps peut entraîner des pénalités ou retarder des aides demandant un avis.",
+            "Concerne les étudiants UE et hors UE fiscalement domiciliés en France — pas seulement les visas hors UE."
         ],
         "applies_to": {
             "student_groups": [
+                "eu_students",
                 "non_eu_students"
             ],
-            "visa_types": [
-                "long_stay"
-            ]
+            "visa_types": []
         },
         "official_links": [
             {
-                "label": "Portail des impôts français",
+                "label": "Portail des impôts",
                 "url": "https://www.impots.gouv.fr"
+            },
+            {
+                "label": "Service-Public — première déclaration de revenus",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F369"
+            },
+            {
+                "label": "Étudiant.gouv — impôts des étudiants",
+                "url": "https://www.etudiant.gouv.fr/fr/impot-sur-le-revenu-le-cas-des-etudiants-1837"
             }
         ]
     }
