@@ -13,7 +13,7 @@
         "recommended_timing": "Within your first few days in France",
         "why_this_matters": "You will need a French phone number for banking, deliveries, verification codes, and administrative services.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
@@ -31,13 +31,23 @@
             "Lebara"
         ],
         "steps_summary": [
-            "Get a SIM card from your provider"
+            {
+                "summary": "Choose a mobile provider",
+                "description": "Compare prepaid or contract offers from operators such as Free Mobile, Orange, SFR, Bouygues Telecom, Lyca Mobile, or Lebara."
+            },
+            {
+                "summary": "Buy a SIM or eSIM with your passport",
+                "description": "Buy in-store or online. Bring a valid passport (or national ID for EU students). Prepaid SIMs also require identity verification."
+            },
+            {
+                "summary": "Activate your number",
+                "description": "Insert the SIM or activate the eSIM, then keep your French number for banking and admin SMS codes."
+            }
         ],
         "warnings": [
-            "Bring your passport when purchasing in-store",
-            "Some providers may request proof of address",
-            "Some providers require address registration",
-            "Prepaid SIMs may still require ID verification (EU regulation)"
+            "Bring your passport when purchasing in-store.",
+            "Some providers may request proof of address.",
+            "Prepaid SIMs require ID verification under EU rules."
         ],
         "applies_to": {
             "student_groups": [
@@ -52,7 +62,7 @@
         "id": "find-housing",
         "slug": "finding-accommodation",
         "title": "Finding Accommodation in France",
-        "short_description": "Find and secure accommodation before applying for housing aid (CAF).",
+        "short_description": "Find and secure accommodation early — you need a signed lease (or equivalent) before applying for CAF housing aid.",
         "category": "first-days",
         "order_index": 2,
         "estimated_time": "1-4 weeks",
@@ -62,30 +72,54 @@
         "recommended_timing": "Before or immediately after arriving in France",
         "why_this_matters": "You need a valid accommodation contract before applying for CAF housing aid.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
             {
-                "name": "Valid passport",
+                "name": "Valid passport or national ID",
                 "required": true
             },
             {
-                "name": "Visa or residence permit",
-                "required": true
+                "name": "Visa or residence permit (non-EU students)",
+                "required": false
+            },
+            {
+                "name": "Proof of enrollment / admission (often requested)",
+                "required": false
+            },
+            {
+                "name": "Guarantor documents (often requested)",
+                "required": false
             }
         ],
-        "common_options": [],
+        "common_options": [
+            "CROUS",
+            "Private rental",
+            "Colocation (shared flat)"
+        ],
         "steps_summary": [
-            "Search for accommodation (CROUS, private rentals, shared flats)",
-            "Visit or verify listings",
-            "Sign rental agreement",
-            "Pay deposit",
-            "Receive proof of address"
+            {
+                "summary": "Search for accommodation",
+                "description": "Check CROUS student housing, private rentals, and shared flats. Start early — demand is high at the start of the academic year."
+            },
+            {
+                "summary": "Visit or carefully verify listings",
+                "description": "Prefer viewing in person or via a trusted contact. Never pay a deposit before verifying the landlord and listing."
+            },
+            {
+                "summary": "Sign the rental agreement and pay the deposit",
+                "description": "Keep a signed copy of the bail (lease) and inventory (état des lieux). You will need these for CAF."
+            },
+            {
+                "summary": "Collect proof of address",
+                "description": "Keep your lease and, if possible, a utility bill or landlord attestation — required for banking and admin steps."
+            }
         ],
         "warnings": [
-            "Beware of housing scams",
-            "Never send money before verifying listings"
+            "Beware of housing scams — never send money before verifying the listing and landlord.",
+            "You need a valid lease (or CROUS attestation) before applying for CAF housing aid.",
+            "CAF housing aid is not retroactive: apply as soon as you have the keys."
         ],
         "applies_to": {
             "student_groups": [
@@ -94,7 +128,20 @@
             ],
             "visa_types": []
         },
-        "official_links": []
+        "official_links": [
+            {
+                "label": "CROUS — student housing",
+                "url": "https://www.etudiant.gouv.fr/fr/trouver-un-logement-etudiant-1292"
+            },
+            {
+                "label": "Service-Public — renting a home",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/N20477"
+            },
+            {
+                "label": "CAF — student housing aid",
+                "url": "https://www.caf.fr"
+            }
+        ]
     },
     {
         "id": "online-bank-account",
@@ -110,21 +157,21 @@
         "recommended_timing": "Before paying for visa validation or receiving money",
         "why_this_matters": "An online bank account allows you to pay visa-validation fees, receive money, and make transactions immediately while waiting for a traditional French bank account.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
             {
-                "name": "Valid passport",
+                "name": "Valid passport or national ID",
                 "required": true
             },
             {
-                "name": "Valid visa",
-                "required": true
+                "name": "Visa or residence permit (non-EU; some apps accept it)",
+                "required": false
             },
             {
-                "name": "Address",
-                "required": true
+                "name": "French address (often required for card delivery)",
+                "required": false
             }
         ],
         "common_options": [
@@ -147,7 +194,9 @@
             }
         ],
         "warnings": [
-            "Make sure you have your documents ready before you start."
+            "Prepare your ID documents before you start.",
+            "An online IBAN is often enough to pay the visa-validation tax and receive transfers while you wait for a traditional bank.",
+            "Some landlords and employers still prefer a traditional French bank account."
         ],
         "applies_to": {
             "student_groups": [
@@ -170,8 +219,8 @@
     {
         "id": "navigo",
         "slug": "navigo-transport",
-        "title": "Get a Navigo Transport Pass",
-        "short_description": "It allows you to use public transport (metro, bus, RER) in the Île-de-France region, including Paris.",
+        "title": "Get a Navigo / Imagine R pass",
+        "short_description": "Get unlimited public transport in Île-de-France (metro, bus, RER). Students under 26 living in the region can apply for the discounted Imagine R Étudiant annual pass.",
         "category": "arrival",
         "order_index": 4,
         "estimated_time": "1-2 weeks",
@@ -179,9 +228,9 @@
         "priority": "high",
         "is_required": true,
         "recommended_timing": "Within your first month in France",
-        "why_this_matters": "Public transport is the main way to travel in Paris and Île-de-France. The Navigo pass gives you unlimited access to metro, bus, and RER at a fixed monthly cost, making daily life significantly easier and cheaper.",
+        "why_this_matters": "Public transport is the main way to travel in Paris and Île-de-France. Imagine R (student) or Navigo Month/Week makes daily travel cheaper than buying single tickets.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
@@ -190,21 +239,36 @@
                 "required": true
             },
             {
-                "name": "Proof of address in Île-de-France",
+                "name": "Proof of address in Île-de-France (for Imagine R)",
+                "required": true
+            },
+            {
+                "name": "Enrollment / school certificate for the current year (Imagine R Étudiant)",
+                "required": true
+            },
+            {
+                "name": "Recent ID photo (new Imagine R subscription)",
                 "required": true
             }
         ],
         "common_options": [],
         "steps_summary": [
-            "Go to Île-de-France Mobilités website or metro station",
-            "Choose a Navigo pass type (weekly, monthly, student)",
-            "Upload required documents",
-            "Pay for your subscription",
-            "Receive or collect your Navigo card",
-            "Activate and use it for transport"
+            {
+                "summary": "Choose the right pass",
+                "description": "Imagine R Étudiant: annual student pass if you are under 26 on 1 September, live in Île-de-France, and are enrolled in eligible studies. Otherwise use Navigo Month/Week (or Liber't) — available more broadly."
+            },
+            {
+                "summary": "Apply on Île-de-France Mobilités (or at a station desk)",
+                "description": "For Imagine R, subscribe online at iledefrance-mobilites.fr. Upload your enrollment certificate (in French) and photo when asked."
+            },
+            {
+                "summary": "Pay and receive your card",
+                "description": "Pay for the subscription, then collect or receive your Navigo card and load/activate the pass before travelling."
+            }
         ],
         "warnings": [
-            "You pay a fine typically range depending on situation if you are caught without a valid Navigo pass."
+            "Imagine R Étudiant is for Île-de-France residents under 26 with a current-year enrollment certificate — outside Paris/IDF use local transport passes instead.",
+            "Travelling without a valid ticket can lead to a fine."
         ],
         "applies_to": {
             "student_groups": [
@@ -217,6 +281,14 @@
             {
                 "label": "Île-de-France Mobilités",
                 "url": "https://www.iledefrance-mobilites.fr"
+            },
+            {
+                "label": "Imagine R — required documents",
+                "url": "https://www.iledefrance-mobilites.fr/aide-et-contacts/passe-navigo-imagine-r/comment-souscrire-ou-renouveler-mon-forfait-imagine-r-quelles-sont-les-pieces-justificatives-necessaires"
+            },
+            {
+                "label": "Imagine R Étudiant",
+                "url": "https://www.iledefrance-mobilites.fr/imagine-r"
             }
         ]
     },
@@ -232,9 +304,9 @@
         "priority": "high",
         "is_required": true,
         "recommended_timing": "Within your first 3 months in France",
-        "why_this_matters": "Your visa may become invalid and you could lose legal residency status in France.",
+        "why_this_matters": "Until you validate your VLS-TS online, it does not fully act as a residence permit. After 3 months without validation, you can lose the right to re-enter France freely and may be in an irregular situation.",
         "deadline": "3 months",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [
             "sim-card"
@@ -269,7 +341,7 @@
             },
             {
                 "summary": "Pay the required fee",
-                "description": "Pay the stay tax of 50 euros"
+                "description": "Pay the stay tax shown on ANEF. For student VLS-TS, the reduced rate is €100 since 1 May 2026 (it was €50 before). Always confirm the amount displayed on the payment screen before paying — you can pay by card or with an electronic tax stamp (timbre fiscal)."
             },
             {
                 "summary": "Download your visa validation confirmation",
@@ -277,9 +349,10 @@
             }
         ],
         "warnings": [
-            "",
-            "",
-            ""
+            "Validate within 3 months of your first entry into France (date stamped in your passport).",
+            "Fee amounts change: confirm the amount shown on ANEF before paying (student reduced rate €100 since 1 May 2026).",
+            "Keep the validation confirmation email/PDF — you will need it for banking, CAF, and health insurance.",
+            "You need a French address and a phone/email; a temporary address is acceptable to start."
         ],
         "applies_to": {
             "student_groups": [
@@ -291,8 +364,20 @@
         },
         "official_links": [
             {
-                "label": "Digital administration for foreigners in France",
+                "label": "ANEF — validate your VLS-TS",
                 "url": "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/"
+            },
+            {
+                "label": "Service-Public — student VLS-TS / residence permit",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F2231"
+            },
+            {
+                "label": "Buy an electronic tax stamp",
+                "url": "https://timbres.impots.gouv.fr"
+            },
+            {
+                "label": "Campus France — validating your long-stay visa",
+                "url": "https://www.campusfrance.org/en/how-to-validate-your-long-stay-visa-visa-long-sejour-upon-your-arrival-in-france"
             }
         ]
     },
@@ -308,9 +393,9 @@
         "priority": "high",
         "is_required": true,
         "recommended_timing": "Within your first 1-3 months",
-        "why_this_matters": "Traditional bank accounts are required for long-term financial stability, salary payments, rental contracts, and administrative procedures in France.",
+        "why_this_matters": "A traditional French bank account is often preferred for salary payments, rent direct debit, and some admin procedures, even if you already have an online IBAN.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
@@ -319,19 +404,19 @@
                 "required": true
             },
             {
-                "name": "Valid visa or residence permit",
+                "name": "Visa or residence permit (non-EU students)",
+                "required": false
+            },
+            {
+                "name": "Proof of address in France",
                 "required": true
             },
             {
-                "name": "Proof of address",
+                "name": "School / enrollment certificate",
                 "required": true
             },
             {
-                "name": "School Certificate",
-                "required": true
-            },
-            {
-                "name": "Referral Code",
+                "name": "Referral code (optional)",
                 "required": false
             }
         ],
@@ -341,7 +426,7 @@
             "LCL",
             "CIC",
             "Crédit Agricole",
-            "HSBC"
+            "La Banque Postale"
         ],
         "steps_summary": [
             "Choose a traditional bank",
@@ -353,10 +438,10 @@
             "Receive bank details and card"
         ],
         "warnings": [
-            "Make sure you have your documents ready before you start.",
-            "Account approval may take several weeks",
-            "Some banks require in-person appointments",
-            "Fees may vary depending on student status"
+            "Prepare your documents before booking an appointment.",
+            "Account approval may take several weeks.",
+            "Some banks require an in-person appointment.",
+            "Fees vary for student packages — ask about student offers."
         ],
         "applies_to": {
             "student_groups": [
@@ -387,8 +472,8 @@
                 "url": "https://www.credit-agricole.fr"
             },
             {
-                "label": "HSBC",
-                "url": "https://www.hsbc.fr"
+                "label": "La Banque Postale",
+                "url": "https://www.labanquepostale.fr"
             }
         ]
     },
@@ -396,7 +481,7 @@
         "id": "student-social-security",
         "slug": "social-security",
         "title": "Register for Public Health System",
-        "short_description": "Register with the French health insurance system to access medical care and healthcare reimbursements while studying in France.",
+        "short_description": "Register for French public health insurance (Assurance Maladie) via the dedicated foreign-student portal — affiliation is free and required for non-EU students.",
         "category": "settling",
         "order_index": 7,
         "estimated_time": "1-2 weeks",
@@ -404,12 +489,12 @@
         "priority": "high",
         "is_required": true,
         "recommended_timing": "Within your first 1–2 months in France",
-        "why_this_matters": "Health insurance is required to access medical care and receive reimbursements for healthcare expenses in France.",
+        "why_this_matters": "Without affiliation you generally pay full price for care and cannot get standard reimbursements. EU/EEA/Swiss students with a valid EHIC usually stay covered by their home system instead.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [
-            "traditional-bank-account"
+            "visa-validation"
         ],
         "requirements": [
             {
@@ -417,11 +502,11 @@
                 "required": true
             },
             {
-                "name": "Visa or residence permit",
+                "name": "Student visa / validated VLS-TS or residence permit",
                 "required": true
             },
             {
-                "name": "Proof of address in France",
+                "name": "French postal address",
                 "required": true
             },
             {
@@ -429,28 +514,42 @@
                 "required": true
             },
             {
-                "name": "Proof of Civil Status: Birth Certificate",
+                "name": "Birth certificate / civil-status proof (often with translation)",
                 "required": true
             },
             {
-                "name": "Bank Account Statement(RIB)",
+                "name": "Bank details / RIB (French or foreign IBAN accepted)",
                 "required": true
             }
         ],
         "common_options": [],
         "steps_summary": [
-            "Go to the official French health insurance portal (Ameli)",
-            "Create your personal account",
-            "Upload required documents",
-            "Submit your registration request",
-            "Wait for processing and validation",
-            "Receive your social security number",
-            "Activate your health insurance account"
+            {
+                "summary": "Register on etudiant-etranger.ameli.fr",
+                "description": "Use the Assurance Maladie portal for foreign students (not ameli.fr first). Enter your personal details and study start date."
+            },
+            {
+                "summary": "Upload required documents",
+                "description": "Upload passport/ID, enrollment certificate, visa/residence proof, and civil-status documents (birth certificate). Non-EU students usually need a translation of the birth certificate."
+            },
+            {
+                "summary": "Get your provisional social security number",
+                "description": "You receive a provisional number and temporary rights attestation. Keep them for care and reimbursement claims."
+            },
+            {
+                "summary": "Complete your file after visa validation",
+                "description": "Once your VLS-TS is validated, upload the validated titre proof and your RIB to obtain a definitive social security number."
+            },
+            {
+                "summary": "Create your ameli.fr account",
+                "description": "After you have a social security number, create your personal account on ameli.fr to track reimbursements and request a Carte Vitale."
+            }
         ],
         "warnings": [
-            "Processing may take several weeks",
-            "You may not receive immediate confirmation",
-            "You must complete this even if you already have private insurance"
+            "Start on etudiant-etranger.ameli.fr — create an ameli.fr account only after you have a social security number.",
+            "Processing can take several weeks; keep your provisional attestation.",
+            "A foreign IBAN can be used for reimbursements if you do not yet have a French bank account.",
+            "EU/EEA/Swiss students with a valid European Health Insurance Card (EHIC) usually do not register on this portal."
         ],
         "applies_to": {
             "student_groups": [
@@ -462,8 +561,16 @@
         },
         "official_links": [
             {
-                "label": "Ameli Official Website",
-                "url": "https://www.ameli.fr"
+                "label": "Foreign student affiliation portal",
+                "url": "https://etudiant-etranger.ameli.fr"
+            },
+            {
+                "label": "Ameli — studying in France",
+                "url": "https://www.ameli.fr/assure/droits-demarches/europe-international/protection-sociale-france/vous-venez-etudier-en-france"
+            },
+            {
+                "label": "Service-Public — foreign student social security",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/R54512"
             }
         ]
     },
@@ -478,27 +585,38 @@
         "difficulty": "medium",
         "priority": "high",
         "is_required": false,
-        "recommended_timing": "After signing your rental agreement",
-        "why_this_matters": "CAF helps reduce your monthly rent by providing housing financial support.",
+        "recommended_timing": "As soon as you have the keys / move into your housing",
+        "why_this_matters": "CAF housing aid (APL/ALS/ALF) can significantly reduce your rent. It is not retroactive — rights usually start the month after you apply and move in.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [
-            "find-housing",
-            "traditional-bank-account"
+            "find-housing"
         ],
         "requirements": [
             {
-                "name": "Rental contract (proof of housing)",
+                "name": "Signed rental contract (bail) or CROUS residency attestation",
                 "required": true
             },
             {
-                "name": "French bank account (RIB)",
+                "name": "RIB (BIC/IBAN) in your name",
                 "required": true
             },
             {
-                "name": "Valid visa or residence permit",
+                "name": "Landlord details (and SIRET if the landlord is a company)",
                 "required": true
+            },
+            {
+                "name": "Rent attestation (attestation de loyer) signed by the landlord",
+                "required": true
+            },
+            {
+                "name": "ID / visa or residence permit (as requested in your CAF file)",
+                "required": true
+            },
+            {
+                "name": "Birth certificate / civil-status proof (often requested)",
+                "required": false
             }
         ],
         "common_options": [],
@@ -513,7 +631,7 @@
             },
             {
                 "summary": "Upload required documents",
-                "description": "Once your application is submitted, upload the requested documents through your CAF account or the CAF mobile app."
+                "description": "Upload the documents CAF requests (lease, RIB, rent attestation, ID/residence proof, landlord SIRET if applicable) via your CAF account or the CAF mobile app. Respond quickly if more documents are asked."
             },
             {
                 "summary": "Track Your Application",
@@ -521,12 +639,14 @@
             },
             {
                 "summary": "Wait for approval",
-                "description": "After your application has been reviewed and approved, CAF will notify you of the outcome. If eligible, your housing assistance payments will begin according to CAF's payment schedule."
+                "description": "After approval, CAF notifies you. Rights usually open the month after you move in and apply; first payment often arrives about 1–2 months later (e.g. move in September → rights in October → payment in November)."
             }
         ],
         "warnings": [
-            "You need a valid accommodation contract before applying for CAF.",
-            "CAF processing can take several weeks"
+            "Housing aid is not retroactive — apply as soon as you have the keys.",
+            "You need a valid lease (or CROUS attestation) and a RIB before applying.",
+            "CAF processing can take several weeks; check your account for missing documents.",
+            "From 1 July 2026, eligibility rules tighten for some non-EU students — check caf.fr for your situation."
         ],
         "applies_to": {
             "student_groups": [
@@ -539,6 +659,14 @@
             {
                 "label": "CAF official website",
                 "url": "https://www.caf.fr"
+            },
+            {
+                "label": "CAF — student housing aid info",
+                "url": "https://www.caf.fr/allocataires/actualites/actualites-nationales/etudiants-tout-savoir-sur-l-aide-au-logement-0"
+            },
+            {
+                "label": "Service-Public — housing benefits",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/N19904"
             }
         ]
     },
@@ -546,17 +674,17 @@
         "id": "declaration-of-tax",
         "slug": "declaration-of-tax",
         "title": "French Tax Declaration",
-        "short_description": "Declare your annual income to the French tax authorities, even if you have no income.",
+        "short_description": "If you are tax-resident in France and not attached to your parents' tax household, declare your income each spring on impots.gouv.fr (including a zero-income declaration when applicable).",
         "category": "long-term",
         "order_index": 9,
         "estimated_time": "30–60 minutes",
         "difficulty": "medium",
         "priority": "high",
-        "is_required": true,
-        "recommended_timing": "Between April and June each year (after your first year in France)",
-        "why_this_matters": "Tax declaration is a legal requirement in France, even for students with no income. It is used to calculate eligibility for housing aid and official documentation.",
+        "is_required": false,
+        "recommended_timing": "April–June each year for the previous calendar year (often after your first full year as a French tax resident)",
+        "why_this_matters": "A tax return (or avis de non-imposition) is often needed for CAF, housing, and other admin. Declaring does not always mean you owe tax.",
         "deadline": "",
-        "last_verified_at": "",
+        "last_verified_at": "2026-07-30",
         "status": "active",
         "depends_on": [],
         "requirements": [
@@ -565,11 +693,11 @@
                 "required": true
             },
             {
-                "name": "French tax number (if already assigned)",
+                "name": "French tax number (numéro fiscal) if already assigned",
                 "required": false
             },
             {
-                "name": "Proof of income (if applicable)",
+                "name": "Proof of income (payslips, etc.) if applicable",
                 "required": false
             },
             {
@@ -579,29 +707,48 @@
         ],
         "common_options": [],
         "steps_summary": [
-            "Go to the official French tax website",
-            "Create your personal tax account",
-            "Enter personal and residency details",
-            "Declare your income (or declare zero income)",
-            "Submit your tax declaration",
-            "Download your tax notice (avis d'imposition)"
+            {
+                "summary": "Confirm you must file your own return",
+                "description": "If you are under 25 and still studying, you may be attached to your parents' tax household instead of filing alone. Otherwise, file your own return if you are domiciled in France for tax purposes."
+            },
+            {
+                "summary": "Go to impots.gouv.fr and create / access your space",
+                "description": "For a first declaration, create your personal tax account and follow the first-time filer flow."
+            },
+            {
+                "summary": "Declare income (or zero income)",
+                "description": "Report wages, scholarships that are taxable, etc. Student job income may benefit from an exemption up to a yearly limit if you qualify — check the current amount on service-public.fr / etudiant.gouv.fr."
+            },
+            {
+                "summary": "Submit and download your tax notice",
+                "description": "After processing, download your avis d'imposition or avis de non-imposition — keep it for CAF and other procedures."
+            }
         ],
         "warnings": [
-            "Even if you have no income, you must still submit a declaration",
-            "Missing the deadline may result in penalties or delays in benefits"
+            "Not every student must file alone: check whether you are attached to your parents' foyer fiscal.",
+            "If you file your own return, do it even with zero income so you can get an avis de non-imposition.",
+            "Missing the spring deadline can mean penalties or delays for benefits that ask for a tax notice.",
+            "Applies to EU and non-EU students who are French tax residents — not only non-EU visa holders."
         ],
         "applies_to": {
             "student_groups": [
+                "eu_students",
                 "non_eu_students"
             ],
-            "visa_types": [
-                "long_stay"
-            ]
+            "visa_types": []
         },
         "official_links": [
             {
                 "label": "French Tax Portal",
                 "url": "https://www.impots.gouv.fr"
+            },
+            {
+                "label": "Service-Public — first income tax return",
+                "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F369"
+            },
+            {
+                "label": "Étudiant.gouv — tax for students",
+                "url": "https://www.etudiant.gouv.fr/fr/impot-sur-le-revenu-le-cas-des-etudiants-1837"
             }
         ]
     }
