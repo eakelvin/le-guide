@@ -111,7 +111,7 @@ export function SidebarPanel({
     return (
         <div className={cn("flex h-full min-h-0 flex-col bg-white text-foreground", className)}>
             <div className="border-b border-border px-6 py-7">
-                <Logo size="md" href="/dashboard" />
+                <Logo size="md" href="/" />
                 <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-sand-600">
                     {tSidebar("tagline")}
                 </p>
