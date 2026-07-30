@@ -13,8 +13,10 @@ export function CompleteProfileAlert() {
                 <UserRound className="size-4" aria-hidden />
                 <AlertTitle className="text-azure-950">{t("completeAlertTitle")}</AlertTitle>
                 <AlertDescription className="text-azure-700">
-                    {t("completeAlertBody")}{" "}
-                    <span className="font-medium text-azure-800">{t("completeAlertCta")}</span>
+                    <span className="block">{t("completeAlertBody")}</span>
+                    <span className="mt-2 inline-flex items-center font-bold text-azure-950 underline decoration-2 underline-offset-4">
+                        {t("completeAlertCta")}
+                    </span>
                 </AlertDescription>
             </Alert>
         </Link>
