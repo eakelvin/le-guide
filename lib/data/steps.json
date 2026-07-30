@@ -412,6 +412,10 @@
                 "required": true
             },
             {
+                "name": "If hosted: host ID, host proof of address, and signed attestation d'hébergement",
+                "required": true
+            },
+            {
                 "name": "School / enrollment certificate",
                 "required": true
             },

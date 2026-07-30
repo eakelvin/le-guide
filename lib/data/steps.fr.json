@@ -412,6 +412,10 @@
                 "required": true
             },
             {
+                "name": "Si hébergé : pièce d'identité de l'hébergeur, justificatif de domicile de l'hébergeur et attestation d'hébergement signée",
+                "required": true
+            },
+            {
                 "name": "Certificat de scolarité / d'inscription",
                 "required": true
             },
