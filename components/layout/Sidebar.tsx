@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Logo } from "@/components/brand/Logo";
 import { cn, COLOR_CONFIG } from "@/lib/utils";
 import {
     getCategoryColorKey,
@@ -110,9 +111,7 @@ export function SidebarPanel({
     return (
         <div className={cn("flex h-full min-h-0 flex-col bg-white text-foreground", className)}>
             <div className="border-b border-border px-6 py-7">
-                <div className="font-heading text-xl font-normal tracking-tight text-sand-800">
-                    Le<span className="text-forest-700">Guide</span>
-                </div>
+                <Logo size="md" href="/dashboard" />
                 <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-sand-600">
                     {tSidebar("tagline")}
                 </p>

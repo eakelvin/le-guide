@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { useFormStatus } from "react-dom";
 import { LoginPanel } from "@/components/layout/LeftPanel";
+import { Logo } from "@/components/brand/Logo";
 import { Eye, EyeOff, ArrowRight, Mail, Lock, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -136,12 +137,8 @@ export function LoginForm() {
 
             <div className="flex items-center justify-center p-8 bg-background">
                 <div className="w-full max-w-[400px] animate-fade-up">
-                    <div className="lg:hidden mb-8 text-center">
-                        <Link href="/" className="no-underline">
-                            <span className="font-serif text-2xl font-light tracking-tight text-foreground">
-                                Le<span className="text-forest-900">Guide</span>
-                            </span>
-                        </Link>
+                    <div className="lg:hidden mb-8 flex justify-center">
+                        <Logo size="lg" />
                     </div>
 
                     <Card className="border-border/60 shadow-sm">

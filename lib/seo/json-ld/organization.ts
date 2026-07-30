@@ -6,7 +6,15 @@ export function organizationJsonLd() {
     "@id": `${getSiteUrl()}/#organization`,
     name: siteConfig.name,
     url: getSiteUrl(),
-    logo: absoluteUrl("/icon"),
+    logo: {
+      "@type": "ImageObject",
+      url: absoluteUrl(siteConfig.logoMark),
+      contentUrl: absoluteUrl(siteConfig.logo),
+      width: 792,
+      height: 792,
+      caption: siteConfig.name,
+    },
+    image: absoluteUrl(siteConfig.logo),
     description: siteConfig.description,
   };
 }

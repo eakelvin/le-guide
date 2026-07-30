@@ -9,6 +9,14 @@ export const siteConfig = {
   locales: routing.locales,
   themeColor: "#1a3d2e",
   backgroundColor: "#faf8f5",
+  /** Full logo asset (PNG) — preferred for Open Graph / social crawlers. */
+  logo: "/guide.png",
+  /** Square mark cropped from the logo — favicons & schema ImageObject. */
+  logoMark: "/logo-mark.png",
+  /** Transparent SVG mark — in-app UI. */
+  logoMarkSvg: "/guide.svg",
+  logoWidth: 2720,
+  logoHeight: 1040,
 } as const;
 
 /** Absolute site origin (no trailing slash). Set `NEXT_PUBLIC_SITE_URL` in production. */

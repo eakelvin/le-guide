@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { Logo } from "@/components/brand/Logo";
 
 const PREVIEW_STEPS = [
     { labelKey: "panelStepVisa" as const, pct: 25, color: "#F0997B" },
@@ -38,9 +39,7 @@ export function LoginPanel() {
 
             <div className="relative z-10">
                 <Link href="/" className="text-white no-underline">
-                    <div className="font-serif text-2xl font-light tracking-tight">
-                        Le<span className="text-[#9ECC60]">Guide</span>
-                    </div>
+                    <Logo href={null} size="lg" tone="inverse" />
                     <div className="text-white/40 text-xs mt-1 tracking-widest uppercase">
                         {t("panelTagline")}
                     </div>
@@ -128,9 +127,7 @@ export function RegisterPanel() {
 
             <div className="relative z-10">
                 <Link href="/" className="text-white no-underline">
-                    <div className="font-serif text-2xl font-light tracking-tight">
-                        Le<span className="text-[#9ECC60]">Guide</span>
-                    </div>
+                    <Logo href={null} size="lg" tone="inverse" />
                     <div className="text-white/40 text-xs mt-1 tracking-widest uppercase">
                         {t("panelTagline")}
                     </div>

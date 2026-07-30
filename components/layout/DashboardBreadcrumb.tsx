@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { siteConfig } from "@/lib/seo/site";
 
 interface DashboardBreadcrumbProps {
     /** Current page label shown after Dashboard (e.g. checklist item title). */
@@ -16,7 +17,7 @@ export function DashboardBreadcrumb({ current, onDashboardClick }: DashboardBrea
 
     return (
         <nav aria-label={t("breadcrumbAria")} className="mb-2 text-xs text-sand-400">
-            <span>LeGuide</span>
+            <span>{siteConfig.name}</span>
             <span aria-hidden className="mx-1 text-sand-300">
                 &gt;
             </span>

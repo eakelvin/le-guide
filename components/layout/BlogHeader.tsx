@@ -2,6 +2,7 @@
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/button";
 import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 import { ArrowLeft } from "lucide-react";
@@ -32,6 +33,7 @@ export function BlogHeader() {
               <span className="hidden sm:inline">{backLabel}</span>
             </Link>
           </Button>
+          <Logo size="sm" className="hidden sm:inline-flex" />
         </div>
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <LocaleSwitcher variant="pill" />
