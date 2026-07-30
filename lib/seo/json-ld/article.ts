@@ -1,6 +1,6 @@
 import type { BlogPost } from "@/types/blog";
 import type { AppLocale } from "@/i18n/routing";
-import { getSiteUrl, localizedUrl } from "@/lib/seo/site";
+import { absoluteUrl, getSiteUrl, localizedUrl, siteConfig } from "@/lib/seo/site";
 
 export function blogPostingJsonLd(post: BlogPost, locale: AppLocale) {
   const url = localizedUrl(locale, `/guides/${post.slug}`);
@@ -19,8 +19,9 @@ export function blogPostingJsonLd(post: BlogPost, locale: AppLocale) {
     },
     author: {
       "@type": "Organization",
-      name: "LeGuide",
+      name: siteConfig.name,
       url: getSiteUrl(),
+      logo: absoluteUrl(siteConfig.logoMark),
     },
     publisher: {
       "@id": `${getSiteUrl()}/#organization`,

@@ -3,6 +3,8 @@
 import { useActionState, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useFormStatus } from "react-dom";
+import { RegisterPanel } from "@/components/layout/LeftPanel";
+import { Logo } from "@/components/brand/Logo";
 import {
     Eye, EyeOff, ArrowRight, Mail, Lock,
     User, GraduationCap, CheckCircle2,
@@ -19,7 +21,6 @@ import {
 } from "@/components/ui/card";
 import { AUTH_ROUTES } from "@/lib/auth-routes";
 import { cn } from "@/lib/utils";
-import { RegisterPanel } from "../layout/LeftPanel";
 import { CountryCombobox } from "@/components/ui/CountryCombobox";
 import { registerAction } from "@/features/auth/register";
 import { googleLogin } from "@/features/auth/google-login";
@@ -128,12 +129,8 @@ export function RegisterForm() {
 
             <div className="flex items-center justify-center p-8 bg-background">
                 <div className="w-full max-w-[420px] animate-fade-up">
-                    <div className="lg:hidden mb-8 text-center">
-                        <Link href="/" className="no-underline">
-                            <span className="font-serif text-2xl font-light tracking-tight text-foreground">
-                                Le<span className="text-forest-900">Guide</span>
-                            </span>
-                        </Link>
+                    <div className="lg:hidden mb-8 flex justify-center">
+                        <Logo size="lg" />
                     </div>
 
                     <div className="flex items-center gap-2 mb-6">

@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { Logo } from "@/components/brand/Logo";
 
 export function Footer() {
     const t = useTranslations("footer");
@@ -11,9 +12,7 @@ export function Footer() {
     return (
         <footer className="bg-sand-800 py-12">
             <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-5 px-6 md:px-12">
-                <div className="font-heading text-[16px] font-normal text-white/75">
-                    Le<span className="text-forest-400">Guide</span>
-                </div>
+                <Logo size="sm" tone="inverse" />
                 <div className="flex flex-wrap gap-6 text-[13px]">
                     <Link href="/guides" className="text-white/40 no-underline transition-colors hover:text-white/75">
                         {tCommon("guides")}

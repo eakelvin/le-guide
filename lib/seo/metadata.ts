@@ -53,6 +53,13 @@ export function buildPageMetadata({
     metadataBase: new URL(getSiteUrl()),
     title: absoluteTitle ? { absolute: title } : title,
     description,
+    icons: {
+      icon: [
+        { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+        { url: siteConfig.logoMark, sizes: "792x792", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    },
     alternates: {
       canonical: localizedPath(locale, path),
       languages: languageAlternates(path),

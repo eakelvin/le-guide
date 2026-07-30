@@ -1,10 +1,16 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { siteConfig } from "@/lib/seo/site";
 
 export const alt = "LeGuide — Student admin guide for France";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const logoBytes = await readFile(join(process.cwd(), "public/logo-mark.png"));
+  const logoSrc = `data:image/png;base64,${logoBytes.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -18,16 +24,19 @@ export default function OpenGraphImage() {
           padding: 72,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            fontSize: 42,
-            fontWeight: 600,
-            color: "#1a3d2e",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          LeGuide
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <img src={logoSrc} width={72} height={72} alt="" style={{ borderRadius: 16 }} />
+          <div
+            style={{
+              display: "flex",
+              fontSize: 42,
+              fontWeight: 600,
+              color: "#1a3d2e",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {siteConfig.name}
+          </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <div

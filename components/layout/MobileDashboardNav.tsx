@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -42,9 +43,7 @@ export function MobileDashboardNav({
                 >
                     {open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
                 </Button>
-                {/* <span className="font-heading text-lg font-normal tracking-tight text-sand-800">
-                    Le<span className="text-forest-700">Guide</span>
-                </span> */}
+                <Logo size="sm" markOnly href="/dashboard" />
                 <div className="size-9 shrink-0" aria-hidden />
             </header>
 

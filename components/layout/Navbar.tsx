@@ -4,6 +4,7 @@ import type { AppUser } from "@/features/auth/user";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "@/components/layout/UserMenu";
 import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
@@ -25,13 +26,7 @@ export function Navbar({ initialUser }: { initialUser: AppUser | null }) {
     return (
         <>
             <nav className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-b border-border bg-background/90 px-4 backdrop-blur-md supports-[backdrop-filter]:bg-background/75 md:h-[60px] md:px-12">
-                <Link
-                    href="/"
-                    className="font-heading text-[18px] font-normal tracking-tight text-sand-800 no-underline"
-                    onClick={closeMobile}
-                >
-                    Le<span className="text-forest-900">Guide</span>
-                </Link>
+                <Logo size="sm" onClick={closeMobile} />
                 <div className="flex items-center gap-2 md:gap-7">
                     <div className="hidden items-center gap-7 md:flex">
                         <a
