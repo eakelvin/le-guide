@@ -6,15 +6,16 @@ import { useTranslations, useLocale } from "next-intl";
 import {
     User, GraduationCap, MapPin, Save,
     CheckCircle2, ChevronLeft,
-    Globe, Building2, KeyRound,
+    Globe, Building2, KeyRound, AlertCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 import { useProfile } from "@/lib/hooks";
 import type { ProfilePageProps, ProfileFieldKey, UserProfile, StudentType } from "@/types";
 import { UpdatePasswordForm } from "@/components/auth/UpdatePasswordForm";
-import { getCompletionBySection, getCompletionPct, getInitials, isProfileMinimumComplete } from "@/lib/helpers/helpers";
+import { getCompletionBySection, getCompletionPct, getInitials, getProfilePageIncompleteSection, isProfileMinimumComplete } from "@/lib/helpers/helpers";
 import { getCountryLabel } from "@/lib/data/countries-master";
 import { SectionPersonal, SectionAcademic, SectionStay, SaveToast, ProfilePasswordToast } from "./SubComponents";
 import toast from "react-hot-toast";
@@ -230,6 +231,14 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
 
     async function handleSave() {
         if (saving) return;
+
+        const incompleteSection = getProfilePageIncompleteSection(draft);
+        if (incompleteSection) {
+            setActiveSection(incompleteSection);
+            toast.error(t("requiredFieldsToast"));
+            return;
+        }
+
         setSaving(true);
         const wasIncomplete = !isProfileMinimumComplete(profile);
         try {
@@ -278,6 +287,7 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
 
     const ActiveIcon = SECTION_ICONS[activeSection];
     const showMobileSaveBar = dirty && activeSection !== "account";
+    const profileIncomplete = getProfilePageIncompleteSection(draft) !== null;
 
     return (
         <div className={cn("min-h-screen bg-background", showMobileSaveBar && "pb-24 md:pb-0")}>
@@ -324,6 +334,14 @@ export function ProfilePage({ appUser, initialProfile }: ProfilePageProps) {
             </div>
 
             <div className="mx-auto max-w-5xl space-y-5 px-4 py-5 sm:space-y-8 sm:px-6 sm:py-8">
+                {profileIncomplete ? (
+                    <Alert className="border-azure-100 bg-azure-50 text-azure-900 shadow-none [&>svg]:text-azure-600">
+                        <AlertCircle className="size-4" aria-hidden />
+                        <AlertDescription className="font-medium text-azure-800">
+                            {t("completionHint")}
+                        </AlertDescription>
+                    </Alert>
+                ) : null}
                 <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
                     <div className="flex items-start gap-3.5 sm:gap-5">
                         <div className="shrink-0">

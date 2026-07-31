@@ -6,16 +6,38 @@ export function getInitials(p: UserProfile) {
     return (f + l).toUpperCase() || "?";
 }
 
+/** Fields required to save on the profile page (and used for overall completion %). */
+export const PROFILE_PAGE_REQUIRED_FIELDS = [
+    "firstName", "lastName", "email", "country",
+    "university", "program", "studentType",
+    "alreadyInFrance", "hasAccommodation", "arrivalDate",
+] as const satisfies readonly (keyof UserProfile)[];
+
+type ProfilePageSection = "personal" | "academic" | "stay";
+
+const PERSONAL_REQUIRED = ["firstName", "lastName", "email", "country"] as const satisfies readonly (keyof UserProfile)[];
+const ACADEMIC_REQUIRED = ["university", "program", "studentType", "academicYear", "campusCity"] as const satisfies readonly (keyof UserProfile)[];
+
+function isFilled(p: UserProfile, key: keyof UserProfile) {
+    return !!String(p[key] ?? "").trim();
+}
+
+/** Returns the first incomplete profile-page section, or null when save is allowed. */
+export function getProfilePageIncompleteSection(p: UserProfile): ProfilePageSection | null {
+    if (PERSONAL_REQUIRED.some((k) => !isFilled(p, k))) return "personal";
+    if (ACADEMIC_REQUIRED.some((k) => !isFilled(p, k))) return "academic";
+    if (!isFilled(p, "alreadyInFrance") || !isFilled(p, "hasAccommodation") || !isFilled(p, "arrivalDate")) {
+        return "stay";
+    }
+    if (p.alreadyInFrance === "yes" && !isFilled(p, "addressCity")) return "stay";
+    return null;
+}
+
 export function getCompletionPct(p: UserProfile): number {
-    const base: (keyof UserProfile)[] = [
-        "firstName", "lastName", "email", "country",
-        "university", "program", "studentType",
-        "alreadyInFrance", "hasAccommodation", "arrivalDate",
-    ];
-    const filled = base.filter((k) => !!p[k]).length;
+    const filled = PROFILE_PAGE_REQUIRED_FIELDS.filter((k) => !!p[k]).length;
     const citySegment =
         p.alreadyInFrance === "yes" ? (p.addressCity?.trim() ? 1 : 0) : p.alreadyInFrance === "no" ? 1 : 0;
-    const total = 11;
+    const total = PROFILE_PAGE_REQUIRED_FIELDS.length + 1;
     return Math.round(((filled + citySegment) / total) * 100);
 }
 
