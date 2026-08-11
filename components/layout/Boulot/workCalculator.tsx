@@ -3,12 +3,13 @@
 import { useMemo, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { ChevronLeft } from "lucide-react";
+import { AlertCircle, ChevronLeft } from "lucide-react";
 import toast from "react-hot-toast";
 import type { WorkEntry } from "@/types";
 import { useWorkLog } from "@/lib/helpers/useWorkLog";
 import { entryHours, monthKey } from "@/lib/helpers/time";
 import { currentMonthKey } from "@/lib/helpers/helpers";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { SummaryCards } from "@/components/layout/Boulot/SummaryCards";
 import { MonthPicker } from "@/components/layout/Boulot/MonthPicker";
 import { EntryList } from "@/components/layout/Boulot/EntryList";
@@ -97,6 +98,31 @@ export default function WorkCalculator({
           </h1>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-sand-600">{t("subtitle")}</p>
         </div>
+
+        <Alert className="border-azure-100 bg-azure-50 text-azure-900 shadow-none [&>svg]:text-azure-600">
+          <AlertCircle className="size-4" aria-hidden />
+          <AlertDescription className="text-azure-800">
+            <span className="font-medium">{t("legalLimitTitle")}</span>{" "}
+            {t("legalLimitBody")}{" "}
+            <a
+              href="https://www.irak.campusfrance.org/en/working-while-studying-in-france"
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-azure-900 underline underline-offset-2"
+            >
+              {t("sourceCampusFrance")}
+            </a>
+            {" · "}
+            <a
+              href="https://france-visas.gouv.fr/en/etudiant"
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-azure-900 underline underline-offset-2"
+            >
+              {t("sourceFranceVisas")}
+            </a>
+          </AlertDescription>
+        </Alert>
 
         <section className="space-y-3" aria-label={t("heading")}>
           <MonthPicker month={month} onChange={setMonth} />
