@@ -1,74 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import type { WorkEntry } from "@/types";
 import {
   addWorkEntryAction,
   deleteWorkEntryAction,
-  migrateLocalWorkEntriesAction,
   updateWorkEntryAction,
 } from "@/features/work/actions";
 
-const LOCAL_ENTRIES_KEY = "work-log:entries";
-const LOCAL_MIGRATED_KEY = "work-log:migrated-to-supabase";
-
-function readLocalEntries(): WorkEntry[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = window.localStorage.getItem(LOCAL_ENTRIES_KEY);
-    return raw ? (JSON.parse(raw) as WorkEntry[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-function clearLocalEntries() {
-  if (typeof window === "undefined") return;
-  window.localStorage.removeItem(LOCAL_ENTRIES_KEY);
-  window.localStorage.setItem(LOCAL_MIGRATED_KEY, "1");
-}
-
-function alreadyMigrated(): boolean {
-  if (typeof window === "undefined") return true;
-  return window.localStorage.getItem(LOCAL_MIGRATED_KEY) === "1";
-}
-
 export function useWorkLog(initialEntries: WorkEntry[] = []) {
   const [entries, setEntries] = useState<WorkEntry[]>(initialEntries);
-  const [ready, setReady] = useState(false);
   const [pending, setPending] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function hydrate() {
-      if (alreadyMigrated()) {
-        if (!cancelled) setReady(true);
-        return;
-      }
-
-      const local = readLocalEntries();
-      if (local.length === 0) {
-        clearLocalEntries();
-        if (!cancelled) setReady(true);
-        return;
-      }
-
-      const { data, error } = await migrateLocalWorkEntriesAction(local);
-      if (!cancelled) {
-        if (!error && data) {
-          setEntries(data);
-          clearLocalEntries();
-        }
-        setReady(true);
-      }
-    }
-
-    void hydrate();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   const addEntry = useCallback(async (entry: Omit<WorkEntry, "id">) => {
     setPending(true);
@@ -106,7 +48,6 @@ export function useWorkLog(initialEntries: WorkEntry[] = []) {
   }, []);
 
   return {
-    ready,
     pending,
     entries,
     addEntry,
