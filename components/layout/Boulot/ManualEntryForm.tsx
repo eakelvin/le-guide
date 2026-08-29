@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Plus, X } from "lucide-react";
 import { useTranslations } from "next-intl";
+import toast from "react-hot-toast";
 import { WorkEntry } from "@/types";
 import { todayISO } from "@/lib/helpers/time";
 import { Button } from "@/components/ui/button";
@@ -14,8 +15,10 @@ import {
 
 export function ManualEntryForm({
   onAdd,
+  existingDates,
 }: {
   onAdd: (entry: Omit<WorkEntry, "id">) => void | Promise<void>;
+  existingDates: ReadonlySet<string>;
 }) {
   const t = useTranslations("boulot");
   const [open, setOpen] = useState(false);
@@ -30,9 +33,16 @@ export function ManualEntryForm({
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (saving) return;
+
+    const values = form.toValues();
+    if (existingDates.has(values.date)) {
+      toast.error(t("duplicateDayError"));
+      return;
+    }
+
     setSaving(true);
     try {
-      await onAdd(form.toValues());
+      await onAdd(values);
       form.reset({ date: todayISO() });
       setOpen(false);
     } finally {

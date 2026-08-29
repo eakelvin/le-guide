@@ -3,8 +3,10 @@
 import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import type { WorkEntry } from "@/types";
+import { WORK_ENTRY_DUPLICATE_DATE } from "./constants";
 import {
   fetchWorkEntriesForUser,
+  fetchWorkEntryForDate,
   workEntryRowToWorkEntry,
   workEntryToInsertRow,
   type WorkEntryRow,
@@ -51,6 +53,9 @@ export async function addWorkEntryAction(
   const { supabase, userId } = await getSessionContext();
   if (!userId) return { error: "Not signed in." };
 
+  const existing = await fetchWorkEntryForDate(supabase, userId, entry.date);
+  if (existing) return { error: WORK_ENTRY_DUPLICATE_DATE };
+
   const { data, error } = await supabase
     .from("work_entries")
     .insert(workEntryToInsertRow(userId, entry))
@@ -59,6 +64,7 @@ export async function addWorkEntryAction(
 
   if (error || !data) {
     console.error("[work_entries] add error:", error?.message);
+    if (error?.code === "23505") return { error: WORK_ENTRY_DUPLICATE_DATE };
     return { error: error?.message ?? "Failed to add entry." };
   }
 
@@ -76,6 +82,9 @@ export async function updateWorkEntryAction(
   const { supabase, userId } = await getSessionContext();
   if (!userId) return { error: "Not signed in." };
 
+  const conflicting = await fetchWorkEntryForDate(supabase, userId, entry.date, id);
+  if (conflicting) return { error: WORK_ENTRY_DUPLICATE_DATE };
+
   const row = workEntryToInsertRow(userId, entry);
   const { user_id: _userId, ...patch } = row;
 
@@ -89,6 +98,7 @@ export async function updateWorkEntryAction(
 
   if (error || !data) {
     console.error("[work_entries] update error:", error?.message);
+    if (error?.code === "23505") return { error: WORK_ENTRY_DUPLICATE_DATE };
     return { error: error?.message ?? "Failed to update entry." };
   }
 
@@ -112,42 +122,4 @@ export async function deleteWorkEntryAction(id: string): Promise<ActionResult> {
     return { error: error.message };
   }
   return {};
-}
-
-/** One-time import of entries previously stored in the browser. */
-export async function migrateLocalWorkEntriesAction(
-  entries: WorkEntry[],
-): Promise<ActionResult<WorkEntry[]>> {
-  const { supabase, userId } = await getSessionContext();
-  if (!userId) return { error: "Not signed in." };
-  if (!Array.isArray(entries) || entries.length === 0) {
-    return { data: await fetchWorkEntriesForUser(supabase, userId) };
-  }
-
-  const rows = entries
-    .filter((e) => e.date && (e.hours != null || (e.startTime && e.endTime)))
-    .map((e) =>
-      workEntryToInsertRow(userId, {
-        id: e.id,
-        date: e.date,
-        startTime: e.startTime,
-        endTime: e.endTime,
-        hours: e.hours,
-        breakMinutes: e.breakMinutes ?? 0,
-        note: e.note,
-      }),
-    );
-
-  if (rows.length > 0) {
-    const { error } = await supabase.from("work_entries").upsert(rows, {
-      onConflict: "id",
-      ignoreDuplicates: true,
-    });
-    if (error) {
-      console.error("[work_entries] migrate error:", error.message);
-      return { error: error.message };
-    }
-  }
-
-  return { data: await fetchWorkEntriesForUser(supabase, userId) };
 }

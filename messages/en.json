@@ -386,6 +386,7 @@
     "sourceFranceVisas": "France-Visas",
     "disclaimer": "Your hours are saved to your LeGuide account. Salary estimates use the SMIC rate in effect since 1 June 2026 (€12.31 gross/h) and are indicative only.",
     "saveError": "Couldn't save this entry. Please try again.",
+    "duplicateDayError": "You already have an entry for this date. Edit it in the list below.",
     "deleteError": "Couldn't delete this entry. Please try again.",
     "prevMonth": "Previous month",
     "nextMonth": "Next month",

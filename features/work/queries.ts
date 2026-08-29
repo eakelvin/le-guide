@@ -48,6 +48,32 @@ export function workEntryToInsertRow(
   };
 }
 
+export async function fetchWorkEntryForDate(
+  supabase: SupabaseClient,
+  userId: string,
+  workDate: string,
+  excludeId?: string,
+): Promise<WorkEntry | null> {
+  let query = supabase
+    .from("work_entries")
+    .select("id, user_id, work_date, start_time, end_time, hours, break_minutes, note")
+    .eq("user_id", userId)
+    .eq("work_date", workDate);
+
+  if (excludeId) {
+    query = query.neq("id", excludeId);
+  }
+
+  const { data, error } = await query.maybeSingle();
+
+  if (error) {
+    console.error("[work_entries] fetch by date error", error.message);
+    return null;
+  }
+
+  return data ? workEntryRowToWorkEntry(data as WorkEntryRow) : null;
+}
+
 export async function fetchWorkEntriesForUser(
   supabase: SupabaseClient,
   userId: string,

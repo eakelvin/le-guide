@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { AlertCircle, ChevronLeft } from "lucide-react";
 import toast from "react-hot-toast";
 import type { WorkEntry } from "@/types";
+import { WORK_ENTRY_DUPLICATE_DATE } from "@/features/work/constants";
 import { useWorkLog } from "@/lib/helpers/useWorkLog";
 import { entryHours, monthKey } from "@/lib/helpers/time";
 import { currentMonthKey } from "@/lib/helpers/helpers";
@@ -22,8 +23,10 @@ export default function WorkCalculator({
 }) {
   const t = useTranslations("boulot");
   const tCommon = useTranslations("common");
-  const { ready, entries, addEntry, updateEntry, deleteEntry } = useWorkLog(initialEntries);
+  const { entries, addEntry, updateEntry, deleteEntry } = useWorkLog(initialEntries);
   const [month, setMonth] = useState(currentMonthKey());
+
+  const existingDates = useMemo(() => new Set(entries.map((e) => e.date)), [entries]);
 
   const monthEntries = useMemo(
     () => entries.filter((e) => monthKey(e.date) === month),
@@ -41,17 +44,34 @@ export default function WorkCalculator({
   );
 
   async function handleAdd(entry: Omit<WorkEntry, "id">) {
+    if (existingDates.has(entry.date)) {
+      toast.error(t("duplicateDayError"));
+      return;
+    }
     try {
       await addEntry(entry);
-    } catch {
+    } catch (error) {
+      if (error instanceof Error && error.message === WORK_ENTRY_DUPLICATE_DATE) {
+        toast.error(t("duplicateDayError"));
+        return;
+      }
       toast.error(t("saveError"));
     }
   }
 
   async function handleUpdate(id: string, patch: Omit<WorkEntry, "id">) {
+    const otherEntryOnDate = entries.some((e) => e.id !== id && e.date === patch.date);
+    if (otherEntryOnDate) {
+      toast.error(t("duplicateDayError"));
+      return;
+    }
     try {
       await updateEntry(id, patch);
-    } catch {
+    } catch (error) {
+      if (error instanceof Error && error.message === WORK_ENTRY_DUPLICATE_DATE) {
+        toast.error(t("duplicateDayError"));
+        return;
+      }
       toast.error(t("saveError"));
     }
   }
@@ -62,14 +82,6 @@ export default function WorkCalculator({
     } catch {
       toast.error(t("deleteError"));
     }
-  }
-
-  if (!ready) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-canvas">
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-forest-600 border-t-transparent" />
-      </div>
-    );
   }
 
   return (
@@ -141,7 +153,7 @@ export default function WorkCalculator({
               {monthEntries.length}
             </span>
           </div>
-          <ManualEntryForm onAdd={handleAdd} />
+          <ManualEntryForm onAdd={handleAdd} existingDates={existingDates} />
           <EntryList
             entries={monthEntries}
             onUpdate={handleUpdate}
