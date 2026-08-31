@@ -3,14 +3,16 @@
 import { useMemo, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { AlertCircle, ChevronLeft } from "lucide-react";
+import { AlertCircle, ChevronLeft, Download } from "lucide-react";
 import toast from "react-hot-toast";
 import type { WorkEntry } from "@/types";
 import { WORK_ENTRY_DUPLICATE_DATE } from "@/features/work/constants";
 import { useWorkLog } from "@/lib/helpers/useWorkLog";
 import { entryHours, monthKey } from "@/lib/helpers/time";
+import { buildWorkMonthCsv, downloadWorkMonthCsv } from "@/lib/helpers/work-export";
 import { currentMonthKey } from "@/lib/helpers/helpers";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { SummaryCards } from "@/components/layout/Boulot/SummaryCards";
 import { MonthPicker } from "@/components/layout/Boulot/MonthPicker";
 import { EntryList } from "@/components/layout/Boulot/EntryList";
@@ -84,6 +86,26 @@ export default function WorkCalculator({
     }
   }
 
+  function handleExportCsv() {
+    if (monthEntries.length === 0) {
+      toast.error(t("exportEmpty"));
+      return;
+    }
+
+    const csv = buildWorkMonthCsv(monthEntries, {
+      date: t("csvDate"),
+      start: t("csvStart"),
+      end: t("csvEnd"),
+      breakMinutes: t("csvBreak"),
+      hours: t("csvHours"),
+      note: t("csvNote"),
+      total: t("csvTotal"),
+      totalDays: t("csvTotalDays"),
+    });
+
+    downloadWorkMonthCsv(`leguide-work-hours-${month}.csv`, csv);
+  }
+
   return (
     <div className="min-h-screen bg-canvas">
       <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -137,7 +159,21 @@ export default function WorkCalculator({
         </Alert>
 
         <section className="space-y-3" aria-label={t("heading")}>
-          <MonthPicker month={month} onChange={setMonth} />
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
+            <div className="min-w-0 flex-1">
+              <MonthPicker month={month} onChange={setMonth} />
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleExportCsv}
+              disabled={monthEntries.length === 0}
+              className="h-auto shrink-0 gap-2 rounded-xl border-sand-200 bg-card px-4 py-3 text-sm font-medium text-sand-700 shadow-none hover:bg-sand-50 sm:rounded-2xl sm:py-2.5"
+            >
+              <Download className="size-4 shrink-0" aria-hidden />
+              {t("exportCsv")}
+            </Button>
+          </div>
           <SummaryCards totalHours={totalHours} daysWorked={daysWorked} />
         </section>
 
